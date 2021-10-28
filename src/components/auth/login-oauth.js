@@ -6,13 +6,13 @@ import { InputField } from '../input-field';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 
-export const LoginJwt = () => {
+export const LoginOAuth = () => {
   const mounted = useMounted();
   const { login } = useAuth();
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123!',
+      email: 'superadmin@m.com',
+      password: 'shop',
       submit: null
     },
     validationSchema: Yup.object().shape({

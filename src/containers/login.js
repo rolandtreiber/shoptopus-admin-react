@@ -11,6 +11,7 @@ import { Logo } from '../components/logo';
 import { useSettings } from '../contexts/settings-context';
 import { useAuth } from '../hooks/use-auth';
 import gtm from '../lib/gtm';
+import {LoginOAuth} from "../components/auth/login-oauth";
 
 export const Login = () => {
   const { method } = useAuth();
@@ -80,7 +81,7 @@ export const Login = () => {
                     {method === 'Auth0' && <LoginAuth0 />}
                     {method === 'Firebase' && <LoginFirebase />}
                     {method === 'JWT' && <LoginJwt />}
-                    {method === 'oAuth' && <LoginJwt />}
+                    {method === 'oAuth' && <LoginOAuth />}
                   </CardContent>
                 </Card>
               </Grid>

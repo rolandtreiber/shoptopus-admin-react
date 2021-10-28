@@ -13,26 +13,15 @@ const users = [
 ];
 
 class AuthApi {
+
   async login({ email, password }) {
-    await wait(500);
+    const response = await callLoginApi({email, password})
 
     return new Promise((resolve, reject) => {
-      try {
-        // Find the user
-        const user = users.find((_user) => _user.email === email);
-
-        if (!user || (user.password !== password)) {
-          reject(new Error('Please check your email and password'));
-          return;
-        }
-
-        // Create the access token
-        const accessToken = sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-
-        resolve(accessToken);
-      } catch (err) {
-        console.error('[Auth Api]: ', err);
-        reject(new Error('Internal server error'));
+      if (response.access_token) {
+        resolve(response.access_token);
+      } else {
+        reject(new Error('Invalid Credentials'));
       }
     });
   }

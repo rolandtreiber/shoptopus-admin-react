@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { productApi } from '../api/product';
@@ -10,6 +10,7 @@ import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
 
 export const Products = () => {
   const mounted = useMounted();
@@ -28,6 +29,16 @@ export const Products = () => {
     handleSelectAll
   ] = useSelection(productsState.data?.products);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+
+  const {fetchProducts} = useContext(APIContext)
+  useEffect(() => {
+    fetchProducts({
+      page: 1,
+      paginate: 20
+    }).then(response => {
+      console.log(response.data)
+    })
+  }, [])
 
   const getProducts = useCallback(async () => {
     setProductsState(() => ({ isLoading: true }));

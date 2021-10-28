@@ -1,15 +1,24 @@
 import {createContext, useContext, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
 import { authApi } from '../api/auth';
-import useApi from "../hooks/use-api";
+import {APIContext} from "./api-context";
 
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
+  accessToken: null
 };
 
 const handlers = {
+  SET_ACCESS_TOKEN: (state, action) => {
+    const {accessToken} = action.payload;
+
+    return {
+      ...state,
+      accessToken
+    }
+  },
   INITIALIZE: (state, action) => {
     const { isAuthenticated, user } = action.payload;
 
@@ -60,7 +69,7 @@ export const AuthContext = createContext({
 export const AuthProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {callLoginApi} = useApi()
+  const {callLoginApi, callMeApi, setAccessToken} = useContext(APIContext)
 
   useEffect(() => {
     const initialize = async () => {
@@ -68,7 +77,15 @@ export const AuthProvider = (props) => {
         const accessToken = window.localStorage.getItem('accessToken');
 
         if (accessToken) {
-          const user = await authApi.me(accessToken);
+          dispatch({
+            type: 'SET_ACCESS_TOKEN',
+            payload: {
+              accessToken
+            }
+          });
+
+          setAccessToken(accessToken)
+          const user = await callMeApi(accessToken);
 
           dispatch({
             type: 'INITIALIZE',
@@ -103,15 +120,17 @@ export const AuthProvider = (props) => {
 
   const login = async (email, password) => {
     const response = await callLoginApi({email, password})
-    if (response.user) {
-      const accessToken = response.access_token;
-      const user = response.user;
-      localStorage.setItem('accessToken', accessToken);
 
+    if (response.data) {
+      const accessToken = response.data.access_token;
+      const user = response.data.user;
+      localStorage.setItem('accessToken', accessToken);
+      setAccessToken(accessToken)
       dispatch({
         type: 'LOGIN',
         payload: {
-          user
+          user,
+          accessToken
         }
       });
     }
