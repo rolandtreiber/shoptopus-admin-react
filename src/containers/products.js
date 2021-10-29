@@ -19,7 +19,7 @@ export const Products = () => {
     page: 0,
     query: '',
     sort: 'desc',
-    sortBy: 'updatedAt',
+    sortBy: 'updated_at',
     view: 'all'
   });
   const [productsState, setProductsState] = useState({ isLoading: true });
@@ -31,32 +31,39 @@ export const Products = () => {
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const {fetchProducts} = useContext(APIContext)
-  useEffect(() => {
-    fetchProducts({
-      page: 1,
-      paginate: 20
-    }).then(response => {
-      console.log(response.data)
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetchProducts({
+  //     page: 1,
+  //     paginate: 20
+  //   }).then(response => {
+  //     console.log(response.data)
+  //   })
+  // }, [])
 
   const getProducts = useCallback(async () => {
     setProductsState(() => ({ isLoading: true }));
 
     try {
-      const result = await productApi.getProducts({
-        filters: controller.filters,
+      const result = await fetchProducts({
         page: controller.page,
-        query: controller.query,
-        sort: controller.sort,
-        sortBy: controller.sortBy,
-        view: controller.view
-      });
+        paginate: 20
+      })
+
+      // const result = await productApi.getProducts({
+      //   filters: controller.filters,
+      //   page: controller.page,
+      //   query: controller.query,
+      //   sort: controller.sort,
+      //   sortBy: controller.sortBy,
+      //   view: controller.view
+      // });
+
+      console.log(result.data)
 
       if (mounted.current) {
         setProductsState(() => ({
           isLoading: false,
-          data: result
+          data: result.data.data
         }));
       }
     } catch (err) {
@@ -208,7 +215,7 @@ export const Products = () => {
               onSelectAll={handleSelectAll}
               onSortChange={handleSortChange}
               page={controller.page + 1}
-              products={productsState.data?.products}
+              products={productsState.data ? productsState.data : []}
               productsCount={productsState.data?.productsCount}
               selectedProducts={selectedProducts}
               sort={controller.sort}

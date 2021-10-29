@@ -29,7 +29,7 @@ const columns = [
     label: 'Name'
   },
   {
-    id: 'updatedAt',
+    id: 'updated_at',
     label: 'Updated'
   },
   {
@@ -41,13 +41,18 @@ const columns = [
 const statusVariants = [
   {
     color: 'info.main',
-    label: 'Draft',
-    value: 'draft'
+    label: 'Provisional',
+    value: 0
   },
   {
     color: 'success.main',
-    label: 'Published',
-    value: 'published'
+    label: 'Active',
+    value: 1
+  },
+  {
+    color: 'error.main',
+    label: 'Discontinued',
+    value: 2
   }
 ];
 
@@ -135,8 +140,8 @@ export const ProductsTable = (props) => {
                       }}
                     >
                       <Avatar
-                        alt={product.name}
-                        src={product.image}
+                        alt={product.name.en}
+                        src={product.cover_photo_url}
                         sx={{
                           width: 64,
                           height: 64
@@ -152,14 +157,15 @@ export const ProductsTable = (props) => {
                           underline="none"
                           variant="subtitle2"
                         >
-                          {product.name}
+                          {product.name.en}
                         </Link>
                         <Typography
                           color="textSecondary"
                           sx={{ mt: 1 }}
                           variant="body2"
                         >
-                          12 in stock for 1 variant
+                          {product.stock} in stock
+                          {product.variants > 0 && 'for '+product.variants+ ' variant'}
                         </Typography>
                       </Box>
                     </Box>
@@ -170,13 +176,13 @@ export const ProductsTable = (props) => {
                         color="inherit"
                         variant="body2"
                       >
-                        {format(product.updatedAt, 'dd MMM yyyy')}
+                        {format(new Date(product.updated_at), 'dd MMM yyyy')}
                       </Typography>
                       <Typography
                         color="textSecondary"
                         variant="body2"
                       >
-                        {format(product.updatedAt, 'HH:mm')}
+                        {format(new Date(product.updated_at), 'HH:mm')}
                       </Typography>
                     </div>
                   </TableCell>
