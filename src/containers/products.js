@@ -11,6 +11,7 @@ import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
+import {SettingsContext} from "../contexts/settings-context";
 
 export const Products = () => {
   const mounted = useMounted();
@@ -22,6 +23,7 @@ export const Products = () => {
     sortBy: 'updated_at',
     view: 'all'
   });
+  const {language, appName} = useContext(SettingsContext)
   const [productsState, setProductsState] = useState({ isLoading: true });
   const [
     selectedProducts,
@@ -31,14 +33,6 @@ export const Products = () => {
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const {fetchProducts} = useContext(APIContext)
-  // useEffect(() => {
-  //   fetchProducts({
-  //     page: 1,
-  //     paginate: 20
-  //   }).then(response => {
-  //     console.log(response.data)
-  //   })
-  // }, [])
 
   const getProducts = useCallback(async () => {
     setProductsState(() => ({ isLoading: true }));
@@ -46,7 +40,10 @@ export const Products = () => {
     try {
       const result = await fetchProducts({
         page: controller.page,
-        paginate: 20
+        paginate: 20,
+        sort_by_type: controller.sort,
+        sort_by_field: controller.sortBy,
+        filters: controller.filters
       })
 
       // const result = await productApi.getProducts({
@@ -57,8 +54,6 @@ export const Products = () => {
       //   sortBy: controller.sortBy,
       //   view: controller.view
       // });
-
-      console.log(result.data)
 
       if (mounted.current) {
         setProductsState(() => ({
@@ -97,8 +92,10 @@ export const Products = () => {
   const handleQueryChange = (newQuery) => {
     setController({
       ...controller,
-      page: 0,
-      query: newQuery
+      page: 1,
+      filters: [[
+        'name->'+language, '["like", "'+newQuery+'"]'
+      ]]
     });
   };
 
@@ -131,21 +128,21 @@ export const Products = () => {
     });
   };
 
-  const handleSortChange = (event, property) => {
-    const isAsc = controller.sortBy === property && controller.sort === 'asc';
+  const handleSortChange = (event, property, translatable) => {
+    const isAsc = translatable === true ? controller.sortBy === property+'->'+language && controller.sort === 'asc' : controller.sortBy === property && controller.sort === 'asc';
 
     setController({
       ...controller,
       page: 0,
       sort: isAsc ? 'desc' : 'asc',
-      sortBy: property
+      sortBy: translatable === true ? property+'->'+language : property
     });
   };
 
   return (
     <>
       <Helmet>
-        <title>Product: List | Carpatin Dashboard</title>
+        <title>Product: List | {appName}</title>
       </Helmet>
       <Box
         sx={{

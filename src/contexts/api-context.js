@@ -38,8 +38,20 @@ const APIProvider = ({children}) => {
   const get = async (url, params = null, headers = {}) => {
     let config = {headers: headers}
 
-    const urlParams = new URLSearchParams(params).toString()
-    return await createAxios().get(url + "?" + urlParams, config)
+    const urlParams = new URLSearchParams(Object.keys(params).filter(key => key !== 'filters').reduce((obj, key) => {
+      obj[key] = params[key];
+      return obj;
+    }, {})).toString()
+
+    let filtersString = params.filters ? urlParams.length > 0 ? '&' : '?' : ''
+    let filters = []
+    params.filters && params.filters.map(item => filters.push('filters['+item[0]+']='+item[1]))
+    for (let i = 0; i < filters.length; i++) {
+        filtersString += filters[i]
+      filtersString+= i !== filters.length-1 ? '&' : ''
+    }
+
+    return await createAxios().get(url + "?" + urlParams+filtersString, config)
   }
 
   const post = async (url, params = {}, headers = {}) => {
@@ -93,14 +105,12 @@ const APIProvider = ({children}) => {
 
   const shoptopusApiContext = React.useMemo(
     () => ({
-      callLoginApi: async (params) =>
-        await post(api_url + "login", params, makeHeaders()),
-      callMeApi: async (token) =>
-        await post(api_url + "me", {}, makeHeaders({
+      callLoginApi: async (params) => await post(api_url + "login", params, makeHeaders()),
+      callMeApi: async (token) => await post(api_url + "me", {}, makeHeaders({
           accessToken: token
         })),
-      fetchProducts: async (params) =>
-        await get(admin_api_url + "products", params, makeHeaders()),
+      fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),
+      getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
       setAccessToken
     }),
     [accessToken],

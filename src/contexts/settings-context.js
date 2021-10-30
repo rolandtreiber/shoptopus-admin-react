@@ -1,11 +1,21 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import {APIContext} from "./api-context";
 
 const initialSettings = {
   direction: 'ltr',
   language: 'en',
   pinSidebar: true,
-  theme: 'light'
+  theme: 'light',
+  available_locales: {
+    en: "English"
+  },
+  currency: {
+    name: "GBP",
+    side: "left",
+    symbol: "£"
+  },
+  app_name: 'Shoptopus'
 };
 
 export const restoreSettings = () => {
@@ -23,7 +33,16 @@ export const restoreSettings = () => {
         pinSidebar: true,
         theme: window.matchMedia('(prefers-color-scheme: dark)').matches
           ? 'dark'
-          : 'light'
+          : 'light',
+        available_locales: {
+          en: "English"
+        },
+        currency: {
+          name: "GBP",
+          side: "left",
+          symbol: "£"
+        },
+        app_name: 'Shoptopus'
       };
     }
   } catch (err) {
@@ -47,13 +66,31 @@ export const SettingsContext = createContext({
 export const SettingsProvider = (props) => {
   const { children } = props;
   const [settings, setSettings] = useState(initialSettings);
+  const {getAppMetaInformation} = useContext(APIContext)
+
+  const fetchMetaInformation = useCallback(async (localSettings) => {
+
+    try {
+      const result = await getAppMetaInformation()
+      return {
+        ...localSettings,
+        available_locales: result.data.data.locales,
+        currency: result.data.data.default_currency
+      }
+    } catch (e) {console.log(e)}
+  }, [])
+
+  const fetchLocalSettings = useCallback(async () => {
+    return restoreSettings()
+  }, [])
+
+  const getMergedSettings = useCallback(async () => {
+    const localSettings = await fetchLocalSettings()
+    return await fetchMetaInformation(localSettings)
+  }, [])
 
   useEffect(() => {
-    const restoredSettings = restoreSettings();
-
-    if (restoredSettings) {
-      setSettings(restoredSettings);
-    }
+    getMergedSettings().then(r => setSettings(r))
   }, []);
 
   const saveSettings = (updatedSettings) => {
@@ -65,7 +102,10 @@ export const SettingsProvider = (props) => {
     <SettingsContext.Provider
       value={{
         settings,
-        saveSettings
+        saveSettings,
+        language: settings.language,
+        availableLanguages: settings.available_locales,
+        appName: settings.app_name
       }}
     >
       {children}

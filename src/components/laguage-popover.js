@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -9,26 +9,26 @@ import {
   Popover,
   Typography
 } from '@material-ui/core';
-
-const languageOptions = {
-  en: {
-    icon: '/static/uk_flag.svg',
-    label: 'English'
-  },
-  de: {
-    icon: '/static/de_flag.svg',
-    label: 'German'
-  },
-  es: {
-    icon: '/static/es_flag.svg',
-    label: 'Spanish'
-  }
-};
+import {SettingsContext} from "../contexts/settings-context";
 
 export const LanguagePopover = (props) => {
   const { language, onLanguageChange, ...other } = props;
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const {availableLanguages} = useContext(SettingsContext)
+  const [languageOptions, setLanguageOptions] = useState({en: {
+      icon: '/static/uk_flag.svg',
+      label: 'English'
+    }})
+
+  useEffect(() => {
+    let languages = {}
+    Object.keys(availableLanguages).map(key => languages[key] = {
+      ...availableLanguages[key],
+      icon: '/static/'+key+'_flag.svg'
+    })
+    setLanguageOptions(languages)
+  }, [availableLanguages])
 
   const handleOpen = () => {
     setOpen(true);
@@ -62,10 +62,10 @@ export const LanguagePopover = (props) => {
             }
           }}
         >
-          <img
+          {selectedOption && <img
             alt={selectedOption.label}
             src={selectedOption.icon}
-          />
+          />}
         </Box>
       </IconButton>
       <Popover
@@ -97,10 +97,10 @@ export const LanguagePopover = (props) => {
                   }
                 }}
               >
-                <img
+                {languageOptions[option] && <img
                   alt={languageOptions[option].label}
                   src={languageOptions[option].icon}
-                />
+                />}
               </Box>
             </ListItemIcon>
             <ListItemText

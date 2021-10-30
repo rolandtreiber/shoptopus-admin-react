@@ -22,11 +22,14 @@ import { ResourceUnavailable } from '../resource-unavailable';
 import { Scrollbar } from '../scrollbar';
 import { Status } from '../status';
 import { ProductMenu } from './product-menu';
+import {useContext} from "react";
+import {SettingsContext} from "../../contexts/settings-context";
 
 const columns = [
   {
     id: 'name',
-    label: 'Name'
+    label: 'Name',
+    translatable: true
   },
   {
     id: 'updated_at',
@@ -75,6 +78,7 @@ export const ProductsTable = (props) => {
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !products.length);
+  const {language} = useContext(SettingsContext)
 
   return (
     <Box
@@ -104,7 +108,7 @@ export const ProductsTable = (props) => {
                     active={sortBy === column.id}
                     direction={sortBy === column.id ? sort : 'asc'}
                     disabled={isLoading}
-                    onClick={(event) => onSortChange(event, column.id)}
+                    onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
                     {column.label}
                   </TableSortLabel>
@@ -140,7 +144,7 @@ export const ProductsTable = (props) => {
                       }}
                     >
                       <Avatar
-                        alt={product.name.en}
+                        alt={product.name[language]}
                         src={product.cover_photo_url}
                         sx={{
                           width: 64,
@@ -157,7 +161,7 @@ export const ProductsTable = (props) => {
                           underline="none"
                           variant="subtitle2"
                         >
-                          {product.name.en}
+                          {product.name[language]}
                         </Link>
                         <Typography
                           color="textSecondary"
@@ -165,7 +169,7 @@ export const ProductsTable = (props) => {
                           variant="body2"
                         >
                           {product.stock} in stock
-                          {product.variants > 0 && 'for '+product.variants+ ' variant'}
+                          {product.variants > 0 && ' for '+product.variants+ ' variant'}
                         </Typography>
                       </Box>
                     </Box>

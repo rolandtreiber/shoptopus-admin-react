@@ -17,14 +17,14 @@ ReactDOM.render(
     <HelmetProvider>
       <BrowserRouter>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <SettingsProvider>
-            <APIProvider>
-              <AuthProvider>
+          <APIProvider>
+            <AuthProvider>
+              <SettingsProvider>
                 <App/>
                 <Toaster position="bottom-right"/>
-              </AuthProvider>
-            </APIProvider>
-          </SettingsProvider>
+              </SettingsProvider>
+            </AuthProvider>
+          </APIProvider>
         </LocalizationProvider>
       </BrowserRouter>
     </HelmetProvider>
