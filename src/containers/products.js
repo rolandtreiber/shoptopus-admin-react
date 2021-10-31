@@ -1,7 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
-import { productApi } from '../api/product';
 import { ProductCreateDialog } from '../components/product/product-create-dialog';
 import { ProductsFilter } from '../components/product/products-filter';
 import { ProductsSummary } from '../components/product/products-summary';
@@ -43,22 +42,15 @@ export const Products = () => {
         paginate: 20,
         sort_by_type: controller.sort,
         sort_by_field: controller.sortBy,
-        filters: controller.filters
+        filters: controller.filters,
+        view: controller.view
       })
-
-      // const result = await productApi.getProducts({
-      //   filters: controller.filters,
-      //   page: controller.page,
-      //   query: controller.query,
-      //   sort: controller.sort,
-      //   sortBy: controller.sortBy,
-      //   view: controller.view
-      // });
 
       if (mounted.current) {
         setProductsState(() => ({
           isLoading: false,
-          data: result.data.data
+          data: result.data.data,
+          paginationMeta: result.data.meta
         }));
       }
     } catch (err) {
@@ -213,6 +205,7 @@ export const Products = () => {
               onSortChange={handleSortChange}
               page={controller.page + 1}
               products={productsState.data ? productsState.data : []}
+              pagesCount={productsState.paginationMeta ? productsState.paginationMeta.last_page : null}
               productsCount={productsState.data?.productsCount}
               selectedProducts={selectedProducts}
               sort={controller.sort}

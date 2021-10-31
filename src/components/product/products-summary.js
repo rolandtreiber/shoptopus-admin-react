@@ -3,43 +3,68 @@ import { Cash as CashIcon } from '../../icons/cash';
 import { CheckCircle as CheckCircleIcon } from '../../icons/check-circle';
 import { ShoppingCart as ShoppingCartIcon } from '../../icons/shopping-cart';
 import { XCircle as XCircleIcon } from '../../icons/x-circle';
+import {useCallback, useContext, useEffect, useState} from "react";
+import {APIContext} from "../../contexts/api-context";
+import {SettingsContext} from "../../contexts/settings-context";
+import {useCurrency} from "../../hooks/useCurrency";
 
 // NOTE: This should be generated based on products data
-const stats = [
+const initialStats = [
   {
-    content: '5,000',
+    content: '',
     icon: CheckCircleIcon,
     iconColor: 'success.main',
     label: 'Total Stock'
   },
   {
-    content: '15',
+    content: '',
     icon: XCircleIcon,
     iconColor: 'warning.main',
     label: 'OUT OF STOCK ITEMS'
   },
   {
-    content: '$ 25,200.00',
+    content: '',
     icon: CashIcon,
     iconColor: 'primary.main',
     label: 'Retail Value'
   },
   {
-    content: '$ 8,250.00',
+    content: '',
     icon: ShoppingCartIcon,
     iconColor: 'secondary.main',
-    label: 'Unrealized Profit'
+    label: 'Low stock (<15)'
   }
 ];
 
-export const ProductsSummary = () => (
-  <Card
-    sx={{ mb: 3 }}
+export const ProductsSummary = () => {
+  const {getProductsPageSummary} = useContext(APIContext)
+  const [stats, setStats] = useState(initialStats)
+  const {getPriceText} = useCurrency()
+
+  const getSummary = useCallback(async () => {
+    const result = await getProductsPageSummary()
+
+    if (result.data) {
+      return result.data
+    }
+  }, [])
+
+  useEffect(() => {
+    getSummary().then(r => setStats([
+      {...stats[0], content: r.data.total_stock},
+      {...stats[1], content: r.data.out_of_stock_items},
+      {...stats[2], content: getPriceText(r.data.retail_value)},
+      {...stats[3], content: r.data.running_low}
+      ]))
+  }, [])
+
+  return (<Card
+    sx={{mb: 3}}
     variant="outlined"
   >
     <Grid container>
       {stats.map((item, index) => {
-        const { icon: Icon, iconColor, content, label } = item;
+        const {icon: Icon, iconColor, content, label} = item;
 
         return (
           <Grid
@@ -68,8 +93,8 @@ export const ProductsSummary = () => (
                 p: 2
               }}
             >
-              <Icon sx={{ color: iconColor || 'text.secondary' }} />
-              <Box sx={{ ml: 2 }}>
+              <Icon sx={{color: iconColor || 'text.secondary'}}/>
+              <Box sx={{ml: 2}}>
                 <Typography
                   color="textSecondary"
                   variant="overline"
@@ -88,5 +113,5 @@ export const ProductsSummary = () => (
         );
       })}
     </Grid>
-  </Card>
-);
+  </Card>)
+};

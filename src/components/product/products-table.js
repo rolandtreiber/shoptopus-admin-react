@@ -24,12 +24,18 @@ import { Status } from '../status';
 import { ProductMenu } from './product-menu';
 import {useContext} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
+import Price from "../price";
+import {darkWarning} from "../../colors";
 
 const columns = [
   {
     id: 'name',
     label: 'Name',
     translatable: true
+  },
+  {
+    id: 'price',
+    label: 'price'
   },
   {
     id: 'updated_at',
@@ -68,8 +74,8 @@ export const ProductsTable = (props) => {
     onSelectAll,
     onSortChange,
     page,
+    pagesCount,
     products,
-    productsCount,
     selectedProducts,
     sort,
     sortBy
@@ -175,6 +181,16 @@ export const ProductsTable = (props) => {
                     </Box>
                   </TableCell>
                   <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      <Price>{product.price}</Price>{product.final_price !== product.price && (<>(<Price negative color={darkWarning.main}>{product.price - product.final_price}</Price>)</>)}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
                     <div>
                       <Typography
                         color="inherit"
@@ -234,7 +250,7 @@ export const ProductsTable = (props) => {
         disabled={isLoading}
         onPageChange={onPageChange}
         page={page}
-        rowsCount={productsCount}
+        pagesCount={pagesCount}
       />
     </Box>
   );

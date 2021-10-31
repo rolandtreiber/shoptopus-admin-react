@@ -11,10 +11,8 @@ const PaginationRoot = styled('div')((({ theme }) => ({
 })));
 
 export const Pagination = (props) => {
-  const { disabled, onPageChange, page, rowsCount, ...other } = props;
+  const { disabled, onPageChange, page, pagesCount, ...other } = props;
   // NOTE: Usually, this should be received from the server
-  const pageSize = 10;
-  const pagesCount = Math.ceil(rowsCount / pageSize);
   const isFirstPage = page === 1;
   const isLastPage = page >= pagesCount;
 
@@ -80,12 +78,12 @@ export const Pagination = (props) => {
 Pagination.defaultProps = {
   disabled: false,
   page: 1,
-  rowsCount: 1
+  pagesCount: 1
 };
 
 Pagination.propTypes = {
   disabled: PropTypes.bool,
   onPageChange: PropTypes.func,
   page: PropTypes.number,
-  rowsCount: PropTypes.number
+  pagesCount: PropTypes.number
 };

@@ -26,16 +26,16 @@ const views = [
     value: 'all'
   },
   {
-    label: 'Published',
-    value: 'published'
+    label: 'Active',
+    value: 'active'
   },
   {
-    label: 'Draft',
-    value: 'draft'
+    label: 'Provisional',
+    value: 'provisional'
   },
   {
-    label: 'Archived',
-    value: 'archived'
+    label: 'Discontinued',
+    value: 'discontinued'
   }
 ];
 

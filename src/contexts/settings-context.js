@@ -105,7 +105,8 @@ export const SettingsProvider = (props) => {
         saveSettings,
         language: settings.language,
         availableLanguages: settings.available_locales,
-        appName: settings.app_name
+        appName: settings.app_name,
+        currency: settings.currency
       }}
     >
       {children}

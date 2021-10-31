@@ -110,6 +110,7 @@ const APIProvider = ({children}) => {
           accessToken: token
         })),
       fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),
+      getProductsPageSummary: async () => await get(admin_api_url + "products/summary", {}, makeHeaders()),
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
       setAccessToken
     }),
