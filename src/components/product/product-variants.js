@@ -22,6 +22,7 @@ import { ConfirmationDialog } from '../confirmation-dialog';
 import { ResourceUnavailable } from '../resource-unavailable';
 import { Scrollbar } from '../scrollbar';
 import { ProductVariantDialog } from './product-variant-dialog';
+import {useLanguage} from "../../hooks/use-language";
 
 export const ProductVariants = (props) => {
   const { variants: variantsProp, ...other } = props;
@@ -29,6 +30,11 @@ export const ProductVariants = (props) => {
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
   const [variants, setVariants] = useState(variantsProp);
   const [selectedVariant, setSelectedVariant] = useState(null);
+  const {getLang} = useLanguage()
+
+  const getName = (variant) => {
+    return variant.attributes.map(attribute => getLang(attribute.option.name)).join(', ')
+  }
 
   const handleExitedDialog = () => {
     if (selectedVariant) {
@@ -133,7 +139,7 @@ export const ProductVariants = (props) => {
                           color="textPrimary"
                           variant="body2"
                         >
-                          {variant.name}
+                          {getName(variant)}
                         </Typography>
                         <Typography
                           color="textSecondary"
@@ -148,7 +154,7 @@ export const ProductVariants = (props) => {
                     {variant.sku}
                   </TableCell>
                   <TableCell>
-                    {format(variant.createdAt, 'MMM dd yyyy')}
+                    {format(new Date(variant.created_at), 'MMM dd yyyy')}
                   </TableCell>
                   <TableCell sx={{ width: 135 }}>
                     <Box sx={{ display: 'flex' }}>

@@ -3,10 +3,12 @@ import { format } from 'date-fns';
 import { Button, Card, CardHeader, Divider, useMediaQuery } from '@material-ui/core';
 import { PropertyList } from '../property-list';
 import { PropertyListItem } from '../property-list-item';
+import {useLanguage} from "../../hooks/use-language";
 
 export const ProductInfo = (props) => {
   const { onEdit, product, ...other } = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const {getLang} = useLanguage()
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
@@ -32,7 +34,7 @@ export const ProductInfo = (props) => {
         <PropertyListItem
           align={align}
           label="Brand Name"
-          value={product.brand}
+          value={'hello'}
         />
         <PropertyListItem
           align={align}
@@ -42,32 +44,32 @@ export const ProductInfo = (props) => {
         <PropertyListItem
           align={align}
           label="Display Name"
-          value={product.name}
+          value={getLang(product.name)}
         />
         <PropertyListItem
           align={align}
           label="Description"
-          value="Our premium line of watches with a minimalist and timeless look. Designed in the UK and perfect for everyday use. This is our black on black leather. The stainless steel case has a brushed matt black finish with a subtle reflective dial. The hands and numbers are in a shiny gun metal finish."
+          value={getLang(product.description)}
         />
         <PropertyListItem
           align={align}
           label="Created"
-          value={format(product.createdAt, 'MMM dd, yyyy')}
+          value={format(new Date(product.created_at), 'MMM dd, yyyy')}
         />
         <PropertyListItem
           align={align}
-          label="Composition"
-          value={product.composition.join(', ')}
+          label="Categories"
+          value={product.categories.map(category => getLang(category.name)).join(', ')}
         />
         <PropertyListItem
           align={align}
           label="Tags"
-          value={product.tags.join(', ')}
+          value={product.tags.map(tag => getLang(tag.name)).join(', ')}
         />
         <PropertyListItem
           align={align}
           label="Updated"
-          value={format(product.updatedAt, 'MMM dd, yyyy')}
+          value={format(new Date(product.updated_at), 'MMM dd, yyyy')}
         />
       </PropertyList>
     </Card>

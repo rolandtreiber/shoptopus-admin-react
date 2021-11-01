@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
+import {useState, useEffect, useCallback, useContext} from 'react';
+import {Link as RouterLink, Outlet, useLocation, useParams} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   Box,
@@ -19,23 +19,8 @@ import { useDialog } from '../hooks/use-dialog';
 import { useMounted } from '../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../icons/arrow-left';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../icons/exclamation-outlined';
-
-// NOTE: This should be generated based on product data because "/1" represents "/:id" from routing
-// //  strategy where ":id" is dynamic depending on current product id
-const tabs = [
-  {
-    href: '/dashboard/products/1',
-    label: 'Summary'
-  },
-  {
-    href: '/dashboard/products/1/analytics',
-    label: 'Insights'
-  },
-  {
-    href: '/dashboard/products/1/inventory',
-    label: 'Inventory'
-  }
-];
+import {APIContext} from "../contexts/api-context";
+import {useLanguage} from "../hooks/use-language";
 
 export const Product = () => {
   const mounted = useMounted();
@@ -47,12 +32,30 @@ export const Product = () => {
   ] = useDialog();
   const [archiveOpen, handleOpenArchiveDialog, handleCloseArchiveDialog] = useDialog();
   const [productState, setProductState] = useState({ isLoading: true });
+  const {fetchProductInformation} = useContext(APIContext)
+  const {productId} = useParams();
+  const {getLang} = useLanguage()
+  const tabs = [
+    {
+      href: '/dashboard/products/'+productId,
+      label: 'Summary'
+    },
+    {
+      href: '/dashboard/products/'+productId+'/analytics',
+      label: 'Insights'
+    },
+    {
+      href: '/dashboard/products/'+productId+'/inventory',
+      label: 'Inventory'
+    }
+  ];
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
 
     try {
-      const result = await productApi.getProduct();
+      const {data: {data}} = await fetchProductInformation(productId)
+      const result = data;
 
       if (mounted.current) {
         setProductState(() => ({
@@ -165,7 +168,7 @@ export const Product = () => {
               color="textPrimary"
               variant="h4"
             >
-              {productState.data.name}
+              {getLang(productState.data.name)}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <ActionsMenu actions={actions} />

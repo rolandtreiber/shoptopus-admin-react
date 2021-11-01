@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import {useState, useEffect, useCallback, useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { productApi } from '../api/product';
@@ -10,17 +10,24 @@ import { ResourceError } from '../components/resource-error';
 import { ResourceLoading } from '../components/resource-loading';
 import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
+import {useParams} from "react-router-dom";
+import {useLanguage} from "../hooks/use-language";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
   const [productState, setProductState] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
+  const {fetchProductInformation} = useContext(APIContext)
+  const {productId} = useParams();
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
 
     try {
-      const result = await productApi.getProduct();
+      const {data: {data}} = await fetchProductInformation(productId)
+      const result = data;
+      // const result = await productApi.getProduct();
 
       if (mounted.current) {
         setProductState(() => ({
