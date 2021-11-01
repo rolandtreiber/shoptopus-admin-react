@@ -5,8 +5,7 @@ import { ShoppingCart as ShoppingCartIcon } from '../../icons/shopping-cart';
 import { XCircle as XCircleIcon } from '../../icons/x-circle';
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
-import {SettingsContext} from "../../contexts/settings-context";
-import {useCurrency} from "../../hooks/useCurrency";
+import {useCurrency} from "../../hooks/use-currency";
 
 // NOTE: This should be generated based on products data
 const initialStats = [

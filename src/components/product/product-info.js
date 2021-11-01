@@ -4,11 +4,14 @@ import { Button, Card, CardHeader, Divider, useMediaQuery } from '@material-ui/c
 import { PropertyList } from '../property-list';
 import { PropertyListItem } from '../property-list-item';
 import {useLanguage} from "../../hooks/use-language";
+import RetailPrice from "../retail-price";
+import {useRetailPrice} from "../../hooks/use-retail-price";
 
 export const ProductInfo = (props) => {
   const { onEdit, product, ...other } = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const {getLang} = useLanguage()
+  const {getRetailPriceText} = useRetailPrice()
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
@@ -33,8 +36,13 @@ export const ProductInfo = (props) => {
       <PropertyList>
         <PropertyListItem
           align={align}
-          label="Brand Name"
-          value={'hello'}
+          label="SKU"
+          value={product.sku}
+        />
+        <PropertyListItem
+          align={align}
+          label="Price"
+          value={getRetailPriceText(product)}
         />
         <PropertyListItem
           align={align}
@@ -55,6 +63,11 @@ export const ProductInfo = (props) => {
           align={align}
           label="Created"
           value={format(new Date(product.created_at), 'MMM dd, yyyy')}
+        />
+        <PropertyListItem
+          align={align}
+          label="Attributes"
+          value={product.attributes.map(attribute => getLang(attribute.name)).join(', ')}
         />
         <PropertyListItem
           align={align}

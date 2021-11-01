@@ -1,7 +1,6 @@
 import {useState, useEffect, useCallback, useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
-import { productApi } from '../api/product';
 import { ProductInfo } from '../components/product/product-info';
 import { ProductInfoDialog } from '../components/product/product-info-dialog';
 import { ProductStatus } from '../components/product/product-status';
@@ -12,7 +11,6 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
-import {useLanguage} from "../hooks/use-language";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
@@ -27,7 +25,6 @@ export const ProductSummary = () => {
     try {
       const {data: {data}} = await fetchProductInformation(productId)
       const result = data;
-      // const result = await productApi.getProduct();
 
       if (mounted.current) {
         setProductState(() => ({
