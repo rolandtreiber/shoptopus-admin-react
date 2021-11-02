@@ -113,6 +113,9 @@ const APIProvider = ({children}) => {
       fetchProductInformation: async (id) => await get(admin_api_url + "product/"+id, {}, makeHeaders()),
       getProductsPageSummary: async () => await get(admin_api_url + "products/summary", {}, makeHeaders()),
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
+
+      // Product variants
+      deleteProductVariant: async (productId, variantId) => await del(admin_api_url + 'product/' + productId + '/variant/' + variantId, {}, makeHeaders()),
       setAccessToken
     }),
     [accessToken],

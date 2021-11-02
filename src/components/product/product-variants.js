@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
@@ -23,6 +23,7 @@ import { ResourceUnavailable } from '../resource-unavailable';
 import { Scrollbar } from '../scrollbar';
 import { ProductVariantDialog } from './product-variant-dialog';
 import {useLanguage} from "../../hooks/use-language";
+import {APIContext} from "../../contexts/api-context";
 
 export const ProductVariants = (props) => {
   const { variants: variantsProp, ...other } = props;
@@ -31,6 +32,8 @@ export const ProductVariants = (props) => {
   const [variants, setVariants] = useState(variantsProp);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const {getLang} = useLanguage()
+  const {deleteProductVariant} = useContext(APIContext)
+  const {productId} = props
 
   const getName = (variant) => {
     return variant.attributes.map(attribute => getLang(attribute.option.name)).join(', ')
@@ -42,10 +45,25 @@ export const ProductVariants = (props) => {
     }
   };
 
+  const doDeleteVariant = useCallback(async (productId, variantId) => {
+    try {
+      return await deleteProductVariant(productId, variantId)
+    } catch (e) {
+      console.log(e)
+    }
+  })
+
   const handleDeleteVariant = () => {
-    setVariants((prevVariants) => prevVariants
-      .filter((variant) => variant.id !== selectedVariant.id));
-    setSelectedVariant(null);
+    // DELETE VARIANT
+    doDeleteVariant(productId, selectedVariant.id).then(r => {
+      console.log(r.data.status)
+      if (r.data.status === 'Success') {
+        setVariants((prevVariants) => prevVariants
+            .filter((variant) => variant.id !== selectedVariant.id));
+        setSelectedVariant(null);
+      }
+    })
+
     handleCloseDeleteDialog();
   };
 

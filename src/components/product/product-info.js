@@ -4,7 +4,6 @@ import { Button, Card, CardHeader, Divider, useMediaQuery } from '@material-ui/c
 import { PropertyList } from '../property-list';
 import { PropertyListItem } from '../property-list-item';
 import {useLanguage} from "../../hooks/use-language";
-import RetailPrice from "../retail-price";
 import {useRetailPrice} from "../../hooks/use-retail-price";
 
 export const ProductInfo = (props) => {
