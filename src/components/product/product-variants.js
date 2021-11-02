@@ -26,14 +26,13 @@ import {useLanguage} from "../../hooks/use-language";
 import {APIContext} from "../../contexts/api-context";
 
 export const ProductVariants = (props) => {
-  const { variants: variantsProp, ...other } = props;
+  const { variants: variantsProp, productId, ...other } = props;
   const [variantDialogOpen, handleOpenVariantDialog, handleCloseVariantDialog] = useDialog();
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
   const [variants, setVariants] = useState(variantsProp);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const {getLang} = useLanguage()
   const {deleteProductVariant} = useContext(APIContext)
-  const {productId} = props
 
   const getName = (variant) => {
     return variant.attributes.map(attribute => getLang(attribute.option.name)).join(', ')
@@ -237,5 +236,6 @@ export const ProductVariants = (props) => {
 };
 
 ProductVariants.propTypes = {
-  variants: PropTypes.array.isRequired
+  variants: PropTypes.array.isRequired,
+  productId: PropTypes.string.isRequired
 };

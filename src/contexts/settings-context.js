@@ -8,7 +8,9 @@ const initialSettings = {
   pinSidebar: true,
   theme: 'light',
   available_locales: {
-    en: "English"
+    en: {
+      label: "English"
+    }
   },
   currency: {
     name: "GBP",

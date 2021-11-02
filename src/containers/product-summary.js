@@ -11,6 +11,7 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
+import MultilangTextInput from "../components/multilang-text-input";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
@@ -67,6 +68,15 @@ export const ProductSummary = () => {
           container
           spacing={3}
         >
+          <MultilangTextInput
+              title={"Name"}
+              field={"name"}
+              value={{
+                en: 'Test Product',
+                de: 'Test Produkt',
+                fr: 'Test Produit'
+              }}
+          />
           <Grid
             container
             item
