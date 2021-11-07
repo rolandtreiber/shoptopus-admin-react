@@ -5,7 +5,7 @@ import {Grid} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-const MultilangTextInput = ({field, title, value}) => {
+const MultilangTextInput = ({field, title, value, width}) => {
     const {availableLanguages} = useContext(SettingsContext)
 
     const getInitialValues = () => {
@@ -35,7 +35,7 @@ const MultilangTextInput = ({field, title, value}) => {
     return <>
         {Object.keys(availableLanguages).map(lang => <Grid
             item
-            md={6}
+            md={width}
             xs={12}
         >
             {formik.initialValues && <InputField

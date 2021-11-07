@@ -11,20 +11,19 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
-import MultilangTextInput from "../components/multilang-text-input";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
   const [productState, setProductState] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchProductInformation} = useContext(APIContext)
+  const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProductInformation(productId)
+      const {data: {data}} = await fetchProduct(productId)
       const result = data;
 
       if (mounted.current) {
@@ -68,15 +67,15 @@ export const ProductSummary = () => {
           container
           spacing={3}
         >
-          <MultilangTextInput
-              title={"Name"}
-              field={"name"}
-              value={{
-                en: 'Test Product',
-                de: 'Test Produkt',
-                fr: 'Test Produit'
-              }}
-          />
+          {/*<MultilangTextInput*/}
+          {/*    title={"Name"}*/}
+          {/*    field={"name"}*/}
+          {/*    value={{*/}
+          {/*      en: 'Test Product',*/}
+          {/*      de: 'Test Produkt',*/}
+          {/*      fr: 'Test Produit'*/}
+          {/*    }}*/}
+          {/*/>*/}
           <Grid
             container
             item

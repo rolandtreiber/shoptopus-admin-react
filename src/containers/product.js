@@ -11,7 +11,6 @@ import {
   Tabs,
   Typography
 } from '@material-ui/core';
-import { productApi } from '../api/product';
 import { ActionsMenu } from '../components/actions-menu';
 import { ConfirmationDialog } from '../components/confirmation-dialog';
 import { Status } from '../components/status';

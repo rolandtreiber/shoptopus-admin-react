@@ -15,31 +15,29 @@ import {
 } from '@material-ui/core';
 import { AutocompleteField } from '../autocomplete-field';
 import { InputField } from '../input-field';
+import MultilangTextInput from "../multilang-text-input";
 
 const compositionOptions = ['Leather', 'Metal'];
 const tagOptions = ['Watch', 'Style'];
 
 export const ProductInfoDialog = (props) => {
   const { open, onClose, product } = props;
+  console.log(product)
   const formik = useFormik({
     initialValues: {
-      brand: product?.brand || '',
-      chargeTax: product?.chargeTax || true,
       description: product?.description || '',
-      displayName: product?.displayName || '',
-      composition: product?.composition || [],
       sku: product?.sku || '',
       submit: null,
-      tags: product?.tags || []
+      tags: product?.tags || [],
+      stock: product?.stock || 0,
+      backup_stock: product?.backup_stock || 0,
     },
     validationSchema: Yup.object().shape({
-      brand: Yup.string().max(255).required('Brand is required'),
-      chargeTax: Yup.boolean(),
       description: Yup.string().max(500).required('Description is required'),
-      displayName: Yup.string().max(255).required('Display name is required'),
-      composition: Yup.array(),
       sku: Yup.string().max(255).required('SKU is required'),
-      tags: Yup.array()
+      tags: Yup.array(),
+      stock: Yup.number().min(0).required('Stock is required'),
+      backup_stock: Yup.number().min(0).required('Backup stock is required')
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -79,28 +77,28 @@ export const ProductInfoDialog = (props) => {
         >
           <Grid
             item
-            md={6}
+            md={12}
             xs={12}
           >
-            <InputField
-              disabled
-              error={Boolean(formik.touched.brand && formik.errors.brand)}
-              fullWidth
-              helperText={formik.touched.brand && formik.errors.brand}
-              label="Brand name"
-              name="brand"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.brand}
+            <MultilangTextInput
+                width={12}
+                title={"Name"}
+                field={"name"}
+                value={product.name}
             />
           </Grid>
           <Grid
             item
-            md={6}
+            md={12}
             xs={12}
           >
+            <MultilangTextInput
+                width={12}
+                title={"Short Description"}
+                field={"short_description"}
+                value={product.short_description}
+            />
             <InputField
-              disabled
               error={Boolean(formik.touched.sku && formik.errors.sku)}
               fullWidth
               helperText={formik.touched.sku && formik.errors.sku}
@@ -113,105 +111,122 @@ export const ProductInfoDialog = (props) => {
           </Grid>
           <Grid
             item
-            xs={12}
-          >
-            <InputField
-              error={Boolean(formik.touched.displayName && formik.errors.displayName)}
-              fullWidth
-              helperText={formik.touched.displayName && formik.errors.displayName}
-              label="Display name"
-              name="displayName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.displayName}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <InputField
-              error={Boolean(formik.touched.description && formik.errors.description)}
-              fullWidth
-              helperText={formik.touched.description && formik.errors.description}
-              label="Description"
-              multiline
-              name="description"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              rows={4}
-              value={formik.values.description}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <AutocompleteField
-              error={Boolean(formik.touched.composition
-                && formik.errors.composition)}
-              filterSelectedOptions
-              helperText={formik.touched.composition && formik.errors.composition}
-              label="Composition"
-              multiple
-              onChange={(event, value) => {
-                formik.setFieldValue('composition',
-                  value);
-              }}
-              options={compositionOptions}
-              placeholder="Feature"
-              value={formik.values.composition}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <AutocompleteField
-              error={Boolean(formik.touched.tags && formik.errors.tags)}
-              filterSelectedOptions
-              helperText={formik.touched.tags && formik.errors.tags}
-              label="Tags"
-              multiple
-              onChange={(event, value) => { formik.setFieldValue('tags', value); }}
-              options={tagOptions}
-              placeholder="Tag"
-              value={formik.values.tags}
-            />
-          </Grid>
-          <Grid
-            item
             md={6}
-            sx={{
-              alignItems: 'center',
-              display: 'flex'
-            }}
             xs={12}
           >
-            <Checkbox
-              checked={formik.values.chargeTax}
-              onChange={(event) => {
-                formik.setFieldValue('chargeTax',
-                  event.target.checked);
-              }}
+            <InputField
+              error={Boolean(formik.touched.stock && formik.errors.stock)}
+              fullWidth
+              helperText={formik.touched.stock && formik.errors.stock}
+              label="Stock"
+              name="stock"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.stock}
             />
-            <Typography
-              color="textPrimary"
-              variant="body1"
-            >
-              Charge tax on this product
-            </Typography>
           </Grid>
-          {formik.errors.submit && (
-            <Grid
+          <Grid
               item
+              md={6}
               xs={12}
-            >
-              <FormHelperText error>
-                {formik.errors.submit}
-              </FormHelperText>
-            </Grid>
-          )}
+          >
+            <InputField
+                error={Boolean(formik.touched.backup_stock && formik.errors.backup_stock)}
+                fullWidth
+                helperText={formik.touched.backup_stock && formik.errors.backup_stock}
+                label="Backup stock"
+                name="backup_stock"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.backup_stock}
+            />
+          </Grid>
+        {/*  <Grid*/}
+        {/*    item*/}
+        {/*    xs={12}*/}
+        {/*  >*/}
+        {/*    <InputField*/}
+        {/*      error={Boolean(formik.touched.description && formik.errors.description)}*/}
+        {/*      fullWidth*/}
+        {/*      helperText={formik.touched.description && formik.errors.description}*/}
+        {/*      label="Description"*/}
+        {/*      multiline*/}
+        {/*      name="description"*/}
+        {/*      onBlur={formik.handleBlur}*/}
+        {/*      onChange={formik.handleChange}*/}
+        {/*      rows={4}*/}
+        {/*      value={formik.values.description}*/}
+        {/*    />*/}
+        {/*  </Grid>*/}
+        {/*  <Grid*/}
+        {/*    item*/}
+        {/*    xs={12}*/}
+        {/*  >*/}
+        {/*    <AutocompleteField*/}
+        {/*      error={Boolean(formik.touched.composition*/}
+        {/*        && formik.errors.composition)}*/}
+        {/*      filterSelectedOptions*/}
+        {/*      helperText={formik.touched.composition && formik.errors.composition}*/}
+        {/*      label="Composition"*/}
+        {/*      multiple*/}
+        {/*      onChange={(event, value) => {*/}
+        {/*        formik.setFieldValue('composition',*/}
+        {/*          value);*/}
+        {/*      }}*/}
+        {/*      options={compositionOptions}*/}
+        {/*      placeholder="Feature"*/}
+        {/*      value={formik.values.composition}*/}
+        {/*    />*/}
+        {/*  </Grid>*/}
+        {/*  <Grid*/}
+        {/*    item*/}
+        {/*    xs={12}*/}
+        {/*  >*/}
+        {/*    <AutocompleteField*/}
+        {/*      error={Boolean(formik.touched.tags && formik.errors.tags)}*/}
+        {/*      filterSelectedOptions*/}
+        {/*      helperText={formik.touched.tags && formik.errors.tags}*/}
+        {/*      label="Tags"*/}
+        {/*      multiple*/}
+        {/*      onChange={(event, value) => { formik.setFieldValue('tags', value); }}*/}
+        {/*      options={tagOptions}*/}
+        {/*      placeholder="Tag"*/}
+        {/*      value={formik.values.tags}*/}
+        {/*    />*/}
+        {/*  </Grid>*/}
+        {/*  <Grid*/}
+        {/*    item*/}
+        {/*    md={6}*/}
+        {/*    sx={{*/}
+        {/*      alignItems: 'center',*/}
+        {/*      display: 'flex'*/}
+        {/*    }}*/}
+        {/*    xs={12}*/}
+        {/*  >*/}
+        {/*    <Checkbox*/}
+        {/*      checked={formik.values.chargeTax}*/}
+        {/*      onChange={(event) => {*/}
+        {/*        formik.setFieldValue('chargeTax',*/}
+        {/*          event.target.checked);*/}
+        {/*      }}*/}
+        {/*    />*/}
+        {/*    <Typography*/}
+        {/*      color="textPrimary"*/}
+        {/*      variant="body1"*/}
+        {/*    >*/}
+        {/*      Charge tax on this product*/}
+        {/*    </Typography>*/}
+        {/*  </Grid>*/}
+        {/*  {formik.errors.submit && (*/}
+        {/*    <Grid*/}
+        {/*      item*/}
+        {/*      xs={12}*/}
+        {/*    >*/}
+        {/*      <FormHelperText error>*/}
+        {/*        {formik.errors.submit}*/}
+        {/*      </FormHelperText>*/}
+        {/*    </Grid>*/}
+        {/*  )}*/}
         </Grid>
       </DialogContent>
       <DialogActions>
