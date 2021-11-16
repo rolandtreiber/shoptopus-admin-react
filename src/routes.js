@@ -81,6 +81,10 @@ const FoundationShadows = Loadable(lazy(() => import('./containers/foundation-sh
 const FoundationTables = Loadable(lazy(() => import('./containers/foundation-tables').then((module) => ({ default: module.FoundationTables }))));
 const FoundationTypography = Loadable(lazy(() => import('./containers/foundation-typography').then((module) => ({ default: module.FoundationTypography }))));
 
+const ProductCategories = Loadable(lazy(() => import('./containers/product-categories').then((module) => ({ default: module.default }))));
+const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({ default: module.default }))));
+const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
+
 // Docs pages
 const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({ default: module.Docs }))));
 
@@ -237,6 +241,18 @@ const routes = [
             element: <OrganizationBilling />
           }
         ]
+      },
+      {
+        path: 'product-categories',
+        element: <ProductCategories />
+      },
+      {
+        path: 'product-attributes',
+        element: <ProductAttributes />
+      },
+      {
+        path: 'product-tags',
+        element: <ProductTags />
       },
       {
         path: 'products',

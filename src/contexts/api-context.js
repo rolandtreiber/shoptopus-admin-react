@@ -118,9 +118,10 @@ const APIProvider = ({children}) => {
       updateProductCategory: async (categoryId, params) => await put(admin_api_url + "product-category/"+categoryId, params, makeHeaders()),
       deleteProductCategory: async (categoryId) => await put(admin_api_url + "product-category/"+categoryId, {}, makeHeaders()),
 
-      fetchAttributes: async (params) => await get(admin_api_url + "product-attributes", params, makeHeaders()),
-      fetchAttributeOptions: async (attributeId, params) => await get(admin_api_url + "product-attribute/"+attributeId+"/options", params, makeHeaders()),
-      fetchTags: async (params) => await get(admin_api_url + "product-tags", params, makeHeaders()),
+      fetchProductAttributes: async (params) => await get(admin_api_url + "product-attributes", params, makeHeaders()),
+      fetchProductAttributeOptions: async (attributeId, params) => await get(admin_api_url + "product-attribute/"+attributeId+"/options", params, makeHeaders()),
+
+      fetchProductTags: async (params) => await get(admin_api_url + "product-tags", params, makeHeaders()),
       getProductsPageSummary: async () => await get(admin_api_url + "products/summary", {}, makeHeaders()),
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
 

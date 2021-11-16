@@ -87,6 +87,18 @@ const items = [
       {
         href: '/dashboard/products/1/analytics',
         title: 'Insights'
+      },
+      {
+        href: '/dashboard/product-categories',
+        title: 'Categories'
+      },
+      {
+        href: '/dashboard/product-attributes',
+        title: 'Attributes'
+      },
+      {
+        href: '/dashboard/product-tags',
+        title: 'Tags'
       }
     ]
   },
