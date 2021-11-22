@@ -4,6 +4,9 @@ import {useSelection} from "../hooks/use-selection";
 import {APIContext} from "../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../contexts/settings-context";
+import {Box, Card, Container} from "@material-ui/core";
+import {ProductsTable} from "../components/product/products-table";
+import ProductCategoriesTable from "../components/product/product-categories-table";
 
 const ProductCategories = () => {
     const [categories, setCategories] = useState({isLoading: true})
@@ -119,7 +122,47 @@ const ProductCategories = () => {
             <Helmet>
                 <title>Product Categories | {appName}</title>
             </Helmet>
-            <div>{JSON.stringify(categories.data)}</div>
+            <Box
+                sx={{
+                    backgroundColor: 'background.default',
+                    flexGrow: 1
+                }}
+            >
+                <Container
+                    maxWidth="lg"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%'
+                    }}
+                >
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flexGrow: 1
+                        }}
+                    >
+                        <ProductCategoriesTable
+                            error={categories.error}
+                            isLoading={categories.isLoading}
+                            onPageChange={handlePageChange}
+                            onSelect={handleSelect}
+                            onSelectAll={handleSelectAll}
+                            onSortChange={handleSortChange}
+                            page={controller.page + 1}
+                            categories={categories.data ? categories.data : []}
+                            pagesCount={categories.paginationMeta ? categories.paginationMeta.last_page : null}
+                            categoriesCount={categories.data?.categoriesCount}
+                            selectedProductCategories={selectedCategories}
+                            sort={controller.sort}
+                            sortBy={controller.sortBy}
+                        />
+
+                    </Card>
+                </Container>
+            </Box>
         </>
     )
 }
