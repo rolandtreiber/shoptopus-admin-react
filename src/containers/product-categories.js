@@ -4,9 +4,11 @@ import {useSelection} from "../hooks/use-selection";
 import {APIContext} from "../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../contexts/settings-context";
-import {Box, Card, Container} from "@material-ui/core";
-import {ProductsTable} from "../components/product/products-table";
+import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
 import ProductCategoriesTable from "../components/product/product-categories-table";
+import {ProductCategoriesFilter} from "../components/product/product-categories-filter";
+import {getUrlFilters} from "../utils/apply-filters";
+import {Plus as PlusIcon} from "../icons/plus";
 
 const ProductCategories = () => {
     const [categories, setCategories] = useState({isLoading: true})
@@ -25,7 +27,7 @@ const ProductCategories = () => {
         handleSelect,
         handleSelectAll
     ] = useSelection(categories.data?.categories);
-    // const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchProductCategories} = useContext(APIContext)
 
@@ -38,7 +40,7 @@ const ProductCategories = () => {
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
-                filters: controller.filters,
+                filters: getUrlFilters(controller.filters),
                 view: controller.view
             })
 
@@ -69,9 +71,19 @@ const ProductCategories = () => {
         setController({
             ...controller,
             page: 1,
-            filters: [[
-                'name->'+language, '["like", "'+newQuery+'"]'
-            ]]
+            filters: [{
+                property: 'name->'+language,
+                value: newQuery,
+                operator: "contains"
+            }]
+        });
+    };
+
+    const handleViewChange = (newView) => {
+        setController({
+            ...controller,
+            page: 0,
+            view: newView
         });
     };
 
@@ -115,8 +127,6 @@ const ProductCategories = () => {
         });
     };
 
-
-
     return (
         <>
             <Helmet>
@@ -136,6 +146,33 @@ const ProductCategories = () => {
                         height: '100%'
                     }}
                 >
+
+                    <Box sx={{ py: 4 }}>
+                        <Box
+                            sx={{
+                                alignItems: 'center',
+                                display: 'flex'
+                            }}
+                        >
+                            <Typography
+                                color="textPrimary"
+                                variant="h4"
+                            >
+                                Product Categories
+                            </Typography>
+                            <Box sx={{ flexGrow: 1 }} />
+                            <Button
+                                color="primary"
+                                onClick={() => setOpenCreateDialog(true)}
+                                size="large"
+                                startIcon={<PlusIcon fontSize="small" />}
+                                variant="contained"
+                            >
+                                Add
+                            </Button>
+                        </Box>
+                    </Box>
+
                     <Card
                         variant="outlined"
                         sx={{
@@ -144,6 +181,18 @@ const ProductCategories = () => {
                             flexGrow: 1
                         }}
                     >
+                        <ProductCategoriesFilter
+                            disabled={categories.isLoading}
+                            filters={controller.filters}
+                            onFiltersApply={handleFiltersApply}
+                            onFiltersClear={handleFiltersClear}
+                            onQueryChange={handleQueryChange}
+                            onViewChange={handleViewChange}
+                            query={controller.query}
+                            selectedProducts={selectedCategories}
+                            view={controller.view}
+                        />
+                        <Divider />
                         <ProductCategoriesTable
                             error={categories.error}
                             isLoading={categories.isLoading}

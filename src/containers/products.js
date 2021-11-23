@@ -86,7 +86,7 @@ export const Products = () => {
       ...controller,
       page: 1,
       filters: [[
-        'name->'+language, '["like", "'+newQuery+'"]'
+        'name->'+language, '["contains", "'+newQuery+'"]'
       ]]
     });
   };

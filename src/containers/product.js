@@ -31,7 +31,7 @@ export const Product = () => {
   ] = useDialog();
   const [archiveOpen, handleOpenArchiveDialog, handleCloseArchiveDialog] = useDialog();
   const [productState, setProductState] = useState({ isLoading: true });
-  const {fetchProductInformation} = useContext(APIContext)
+  const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
   const {getLang} = useLanguage()
   const tabs = [
@@ -53,7 +53,7 @@ export const Product = () => {
     setProductState(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProductInformation(productId)
+      const {data: {data}} = await fetchProduct(productId)
       const result = data;
 
       if (mounted.current) {

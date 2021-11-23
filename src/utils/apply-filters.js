@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const equal = (value1, value2) => {
   if (!value2) {
     return true;
@@ -164,3 +166,17 @@ export const applyFilters = (rows, filters) => rows.filter((row) => {
 
   return isAccepted;
 });
+
+export const getUrlFilters = (filters) => {
+  const filtered = filters.filter(f => f.property !== '')
+  if (filtered.length > 0) {
+    return filters.map((f) => {
+      if (f.operator === "isBefore" || f.operator === "isAfter") {
+        return [f.property, '["'+f.operator+'", "'+format(f.value, 'dd-MMM-yyyy HH:mm')+'"]']
+      } else {
+        return [f.property, '["'+f.operator+'", "'+f.value+'"]']
+      }
+    })
+  }
+  return []
+}
