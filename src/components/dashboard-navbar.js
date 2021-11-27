@@ -17,12 +17,8 @@ import { LanguagePopover } from './laguage-popover';
 
 const organizations = [
   {
-    id: '6039124832',
-    name: 'ACME LTD.'
-  },
-  {
-    id: '3828312374',
-    name: 'Division LTD.'
+    id: '1',
+    name: 'SHOPTOPUS'
   }
 ];
 

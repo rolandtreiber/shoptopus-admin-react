@@ -8,13 +8,14 @@ import ProductAttributesTable from "../components/product/product-attributes-tab
 import {ProductAttributesFilter} from "../components/product/product-attributes-filter";
 import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
+import {Helmet} from "react-helmet-async";
 
 const ProductAttributes = () => {
     const [attributes, setAttributes] = useState({isLoading: true})
     const mounted = useMounted();
     const [controller, setController] = useState({
         filters: [],
-        page: 1,
+        page: 0,
         query: '',
         sort: 'desc',
         sortBy: 'updated_at',
@@ -36,7 +37,7 @@ const ProductAttributes = () => {
 
         try {
             const result = await fetchProductAttributes({
-                page: controller.page,
+                page: controller.page+1,
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
@@ -129,7 +130,9 @@ const ProductAttributes = () => {
 
     return (
         <>
-            <h1>Product Attributes</h1>
+            <Helmet>
+                <title>Product Attributes | {appName}</title>
+            </Helmet>
             <Box
                 sx={{
                     backgroundColor: 'background.default',
@@ -156,7 +159,7 @@ const ProductAttributes = () => {
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                Product Categories
+                                Product Attributes
                             </Typography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
@@ -210,7 +213,6 @@ const ProductAttributes = () => {
                     </Card>
                 </Container>
             </Box>
-
         </>
     )
 }
