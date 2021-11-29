@@ -149,10 +149,11 @@ const routes = [
       {
         path: '/',
         element: (
-          <Navigate
-            to="/dashboard/reports"
-            replace
-          />
+            <ReportsOverview />
+          // <Navigate
+          //   to="/dashboard/reports"
+          //   replace
+          // />
         )
       },
       {

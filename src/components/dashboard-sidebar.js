@@ -21,8 +21,14 @@ import {Discount as Discount} from "../icons/discount";
 import {Payment} from "../icons/payment";
 import {Star} from "../icons/star";
 import {Content} from "../icons/content";
+import {Dashboard} from "../icons/dashboard";
 
 const items = [
+    {
+        icon: Dashboard,
+        title: 'Dashboard',
+        href: '/dashboard'
+    },
     {
         icon: ChartPieIcon,
         title: 'Reports',
@@ -221,80 +227,80 @@ const items = [
             }
         ]
     },
-    {
-        icon: ColorSwatchIcon,
-        title: 'Foundation',
-        items: [
-            {
-                href: '/dashboard/foundation/typography',
-                title: 'Typography'
-            },
-            {
-                href: '/dashboard/foundation/colors',
-                title: 'Colors'
-            },
-            {
-                href: '/dashboard/foundation/shadows',
-                title: 'Shadows'
-            },
-            {
-                href: '/dashboard/foundation/buttons',
-                title: 'Buttons'
-            },
-            {
-                href: '/dashboard/foundation/inputs',
-                title: 'Inputs'
-            },
-            {
-                href: '/dashboard/foundation/tables',
-                title: 'Tables'
-            },
-            {
-                href: '/dashboard/foundation/blank-page',
-                title: 'Blank Page'
-            }
-        ]
-    },
-    {
-        icon: TemplateIcon,
-        title: 'Components',
-        items: [
-            {
-                href: '/dashboard/components/onboarding',
-                title: 'Onboarding'
-            },
-            {
-                href: '/dashboard/components/empty-states',
-                title: 'Data States'
-            },
-            {
-                href: '/dashboard/components/property-lists',
-                title: 'Lists'
-            },
-            {
-                href: '/dashboard/components/stats',
-                title: 'Data Stats'
-            },
-            {
-                href: '/dashboard/components/page-headings',
-                title: 'Page Headers'
-            },
-            {
-                href: '/dashboard/components/card-headings',
-                title: 'Card Headers'
-            },
-            {
-                href: '/dashboard/components/image-uploader',
-                title: 'Image Uploader'
-            }
-        ]
-    },
-    {
-        icon: DocumentTextIcon,
-        title: 'Documentation',
-        href: '/docs',
-        external: true
-    }
+    // {
+    //     icon: ColorSwatchIcon,
+    //     title: 'Foundation',
+    //     items: [
+    //         {
+    //             href: '/dashboard/foundation/typography',
+    //             title: 'Typography'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/colors',
+    //             title: 'Colors'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/shadows',
+    //             title: 'Shadows'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/buttons',
+    //             title: 'Buttons'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/inputs',
+    //             title: 'Inputs'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/tables',
+    //             title: 'Tables'
+    //         },
+    //         {
+    //             href: '/dashboard/foundation/blank-page',
+    //             title: 'Blank Page'
+    //         }
+    //     ]
+    // },
+    // {
+    //     icon: TemplateIcon,
+    //     title: 'Components',
+    //     items: [
+    //         {
+    //             href: '/dashboard/components/onboarding',
+    //             title: 'Onboarding'
+    //         },
+    //         {
+    //             href: '/dashboard/components/empty-states',
+    //             title: 'Data States'
+    //         },
+    //         {
+    //             href: '/dashboard/components/property-lists',
+    //             title: 'Lists'
+    //         },
+    //         {
+    //             href: '/dashboard/components/stats',
+    //             title: 'Data Stats'
+    //         },
+    //         {
+    //             href: '/dashboard/components/page-headings',
+    //             title: 'Page Headers'
+    //         },
+    //         {
+    //             href: '/dashboard/components/card-headings',
+    //             title: 'Card Headers'
+    //         },
+    //         {
+    //             href: '/dashboard/components/image-uploader',
+    //             title: 'Image Uploader'
+    //         }
+    //     ]
+    // },
+    // {
+    //     icon: DocumentTextIcon,
+    //     title: 'Documentation',
+    //     href: '/docs',
+    //     external: true
+    // }
 ];
 
 export const DashboardSidebar = (props) => {
