@@ -6,9 +6,37 @@ import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../contexts/settings-context";
 import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
 import ProductCategoriesTable from "../components/product/product-categories-table";
-import {ProductCategoriesFilter} from "../components/product/product-categories-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {Plus as PlusIcon} from "../icons/plus";
+import {ListFilter} from "../components/list-filter";
+
+const filterProperties = [
+    {
+        label: 'Name',
+        name: 'name',
+        type: 'string'
+    },
+    {
+        label: 'Updated At',
+        name: 'updated_at',
+        type: 'date'
+    }
+];
+
+const views = [
+    {
+        label: 'All',
+        value: 'all'
+    },
+    {
+        label: 'Enabled',
+        value: 'enabled'
+    },
+    {
+        label: 'Disabled',
+        value: 'disabled'
+    }
+];
 
 const ProductCategories = () => {
     const [categories, setCategories] = useState({isLoading: true})
@@ -36,7 +64,7 @@ const ProductCategories = () => {
 
         try {
             const result = await fetchProductCategories({
-                page: controller.page,
+                page: controller.page+1,
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
@@ -70,7 +98,7 @@ const ProductCategories = () => {
     const handleQueryChange = (newQuery) => {
         setController({
             ...controller,
-            page: 1,
+            page: 0,
             filters: [{
                 property: 'name->'+language,
                 value: newQuery,
@@ -84,35 +112,6 @@ const ProductCategories = () => {
             ...controller,
             page: 0,
             view: newView
-        });
-    };
-
-    const handleFiltersApply = (newFilters) => {
-        const parsedFilters = newFilters.map((filter) => ({
-            property: filter.property.name,
-            value: filter.value,
-            operator: filter.operator.value
-        }));
-
-        setController({
-            ...controller,
-            page: 0,
-            filters: parsedFilters
-        });
-    };
-
-    const handleFiltersClear = () => {
-        setController({
-            ...controller,
-            page: 0,
-            filters: []
-        });
-    };
-
-    const handlePageChange = (newPage) => {
-        setController({
-            ...controller,
-            page: newPage - 1
         });
     };
 
@@ -181,22 +180,24 @@ const ProductCategories = () => {
                             flexGrow: 1
                         }}
                     >
-                        <ProductCategoriesFilter
+                        <ListFilter
                             disabled={categories.isLoading}
                             filters={controller.filters}
-                            onFiltersApply={handleFiltersApply}
-                            onFiltersClear={handleFiltersClear}
+                            onFiltersApply={(data) => setController({...controller, ...data})}
+                            onFiltersClear={(data) => setController({...controller, ...data})}
                             onQueryChange={handleQueryChange}
                             onViewChange={handleViewChange}
                             query={controller.query}
                             selectedProducts={selectedCategories}
                             view={controller.view}
+                            filterProperties={filterProperties}
+                            views={views}
                         />
                         <Divider />
                         <ProductCategoriesTable
                             error={categories.error}
                             isLoading={categories.isLoading}
-                            onPageChange={handlePageChange}
+                            onPageChange={(page) => setController({...controller, page:page-1})}
                             onSelect={handleSelect}
                             onSelectAll={handleSelectAll}
                             onSortChange={handleSortChange}

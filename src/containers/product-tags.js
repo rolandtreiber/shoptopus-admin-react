@@ -5,10 +5,43 @@ import {APIContext} from "../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
 import {Plus as PlusIcon} from "../icons/plus";
-import {ProductTagsFilter} from "../components/product/product-tags-filter";
 import ProductTagsTable from "../components/product/product-tags-table";
 import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
+import {ListFilter} from "../components/list-filter";
+
+const filterProperties = [
+    {
+        label: 'Name',
+        name: 'name',
+        type: 'string'
+    },
+    {
+        label: 'Description',
+        name: 'description',
+        type: 'string'
+    },
+    {
+        label: 'Updated At',
+        name: 'updated_at',
+        type: 'date'
+    }
+];
+
+const views = [
+    {
+        label: 'All',
+        value: 'all'
+    },
+    {
+        label: 'Enabled',
+        value: 'enabled'
+    },
+    {
+        label: 'Disabled',
+        value: 'disabled'
+    }
+];
 
 const ProductTags = () => {
     const [tags, setTags] = useState({isLoading: true})
@@ -27,7 +60,7 @@ const ProductTags = () => {
         handleSelect,
         handleSelectAll
     ] = useSelection(tags.data?.tags);
-    // const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchProductTags} = useContext(APIContext)
 
@@ -84,35 +117,6 @@ const ProductTags = () => {
             ...controller,
             page: 0,
             view: newView
-        });
-    };
-
-    const handleFiltersApply = (newFilters) => {
-        const parsedFilters = newFilters.map((filter) => ({
-            property: filter.property.name,
-            value: filter.value,
-            operator: filter.operator.value
-        }));
-
-        setController({
-            ...controller,
-            page: 0,
-            filters: parsedFilters
-        });
-    };
-
-    const handleFiltersClear = () => {
-        setController({
-            ...controller,
-            page: 0,
-            filters: []
-        });
-    };
-
-    const handlePageChange = (newPage) => {
-        setController({
-            ...controller,
-            page: newPage - 1
         });
     };
 
@@ -181,22 +185,24 @@ const ProductTags = () => {
                             flexGrow: 1
                         }}
                     >
-                        <ProductTagsFilter
+                        <ListFilter
                             disabled={tags.isLoading}
                             filters={controller.filters}
-                            onFiltersApply={handleFiltersApply}
-                            onFiltersClear={handleFiltersClear}
+                            onFiltersApply={(data) => setController({...controller, ...data})}
+                            onFiltersClear={(data) => setController({...controller, ...data})}
                             onQueryChange={handleQueryChange}
                             onViewChange={handleViewChange}
                             query={controller.query}
                             selectedElements={selectedElements}
                             view={controller.view}
+                            filterProperties={filterProperties}
+                            views={views}
                         />
                         <Divider />
                         <ProductTagsTable
                             error={tags.error}
                             isLoading={tags.isLoading}
-                            onPageChange={handlePageChange}
+                            onPageChange={(page) => setController({...controller, page:page-1})}
                             onSelect={handleSelect}
                             onSelectAll={handleSelectAll}
                             onSortChange={handleSortChange}

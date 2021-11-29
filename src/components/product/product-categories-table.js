@@ -191,7 +191,6 @@ const ProductCategoriesTable = (props) => {
                                     <ProductMenu />
                                 </TableCell>
                             </TableRow>
-
                         )})}
                     </TableBody>
                 </Table>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
-import { Adjustments as AdjustmentsIcon } from '../../icons/adjustments';
+import { Adjustments as AdjustmentsIcon } from '../icons/adjustments';
 import {
     containsOperator,
     endsWithOperator,
@@ -15,38 +15,10 @@ import {
     notContainsOperator,
     notEqualOperator,
     startsWithOperator
-} from '../../utils/filter-operators';
-import { BulkActionsMenu } from '../bulk-actions-menu';
-import { FilterDialog } from '../filter-dialog';
-import { Query } from '../query';
-
-const filterProperties = [
-    {
-        label: 'Name',
-        name: 'name',
-        type: 'string'
-    },
-    {
-        label: 'Updated At',
-        name: 'updated_at',
-        type: 'date'
-    }
-];
-
-const views = [
-    {
-        label: 'All',
-        value: 'all'
-    },
-    {
-        label: 'Enabled',
-        value: 'enabled'
-    },
-    {
-        label: 'Disabled',
-        value: 'disabled'
-    }
-];
+} from '../utils/filter-operators';
+import { FilterDialog } from './filter-dialog';
+import { Query } from './query';
+import { BulkActionsMenu } from "./bulk-actions-menu";
 
 const filterOperators = [
     equalOperator,
@@ -63,7 +35,7 @@ const filterOperators = [
     isPresentOperator
 ];
 
-export const ProductCategoriesFilter = (props) => {
+export const ListFilter = (props) => {
     const {
         disabled,
         filters,
@@ -73,9 +45,31 @@ export const ProductCategoriesFilter = (props) => {
         onViewChange,
         query,
         selected,
-        view
+        view,
+        views,
+        filterProperties
     } = props;
     const [openFilterDialog, setOpenFilterDialog] = useState(false);
+
+    const handleFiltersApply = (newFilters) => {
+        const parsedFilters = newFilters.map((filter) => ({
+            property: filter.property.name,
+            value: filter.value,
+            operator: filter.operator.value
+        }));
+
+        onFiltersApply({
+            page: 0,
+            filters: parsedFilters
+        });
+    };
+
+    const handleFiltersClear = () => {
+        onFiltersClear({
+            page: 0,
+            filters: []
+        });
+    };
 
     return (
         <>
@@ -155,8 +149,8 @@ export const ProductCategoriesFilter = (props) => {
                 </Box>
             </div>
             <FilterDialog
-                onApply={onFiltersApply}
-                onClear={onFiltersClear}
+                onApply={handleFiltersApply}
+                onClear={handleFiltersClear}
                 onClose={() => setOpenFilterDialog(false)}
                 open={openFilterDialog}
                 operators={filterOperators}
@@ -166,13 +160,13 @@ export const ProductCategoriesFilter = (props) => {
     );
 };
 
-ProductCategoriesFilter.defaultProps = {
+ListFilter.defaultProps = {
     filters: [],
     selected: [],
     view: 'all'
 };
 
-ProductCategoriesFilter.propTypes = {
+ListFilter.propTypes = {
     disabled: PropTypes.bool,
     filters: PropTypes.array,
     onFiltersApply: PropTypes.func,

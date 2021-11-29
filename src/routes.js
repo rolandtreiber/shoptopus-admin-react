@@ -85,6 +85,9 @@ const ProductCategories = Loadable(lazy(() => import('./containers/product-categ
 const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({ default: module.default }))));
 const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
 
+const VoucherCodes = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
+
+
 // Docs pages
 const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({ default: module.Docs }))));
 
@@ -253,6 +256,10 @@ const routes = [
       {
         path: 'product-tags',
         element: <ProductTags />
+      },
+      {
+        path: 'voucher-codes',
+        element: <VoucherCodes />
       },
       {
         path: 'products',
