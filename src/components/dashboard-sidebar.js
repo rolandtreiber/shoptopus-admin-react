@@ -136,17 +136,8 @@ const items = [
     },
     {
         icon: DeliveryVan,
-        title: 'Delivery',
-        items: [
-            {
-                href: '/dashboard/delivery-types',
-                title: 'Delivery Types'
-            },
-            {
-                href: '/dashboard/delivery-rules',
-                title: 'Delivery Rules'
-            }
-        ]
+        title: 'Delivery Types',
+        href: '/dashboard/delivery-types'
     },
     {
         icon: Payment,
