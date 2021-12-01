@@ -45,11 +45,6 @@ const items = [
     },
     {
         icon: UsersIcon,
-        title: 'System Users',
-        href: '/dashboard/system-users',
-    },
-    {
-        icon: UsersIcon,
         title: 'Customers',
         href: '/dashboard/customers',
         // items: [
@@ -107,15 +102,15 @@ const items = [
             //     title: 'Insights'
             // },
             {
-                href: '/dashboard/product-categories',
+                href: '/dashboard/products/categories',
                 title: 'Categories'
             },
             {
-                href: '/dashboard/product-attributes',
+                href: '/dashboard/products/attributes',
                 title: 'Attributes'
             },
             {
-                href: '/dashboard/product-tags',
+                href: '/dashboard/products/tags',
                 title: 'Tags'
             }
         ]
@@ -125,11 +120,11 @@ const items = [
         title: 'Discount',
         items: [
             {
-                href: '/dashboard/voucher-codes',
+                href: '/dashboard/discount/voucher-codes',
                 title: 'Voucher Codes'
             },
             {
-                href: '/dashboard/discount-rules',
+                href: '/dashboard/discount/rules',
                 title: 'Discount Rules'
             }
         ]
@@ -177,11 +172,11 @@ const items = [
         title: 'Content',
         items: [
             {
-                href: '/dashboard/banners',
+                href: '/dashboard/content/banners',
                 title: 'Banners'
             },
             {
-                href: '/dashboard/files',
+                href: '/dashboard/content/files',
                 title: 'Files'
             }
         ]

@@ -85,8 +85,13 @@ const ProductCategories = Loadable(lazy(() => import('./containers/product-categ
 const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({ default: module.default }))));
 const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
 
-const VoucherCodes = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
-
+const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({ default: module.VoucherCodes }))));
+const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({ default: module.DiscountRules }))));
+const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({ default: module.DeliveryTypes }))));
+const Payments = Loadable(lazy(() => import('./containers/payments').then((module) => ({ default: module.Payments }))));
+const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({ default: module.Ratings }))));
+const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({ default: module.Banners }))));
+const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({ default: module.Files }))));
 
 // Docs pages
 const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({ default: module.Docs }))));
@@ -150,11 +155,32 @@ const routes = [
         path: '/',
         element: (
             <ReportsOverview />
-          // <Navigate
-          //   to="/dashboard/reports"
-          //   replace
-          // />
         )
+      },
+      {
+        path: 'delivery-types',
+        element: <DeliveryTypes />
+      },
+      {
+        path: 'payments',
+        element: <Payments />
+      },
+      {
+        path: 'ratings',
+        element: <Ratings />
+      },
+      {
+        path: 'content',
+        children: [
+          {
+            path: 'banners',
+            element: <Banners />
+          },
+          {
+            path: 'files',
+            element: <Files />
+          }
+        ]
       },
       {
         path: 'reports',
@@ -247,20 +273,17 @@ const routes = [
         ]
       },
       {
-        path: 'product-categories',
-        element: <ProductCategories />
-      },
-      {
-        path: 'product-attributes',
-        element: <ProductAttributes />
-      },
-      {
-        path: 'product-tags',
-        element: <ProductTags />
-      },
-      {
-        path: 'voucher-codes',
-        element: <VoucherCodes />
+        path: 'discount',
+        children: [
+          {
+            path: 'voucher-codes',
+            element: <VoucherCodes />
+          },
+          {
+            path: 'rules',
+            element: <DiscountRules />
+          },
+        ]
       },
       {
         path: 'products',
@@ -268,6 +291,18 @@ const routes = [
           {
             path: '/',
             element: <Products />
+          },
+          {
+            path: 'categories',
+            element: <ProductCategories />
+          },
+          {
+            path: 'attributes',
+            element: <ProductAttributes />
+          },
+          {
+            path: 'tags',
+            element: <ProductTags />
           },
           {
             path: ':productId',

@@ -14,7 +14,7 @@ import {SettingsContext} from "../contexts/settings-context";
 
 // TODO: implement the right api
 
-export const Products = () => {
+export const Payments = () => {
     const mounted = useMounted();
     const [controller, setController] = useState({
         filters: [],
