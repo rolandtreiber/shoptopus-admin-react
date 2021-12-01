@@ -1,14 +1,54 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
-import { customerApi } from '../api/customer';
-import { CustomerDialog } from '../components/customer/customer-dialog';
-import { CustomersFilter } from '../components/customer/customers-filter';
-import { CustomersTable } from '../components/customer/customers-table';
-import { useMounted } from '../hooks/use-mounted';
-import { useSelection } from '../hooks/use-selection';
-import { Plus as PlusIcon } from '../icons/plus';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {Helmet} from 'react-helmet-async';
+import {Box, Button, Card, Container, Divider, Typography} from '@material-ui/core';
+import {CustomerDialog} from '../components/customer/customer-dialog';
+import {CustomersFilter} from '../components/customer/customers-filter';
+import {CustomersTable} from '../components/customer/customers-table';
+import {useMounted} from '../hooks/use-mounted';
+import {useSelection} from '../hooks/use-selection';
+import {Plus as PlusIcon} from '../icons/plus';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
+import {ListFilter} from "../components/list-filter";
+import {getUrlFilters} from "../utils/apply-filters";
+
+const views = [
+  {
+    label: 'All',
+    value: 'all'
+  },
+  {
+    label: 'Returning',
+    value: 'returning'
+  },
+  {
+    label: 'Ordered recently',
+    value: 'ordered_recently'
+  }
+];
+
+const filterProperties = [
+  {
+    label: 'Name',
+    name: 'name',
+    type: 'string'
+  },
+  {
+    label: 'Phone',
+    name: 'phone',
+    type: 'string'
+  },
+  {
+    label: 'Email',
+    name: 'email',
+    type: 'string'
+  },
+  {
+    label: 'Created',
+    name: 'created_at',
+    type: 'date'
+  }
+];
 
 export const Customers = () => {
   const mounted = useMounted();
@@ -17,34 +57,36 @@ export const Customers = () => {
     page: 0,
     query: '',
     sort: 'desc',
-    sortBy: 'createdAt',
+    sortBy: 'created_at',
     view: 'all'
   });
-  const [customersState, setCustomersState] = useState({ isLoading: true });
+  const [customersState, setCustomersState] = useState({isLoading: true});
   const [
-    selectedCustomers,
+    selectedElements,
     handleSelect,
     handleSelectAll
   ] = useSelection(customersState.data?.customers);
+  const {fetchCustomers} = useContext(APIContext)
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const getCustomers = useCallback(async () => {
-    setCustomersState(() => ({ isLoading: true }));
+    setCustomersState(() => ({isLoading: true}));
 
     try {
-      const result = await customerApi.getCustomers({
-        filters: controller.filters,
-        page: controller.page,
-        query: controller.query,
-        sort: controller.sort,
-        sortBy: controller.sortBy,
+      const result = await fetchCustomers({
+        page: controller.page + 1,
+        paginate: 20,
+        sort_by_type: controller.sort,
+        sort_by_field: controller.sortBy,
+        filters: getUrlFilters(controller.filters),
         view: controller.view
-      });
+      })
 
       if (mounted.current) {
         setCustomersState(() => ({
           isLoading: false,
-          data: result
+          data: result.data.data,
+          paginationMeta: result.data.meta
         }));
       }
     } catch (err) {
@@ -64,7 +106,7 @@ export const Customers = () => {
   }, [controller]);
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({event: 'page_view'});
   }, []);
 
   const handleViewChange = (newView) => {
@@ -79,7 +121,13 @@ export const Customers = () => {
     setController({
       ...controller,
       page: 0,
-      query: newQuery
+      filters: [
+        {
+          property: 'name',
+          value: newQuery,
+          operator: "contains"
+        }
+      ]
     });
   };
 
@@ -142,7 +190,7 @@ export const Customers = () => {
             height: '100%'
           }}
         >
-          <Box sx={{ py: 4 }}>
+          <Box sx={{py: 4}}>
             <Box
               sx={{
                 alignItems: 'center',
@@ -155,12 +203,12 @@ export const Customers = () => {
               >
                 Customers
               </Typography>
-              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}
                 size="large"
-                startIcon={<PlusIcon fontSize="small" />}
+                startIcon={<PlusIcon fontSize="small"/>}
                 variant="contained"
               >
                 Add
@@ -175,21 +223,23 @@ export const Customers = () => {
               flexGrow: 1
             }}
           >
-            <CustomersFilter
+            <ListFilter
               disabled={customersState.isLoading}
               filters={controller.filters}
-              onFiltersApply={handleFiltersApply}
-              onFiltersClear={handleFiltersClear}
+              onFiltersApply={(data) => setController({...controller, ...data})}
+              onFiltersClear={(data) => setController({...controller, ...data})}
               onQueryChange={handleQueryChange}
               onViewChange={handleViewChange}
               query={controller.query}
-              selectedCustomers={selectedCustomers}
+              selectedElements={selectedElements}
               view={controller.view}
+              filterProperties={filterProperties}
+              views={views}
             />
-            <Divider />
+            <Divider/>
             <CustomersTable
-              customers={customersState.data?.customers}
-              customersCount={customersState.data?.customersCount}
+              customers={customersState.data ? customersState.data : []}
+              pagesCount={customersState.paginationMeta ? customersState.paginationMeta.last_page : null}
               error={customersState.error}
               isLoading={customersState.isLoading}
               onPageChange={handlePageChange}
@@ -197,7 +247,7 @@ export const Customers = () => {
               onSelectAll={handleSelectAll}
               onSortChange={handleSortChange}
               page={controller.page + 1}
-              selectedCustomers={selectedCustomers}
+              selectedCustomers={selectedElements}
               sort={controller.sort}
               sortBy={controller.sortBy}
             />

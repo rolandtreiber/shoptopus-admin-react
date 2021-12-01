@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Proptypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -47,7 +47,7 @@ const columns = [
 export const CustomersTable = (props) => {
   const {
     customers: customersProp,
-    customersCount,
+    pagesCount,
     error,
     isLoading,
     onPageChange,
@@ -141,12 +141,12 @@ export const CustomersTable = (props) => {
                   >
                     <IconButton
                       onClick={() => handleIsFavoriteChange(customer.id,
-                        !customer.isFavorite)}
+                        !customer.is_favorite)}
                       size="small"
                     >
                       <StarIcon
                         sx={{
-                          color: customer.isFavorite
+                          color: customer.is_favorite
                             ? 'rgb(255, 180, 0)'
                             : 'action.disabled'
                         }}
@@ -162,7 +162,7 @@ export const CustomersTable = (props) => {
                     }}
                   >
                     <Avatar
-                      src={customer.avatar}
+                      src={customer.avatar?.url}
                       sx={{
                         height: 36,
                         mr: 1,
@@ -173,11 +173,11 @@ export const CustomersTable = (props) => {
                     <Link
                       color="inherit"
                       component={RouterLink}
-                      to="/dashboard/customers/1"
+                      to={'/dashboard/customers/'+customer.id}
                       underline="none"
                       variant="subtitle2"
                     >
-                      {customer.fullName}
+                      {customer.name}
                     </Link>
                   </Box>
                 </TableCell>
@@ -188,7 +188,7 @@ export const CustomersTable = (props) => {
                   {customer.email}
                 </TableCell>
                 <TableCell>
-                  {format(customer.createdAt, 'dd/MM/yyyy HH:mm')}
+                  {format(new Date(customer.created_at), 'dd/MM/yyyy HH:mm')}
                 </TableCell>
                 <TableCell align="right">
                   <CustomerMenu />
@@ -227,7 +227,7 @@ export const CustomersTable = (props) => {
         disabled={isLoading}
         onPageChange={onPageChange}
         page={page}
-        rowsCount={customersCount}
+        pagesCount={pagesCount}
       />
     </Box>
   );
