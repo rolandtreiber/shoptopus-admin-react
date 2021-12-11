@@ -88,7 +88,7 @@ const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then
 const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({ default: module.VoucherCodes }))));
 const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({ default: module.DiscountRules }))));
 const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({ default: module.DeliveryTypes }))));
-const Payments = Loadable(lazy(() => import('./containers/payments').then((module) => ({ default: module.Payments }))));
+const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({ default: module.Transactions }))));
 const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({ default: module.Ratings }))));
 const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({ default: module.Banners }))));
 const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({ default: module.Files }))));
@@ -162,8 +162,8 @@ const routes = [
         element: <DeliveryTypes />
       },
       {
-        path: 'payments',
-        element: <Payments />
+        path: 'transactions',
+        element: <Transactions />
       },
       {
         path: 'ratings',

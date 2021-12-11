@@ -136,8 +136,8 @@ const items = [
     },
     {
         icon: Payment,
-        title: 'Payments',
-        href: '/dashboard/payments',
+        title: 'Transactions',
+        href: '/dashboard/transactions',
     },
     {
         icon: Star,

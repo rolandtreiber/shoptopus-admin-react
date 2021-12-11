@@ -11,6 +11,7 @@ import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
+import {getUrlFilters} from "../utils/apply-filters";
 
 export const Products = () => {
   const mounted = useMounted();
@@ -42,7 +43,7 @@ export const Products = () => {
         paginate: 20,
         sort_by_type: controller.sort,
         sort_by_field: controller.sortBy,
-        filters: controller.filters,
+        filters: getUrlFilters(controller.filters),
         view: controller.view
       })
 
@@ -84,10 +85,14 @@ export const Products = () => {
   const handleQueryChange = (newQuery) => {
     setController({
       ...controller,
-      page: 1,
-      filters: [[
-        'name->'+language, '["contains", "'+newQuery+'"]'
-      ]]
+      page: 0,
+      filters: [
+        {
+          property: 'name->'+language,
+          value: newQuery,
+          operator: "contains"
+        }
+      ]
     });
   };
 

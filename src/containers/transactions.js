@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductCreateDialog } from '../components/product/product-create-dialog';
-import { VoucherCodesTable } from '../components/voucher-codes/voucher-codes-table';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
@@ -11,7 +10,7 @@ import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
-import {DiscountRulesTable} from "../components/discount-rules/discount-rules-table";
+import {TransactionsTable} from "../components/transactions/transactions-table";
 
 const views = [
     {
@@ -19,42 +18,29 @@ const views = [
         value: 'all'
     },
     {
-        label: 'Active',
-        value: 'active'
+        label: 'Payments',
+        value: 'payment'
     },
     {
-        label: 'Not Started',
-        value: 'not_started'
-    },
-    {
-        label: 'Expired',
-        value: 'expired'
-    },
-    {
-        label: 'All Inactive',
-        value: 'all_inactive'
+        label: 'Refunds',
+        value: 'refund'
     }
 ];
 
 const filterProperties = [
     {
-        label: 'Code',
-        name: 'code',
-        type: 'string'
+        label: 'Value',
+        name: 'amount',
+        type: 'number'
     },
     {
-        label: 'Valid From',
-        name: 'valid_from',
-        type: 'date'
-    },
-    {
-        label: 'Valid Until',
-        name: 'valid_until',
+        label: 'Processed At',
+        name: 'created_at',
         type: 'date'
     }
 ];
 
-export const DiscountRules = () => {
+export const Transactions = () => {
     const mounted = useMounted();
     const [controller, setController] = useState({
         filters: [],
@@ -73,15 +59,15 @@ export const DiscountRules = () => {
     ] = useSelection(dataState.data?.voucherCodes);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchDiscountRules} = useContext(APIContext)
+    const {fetchPayments} = useContext(APIContext)
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
 
         try {
-            const result = await fetchDiscountRules({
+            const result = await fetchPayments({
                 page: controller.page + 1,
-                paginate: 20,
+                paginate: 2,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
                 filters: getUrlFilters(controller.filters),
@@ -129,7 +115,7 @@ export const DiscountRules = () => {
             page: 0,
             filters: [
                 {
-                    property: 'name->'+language,
+                    property: 'description',
                     value: newQuery,
                     operator: "contains"
                 }
@@ -158,7 +144,7 @@ export const DiscountRules = () => {
     return (
       <>
           <Helmet>
-              <title>Discount Rules | {appName}</title>
+              <title>Transactions | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -185,7 +171,7 @@ export const DiscountRules = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Discount Rules
+                              Transactions
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
@@ -221,7 +207,7 @@ export const DiscountRules = () => {
                         views={views}
                       />
                       <Divider />
-                      <DiscountRulesTable
+                      <TransactionsTable
                         error={dataState.error}
                         isLoading={dataState.isLoading}
                         onPageChange={handlePageChange}
