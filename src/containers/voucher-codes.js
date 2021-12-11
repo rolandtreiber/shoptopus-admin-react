@@ -1,18 +1,57 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductCreateDialog } from '../components/product/product-create-dialog';
-import { ProductsFilter } from '../components/product/products-filter';
-import { ProductsSummary } from '../components/product/products-summary';
-import { ProductsTable } from '../components/product/products-table';
+import { VoucherCodesTable } from '../components/voucher-codes/voucher-codes-table';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
+import {ListFilter} from "../components/list-filter";
+import {getUrlFilters} from "../utils/apply-filters";
 
-// TODO: implement the right api
+const views = [
+    {
+        label: 'All',
+        value: 'all'
+    },
+    {
+        label: 'Active',
+        value: 'active'
+    },
+    {
+        label: 'Not Started',
+        value: 'not_started'
+    },
+    {
+        label: 'Expired',
+        value: 'expired'
+    },
+    {
+        label: 'All Inactive',
+        value: 'all_inactive'
+    }
+];
+
+const filterProperties = [
+    {
+        label: 'Code',
+        name: 'code',
+        type: 'string'
+    },
+    {
+        label: 'Valid From',
+        name: 'valid_from',
+        type: 'date'
+    },
+    {
+        label: 'Valid Until',
+        name: 'valid_until',
+        type: 'date'
+    }
+];
 
 export const VoucherCodes = () => {
     const mounted = useMounted();
@@ -25,31 +64,31 @@ export const VoucherCodes = () => {
         view: 'all'
     });
     const {language, appName} = useContext(SettingsContext)
-    const [productsState, setProductsState] = useState({ isLoading: true });
+    const [dataState, setDataState] = useState({ isLoading: true });
     const [
-        selectedProducts,
+        selectedElements,
         handleSelect,
         handleSelectAll
-    ] = useSelection(productsState.data?.products);
+    ] = useSelection(dataState.data?.voucherCodes);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProducts} = useContext(APIContext)
+    const {fetchVoucherCodes} = useContext(APIContext)
 
-    const getProducts = useCallback(async () => {
-        setProductsState(() => ({ isLoading: true }));
+    const fetchData = useCallback(async () => {
+        setDataState(() => ({ isLoading: true }));
 
         try {
-            const result = await fetchProducts({
-                page: controller.page,
+            const result = await fetchVoucherCodes({
+                page: controller.page + 1,
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
-                filters: controller.filters,
+                filters: getUrlFilters(controller.filters),
                 view: controller.view
             })
 
             if (mounted.current) {
-                setProductsState(() => ({
+                setDataState(() => ({
                     isLoading: false,
                     data: result.data.data,
                     paginationMeta: result.data.meta
@@ -59,7 +98,7 @@ export const VoucherCodes = () => {
             console.error(err);
 
             if (mounted.current) {
-                setProductsState(() => ({
+                setDataState(() => ({
                     isLoading: false,
                     error: err.message
                 }));
@@ -68,7 +107,7 @@ export const VoucherCodes = () => {
     }, [controller]);
 
     useEffect(() => {
-        getProducts().catch(console.error);
+        fetchData().catch(console.error);
     }, [controller]);
 
     useEffect(() => {
@@ -86,32 +125,14 @@ export const VoucherCodes = () => {
     const handleQueryChange = (newQuery) => {
         setController({
             ...controller,
-            page: 1,
-            filters: [[
-                'name->'+language, '["contains", "'+newQuery+'"]'
-            ]]
-        });
-    };
-
-    const handleFiltersApply = (newFilters) => {
-        const parsedFilters = newFilters.map((filter) => ({
-            property: filter.property.name,
-            value: filter.value,
-            operator: filter.operator.value
-        }));
-
-        setController({
-            ...controller,
             page: 0,
-            filters: parsedFilters
-        });
-    };
-
-    const handleFiltersClear = () => {
-        setController({
-            ...controller,
-            page: 0,
-            filters: []
+            filters: [
+                {
+                    property: 'name',
+                    value: newQuery,
+                    operator: "contains"
+                }
+            ]
         });
     };
 
@@ -136,7 +157,7 @@ export const VoucherCodes = () => {
     return (
         <>
             <Helmet>
-                <title>System Users | {appName}</title>
+                <title>Voucher Codes | {appName}</title>
             </Helmet>
             <Box
                 sx={{
@@ -163,7 +184,7 @@ export const VoucherCodes = () => {
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                Products
+                                Voucher Codes
                             </Typography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
@@ -177,7 +198,6 @@ export const VoucherCodes = () => {
                             </Button>
                         </Box>
                     </Box>
-                    <ProductsSummary />
                     <Card
                         variant="outlined"
                         sx={{
@@ -186,30 +206,31 @@ export const VoucherCodes = () => {
                             flexGrow: 1
                         }}
                     >
-                        <ProductsFilter
-                            disabled={productsState.isLoading}
-                            filters={controller.filters}
-                            onFiltersApply={handleFiltersApply}
-                            onFiltersClear={handleFiltersClear}
-                            onQueryChange={handleQueryChange}
-                            onViewChange={handleViewChange}
-                            query={controller.query}
-                            selectedProducts={selectedProducts}
-                            view={controller.view}
+                        <ListFilter
+                          disabled={dataState.isLoading}
+                          filters={controller.filters}
+                          onFiltersApply={(data) => setController({...controller, ...data})}
+                          onFiltersClear={(data) => setController({...controller, ...data})}
+                          onQueryChange={handleQueryChange}
+                          onViewChange={handleViewChange}
+                          query={controller.query}
+                          selectedElements={selectedElements}
+                          view={controller.view}
+                          filterProperties={filterProperties}
+                          views={views}
                         />
                         <Divider />
-                        <ProductsTable
-                            error={productsState.error}
-                            isLoading={productsState.isLoading}
+                        <VoucherCodesTable
+                            error={dataState.error}
+                            isLoading={dataState.isLoading}
                             onPageChange={handlePageChange}
                             onSelect={handleSelect}
                             onSelectAll={handleSelectAll}
                             onSortChange={handleSortChange}
                             page={controller.page + 1}
-                            products={productsState.data ? productsState.data : []}
-                            pagesCount={productsState.paginationMeta ? productsState.paginationMeta.last_page : null}
-                            productsCount={productsState.data?.productsCount}
-                            selectedProducts={selectedProducts}
+                            data={dataState.data ? dataState.data : []}
+                            pagesCount={dataState.paginationMeta ? dataState.paginationMeta.last_page : null}
+                            selectedElements={selectedElements}
                             sort={controller.sort}
                             sortBy={controller.sortBy}
                         />
