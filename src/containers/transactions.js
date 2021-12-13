@@ -67,7 +67,7 @@ export const Transactions = () => {
         try {
             const result = await fetchPayments({
                 page: controller.page + 1,
-                paginate: 2,
+                paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
                 filters: getUrlFilters(controller.filters),
