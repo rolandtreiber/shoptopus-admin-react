@@ -1,18 +1,64 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductCreateDialog } from '../components/product/product-create-dialog';
-import { ProductsFilter } from '../components/product/products-filter';
-import { ProductsSummary } from '../components/product/products-summary';
-import { ProductsTable } from '../components/product/products-table';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
+import {ListFilter} from "../components/list-filter";
+import {getUrlFilters} from "../utils/apply-filters";
+import {FilesTable} from "../components/files/files-table";
 
-// TODO: implement the right api
+const views = [
+    {
+        label: 'All',
+        value: 'all'
+    },
+    {
+        label: 'Image',
+        value: 'image'
+    },
+    {
+        label: 'Video',
+        value: 'video'
+    },
+    {
+        label: 'Audio',
+        value: 'audio'
+    },
+    {
+        label: 'Pdf',
+        value: 'pdf'
+    },
+    {
+        label: 'Spreadsheet',
+        value: 'spreadsheet'
+    },
+    {
+        label: 'Text Document',
+        value: 'textdocument'
+    },
+    {
+        label: 'Other',
+        value: 'other'
+    },
+];
+
+const filterProperties = [
+    {
+        label: 'Title',
+        name: 'title',
+        type: 'string'
+    },
+    {
+        label: 'Description',
+        name: 'description',
+        type: 'string'
+    }
+];
 
 export const Files = () => {
     const mounted = useMounted();
@@ -25,31 +71,31 @@ export const Files = () => {
         view: 'all'
     });
     const {language, appName} = useContext(SettingsContext)
-    const [productsState, setProductsState] = useState({ isLoading: true });
+    const [dataState, setDataState] = useState({ isLoading: true });
     const [
-        selectedProducts,
+        selectedElements,
         handleSelect,
         handleSelectAll
-    ] = useSelection(productsState.data?.products);
+    ] = useSelection(dataState.data?.voucherCodes);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProducts} = useContext(APIContext)
+    const {fetchFiles} = useContext(APIContext)
 
-    const getProducts = useCallback(async () => {
-        setProductsState(() => ({ isLoading: true }));
+    const fetchData = useCallback(async () => {
+        setDataState(() => ({ isLoading: true }));
 
         try {
-            const result = await fetchProducts({
-                page: controller.page,
+            const result = await fetchFiles({
+                page: controller.page + 1,
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
-                filters: controller.filters,
+                filters: getUrlFilters(controller.filters),
                 view: controller.view
             })
 
             if (mounted.current) {
-                setProductsState(() => ({
+                setDataState(() => ({
                     isLoading: false,
                     data: result.data.data,
                     paginationMeta: result.data.meta
@@ -59,7 +105,7 @@ export const Files = () => {
             console.error(err);
 
             if (mounted.current) {
-                setProductsState(() => ({
+                setDataState(() => ({
                     isLoading: false,
                     error: err.message
                 }));
@@ -68,7 +114,7 @@ export const Files = () => {
     }, [controller]);
 
     useEffect(() => {
-        getProducts().catch(console.error);
+        fetchData().catch(console.error);
     }, [controller]);
 
     useEffect(() => {
@@ -86,32 +132,14 @@ export const Files = () => {
     const handleQueryChange = (newQuery) => {
         setController({
             ...controller,
-            page: 1,
-            filters: [[
-                'name->'+language, '["contains", "'+newQuery+'"]'
-            ]]
-        });
-    };
-
-    const handleFiltersApply = (newFilters) => {
-        const parsedFilters = newFilters.map((filter) => ({
-            property: filter.property.name,
-            value: filter.value,
-            operator: filter.operator.value
-        }));
-
-        setController({
-            ...controller,
             page: 0,
-            filters: parsedFilters
-        });
-    };
-
-    const handleFiltersClear = () => {
-        setController({
-            ...controller,
-            page: 0,
-            filters: []
+            filters: [
+                {
+                    property: 'title->'+language,
+                    value: newQuery,
+                    operator: "contains"
+                }
+            ]
         });
     };
 
@@ -134,92 +162,92 @@ export const Files = () => {
     };
 
     return (
-        <>
-            <Helmet>
-                <title>System Users | {appName}</title>
-            </Helmet>
-            <Box
+      <>
+          <Helmet>
+              <title>Files | {appName}</title>
+          </Helmet>
+          <Box
+            sx={{
+                backgroundColor: 'background.default',
+                flexGrow: 1
+            }}
+          >
+              <Container
+                maxWidth="lg"
                 sx={{
-                    backgroundColor: 'background.default',
-                    flexGrow: 1
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%'
                 }}
-            >
-                <Container
-                    maxWidth="lg"
+              >
+                  <Box sx={{ py: 4 }}>
+                      <Box
+                        sx={{
+                            alignItems: 'center',
+                            display: 'flex'
+                        }}
+                      >
+                          <Typography
+                            color="textPrimary"
+                            variant="h4"
+                          >
+                              Files
+                          </Typography>
+                          <Box sx={{ flexGrow: 1 }} />
+                          <Button
+                            color="primary"
+                            onClick={() => setOpenCreateDialog(true)}
+                            size="large"
+                            startIcon={<PlusIcon fontSize="small" />}
+                            variant="contained"
+                          >
+                              Add
+                          </Button>
+                      </Box>
+                  </Box>
+                  <Card
+                    variant="outlined"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        height: '100%'
+                        flexGrow: 1
                     }}
-                >
-                    <Box sx={{ py: 4 }}>
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex'
-                            }}
-                        >
-                            <Typography
-                                color="textPrimary"
-                                variant="h4"
-                            >
-                                Products
-                            </Typography>
-                            <Box sx={{ flexGrow: 1 }} />
-                            <Button
-                                color="primary"
-                                onClick={() => setOpenCreateDialog(true)}
-                                size="large"
-                                startIcon={<PlusIcon fontSize="small" />}
-                                variant="contained"
-                            >
-                                Add
-                            </Button>
-                        </Box>
-                    </Box>
-                    <ProductsSummary />
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flexGrow: 1
-                        }}
-                    >
-                        <ProductsFilter
-                            disabled={productsState.isLoading}
-                            filters={controller.filters}
-                            onFiltersApply={handleFiltersApply}
-                            onFiltersClear={handleFiltersClear}
-                            onQueryChange={handleQueryChange}
-                            onViewChange={handleViewChange}
-                            query={controller.query}
-                            selectedProducts={selectedProducts}
-                            view={controller.view}
-                        />
-                        <Divider />
-                        <ProductsTable
-                            error={productsState.error}
-                            isLoading={productsState.isLoading}
-                            onPageChange={handlePageChange}
-                            onSelect={handleSelect}
-                            onSelectAll={handleSelectAll}
-                            onSortChange={handleSortChange}
-                            page={controller.page + 1}
-                            products={productsState.data ? productsState.data : []}
-                            pagesCount={productsState.paginationMeta ? productsState.paginationMeta.last_page : null}
-                            productsCount={productsState.data?.productsCount}
-                            selectedProducts={selectedProducts}
-                            sort={controller.sort}
-                            sortBy={controller.sortBy}
-                        />
-                    </Card>
-                </Container>
-            </Box>
-            <ProductCreateDialog
-                onClose={() => setOpenCreateDialog(false)}
-                open={openCreateDialog}
-            />
-        </>
+                  >
+                      <ListFilter
+                        disabled={dataState.isLoading}
+                        filters={controller.filters}
+                        onFiltersApply={(data) => setController({...controller, ...data})}
+                        onFiltersClear={(data) => setController({...controller, ...data})}
+                        onQueryChange={handleQueryChange}
+                        onViewChange={handleViewChange}
+                        query={controller.query}
+                        selectedElements={selectedElements}
+                        view={controller.view}
+                        filterProperties={filterProperties}
+                        views={views}
+                      />
+                      <Divider />
+                      <FilesTable
+                        error={dataState.error}
+                        isLoading={dataState.isLoading}
+                        onPageChange={handlePageChange}
+                        onSelect={handleSelect}
+                        onSelectAll={handleSelectAll}
+                        onSortChange={handleSortChange}
+                        page={controller.page + 1}
+                        data={dataState.data ? dataState.data : []}
+                        pagesCount={dataState.paginationMeta ? dataState.paginationMeta.last_page : null}
+                        selectedElements={selectedElements}
+                        sort={controller.sort}
+                        sortBy={controller.sortBy}
+                      />
+                  </Card>
+              </Container>
+          </Box>
+          <ProductCreateDialog
+            onClose={() => setOpenCreateDialog(false)}
+            open={openCreateDialog}
+          />
+      </>
     );
 };
