@@ -95,7 +95,7 @@ export const PasswordRecovery = () => {
             >
               <Grid
                 item
-                md={6}
+                md={2}
                 sx={{
                   display: {
                     md: 'block',
@@ -104,11 +104,11 @@ export const PasswordRecovery = () => {
                 }}
                 xs={12}
               >
-                <ProductFeatures />
+                {/*<ProductFeatures />*/}
               </Grid>
               <Grid
                 item
-                md={6}
+                md={8}
                 xs={12}
               >
                 <Card

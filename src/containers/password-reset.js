@@ -118,7 +118,7 @@ export const PasswordReset = () => {
             >
               <Grid
                 item
-                md={6}
+                md={2}
                 sx={{
                   display: {
                     md: 'block',
@@ -127,11 +127,11 @@ export const PasswordReset = () => {
                 }}
                 xs={12}
               >
-                <ProductFeatures />
+                {/*<ProductFeatures />*/}
               </Grid>
               <Grid
                 item
-                md={6}
+                md={8}
                 xs={12}
               >
                 <Card

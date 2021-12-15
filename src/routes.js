@@ -100,9 +100,9 @@ const routes = [
   {
     path: '/',
     element: (
-      <MainLayout>
-        <Home />
-      </MainLayout>
+      <GuestGuard>
+        <Login />
+      </GuestGuard>
     )
   },
   {
