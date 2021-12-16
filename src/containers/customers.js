@@ -11,6 +11,7 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
+import {SettingsContext} from "../contexts/settings-context";
 
 const views = [
   {
@@ -67,6 +68,7 @@ export const Customers = () => {
     handleSelectAll
   ] = useSelection(customersState.data?.customers);
   const {fetchCustomers} = useContext(APIContext)
+  const {language, appName} = useContext(SettingsContext)
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const getCustomers = useCallback(async () => {
@@ -174,7 +176,7 @@ export const Customers = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: List | Carpatin Dashboard</title>
+        <title>Customer: List | {appName}</title>
       </Helmet>
       <Box
         sx={{

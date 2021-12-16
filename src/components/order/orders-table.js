@@ -1,227 +1,228 @@
-import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
-import { format } from 'date-fns';
-import numeral from 'numeral';
+import React, {useContext, useEffect, useState} from 'react';
+import Proptypes from 'prop-types';
+import {Link as RouterLink} from 'react-router-dom';
 import {
+  Avatar,
   Box,
   Checkbox,
-  Divider,
-  Link,
+  Divider, Link,
   Skeleton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
-  Typography
+  TableSortLabel, Typography
 } from '@material-ui/core';
-import { ResourceError } from '../resource-error';
-import { Pagination } from '../pagination';
-import { ResourceUnavailable } from '../resource-unavailable';
-import { Scrollbar } from '../scrollbar';
-import { Status } from '../status';
-import { OrderMenu } from './order-menu';
+import {Pagination} from '../pagination';
+import {ResourceError} from '../resource-error';
+import {ResourceUnavailable} from '../resource-unavailable';
+import {Scrollbar} from '../scrollbar';
+import {CustomerMenu} from '../customer/customer-menu';
+import {SettingsContext} from "../../contexts/settings-context";
+import {Status} from "../status";
+import {format} from "date-fns";
 
 const columns = [
   {
-    id: 'id',
-    label: 'Order ID'
+    id: 'total_price',
+    label: 'Price',
   },
   {
-    id: 'createdAt',
-    label: 'Created'
-  },
-  {
-    id: 'customer',
+    id: 'user',
     label: 'Customer'
   },
   {
-    id: 'distribution',
-    label: 'Distribution'
+    id: 'created_at',
+    label: 'Placed At'
+  },
+  {
+    id: 'updated_at',
+    label: 'Updated At'
   },
   {
     id: 'status',
     label: 'Status'
-  },
-  {
-    id: 'totalAmount',
-    label: 'Total'
   }
 ];
 
 const statusVariants = [
   {
     color: 'info.main',
-    label: 'Placed',
-    value: 'placed'
-  },
-  {
-    color: 'error.main',
-    label: 'Processed',
-    value: 'processed'
+    label: 'Paid',
+    value: 1
   },
   {
     color: 'warning.main',
-    label: 'Delivered',
-    value: 'delivered'
+    label: 'Processing',
+    value: 2
+  },
+  {
+    color: 'info.main',
+    label: 'In Transit',
+    value: 3
   },
   {
     color: 'success.main',
-    label: 'Complete',
-    value: 'complete'
+    label: 'Completed',
+    value: 4
+  },
+  {
+    color: 'warning.main',
+    label: 'On Hold',
+    value: 5
+  },
+  {
+    color: 'error.main',
+    label: 'Cancelled',
+    value: 6
   }
 ];
 
 export const OrdersTable = (props) => {
   const {
+    data,
+    pagesCount,
     error,
     isLoading,
     onPageChange,
     onSelect,
     onSelectAll,
     onSortChange,
-    orders,
-    ordersCount,
     page,
-    selectedOrders,
+    selectedElements,
     sort,
     sortBy
   } = props;
+  const [dataState, setDataState] = useState(data);
+
+  useEffect(() => {
+    setDataState(data);
+  }, [data]);
 
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
-  const displayUnavailable = Boolean(!isLoading && !error && !orders.length);
+  const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
 
   return (
     <Box
       sx={{
         display: 'flex',
-        flexGrow: 1,
+        flex: 1,
         flexDirection: 'column'
       }}
     >
-      <Divider />
       <Scrollbar>
-        <Table sx={{ minWidth: 1000 }}>
+        <Table sx={{minWidth: 1000}}>
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
-                  checked={orders.length > 0 && selectedOrders.length === orders.length}
+                  checked={dataState?.length > 0
+                  && selectedElements.length === dataState?.length}
                   disabled={isLoading}
-                  indeterminate={selectedOrders.length > 0
-                  && selectedOrders.length < orders.length}
+                  indeterminate={selectedElements.length > 0
+                  && selectedElements.length < dataState?.length}
                   onChange={onSelectAll}
                 />
               </TableCell>
               {columns.map((column) => (
-                <TableCell key={column.id}>
+                <TableCell
+                  key={column.id}
+                  padding={column.disablePadding ? 'none' : 'normal'}
+                >
                   <TableSortLabel
                     active={sortBy === column.id}
                     direction={sortBy === column.id ? sort : 'asc'}
                     disabled={isLoading}
-                    onClick={(event) => onSortChange(event, column.id)}
+                    hideSortIcon={column.nonSortable === true}
+                    onClick={(event) => column.nonSortable !== true && onSortChange(event, column.id)}
                   >
                     {column.label}
                   </TableSortLabel>
                 </TableCell>
               ))}
-              <TableCell />
+              <TableCell/>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => {
+            {dataState?.map((d) => {
               const statusVariant = statusVariants.find((variant) => variant.value
-                === order.status);
+                === d.status);
 
-              return (
-                <TableRow
+              return (<TableRow
                   hover
-                  key={order.id}
-                  selected={!!selectedOrders.find((selectedCustomer) => selectedCustomer
-                    === order.id)}
+                  key={d.id}
+                  selected={!!selectedElements.find((selectedCustomer) => selectedCustomer
+                    === d.id)}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={!!selectedOrders.find((selectedCustomer) => selectedCustomer
-                        === order.id)}
-                      onChange={(event) => onSelect(event, order.id)}
+                      checked={!!selectedElements.find((selectedCustomer) => selectedCustomer
+                        === d.id)}
+                      onChange={(event) => onSelect(event, d.id)}
                     />
                   </TableCell>
                   <TableCell>
                     <Link
                       color="inherit"
                       component={RouterLink}
-                      to="/dashboard/orders/1"
+                      sx={{display: 'block'}}
+                      to={"/dashboard/orders/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >
-                      {`#${order.id}`}
+                      {d.total_price}
                     </Link>
                   </TableCell>
+
                   <TableCell>
-                    <Typography
-                      color="inherit"
-                      variant="inherit"
-                    >
-                      {format(new Date(order.createdAt), 'dd MMM yyyy')}
-                    </Typography>
                     <Typography
                       color="textSecondary"
                       variant="inherit"
                     >
-                      {format(new Date(order.createdAt), 'HH:mm')}
+                      {d.user}
                     </Typography>
                   </TableCell>
+
                   <TableCell>
-                    <Link
-                      color="inherit"
-                      component={RouterLink}
-                      to="/dashboard/customers/1"
-                      underline="none"
-                      variant="inherit"
-                    >
-                      {`${order.customer.firstName} ${order.customer.lastName}`}
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      color="inherit"
-                      variant="inherit"
-                    >
-                      {`${order.customer.city}, ${order.customer.country}`}
-                    </Typography>
                     <Typography
                       color="textSecondary"
                       variant="inherit"
                     >
-                      {order.courier}
+                      {format(new Date(d.created_at), 'dd MMM yyyy HH:mm')}
                     </Typography>
                   </TableCell>
+
+                  <TableCell>
+                    <Typography
+                      color="textSecondary"
+                      variant="inherit"
+                    >
+                      {format(new Date(d.updated_at), 'dd MMM yyyy HH:mm')}
+                    </Typography>
+                  </TableCell>
+
                   <TableCell>
                     <Status
                       color={statusVariant.color}
                       label={statusVariant.label}
                     />
                   </TableCell>
-                  <TableCell>
-                    {numeral(order.totalAmount).format(`${order.currencySymbol}0,0.00`)}
-                  </TableCell>
                   <TableCell align="right">
-                    <OrderMenu />
+                    <CustomerMenu/>
                   </TableCell>
                 </TableRow>
-              );
+              )
             })}
           </TableBody>
         </Table>
       </Scrollbar>
       {displayLoading && (
-        <Box sx={{ p: 2 }}>
-          <Skeleton height={42} />
-          <Skeleton height={42} />
-          <Skeleton height={42} />
+        <Box sx={{p: 2}}>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
         </Box>
       )}
       {displayError && (
@@ -241,37 +242,37 @@ export const OrdersTable = (props) => {
           }}
         />
       )}
-      <Divider sx={{ mt: 'auto' }} />
+      <Divider sx={{mt: 'auto'}}/>
       <Pagination
         disabled={isLoading}
         onPageChange={onPageChange}
         page={page}
-        rowsCount={ordersCount}
+        pagesCount={pagesCount}
       />
     </Box>
   );
 };
 
 OrdersTable.defaultProps = {
-  orders: [],
-  ordersCount: 0,
+  data: [],
+  pagesCount: 0,
   page: 1,
-  selectedOrders: [],
+  selectedElements: [],
   sort: 'desc',
   sortBy: 'createdAt'
 };
 
 OrdersTable.propTypes = {
-  error: PropTypes.string,
-  isLoading: PropTypes.bool,
-  onPageChange: PropTypes.func,
-  onSelect: PropTypes.func,
-  onSelectAll: PropTypes.func,
-  onSortChange: PropTypes.func,
-  orders: PropTypes.array,
-  ordersCount: PropTypes.number,
-  page: PropTypes.number,
-  selectedOrders: PropTypes.array,
-  sort: PropTypes.oneOf(['asc', 'desc']),
-  sortBy: PropTypes.string
+  data: Proptypes.array,
+  pagesCount: Proptypes.number,
+  error: Proptypes.string,
+  isLoading: Proptypes.bool,
+  onPageChange: Proptypes.func,
+  onSelect: Proptypes.func,
+  onSelectAll: Proptypes.func,
+  onSortChange: Proptypes.func,
+  page: Proptypes.number,
+  selectedElements: Proptypes.array,
+  sort: Proptypes.oneOf(['asc', 'desc']),
+  sortBy: Proptypes.string
 };

@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Box, Card, CardContent, Container, Grid, Toolbar } from '@material-ui/core';
-import { ProductFeatures } from '../components/auth/product-features';
 import { LoginAmplify } from '../components/auth/login-amplify';
 import { LoginAuth0 } from '../components/auth/login-auth0';
 import { LoginFirebase } from '../components/auth/login-firebase';

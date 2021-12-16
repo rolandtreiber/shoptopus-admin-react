@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
+import {Box, Button, Divider, Tab, Tabs, ToggleButton, ToggleButtonGroup} from '@material-ui/core';
 import { Adjustments as AdjustmentsIcon } from '../icons/adjustments';
 import {
     containsOperator,
@@ -19,6 +19,8 @@ import {
 import { FilterDialog } from './filter-dialog';
 import { Query } from './query';
 import { BulkActionsMenu } from "./bulk-actions-menu";
+import {ViewList as ViewListIcon} from "../icons/view-list";
+import {ViewGrid as ViewGridIcon} from "../icons/view-grid";
 
 const filterOperators = [
     equalOperator,
@@ -41,7 +43,9 @@ export const ListFilter = (props) => {
         filters,
         onFiltersApply,
         onFiltersClear,
+        mode,
         onQueryChange,
+        onModeChange,
         onViewChange,
         query,
         selected,
@@ -135,6 +139,47 @@ export const ListFilter = (props) => {
                         }}
                         value={query}
                     />
+                    <Box
+                      sx={{
+                          alignItems: 'center',
+                          display: 'flex',
+                          order: 3
+                      }}
+                    >
+                    {mode !== null && (<ToggleButtonGroup
+                      exclusive
+                      onChange={onModeChange}
+                      size="small"
+                      sx={{
+                          border: (theme) => `1px solid ${theme.palette.divider}`,
+                          p: 0.5,
+                          mr: 2,
+                          '& .MuiToggleButton-root': {
+                              border: 0,
+                              '&:not(:first-of-type)': {
+                                  borderRadius: 1
+                              },
+                              '&:first-of-type': {
+                                  borderRadius: 1,
+                                  mr: 0.5
+                              }
+                          }
+                      }}
+                      value={mode}
+                    >
+                        <ToggleButton value="table">
+                            <ViewListIcon
+                              fontSize="small"
+                              sx={{ color: 'rgba(35, 45, 55, 0.38)' }}
+                            />
+                        </ToggleButton>
+                        <ToggleButton value="dnd">
+                            <ViewGridIcon
+                              fontSize="small"
+                              sx={{ color: 'rgba(35, 45, 55, 0.38)' }}
+                            />
+                        </ToggleButton>
+                    </ToggleButtonGroup>)}
                     <Button
                         color="primary"
                         disabled={disabled}
@@ -146,6 +191,7 @@ export const ListFilter = (props) => {
                     >
                         Filter
                     </Button>
+                    </Box>
                 </Box>
             </div>
             <FilterDialog

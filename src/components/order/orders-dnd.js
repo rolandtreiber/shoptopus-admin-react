@@ -7,20 +7,37 @@ import { OrderDroppable } from './order-dropable';
 const statusVariants = [
   {
     badgeColor: 'info.main',
-    label: 'Placed',
-    value: 'placed'
-  },
-  {
-    badgeColor: 'error.main',
-    label: 'Processed',
-    value: 'processed'
+    label: 'Paid',
+    value: 1
   },
   {
     badgeColor: 'warning.main',
-    label: 'Delivered',
-    value: 'delivered'
+    label: 'Processing',
+    value: 2
+  },
+  {
+    badgeColor: 'info.main',
+    label: 'In Transit',
+    value: 3
+  },
+  {
+    badgeColor: 'success.main',
+    label: 'Completed',
+    value: 4
+  },
+  {
+    badgeColor: 'warning.main',
+    label: 'On Hold',
+    value: 5
+  },
+  {
+    badgeColor: 'error.main',
+    label: 'Cancelled',
+    value: 6
   }
 ];
+
+
 
 const getColumns = (orders) => {
   const columns = {};

@@ -1,15 +1,61 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Typography } from '@material-ui/core';
-import { orderApi } from '../api/order';
-import { OrderCreateDialog } from '../components/order/order-create-dialog';
-import { OrdersDnd } from '../components/order/orders-dnd';
-import { OrdersFilter } from '../components/order/orders-filter';
-import { OrdersTable } from '../components/order/orders-table';
+import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { ProductCreateDialog } from '../components/product/product-create-dialog';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
+import {SettingsContext} from "../contexts/settings-context";
+import {ListFilter} from "../components/list-filter";
+import {getUrlFilters} from "../utils/apply-filters";
+import {OrdersTable} from "../components/order/orders-table";
+import {OrdersDnd} from "../components/order/orders-dnd";
+
+const views = [
+  {
+    label: 'All',
+    value: 'all'
+  },
+  {
+    label: 'Paid',
+    value: 'paid'
+  },
+  {
+    label: 'Processing',
+    value: 'processing'
+  },
+  {
+    label: 'In Transit',
+    value: 'in_transit'
+  },
+  {
+    label: 'Completed',
+    value: 'completed'
+  },
+  {
+    label: 'On Hold',
+    value: 'on_hold'
+  },
+  {
+    label: 'Cancelled',
+    value: 'cancelled'
+  }
+];
+
+const filterProperties = [
+  {
+    label: 'Price',
+    name: 'total_price',
+    type: 'number'
+  },
+  {
+    label: 'Description',
+    name: 'description',
+    type: 'string'
+  }
+];
 
 export const Orders = () => {
   const mounted = useMounted();
@@ -18,38 +64,47 @@ export const Orders = () => {
     page: 0,
     query: '',
     sort: 'desc',
-    sortBy: 'createdAt',
-    view: 'all'
+    sortBy: 'updated_at',
+    view: 'all',
+    search: ''
   });
-  const [ordersState, setOrdersState] = useState({ isLoading: true });
-  const [selectedOrders, handleSelect, handleSelectAll] = useSelection(ordersState.data?.orders);
-  const [openCreateDialog, setOpenCreateDialog] = useState();
-  const [mode, setMode] = useState('dnd');
+  const {language, appName} = useContext(SettingsContext)
+  const [dataState, setDataState] = useState({ isLoading: true });
+  const [
+    selectedElements,
+    handleSelect,
+    handleSelectAll
+  ] = useSelection(dataState.data?.voucherCodes);
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [mode, setMode] = useState('table');
+  const {fetchOrders} = useContext(APIContext)
 
-  const getOrders = useCallback(async () => {
-    setOrdersState(() => ({ isLoading: true }));
+  const fetchData = useCallback(async () => {
+    setDataState(() => ({ isLoading: true }));
 
     try {
-      const result = await orderApi.getOrders({
-        filters: controller.filters,
-        page: controller.page,
-        query: controller.query,
-        sort: controller.sort,
-        sortBy: controller.sortBy,
-        view: controller.view
-      });
+      const result = await fetchOrders({
+        page: controller.page + 1,
+        paginate: 20,
+        sort_by_type: controller.sort,
+        sort_by_field: controller.sortBy,
+        filters: getUrlFilters(controller.filters),
+        view: controller.view,
+        search: controller.search
+      })
 
       if (mounted.current) {
-        setOrdersState(() => ({
+        setDataState(() => ({
           isLoading: false,
-          data: result
+          data: result.data.data,
+          paginationMeta: result.data.meta
         }));
       }
     } catch (err) {
       console.error(err);
 
       if (mounted.current) {
-        setOrdersState(() => ({
+        setDataState(() => ({
           isLoading: false,
           error: err.message
         }));
@@ -58,12 +113,19 @@ export const Orders = () => {
   }, [controller]);
 
   useEffect(() => {
-    getOrders().catch(console.error);
+    fetchData().catch(console.error);
   }, [controller]);
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
+
+  const handleModeChange = (event, newMode) => {
+    console.log('hello')
+    if (newMode) {
+      setMode(newMode);
+    }
+  };
 
   const handleViewChange = (newView) => {
     setController({
@@ -77,29 +139,7 @@ export const Orders = () => {
     setController({
       ...controller,
       page: 0,
-      query: newQuery
-    });
-  };
-
-  const handleFiltersApply = (newFilters) => {
-    const parsedFilters = newFilters.map((filter) => ({
-      property: filter.property.name,
-      value: filter.value,
-      operator: filter.operator.value
-    }));
-
-    setController({
-      ...controller,
-      page: 0,
-      filters: parsedFilters
-    });
-  };
-
-  const handleFiltersClear = () => {
-    setController({
-      ...controller,
-      page: 0,
-      filters: []
+      search: newQuery
     });
   };
 
@@ -110,27 +150,21 @@ export const Orders = () => {
     });
   };
 
-  const handleSortChange = (event, property) => {
-    const isAsc = controller.sortBy === property && controller.sort === 'asc';
+  const handleSortChange = (event, property, translatable) => {
+    const isAsc = translatable === true ? controller.sortBy === property+'->'+language && controller.sort === 'asc' : controller.sortBy === property && controller.sort === 'asc';
 
     setController({
       ...controller,
       page: 0,
       sort: isAsc ? 'desc' : 'asc',
-      sortBy: property
+      sortBy: translatable === true ? property+'->'+language : property
     });
-  };
-
-  const handleModeChange = (event, newMode) => {
-    if (newMode) {
-      setMode(newMode);
-    }
   };
 
   return (
     <>
       <Helmet>
-        <title>Order: List | Carpatin Dashboard</title>
+        <title>Orders | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -163,9 +197,9 @@ export const Orders = () => {
               <Button
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}
+                size="large"
                 startIcon={<PlusIcon fontSize="small" />}
                 variant="contained"
-                size="large"
               >
                 Add
               </Button>
@@ -179,47 +213,46 @@ export const Orders = () => {
               flexGrow: 1
             }}
           >
-            <OrdersFilter
-              disabled={ordersState.isLoading}
+            <ListFilter
+              disabled={dataState.isLoading}
               filters={controller.filters}
-              mode={mode}
-              onFiltersApply={handleFiltersApply}
-              onFiltersClear={handleFiltersClear}
+              onFiltersApply={(data) => setController({...controller, ...data})}
+              onFiltersClear={(data) => setController({...controller, ...data})}
               onModeChange={handleModeChange}
               onQueryChange={handleQueryChange}
               onViewChange={handleViewChange}
               query={controller.query}
-              selectedOrders={selectedOrders}
+              selectedElements={selectedElements}
+              mode={mode}
               view={controller.view}
+              filterProperties={filterProperties}
+              views={views}
             />
+            <Divider />
             {mode === 'table'
               ? (
-                <OrdersTable
-                  error={ordersState.error}
-                  isLoading={ordersState.isLoading}
-                  onPageChange={handlePageChange}
-                  onSelect={handleSelect}
-                  onSelectAll={handleSelectAll}
-                  onSortChange={handleSortChange}
-                  orders={ordersState.data?.orders}
-                  ordersCount={ordersState.data?.ordersCount}
-                  page={controller.page + 1}
-                  selectedOrders={selectedOrders}
-                  sort={controller.sort}
-                  sortBy={controller.sortBy}
-                />
-              )
-              : (
-                <OrdersDnd
-                  error={ordersState.error}
-                  isLoading={ordersState.isLoading}
-                  orders={ordersState.data?.orders}
-                />
-              )}
+            <OrdersTable
+              error={dataState.error}
+              isLoading={dataState.isLoading}
+              onPageChange={handlePageChange}
+              onSelect={handleSelect}
+              onSelectAll={handleSelectAll}
+              onSortChange={handleSortChange}
+              page={controller.page + 1}
+              data={dataState.data ? dataState.data : []}
+              pagesCount={dataState.paginationMeta ? dataState.paginationMeta.last_page : null}
+              selectedElements={selectedElements}
+              sort={controller.sort}
+              sortBy={controller.sortBy}
+            />) : (<OrdersDnd
+                error={dataState.error}
+                isLoading={dataState.isLoading}
+                orders={dataState.data}
+              />)}
           </Card>
         </Container>
       </Box>
-      <OrderCreateDialog
+      <ProductCreateDialog
         onClose={() => setOpenCreateDialog(false)}
         open={openCreateDialog}
       />

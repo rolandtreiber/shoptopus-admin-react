@@ -8,9 +8,12 @@ import { PropertyList } from '../property-list';
 import { PropertyListItem } from '../property-list-item';
 import { StatusBadge } from '../status-badge';
 import { OrderMenu } from './order-menu';
+import {useContext} from "react";
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const OrderDraggable = (props) => {
   const { badgeColor, index, order, ...other } = props;
+  const {language} = useContext(SettingsContext)
 
   return (
     <Draggable
@@ -60,23 +63,23 @@ export const OrderDraggable = (props) => {
           </Box>
           <PropertyList>
             <PropertyListItem
-              label="Courier"
+              label="Delivery Type"
               align="horizontal"
             >
               <Chip
-                label={order.courier}
+                label={order.delivery_type[language]}
                 size="small"
               />
             </PropertyListItem>
             <PropertyListItem
               align="horizontal"
               label="Location"
-              value={`${order.customer.city}, ${order.customer.country}`}
+              value={`${order.town}`}
             />
             <PropertyListItem
               align="horizontal"
               label="Created"
-              value={format(new Date(order.createdAt), 'dd MMM yyyy HH:mm')}
+              value={format(new Date(order.created_at), 'dd MMM yyyy HH:mm')}
             />
           </PropertyList>
         </Card>
