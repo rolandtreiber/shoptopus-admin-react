@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Card } from '@material-ui/core';
 import { OrderDroppable } from './order-dropable';
+import {APIContext} from "../../contexts/api-context";
 
 const statusVariants = [
   {
@@ -69,12 +70,22 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   result[droppableSource.droppableId] = sourceClone;
   result[droppableDestination.droppableId] = destClone;
 
-  return result;
+  return {
+    columns: result,
+    orderToUpdate: destClone[droppableDestination.index]
+  };
 };
 
 export const OrdersDnd = (props) => {
   const { error, isLoading, orders, ...other } = props;
   const [columns, setColumns] = useState(null);
+  const {updateOrder} = useContext(APIContext)
+
+  const callUpdateApi = (id, newStatus) => {
+    updateOrder(id, {
+      status: newStatus
+    })
+  }
 
   // NOTE: This event should make a server request,
   //  update the order document with the new status on the server, then update the order data
@@ -87,6 +98,7 @@ export const OrdersDnd = (props) => {
     const sourceId = source.droppableId;
     const destinationId = destination.droppableId;
 
+
     if (sourceId === destinationId) {
       const items = reorder(columns[sourceId], source.index, destination.index);
       const newState = { ...columns };
@@ -94,9 +106,14 @@ export const OrdersDnd = (props) => {
       setColumns(newState);
     } else {
       const result = move(columns[sourceId], columns[destinationId], source, destination);
+
+      const orderToUpdate = result.orderToUpdate;
+      callUpdateApi(orderToUpdate.id, orderToUpdate.status)
+
       const newState = { ...columns };
-      newState[sourceId] = result[sourceId];
-      newState[destinationId] = result[destinationId];
+      newState[sourceId] = result.columns[sourceId];
+      newState[destinationId] = result.columns[destinationId];
+
       setColumns(newState);
     }
   };
@@ -126,7 +143,7 @@ export const OrdersDnd = (props) => {
         {statusVariants.map((option) => (
           <OrderDroppable
             badgeColor={option.badgeColor}
-            id={option.value}
+            id={option.value.toString()}
             orders={columns[option.value]}
             title={option.label}
             key={option.value}

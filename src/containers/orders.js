@@ -76,7 +76,7 @@ export const Orders = () => {
     handleSelectAll
   ] = useSelection(dataState.data?.voucherCodes);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
-  const [mode, setMode] = useState('table');
+  const [mode, setMode] = useState('dnd');
   const {fetchOrders} = useContext(APIContext)
 
   const fetchData = useCallback(async () => {
@@ -121,7 +121,6 @@ export const Orders = () => {
   }, []);
 
   const handleModeChange = (event, newMode) => {
-    console.log('hello')
     if (newMode) {
       setMode(newMode);
     }

@@ -157,7 +157,7 @@ const APIProvider = ({children}) => {
       // Orders
       fetchOrders: async (params) => await get(admin_api_url + "orders", params, makeHeaders()),
       fetchOrder: async (orderId) => await get(admin_api_url + "order/" + orderId, {}, makeHeaders()),
-      updateOrder: async (orderId, params) => await put(admin_api_url + "order/" + orderId, params, makeHeaders()),
+      updateOrder: async (orderId, params) => await patch(admin_api_url + "order/" + orderId, params, makeHeaders()),
       deleteOrder: async (orderId) => await del(admin_api_url + "order/" + orderId, {}, makeHeaders()),
 
       // Discount Rules

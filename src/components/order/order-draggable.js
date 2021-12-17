@@ -10,6 +10,7 @@ import { StatusBadge } from '../status-badge';
 import { OrderMenu } from './order-menu';
 import {useContext} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
+import Price from "../price";
 
 export const OrderDraggable = (props) => {
   const { badgeColor, index, order, ...other } = props;
@@ -75,6 +76,16 @@ export const OrderDraggable = (props) => {
               align="horizontal"
               label="Location"
               value={`${order.town}`}
+            />
+            <PropertyListItem
+              align="horizontal"
+              label="Customer"
+              value={`${order.user}`}
+            />
+            <PropertyListItem
+              align="horizontal"
+              label="Customer"
+              value={`${order.total_price}`}
             />
             <PropertyListItem
               align="horizontal"
