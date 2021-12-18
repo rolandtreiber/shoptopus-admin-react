@@ -5,14 +5,20 @@ import {Grid} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-const MultilangTextInput = ({field, title, value, width}) => {
+const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false}) => {
     const {availableLanguages} = useContext(SettingsContext)
 
     const getInitialValues = () => {
         let initialValues = {}
-        Object.keys(availableLanguages).forEach(lang => {
-            initialValues[lang] = value[lang]
-        })
+        if (value) {
+            Object.keys(availableLanguages).forEach(lang => {
+                initialValues[lang] = value[lang]
+            })
+        } else {
+            Object.keys(availableLanguages).forEach(lang => {
+                initialValues[lang] = ''
+            })
+        }
         return initialValues
     }
     const initialValues = useState(getInitialValues)[0]
@@ -32,20 +38,27 @@ const MultilangTextInput = ({field, title, value, width}) => {
         )
     })
 
+    useEffect(() => {
+        onChange(formik.values)
+    }, [formik.values])
+
     return <>
-        {Object.keys(availableLanguages).map(lang => <Grid
+        {Object.keys(availableLanguages).map((lang, index) => <Grid
             item
             md={width}
             xs={12}
+            key={title+'-'+index}
         >
             {formik.initialValues && <InputField
-                error={Boolean(formik.touched[lang] && formik.errors[lang])}
+                error={Boolean((formik.touched[lang] && formik.errors[lang]) || (showErrors && formik.errors[lang]))}
                 fullWidth
-                helperText={formik.touched[lang] && formik.errors[lang]}
+                helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
                 label={title+' ('+availableLanguages[lang].label+')'}
                 name={lang}
                 onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
+                onChange={e => {
+                    formik.setFieldValue(lang, e.currentTarget.value);
+                }}
                 value={formik.values[lang]}
             />}
         </Grid>)}

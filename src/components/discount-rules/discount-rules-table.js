@@ -20,6 +20,7 @@ import {ResourceUnavailable} from '../resource-unavailable';
 import {Scrollbar} from '../scrollbar';
 import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../contexts/settings-context";
+import {Status} from "../status";
 
 const columns = [
   {
@@ -39,6 +40,23 @@ const columns = [
   {
     id: 'valid_until',
     label: 'Valid Until'
+  },
+  {
+    id: 'Enabled',
+    label: 'Enabled'
+  }
+];
+
+const statusVariants = [
+  {
+    color: 'success.main',
+    label: 'Enabled',
+    value: true
+  },
+  {
+    color: 'error.main',
+    label: 'Disabled',
+    value: false
   }
 ];
 
@@ -110,46 +128,57 @@ export const DiscountRulesTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dataState?.map((d) => (
-              <TableRow
-                hover
-                key={d.id}
-                selected={!!selectedElements.find((selectedCustomer) => selectedCustomer
-                  === d.id)}
-              >
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={!!selectedElements.find((selectedCustomer) => selectedCustomer
+            {dataState?.map((d) => {
+                const statusVariant = statusVariants.find((variant) => variant.value
+                  === d.enabled);
+
+                return (<TableRow
+                    hover
+                    key={d.id}
+                    selected={!!selectedElements.find((selectedCustomer) => selectedCustomer
                       === d.id)}
-                    onChange={(event) => onSelect(event, d.id)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Link
-                    color="inherit"
-                    component={RouterLink}
-                    sx={{display: 'block'}}
-                    to={"/dashboard/discount-rules/" + d.id}
-                    underline="none"
-                    variant="subtitle2"
                   >
-                    {d.name[language]}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  {d.value}
-                </TableCell>
-                <TableCell>
-                  {format(new Date(d.valid_from), 'dd/MM/yyyy HH:mm')}
-                </TableCell>
-                <TableCell>
-                  {format(new Date(d.valid_until), 'dd/MM/yyyy HH:mm')}
-                </TableCell>
-                <TableCell align="right">
-                  <CustomerMenu/>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={!!selectedElements.find((selectedCustomer) => selectedCustomer
+                          === d.id)}
+                        onChange={(event) => onSelect(event, d.id)}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Link
+                        color="inherit"
+                        component={RouterLink}
+                        sx={{display: 'block'}}
+                        to={"/dashboard/discount-rules/" + d.id}
+                        underline="none"
+                        variant="subtitle2"
+                      >
+                        {d.name[language]}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      {d.value}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(d.valid_from), 'dd/MM/yyyy HH:mm')}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(d.valid_until), 'dd/MM/yyyy HH:mm')}
+                    </TableCell>
+                    <TableCell>
+                      <Status
+                        color={statusVariant.color}
+                        label={statusVariant.label}
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <CustomerMenu/>
+                    </TableCell>
+                  </TableRow>
+                )
+              }
+            )}
           </TableBody>
         </Table>
       </Scrollbar>

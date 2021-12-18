@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductCreateDialog } from '../components/product/product-create-dialog';
-import { VoucherCodesTable } from '../components/voucher-codes/voucher-codes-table';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';
@@ -12,6 +11,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {DiscountRulesTable} from "../components/discount-rules/discount-rules-table";
+import {DiscountRuleCreateDialog} from "../components/discount-rules/discount-rule-create-dialog";
 
 const views = [
     {
@@ -238,9 +238,10 @@ export const DiscountRules = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
+          <DiscountRuleCreateDialog
             onClose={() => setOpenCreateDialog(false)}
             open={openCreateDialog}
+            onSuccess={() => fetchData().catch(console.error)}
           />
       </>
     );
