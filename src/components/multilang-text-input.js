@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {SettingsContext} from "../contexts/settings-context";
 import {InputField} from "./input-field";
-import {Grid} from "@material-ui/core";
+import {Grid, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false}) => {
+const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false, rows = null}) => {
     const {availableLanguages} = useContext(SettingsContext)
 
     const getInitialValues = () => {
@@ -49,7 +49,8 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
             xs={12}
             key={title+'-'+index}
         >
-            {formik.initialValues && <InputField
+            {formik.initialValues && (rows === null ? (
+              <InputField
                 error={Boolean((formik.touched[lang] && formik.errors[lang]) || (showErrors && formik.errors[lang]))}
                 fullWidth
                 helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
@@ -60,7 +61,23 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
                     formik.setFieldValue(lang, e.currentTarget.value);
                 }}
                 value={formik.values[lang]}
-            />}
+              />
+            ) : (
+              <TextField
+                error={Boolean((formik.touched[lang] && formik.errors[lang]) || (showErrors && formik.errors[lang]))}
+                fullWidth
+                multiline={true}
+                maxRows={rows}
+                helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
+                label={title+' ('+availableLanguages[lang].label+')'}
+                name={lang}
+                onBlur={formik.handleBlur}
+                onChange={e => {
+                    formik.setFieldValue(lang, e.currentTarget.value);
+                }}
+                value={formik.values[lang]}s
+              />
+            ))}
         </Grid>)}
     </>
 }

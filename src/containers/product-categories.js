@@ -5,10 +5,11 @@ import {APIContext} from "../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../contexts/settings-context";
 import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
-import ProductCategoriesTable from "../components/product/product-categories-table";
+import ProductCategoriesTable from "../components/product-categories/product-categories-table";
 import {getUrlFilters} from "../utils/apply-filters";
 import {Plus as PlusIcon} from "../icons/plus";
 import {ListFilter} from "../components/list-filter";
+import {ProductCategoryCreateDialog} from "../components/product-categories/product-category-create-dialog";
 
 const filterProperties = [
     {
@@ -213,6 +214,11 @@ const ProductCategories = () => {
                     </Card>
                 </Container>
             </Box>
+            <ProductCategoryCreateDialog
+              onClose={() => setOpenCreateDialog(false)}
+              open={openCreateDialog}
+              onSuccess={() => getCategories().catch(console.error)}
+            />
         </>
     )
 }

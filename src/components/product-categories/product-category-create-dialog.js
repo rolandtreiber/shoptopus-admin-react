@@ -15,48 +15,79 @@ import {
 } from '@material-ui/core';
 import {InputField} from '../input-field';
 import {DateTimePicker} from "@material-ui/lab";
-import {useContext, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {format} from "date-fns";
 import MultilangTextInput from "../multilang-text-input";
+import {getUrlFilters} from "../../utils/apply-filters";
+import {useMounted} from "../../hooks/use-mounted";
+import {SettingsContext} from "../../contexts/settings-context";
 
-export const DiscountRuleCreateDialog = (props) => {
+export const ProductCategoryCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
   const plusOneMonth = new Date().setMonth(new Date().getMonth() + 1);
-  const {saveDiscountRule} = useContext(APIContext)
+  const {fetchProductCategoriesSelectData} = useContext(APIContext)
+  const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
+  const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
+  const mounted = useMounted();
+  const {language} = useContext(SettingsContext)
+
+  useEffect(() => {
+    fetchCategoriesSelectData().catch(console.error)
+  }, [])
+
+  const fetchCategoriesSelectData = useCallback(async () => {
+    setCategoriesSelectData(() => ({isLoading: true}));
+
+    try {
+      const result = await fetchProductCategoriesSelectData()
+
+      if (mounted.current) {
+        setCategoriesSelectData(() => ({
+          isLoading: false,
+          data: result.data.data,
+          paginationMeta: result.data.meta
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (mounted.current) {
+        setCategoriesSelectData(() => ({
+          isLoading: false,
+          error: err.message
+        }));
+      }
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      amount: 0,
+      parentId: null,
       submit: 'null',
-      validFrom: new Date(),
-      validUntil: plusOneMonth,
-      type: "0",
       enabled: true
     },
     validationSchema: Yup.object().shape({
-      type: Yup.number(),
-      amount: Yup.number().moreThan(0).required('Amount is required')
     }),
     onSubmit: async (values, helpers) => {
       try {
-        saveDiscountRule({
-          name: JSON.stringify(name),
-          amount: formik.values.amount,
-          valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
-          valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
-          enabled: formik.values.enabled,
-          type: formik.values.type
-        }).then(response => {
-          toast.success('Discount Rule Created');
-          helpers.setStatus({success: true});
-          helpers.setSubmitting(false);
-          helpers.resetForm();
-          onSuccess();
-          onClose?.();
-        })
+        // saveDiscountRule({
+        //   name: JSON.stringify(name),
+        //   amount: formik.values.amount,
+        //   valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+        //   valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+        //   enabled: formik.values.enabled,
+        //   type: formik.values.type
+        // }).then(response => {
+        //   toast.success('Voucher Code Created');
+        //   helpers.setStatus({success: true});
+        //   helpers.setSubmitting(false);
+        //   helpers.resetForm();
+        //   onSuccess();
+        //   onClose?.();
+        // })
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -76,7 +107,7 @@ export const DiscountRuleCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Discount Rule
+        Create Product Category
       </DialogTitle>
       <DialogContent>
         <Grid
@@ -97,47 +128,48 @@ export const DiscountRuleCreateDialog = (props) => {
           spacing={2}
           mt={1}
         >
-          <Grid
-            item
-            xs={6}
-          >
-            <DateTimePicker
-              label="Valid From"
-              value={formik.values.validFrom}
-              onChange={val => {
-                formik.setFieldValue("validFrom", val);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={6}
-          >
-            <DateTimePicker
-              label="Valid Until"
-              value={formik.values.validUntil}
-              onChange={val => {
-                formik.setFieldValue("validUntil", val);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Grid>
+          <MultilangTextInput
+            width={12}
+            title={"Description"}
+            field={"description"}
+            onChange={setDescription}
+            showErrors={showErrors}
+            rows={4}
+          />
+        </Grid>
+        <Grid
+          container
+          spacing={2}
+          mt={1}
+        >
           <Grid
             item
             xs={12}
           >
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Type</FormLabel>
-              <RadioGroup value={formik.values.type}
-                          onChange={event => {
-                            formik.setFieldValue("type", event.currentTarget.value.toString());
-                          }}
+            {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
+              <TextField
+                id="outlined-select-currency-native"
+                select
+                label="Parent"
+                value={formik.values.parentId}
+                fullWidth={true}
+                onChange={event => {
+                  formik.setFieldValue("parentId", event.currentTarget.value);
+                }}
+                SelectProps={{
+                  native: true,
+                }}
               >
-                <FormControlLabel value={"1"} control={<Radio/>} label="Fix amount"/>
-                <FormControlLabel value={"0"} control={<Radio/>} label="Percentage"/>
-              </RadioGroup>
-            </FormControl>
+                <option key={'no-parent'} value={null}>
+
+                </option>
+                {categoriesSelectData.data.map((option) => (
+                  <option key={option.name[language]} value={option.id}>
+                    {option.name[language]}
+                  </option>
+                ))}
+              </TextField>
+            )}
           </Grid>
 
           <Grid
@@ -204,18 +236,18 @@ export const DiscountRuleCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Discount Rule
+          Create Product Category
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-DiscountRuleCreateDialog.defaultProps = {
+ProductCategoryCreateDialog.defaultProps = {
   open: false
 };
 
-DiscountRuleCreateDialog.propTypes = {
+ProductCategoryCreateDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

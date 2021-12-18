@@ -129,6 +129,7 @@ const APIProvider = ({children}) => {
 
       // Product Categories
       fetchProductCategories: async (params) => await get(admin_api_url + "product-categories", params, makeHeaders()),
+      fetchProductCategoriesSelectData: async (params) => await get(admin_api_url + "product-categories/select-data", {}, makeHeaders()),
       fetchProductCategory: async (categoryId) => await get(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
       saveProductCategory: async (params) => await post(admin_api_url + "product-category", params, makeHeaders()),
       updateProductCategory: async (categoryId, params) => await put(admin_api_url + "product-category/" + categoryId, params, makeHeaders()),
