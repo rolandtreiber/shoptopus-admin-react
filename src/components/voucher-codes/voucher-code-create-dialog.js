@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -9,39 +9,54 @@ import {
   DialogContent,
   DialogTitle, FormControlLabel,
   FormHelperText,
-  Grid, Switch, TextField
+  Grid, Switch, TextField,
+  Radio,
+  RadioGroup, FormControl, FormLabel,
 } from '@material-ui/core';
-import { InputField } from '../input-field';
+import {InputField} from '../input-field';
 import {DateTimePicker} from "@material-ui/lab";
+import {useContext} from "react";
+import {APIContext} from "../../contexts/api-context";
+import {format} from "date-fns";
 
 export const VoucherCodeCreateDialog = (props) => {
-  const { open, onClose, ...other } = props;
+  const {open, onClose, onSuccess, ...other} = props;
+  const plusOneMonth = new Date().setMonth(new Date().getMonth()+1);
+  const { saveVoucherCode } = useContext(APIContext)
+
   const formik = useFormik({
     initialValues: {
-      description: '',
-      name: '',
+      amount: 0,
       submit: 'null',
       validFrom: new Date(),
-      validUntil: new Date(),
-      type: false
+      validUntil: plusOneMonth,
+      type: "0",
+      enabled: true
     },
     validationSchema: Yup.object().shape({
-      validFrom: Yup.date(),
-      validUntil: Yup.date(),
-      description: Yup.string().max(500).required('Description is required'),
-      name: Yup.string().max(255).required('Name is required')
+      type: Yup.number(),
+      amount: Yup.number().moreThan(0).required('Amount is required')
     }),
     onSubmit: async (values, helpers) => {
       try {
-        toast.success('Product created');
-        helpers.setStatus({ success: true });
-        helpers.setSubmitting(false);
-        helpers.resetForm();
-        onClose?.();
+        saveVoucherCode({
+          amount: formik.values.amount,
+          valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+          valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+          enabled: formik.values.enabled,
+          type: formik.values.type
+        }).then(response => {
+          toast.success('Voucher Code Created');
+          helpers.setStatus({success: true});
+          helpers.setSubmitting(false);
+          helpers.resetForm();
+          onSuccess();
+          onClose?.();
+        })
       } catch (err) {
         console.error(err);
-        helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
+        helpers.setStatus({success: false});
+        helpers.setErrors({submit: err.message});
         helpers.setSubmitting(false);
       }
     }
@@ -69,27 +84,60 @@ export const VoucherCodeCreateDialog = (props) => {
             item
             xs={6}
           >
-          <DateTimePicker
-            label="Valid From"
-            value={formik.values.validFrom}
-            onChange={val => {
-              formik.setFieldValue("validFrom", val);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
+            <DateTimePicker
+              label="Valid From"
+              value={formik.values.validFrom}
+              onChange={val => {
+                formik.setFieldValue("validFrom", val);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
           </Grid>
           <Grid
             item
             xs={6}
           >
-          <DateTimePicker
-            label="Valid Until"
-            value={formik.values.validFrom}
-            onChange={val => {
-              formik.setFieldValue("validUntil", val);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
+            <DateTimePicker
+              label="Valid Until"
+              value={formik.values.validUntil}
+              onChange={val => {
+                formik.setFieldValue("validUntil", val);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Type</FormLabel>
+              <RadioGroup value={formik.values.type}
+                          onChange={event => {
+                            formik.setFieldValue("type", event.currentTarget.value.toString());
+                          }}
+              >
+                <FormControlLabel value={"1"} control={<Radio/>} label="Fix amount"/>
+                <FormControlLabel value={"0"} control={<Radio/>} label="Percentage"/>
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+          >
+            <InputField
+              error={Boolean(formik.touched.amount && formik.errors.amount)}
+              fullWidth
+              helperText={formik.touched.amount && formik.errors.amount}
+              label="Amount"
+              name="amount"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.amount}
+              type={"number"}
+            />
           </Grid>
           <Grid
             item
@@ -98,49 +146,17 @@ export const VoucherCodeCreateDialog = (props) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={formik.values.type}
+                  checked={formik.values.enabled}
                   onChange={event => {
-                    formik.setFieldValue("type", event.currentTarget.checked);
+                    formik.setFieldValue("enabled", event.currentTarget.checked);
                   }}
                   color="primary"
-                  inputProps={{ 'aria-label': 'controlled' }}
+                  inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.type ? "Price" : "Percentage"}
+              label={formik.values.type ? "Enabled" : "Disabled"}
             />
 
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <InputField
-              error={Boolean(formik.touched.name && formik.errors.name)}
-              fullWidth
-              helperText={formik.touched.name && formik.errors.name}
-              label="Product name"
-              name="name"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <InputField
-              error={Boolean(formik.touched.description && formik.errors.description)}
-              fullWidth
-              helperText={formik.touched.description && formik.errors.description}
-              label="Description"
-              multiline
-              name="description"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              rows={4}
-              value={formik.values.description}
-            />
           </Grid>
           {formik.errors.submit && (
             <Grid
@@ -165,7 +181,9 @@ export const VoucherCodeCreateDialog = (props) => {
         <Button
           color="primary"
           disabled={formik.isSubmitting}
-          onClick={() => { formik.handleSubmit(); }}
+          onClick={() => {
+            formik.handleSubmit();
+          }}
           variant="contained"
         >
           Create Voucher Code

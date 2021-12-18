@@ -128,7 +128,7 @@ export const VoucherCodes = () => {
             page: 0,
             filters: [
                 {
-                    property: 'name',
+                    property: 'code',
                     value: newQuery,
                     operator: "contains"
                 }
@@ -240,6 +240,7 @@ export const VoucherCodes = () => {
             <VoucherCodeCreateDialog
                 onClose={() => setOpenCreateDialog(false)}
                 open={openCreateDialog}
+                onSuccess={() => fetchData().catch(console.error)}
             />
         </>
     );

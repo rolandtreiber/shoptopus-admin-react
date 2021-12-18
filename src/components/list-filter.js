@@ -146,7 +146,7 @@ export const ListFilter = (props) => {
                           order: 3
                       }}
                     >
-                    {mode !== null && (<ToggleButtonGroup
+                    {mode !== null && mode !== undefined && (<ToggleButtonGroup
                       exclusive
                       onChange={onModeChange}
                       size="small"
