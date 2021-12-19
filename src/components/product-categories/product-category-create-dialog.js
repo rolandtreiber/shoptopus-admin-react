@@ -10,22 +10,16 @@ import {
   DialogTitle, FormControlLabel,
   FormHelperText,
   Grid, Switch, TextField,
-  Radio,
-  RadioGroup, FormControl, FormLabel,
 } from '@material-ui/core';
-import {InputField} from '../input-field';
-import {DateTimePicker} from "@material-ui/lab";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
-import {format} from "date-fns";
 import MultilangTextInput from "../multilang-text-input";
-import {getUrlFilters} from "../../utils/apply-filters";
 import {useMounted} from "../../hooks/use-mounted";
 import {SettingsContext} from "../../contexts/settings-context";
+import {Uploader} from "../uploader";
 
 export const ProductCategoryCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
-  const plusOneMonth = new Date().setMonth(new Date().getMonth() + 1);
   const {fetchProductCategoriesSelectData} = useContext(APIContext)
   const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
@@ -33,6 +27,9 @@ export const ProductCategoryCreateDialog = (props) => {
   const [showErrors, setShowErrors] = useState(false)
   const mounted = useMounted();
   const {language} = useContext(SettingsContext)
+  const [menuImage, setMenuImage] = useState(null)
+  const [headerImage, setHeaderImage] = useState(null)
+  const [multipleImages, setMultipleImages] = useState([])
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
@@ -65,7 +62,7 @@ export const ProductCategoryCreateDialog = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      parentId: null,
+      parentId: '',
       submit: 'null',
       enabled: true
     },
@@ -172,21 +169,11 @@ export const ProductCategoryCreateDialog = (props) => {
             )}
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-          >
-            <InputField
-              error={Boolean(formik.touched.amount && formik.errors.amount)}
-              fullWidth
-              helperText={formik.touched.amount && formik.errors.amount}
-              label="Amount"
-              name="amount"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.amount}
-              type={"number"}
-            />
+          <Grid item xs={12}>
+            <Uploader title={"Menu Image"} multiple={false} data={menuImage} setData={setMenuImage}/>
+          </Grid>
+          <Grid item xs={12}>
+            <Uploader title={"Header Image"} multiple={false} data={headerImage} setData={setHeaderImage}/>
           </Grid>
           <Grid
             item

@@ -63,7 +63,7 @@ export const ImageDropzone = (props) => {
         sx={{ color: 'text.secondary' }}
         variant="caption"
       >
-        Select images
+        {props.multiple === true ? 'Select images' : 'Select image'}
       </Typography>
     </Box>
   );

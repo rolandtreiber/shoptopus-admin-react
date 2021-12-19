@@ -75,7 +75,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
                 onChange={e => {
                     formik.setFieldValue(lang, e.currentTarget.value);
                 }}
-                value={formik.values[lang]}s
+                value={formik.values[lang]}
               />
             ))}
         </Grid>)}
