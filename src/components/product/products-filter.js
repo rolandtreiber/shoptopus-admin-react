@@ -47,7 +47,7 @@ const filterProperties = [
   },
   {
     label: 'Updated At',
-    name: 'updatedAt',
+    name: 'updated_at',
     type: 'date'
   },
   {
