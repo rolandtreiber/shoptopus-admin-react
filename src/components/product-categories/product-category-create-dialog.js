@@ -17,10 +17,11 @@ import MultilangTextInput from "../multilang-text-input";
 import {useMounted} from "../../hooks/use-mounted";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Uploader} from "../uploader";
+import {getFileFromBlob} from "../../utils/file-operations";
 
 export const ProductCategoryCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
-  const {fetchProductCategoriesSelectData} = useContext(APIContext)
+  const {fetchProductCategoriesSelectData, saveProductCategory} = useContext(APIContext)
   const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
   const [description, setDescription] = useState()
@@ -29,7 +30,6 @@ export const ProductCategoryCreateDialog = (props) => {
   const {language} = useContext(SettingsContext)
   const [menuImage, setMenuImage] = useState(null)
   const [headerImage, setHeaderImage] = useState(null)
-  const [multipleImages, setMultipleImages] = useState([])
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
@@ -64,27 +64,30 @@ export const ProductCategoryCreateDialog = (props) => {
     initialValues: {
       parentId: '',
       submit: 'null',
-      enabled: true
+      enabled: true,
     },
     validationSchema: Yup.object().shape({
     }),
     onSubmit: async (values, helpers) => {
       try {
-        // saveDiscountRule({
-        //   name: JSON.stringify(name),
-        //   amount: formik.values.amount,
-        //   valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
-        //   valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
-        //   enabled: formik.values.enabled,
-        //   type: formik.values.type
-        // }).then(response => {
-        //   toast.success('Voucher Code Created');
-        //   helpers.setStatus({success: true});
-        //   helpers.setSubmitting(false);
-        //   helpers.resetForm();
-        //   onSuccess();
-        //   onClose?.();
-        // })
+        const menuImageBlob = await fetch(menuImage).then(r => r.blob());
+        const headerImageBlob = await fetch(headerImage).then(r => r.blob());
+        let formData = new FormData();
+        formData.append("name", JSON.stringify(name))
+        formData.append("description", JSON.stringify(description))
+        formData.append("enabled", formik.values.enabled)
+        formData.append("parent_id", formik.values.parentId)
+        formData.append("menu_image", getFileFromBlob(menuImageBlob))
+        formData.append("header_image", getFileFromBlob(headerImageBlob))
+
+        saveProductCategory(formData).then(response => {
+          toast.success('Product Category Created');
+          helpers.setStatus({success: true});
+          helpers.setSubmitting(false);
+          helpers.resetForm();
+          onSuccess();
+          onClose?.();
+        })
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -161,7 +164,7 @@ export const ProductCategoryCreateDialog = (props) => {
 
                 </option>
                 {categoriesSelectData.data.map((option) => (
-                  <option key={option.name[language]} value={option.id}>
+                  <option key={option.id} value={option.id}>
                     {option.name[language]}
                   </option>
                 ))}

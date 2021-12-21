@@ -55,6 +55,14 @@ const APIProvider = ({children}) => {
     return await createAxios().get(url + "?" + urlParams + filtersString, config)
   }
 
+  const postAsMultipartFormData = async (url, params = {}, headers = {}) => {
+    let config = {headers: {
+      ...headers,
+        "Content-Type" : "multipart/form-data"
+      }}
+    return await createAxios().post(url, params, config)
+  }
+
   const post = async (url, params = {}, headers = {}) => {
     let config = {headers: headers}
     return await createAxios().post(url, params, config)
@@ -131,7 +139,7 @@ const APIProvider = ({children}) => {
       fetchProductCategories: async (params) => await get(admin_api_url + "product-categories", params, makeHeaders()),
       fetchProductCategoriesSelectData: async (params) => await get(admin_api_url + "product-categories/select-data", {}, makeHeaders()),
       fetchProductCategory: async (categoryId) => await get(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
-      saveProductCategory: async (params) => await post(admin_api_url + "product-category", params, makeHeaders()),
+      saveProductCategory: async (params) => await postAsMultipartFormData(admin_api_url + "product-category", params, makeHeaders()),
       updateProductCategory: async (categoryId, params) => await put(admin_api_url + "product-category/" + categoryId, params, makeHeaders()),
       deleteProductCategory: async (categoryId) => await del(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
 
