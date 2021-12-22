@@ -4,11 +4,12 @@ import {useSelection} from "../hooks/use-selection";
 import {APIContext} from "../contexts/api-context";
 import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
 import {Plus as PlusIcon} from "../icons/plus";
-import ProductAttributesTable from "../components/product/product-attributes-table";
+import ProductAttributesTable from "../components/product-attributes/product-attributes-table";
 import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import {Helmet} from "react-helmet-async";
 import {ListFilter} from "../components/list-filter";
+import {ProductAttributeCreateDialog} from "../components/product-attributes/product-attribute-create-dialog";
 
 const filterProperties = [
     {
@@ -221,6 +222,11 @@ const ProductAttributes = () => {
                     </Card>
                 </Container>
             </Box>
+            <ProductAttributeCreateDialog
+              onClose={() => setOpenCreateDialog(false)}
+              open={openCreateDialog}
+              onSuccess={() => getAttributes().catch(console.error)}
+            />
         </>
     )
 }

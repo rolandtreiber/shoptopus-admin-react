@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import {Scrollbar} from "../scrollbar";
 import { Link as RouterLink } from 'react-router-dom';
-import {ProductMenu} from "./product-menu";
+import {ProductMenu} from "../product/product-menu";
 import {ResourceError} from "../resource-error";
 import {ResourceUnavailable} from "../resource-unavailable";
 import {Pagination} from "../pagination";
