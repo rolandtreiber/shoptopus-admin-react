@@ -90,10 +90,7 @@ export const OrderPaymentDialog = (props) => {
           container
           spacing={2}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               disabled
               fullWidth
@@ -102,10 +99,7 @@ export const OrderPaymentDialog = (props) => {
               value={order.paymentId}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.paymentStatus && formik.errors.paymentStatus)}
               fullWidth
@@ -127,10 +121,7 @@ export const OrderPaymentDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.paymentMethod && formik.errors.paymentMethod)}
               fullWidth
@@ -152,10 +143,7 @@ export const OrderPaymentDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.courier && formik.errors.courier)}
               fullWidth
@@ -177,10 +165,7 @@ export const OrderPaymentDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.trackingCode && formik.errors.trackingCode)}
               fullWidth

@@ -113,10 +113,7 @@ export const OrderInfoDialog = (props) => {
           container
           spacing={2}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
@@ -129,10 +126,7 @@ export const OrderInfoDialog = (props) => {
               value={formik.values.email}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.address && formik.errors.address)}
               fullWidth
@@ -144,10 +138,7 @@ export const OrderInfoDialog = (props) => {
               value={formik.values.address}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.phone && formik.errors.phone)}
               fullWidth
@@ -159,10 +150,7 @@ export const OrderInfoDialog = (props) => {
               value={formik.values.phone}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.status && formik.errors.status)}
               fullWidth
@@ -184,10 +172,7 @@ export const OrderInfoDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.country && formik.errors.country)}
               fullWidth
@@ -209,10 +194,7 @@ export const OrderInfoDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.city && formik.errors.city)}
               fullWidth

@@ -17,43 +17,43 @@ import MultilangTextInput from "../multilang-text-input";
 import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
+import {InputField} from "../input-field";
 
-const types = [
-  'Text', 'Image', 'Color'
-];
-
-export const ProductAttributeCreateDialog = (props) => {
+export const BannerCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
-  const {saveProductAttribute} = useContext(APIContext)
-  const [name, setName] = useState()
+  const {saveBanner} = useContext(APIContext)
+  const [title, setTitle] = useState()
+  const [description, setDescription] = useState()
+  const [buttonText, setButtonText] = useState()
   const [showErrors, setShowErrors] = useState(false)
-  const [image, setImage] = useState(null)
+  const [backgroundImage, setBackgroundImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
 
   const formik = useFormik({
     initialValues: {
-      parentId: '',
       submit: 'null',
       enabled: true,
-      type: 0
+      type: 0,
+      button_url: ''
     },
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
-        const imageBlob = await fetch(image).then(r => r.blob());
+        const backgroundImageBlob = await fetch(backgroundImage).then(r => r.blob());
         let formData = new FormData();
-        formData.append("name", JSON.stringify(name))
+        formData.append("title", JSON.stringify(title))
+        formData.append("description", JSON.stringify(description))
+        formData.append("button_text", JSON.stringify(buttonText))
+        formData.append("button_url", formik.values.button_url)
+        formData.append("background_image", getFileFromBlob(backgroundImageBlob))
         formData.append("enabled", formik.values.enabled)
-        formData.append("parent_id", formik.values.parentId)
-        formData.append("image", getFileFromBlob(imageBlob))
-        formData.append("type", formik.values.type)
 
-        isValid && saveProductAttribute(formData).then(response => {
+        isValid && saveBanner(formData).then(response => {
           toast.success('Product Attribute Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
-          setImage(null)
+          setBackgroundImage(null)
           setShowErrors(false)
           onSuccess();
           onClose?.();
@@ -80,48 +80,61 @@ export const ProductAttributeCreateDialog = (props) => {
         Create Product Attribute
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
-          <MultilangTextInput
-            width={12}
-            title={"Name"}
-            field={"name"}
-            onChange={setName}
-            showErrors={showErrors}
-            setValid={(valid) => {setValidation({name : valid})}}
-          />
-        </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid item xs={12}>
-            <Uploader title={"Image"} multiple={false} data={image} setData={setImage}/>
+            <MultilangTextInput
+              width={12}
+              title={"Title"}
+              field={"title"}
+              onChange={setTitle}
+              showErrors={showErrors}
+              setValid={(valid) => {
+                setValidation({title: valid})
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              id="outlined-select-currency-native"
-              select
-              label="Type"
-              value={formik.values.parentId}
-              fullWidth={true}
-              onChange={event => {
-                formik.setFieldValue("parentId", event.currentTarget.value);
+            <MultilangTextInput
+              width={12}
+              title={"Description"}
+              field={"description"}
+              onChange={setDescription}
+              showErrors={showErrors}
+              setValid={(valid) => {
+                setValidation({description: valid})
               }}
-              SelectProps={{
-                native: true,
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <MultilangTextInput
+              width={12}
+              title={"Button Text"}
+              field={"button_text"}
+              onChange={setButtonText}
+              showErrors={showErrors}
+              setValid={(valid) => {
+                setValidation({button_text: valid})
               }}
-            >
-              {types.map((option, index) => (
-                <option key={option} value={index}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <InputField
+              error={Boolean(formik.touched.button_url && formik.errors.button_url)}
+              fullWidth
+              helperText={formik.touched.button_url && formik.errors.button_url}
+              label="Button Url"
+              name="button_url"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.button_url}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} mt={1}>
+          <Grid item xs={12}>
+            <Uploader title={"Background Image"} multiple={false} data={backgroundImage} setData={setBackgroundImage}/>
+          </Grid>
+          <Grid item xs={12}>
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
@@ -135,7 +148,7 @@ export const ProductAttributeCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.type ? "Enabled" : "Disabled"}
+              label={formik.values.enabled ? "Enabled" : "Disabled"}
             />
 
           </Grid>
@@ -175,11 +188,11 @@ export const ProductAttributeCreateDialog = (props) => {
   );
 };
 
-ProductAttributeCreateDialog.defaultProps = {
+BannerCreateDialog.defaultProps = {
   open: false
 };
 
-ProductAttributeCreateDialog.propTypes = {
+BannerCreateDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

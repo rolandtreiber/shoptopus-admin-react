@@ -67,10 +67,7 @@ export const CustomerDialog = (props) => {
           container
           spacing={2}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
@@ -84,10 +81,7 @@ export const CustomerDialog = (props) => {
               value={formik.values.email}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.fullName && formik.errors.fullName)}
               fullWidth
@@ -100,10 +94,7 @@ export const CustomerDialog = (props) => {
               value={formik.values.fullName}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.phone && formik.errors.phone)}
               fullWidth
@@ -115,10 +106,7 @@ export const CustomerDialog = (props) => {
               value={formik.values.phone}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.country && formik.errors.country)}
               fullWidth
@@ -140,10 +128,7 @@ export const CustomerDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.address && formik.errors.address)}
               fullWidth

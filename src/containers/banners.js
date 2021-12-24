@@ -11,6 +11,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {BannersTable} from "../components/banners/banners-table";
+import {BannerCreateDialog} from "../components/banners/banner-create-dialog";
 
 const views = [
     {
@@ -224,9 +225,10 @@ export const Banners = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
+          <BannerCreateDialog
             onClose={() => setOpenCreateDialog(false)}
             open={openCreateDialog}
+            onSuccess={() => fetchData().catch(console.error)}
           />
       </>
     );

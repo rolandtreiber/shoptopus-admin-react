@@ -232,10 +232,7 @@ export const ReportsOverview = () => {
           container
           spacing={3}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <Notifications />
           </Grid>
           {stats.map((item) => (
@@ -254,10 +251,7 @@ export const ReportsOverview = () => {
               />
             </Grid>
           ))}
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <Bills />
           </Grid>
           <Grid

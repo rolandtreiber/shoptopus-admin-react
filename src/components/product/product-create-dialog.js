@@ -58,10 +58,7 @@ export const ProductCreateDialog = (props) => {
           container
           spacing={2}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.name && formik.errors.name)}
               fullWidth
@@ -73,10 +70,7 @@ export const ProductCreateDialog = (props) => {
               value={formik.values.name}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.description && formik.errors.description)}
               fullWidth

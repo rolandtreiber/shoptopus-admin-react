@@ -233,7 +233,7 @@ const APIProvider = ({children}) => {
       getProductsPageSummary: async () => await get(admin_api_url + "products/summary", {}, makeHeaders()),
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
 
-      // Banners
+      // Files
       fetchFiles: async (params) => await get(admin_api_url + "files", params, makeHeaders()),
       fetchFile: async (fileId) => await get(admin_api_url + "file/" + fileId, {}, makeHeaders()),
       saveFile: async (params) => await post(admin_api_url + "file", params, makeHeaders()),

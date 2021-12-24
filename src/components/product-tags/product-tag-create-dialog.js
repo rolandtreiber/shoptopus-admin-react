@@ -117,10 +117,7 @@ export const ProductTagCreateDialog = (props) => {
           spacing={2}
           mt={1}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
               <TextField
                 id="outlined-select-currency-native"

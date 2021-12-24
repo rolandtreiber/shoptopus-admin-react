@@ -149,10 +149,7 @@ export const ProductCategoryCreateDialog = (props) => {
           spacing={2}
           mt={1}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
               <TextField
                 id="outlined-select-currency-native"
@@ -185,10 +182,7 @@ export const ProductCategoryCreateDialog = (props) => {
           <Grid item xs={12}>
             <Uploader title={"Header Image"} multiple={false} data={headerImage} setData={setHeaderImage}/>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Switch

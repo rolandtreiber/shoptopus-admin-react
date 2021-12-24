@@ -97,10 +97,7 @@ export const ProductVariantDialog = (props) => {
           container
           spacing={2}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.name && formik.errors.name)}
               fullWidth
@@ -113,10 +110,7 @@ export const ProductVariantDialog = (props) => {
               value={formik.values.name}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.sku && formik.errors.sku)}
               fullWidth
@@ -129,10 +123,7 @@ export const ProductVariantDialog = (props) => {
               value={formik.values.sku}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.description && formik.errors.description)}
               fullWidth
@@ -147,10 +138,7 @@ export const ProductVariantDialog = (props) => {
               value={formik.values.description}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.currency && formik.errors.currency)}
               helperText={formik.touched.currency && formik.errors.currency}
@@ -172,10 +160,7 @@ export const ProductVariantDialog = (props) => {
               ))}
             </InputField>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.price && formik.errors.price)}
               helperText={formik.touched.price && formik.errors.price}
@@ -196,10 +181,7 @@ export const ProductVariantDialog = (props) => {
               }}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <Typography
               color="textPrimary"
               sx={{ mb: 1.25 }}

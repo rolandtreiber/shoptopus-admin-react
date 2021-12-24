@@ -106,10 +106,7 @@ export const VoucherCodeCreateDialog = (props) => {
               renderInput={(params) => <TextField {...params} />}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormControl component="fieldset">
               <FormLabel component="legend">Type</FormLabel>
               <RadioGroup value={formik.values.type}
@@ -123,10 +120,7 @@ export const VoucherCodeCreateDialog = (props) => {
             </FormControl>
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.amount && formik.errors.amount)}
               fullWidth
@@ -139,10 +133,7 @@ export const VoucherCodeCreateDialog = (props) => {
               type={"number"}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Switch

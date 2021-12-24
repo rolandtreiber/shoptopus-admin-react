@@ -19,6 +19,7 @@ import {useContext, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {format} from "date-fns";
 import MultilangTextInput from "../multilang-text-input";
+import {useNestedValidation} from "../../hooks/use-nested-validation";
 
 export const DiscountRuleCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
@@ -26,6 +27,7 @@ export const DiscountRuleCreateDialog = (props) => {
   const {saveDiscountRule} = useContext(APIContext)
   const [name, setName] = useState()
   const [showErrors, setShowErrors] = useState(false)
+  const {setValidation, isValid} = useNestedValidation()
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +44,7 @@ export const DiscountRuleCreateDialog = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        saveDiscountRule({
+        isValid && saveDiscountRule({
           name: JSON.stringify(name),
           amount: formik.values.amount,
           valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
@@ -90,6 +92,7 @@ export const DiscountRuleCreateDialog = (props) => {
             field={"name"}
             onChange={setName}
             showErrors={showErrors}
+            setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
         <Grid
@@ -123,10 +126,7 @@ export const DiscountRuleCreateDialog = (props) => {
               renderInput={(params) => <TextField {...params} />}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormControl component="fieldset">
               <FormLabel component="legend">Type</FormLabel>
               <RadioGroup value={formik.values.type}
@@ -140,10 +140,7 @@ export const DiscountRuleCreateDialog = (props) => {
             </FormControl>
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <InputField
               error={Boolean(formik.touched.amount && formik.errors.amount)}
               fullWidth
@@ -156,10 +153,7 @@ export const DiscountRuleCreateDialog = (props) => {
               type={"number"}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Switch

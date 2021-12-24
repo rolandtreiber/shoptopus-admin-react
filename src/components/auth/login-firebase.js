@@ -102,10 +102,7 @@ export const LoginFirebase = () => {
           />
         </Grid>
         {formik.errors.submit && (
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <FormHelperText error>
               {formik.errors.submit}
             </FormHelperText>

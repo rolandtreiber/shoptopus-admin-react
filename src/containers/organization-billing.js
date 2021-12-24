@@ -26,10 +26,7 @@ export const OrganizationBilling = () => {
           container
           spacing={3}
         >
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <Card variant="outlined">
               <Grid container>
                 <Grid
@@ -71,10 +68,7 @@ export const OrganizationBilling = () => {
               </Grid>
             </Card>
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <OrganizationBillingInfo />
           </Grid>
           {showAlert && (
@@ -90,10 +84,7 @@ export const OrganizationBilling = () => {
               </Alert>
             </Grid>
           )}
-          <Grid
-            item
-            xs={12}
-          >
+          <Grid item xs={12}>
             <OrganizationBillingPlan />
           </Grid>
         </Grid>
