@@ -11,23 +11,23 @@ import {
   FormHelperText,
   Grid, Switch, TextField,
 } from '@material-ui/core';
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import MultilangTextInput from "../multilang-text-input";
+import {SettingsContext} from "../../contexts/settings-context";
 import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 
-const types = [
-  'Text', 'Image', 'Color'
-];
-
-export const ProductAttributeCreateDialog = (props) => {
+export const ProductTagCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
-  const {saveProductAttribute} = useContext(APIContext)
+  const {saveProductTag} = useContext(APIContext)
+  const [categoriesSelectData] = useState()
   const [name, setName] = useState()
+  const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
-  const [image, setImage] = useState(null)
+  const {language} = useContext(SettingsContext)
+  const [badge, setBadge] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
 
   const formik = useFormik({
@@ -35,25 +35,24 @@ export const ProductAttributeCreateDialog = (props) => {
       parentId: '',
       submit: 'null',
       enabled: true,
-      type: 0
+      display_badge: false
     },
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
-        const imageBlob = await fetch(image).then(r => r.blob());
+        const badgeBlob = await fetch(badge).then(r => r.blob());
         let formData = new FormData();
         formData.append("name", JSON.stringify(name))
+        formData.append("description", JSON.stringify(description))
         formData.append("enabled", formik.values.enabled)
-        formData.append("parent_id", formik.values.parentId)
-        formData.append("image", getFileFromBlob(imageBlob))
-        formData.append("type", formik.values.type)
+        formData.append("badge", getFileFromBlob(badgeBlob))
 
-        isValid && saveProductAttribute(formData).then(response => {
-          toast.success('Product Attribute Created');
+        isValid && saveProductTag(formData).then(response => {
+          toast.success('Product Tag Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
-          setImage(null)
+          setBadge(null)
           setShowErrors(false)
           onSuccess();
           onClose?.();
@@ -67,6 +66,10 @@ export const ProductAttributeCreateDialog = (props) => {
     }
   });
 
+  useEffect(() => {
+    console.log(isValid)
+  }, [isValid])
+
   return (
     <Dialog
       onClose={onClose}
@@ -77,7 +80,7 @@ export const ProductAttributeCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Attribute
+        Create Product Tag
       </DialogTitle>
       <DialogContent>
         <Grid
@@ -99,37 +102,55 @@ export const ProductAttributeCreateDialog = (props) => {
           spacing={2}
           mt={1}
         >
-          <Grid item xs={12}>
-            <Uploader title={"Image"} multiple={false} data={image} setData={setImage}/>
-          </Grid>
+          <MultilangTextInput
+            width={12}
+            title={"Description"}
+            field={"description"}
+            onChange={setDescription}
+            showErrors={showErrors}
+            setValid={(valid) => {setValidation({description : valid})}}
+            rows={4}
+          />
+        </Grid>
+        <Grid
+          container
+          spacing={2}
+          mt={1}
+        >
           <Grid
             item
             xs={12}
           >
-            <TextField
-              id="outlined-select-currency-native"
-              select
-              label="Type"
-              value={formik.values.parentId}
-              fullWidth={true}
-              onChange={event => {
-                formik.setFieldValue("parentId", event.currentTarget.value);
-              }}
-              SelectProps={{
-                native: true,
-              }}
-            >
-              {types.map((option, index) => (
-                <option key={option} value={index}>
-                  {option}
+            {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
+              <TextField
+                id="outlined-select-currency-native"
+                select
+                label="Parent"
+                value={formik.values.parentId}
+                fullWidth={true}
+                onChange={event => {
+                  formik.setFieldValue("parentId", event.currentTarget.value);
+                }}
+                SelectProps={{
+                  native: true,
+                }}
+              >
+                <option key={'no-parent'} value={null}>
+
                 </option>
-              ))}
-            </TextField>
+                {categoriesSelectData.data.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name[language]}
+                  </option>
+                ))}
+              </TextField>
+            )}
           </Grid>
-          <Grid
-            item
-            xs={12}
-          >
+
+          <Grid item xs={12}>
+            <Uploader title={"Badge"} multiple={false} data={badge} setData={setBadge}/>
+          </Grid>
+          <Grid item xs={6}>
             <FormControlLabel
               control={
                 <Switch
@@ -141,9 +162,23 @@ export const ProductAttributeCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.type ? "Enabled" : "Disabled"}
+              label={formik.values.enabled === true ? "Enabled" : "Disabled"}
             />
-
+          </Grid>
+          <Grid item xs={6}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values.display_badge}
+                  onChange={event => {
+                    formik.setFieldValue("display_badge", event.currentTarget.checked);
+                  }}
+                  color="primary"
+                  inputProps={{'aria-label': 'controlled'}}
+                />
+              }
+              label={"Display Badge"}
+            />
           </Grid>
           {formik.errors.submit && (
             <Grid
@@ -174,18 +209,18 @@ export const ProductAttributeCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Attribute
+          Create Product Tag
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-ProductAttributeCreateDialog.defaultProps = {
+ProductTagCreateDialog.defaultProps = {
   open: false
 };
 
-ProductAttributeCreateDialog.propTypes = {
+ProductTagCreateDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

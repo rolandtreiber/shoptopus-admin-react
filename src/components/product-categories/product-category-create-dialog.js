@@ -18,6 +18,7 @@ import {useMounted} from "../../hooks/use-mounted";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
+import {useNestedValidation} from "../../hooks/use-nested-validation";
 
 export const ProductCategoryCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
@@ -30,6 +31,7 @@ export const ProductCategoryCreateDialog = (props) => {
   const {language} = useContext(SettingsContext)
   const [menuImage, setMenuImage] = useState(null)
   const [headerImage, setHeaderImage] = useState(null)
+  const {setValidation, isValid} = useNestedValidation()
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
@@ -80,11 +82,14 @@ export const ProductCategoryCreateDialog = (props) => {
         formData.append("menu_image", getFileFromBlob(menuImageBlob))
         formData.append("header_image", getFileFromBlob(headerImageBlob))
 
-        saveProductCategory(formData).then(response => {
+        isValid && saveProductCategory(formData).then(response => {
           toast.success('Product Category Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
+          setMenuImage(null)
+          setHeaderImage(null)
+          setShowErrors(false)
           onSuccess();
           onClose?.();
         })
@@ -121,6 +126,7 @@ export const ProductCategoryCreateDialog = (props) => {
             field={"name"}
             onChange={setName}
             showErrors={showErrors}
+            setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
         <Grid
@@ -134,6 +140,7 @@ export const ProductCategoryCreateDialog = (props) => {
             field={"description"}
             onChange={setDescription}
             showErrors={showErrors}
+            setValid={(valid) => {setValidation({description : valid})}}
             rows={4}
           />
         </Grid>
@@ -193,7 +200,7 @@ export const ProductCategoryCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.type ? "Enabled" : "Disabled"}
+              label={formik.values.enabled ? "Enabled" : "Disabled"}
             />
 
           </Grid>

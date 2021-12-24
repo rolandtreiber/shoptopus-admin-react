@@ -5,7 +5,7 @@ import {Grid, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false, rows = null}) => {
+const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false, rows = null, setValid}) => {
     const {availableLanguages} = useContext(SettingsContext)
 
     const getInitialValues = () => {
@@ -42,6 +42,16 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
         onChange(formik.values)
     }, [formik.values])
 
+    useEffect(() => {
+        Object.keys(availableLanguages).forEach(lang => {
+            formik.setFieldTouched(lang)
+        })
+    }, [])
+
+    useEffect(() => {
+        setValid(formik.isValid)
+    }, [formik.isValid])
+
     return <>
         {Object.keys(availableLanguages).map((lang, index) => <Grid
             item
@@ -51,7 +61,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
         >
             {formik.initialValues && (rows === null ? (
               <InputField
-                error={Boolean((formik.touched[lang] && formik.errors[lang]) || (showErrors && formik.errors[lang]))}
+                error={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang]))}
                 fullWidth
                 helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
                 label={title+' ('+availableLanguages[lang].label+')'}
@@ -64,7 +74,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
               />
             ) : (
               <TextField
-                error={Boolean((formik.touched[lang] && formik.errors[lang]) || (showErrors && formik.errors[lang]))}
+                error={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang]))}
                 fullWidth
                 multiline={true}
                 maxRows={rows}
