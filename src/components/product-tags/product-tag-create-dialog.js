@@ -40,12 +40,14 @@ export const ProductTagCreateDialog = (props) => {
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
-        const badgeBlob = await fetch(badge).then(r => r.blob());
         let formData = new FormData();
+        if (badge) {
+          const badgeBlob = await fetch(badge).then(r => r.blob());
+          formData.append("badge", getFileFromBlob(badgeBlob))
+        }
         formData.append("name", JSON.stringify(name))
         formData.append("description", JSON.stringify(description))
         formData.append("enabled", formik.values.enabled)
-        formData.append("badge", getFileFromBlob(badgeBlob))
 
         isValid && saveProductTag(formData).then(response => {
           toast.success('Product Tag Created');

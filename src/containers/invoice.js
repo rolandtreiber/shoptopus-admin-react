@@ -133,10 +133,7 @@ export const Invoice = () => {
             />
           </Box>
         </Box>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid
             container
             item

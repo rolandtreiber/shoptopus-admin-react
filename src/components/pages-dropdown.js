@@ -244,10 +244,7 @@ export const PagesDropdown = () => (
           px: 3
         }}
       >
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           {[
             sections.slice(0, 2),
             sections.slice(2, 4),

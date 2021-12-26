@@ -24,10 +24,7 @@ export const ProductAnalytics = () => {
           width: '100%'
         }}
       >
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid
             container
             item

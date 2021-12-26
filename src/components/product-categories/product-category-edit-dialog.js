@@ -20,9 +20,9 @@ import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 
-export const ProductCategoryCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
-  const {fetchProductCategoriesSelectData, saveProductCategory} = useContext(APIContext)
+export const ProductCategoryEditDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
+  const {fetchProductCategoriesSelectData, updateProductCategory} = useContext(APIContext)
   const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
   const [description, setDescription] = useState()
@@ -35,7 +35,15 @@ export const ProductCategoryCreateDialog = (props) => {
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
+    setImages().catch(e => {
+      console.log(e.message)
+    })
   }, [])
+
+  const setImages = async () => {
+    setMenuImage(initialValues.menu_image ? initialValues.menu_image : null)
+    setHeaderImage(initialValues.header_image ? initialValues.header_image : null)
+  }
 
   const fetchCategoriesSelectData = useCallback(async () => {
     setCategoriesSelectData(() => ({isLoading: true}));
@@ -61,13 +69,8 @@ export const ProductCategoryCreateDialog = (props) => {
       }
     }
   }, []);
-
   const formik = useFormik({
-    initialValues: {
-      parentId: '',
-      submit: 'null',
-      enabled: true,
-    },
+    initialValues: initialValues,
     validationSchema: Yup.object().shape({
     }),
     onSubmit: async (values, helpers) => {
@@ -85,10 +88,10 @@ export const ProductCategoryCreateDialog = (props) => {
         formData.append("name", JSON.stringify(name))
         formData.append("description", JSON.stringify(description))
         formData.append("enabled", formik.values.enabled)
-        formData.append("parent_id", formik.values.parentId)
+        formData.append("parent_id", formik.values.parent_id)
 
-        isValid && saveProductCategory(formData).then(response => {
-          toast.success('Product Category Created');
+        isValid && updateProductCategory(initialValues.id, formData).then(response => {
+          toast.success('Product Category Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
@@ -117,7 +120,7 @@ export const ProductCategoryCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Category
+        Update Product Category
       </DialogTitle>
       <DialogContent>
         <Grid
@@ -126,6 +129,7 @@ export const ProductCategoryCreateDialog = (props) => {
           mt={1}
         >
           <MultilangTextInput
+            value={initialValues.name}
             width={12}
             title={"Name"}
             field={"name"}
@@ -140,6 +144,7 @@ export const ProductCategoryCreateDialog = (props) => {
           mt={1}
         >
           <MultilangTextInput
+            value={initialValues.description}
             width={12}
             title={"Description"}
             field={"description"}
@@ -232,18 +237,18 @@ export const ProductCategoryCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Category
+          Update Product Category
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-ProductCategoryCreateDialog.defaultProps = {
+ProductCategoryEditDialog.defaultProps = {
   open: false
 };
 
-ProductCategoryCreateDialog.propTypes = {
+ProductCategoryEditDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

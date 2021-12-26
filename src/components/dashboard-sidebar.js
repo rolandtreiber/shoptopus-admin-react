@@ -102,7 +102,7 @@ const items = [
             //     title: 'Insights'
             // },
             {
-                href: '/dashboard/products/categories',
+                href: '/dashboard/product-categories',
                 title: 'Categories'
             },
             {

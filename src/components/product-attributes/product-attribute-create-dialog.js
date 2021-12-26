@@ -40,12 +40,14 @@ export const ProductAttributeCreateDialog = (props) => {
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
-        const imageBlob = await fetch(image).then(r => r.blob());
         let formData = new FormData();
+        if (image) {
+          const imageBlob = await fetch(image).then(r => r.blob());
+          formData.append("image", getFileFromBlob(imageBlob))
+        }
         formData.append("name", JSON.stringify(name))
         formData.append("enabled", formik.values.enabled)
         formData.append("parent_id", formik.values.parentId)
-        formData.append("image", getFileFromBlob(imageBlob))
         formData.append("type", formik.values.type)
 
         isValid && saveProductAttribute(formData).then(response => {

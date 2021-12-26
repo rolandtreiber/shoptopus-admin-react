@@ -1,107 +1,109 @@
-import { Suspense, lazy } from 'react';
-import { Navigate } from 'react-router-dom';
-import { AuthGuard } from './components/auth-guard';
-import { GuestGuard } from './components/guest-guard';
-import { Customer } from './containers/customer';
-import { LoadingScreen } from './components/loading-screen';
-import { Account } from './containers/account';
-import { DashboardLayout } from './containers/dashboard-layout';
-import { Home } from './containers/home';
-import { MainLayout } from './containers/main-layout';
-import { Organization } from './containers/organization';
-import { Product } from './containers/product';
-import { Reports } from './containers/reports';
+import {Suspense, lazy} from 'react';
+import {Navigate} from 'react-router-dom';
+import {AuthGuard} from './components/auth-guard';
+import {GuestGuard} from './components/guest-guard';
+import {Customer} from './containers/customer';
+import {LoadingScreen} from './components/loading-screen';
+import {Account} from './containers/account';
+import {DashboardLayout} from './containers/dashboard-layout';
+import {Home} from './containers/home';
+import {MainLayout} from './containers/main-layout';
+import {Organization} from './containers/organization';
+import {Product} from './containers/product';
+import {Reports} from './containers/reports';
 
 const Loadable = (Component) => (props) => (
-  <Suspense fallback={<LoadingScreen />}>
+  <Suspense fallback={<LoadingScreen/>}>
     <Component {...props} />
   </Suspense>
 );
 
 // Not found pages
-const NotFound = Loadable(lazy(() => import('./containers/not-found').then((module) => ({ default: module.NotFound }))));
+const NotFound = Loadable(lazy(() => import('./containers/not-found').then((module) => ({default: module.NotFound}))));
 
 // Auth pages
-const Login = Loadable(lazy(() => import('./containers/login').then((module) => ({ default: module.Login }))));
-const PasswordRecovery = Loadable(lazy(() => import('./containers/password-recovery').then((module) => ({ default: module.PasswordRecovery }))));
-const PasswordReset = Loadable(lazy(() => import('./containers/password-reset').then((module) => ({ default: module.PasswordReset }))));
-const Register = Loadable(lazy(() => import('./containers/register').then((module) => ({ default: module.Register }))));
-const VerifyCode = Loadable(lazy(() => import('./containers/verify-code').then((module) => ({ default: module.VerifyCode }))));
+const Login = Loadable(lazy(() => import('./containers/login').then((module) => ({default: module.Login}))));
+const PasswordRecovery = Loadable(lazy(() => import('./containers/password-recovery').then((module) => ({default: module.PasswordRecovery}))));
+const PasswordReset = Loadable(lazy(() => import('./containers/password-reset').then((module) => ({default: module.PasswordReset}))));
+const Register = Loadable(lazy(() => import('./containers/register').then((module) => ({default: module.Register}))));
+const VerifyCode = Loadable(lazy(() => import('./containers/verify-code').then((module) => ({default: module.VerifyCode}))));
 
 // Dashboard pages
-const ReportsOverview = Loadable(lazy(() => import('./containers/reports-overview').then((module) => ({ default: module.ReportsOverview }))));
-const ReportsSales = Loadable(lazy(() => import('./containers/reports-sales').then((module) => ({ default: module.ReportsSales }))));
+const ReportsOverview = Loadable(lazy(() => import('./containers/reports-overview').then((module) => ({default: module.ReportsOverview}))));
+const ReportsSales = Loadable(lazy(() => import('./containers/reports-sales').then((module) => ({default: module.ReportsSales}))));
 
-const Customers = Loadable(lazy(() => import('./containers/customers').then((module) => ({ default: module.Customers }))));
-const CustomerActivity = Loadable(lazy(() => import('./containers/customer-activity').then((module) => ({ default: module.CustomerActivity }))));
-const CustomerOrders = Loadable(lazy(() => import('./containers/customer-orders').then((module) => ({ default: module.CustomerOrders }))));
-const CustomerSummary = Loadable(lazy(() => import('./containers/customer-summary').then((module) => ({ default: module.CustomerSummary }))));
+const Customers = Loadable(lazy(() => import('./containers/customers').then((module) => ({default: module.Customers}))));
+const CustomerActivity = Loadable(lazy(() => import('./containers/customer-activity').then((module) => ({default: module.CustomerActivity}))));
+const CustomerOrders = Loadable(lazy(() => import('./containers/customer-orders').then((module) => ({default: module.CustomerOrders}))));
+const CustomerSummary = Loadable(lazy(() => import('./containers/customer-summary').then((module) => ({default: module.CustomerSummary}))));
 
-const Order = Loadable(lazy(() => import('./containers/order').then((module) => ({ default: module.Order }))));
-const Orders = Loadable(lazy(() => import('./containers/orders').then((module) => ({ default: module.Orders }))));
+const Order = Loadable(lazy(() => import('./containers/order').then((module) => ({default: module.Order}))));
+const Orders = Loadable(lazy(() => import('./containers/orders').then((module) => ({default: module.Orders}))));
 
-const Invoices = Loadable(lazy(() => import('./containers/invoices').then((module) => ({ default: module.Invoices }))));
-const InvoiceCreate = Loadable(lazy(() => import('./containers/invoice-create').then((module) => ({ default: module.InvoiceCreate }))));
-const InvoiceSummary = Loadable(lazy(() => import('./containers/invoice').then((module) => ({ default: module.Invoice }))));
-const InvoicePreview = Loadable(lazy(() => import('./containers/invoice-preview').then((module) => ({ default: module.InvoicePreview }))));
+const Invoices = Loadable(lazy(() => import('./containers/invoices').then((module) => ({default: module.Invoices}))));
+const InvoiceCreate = Loadable(lazy(() => import('./containers/invoice-create').then((module) => ({default: module.InvoiceCreate}))));
+const InvoiceSummary = Loadable(lazy(() => import('./containers/invoice').then((module) => ({default: module.Invoice}))));
+const InvoicePreview = Loadable(lazy(() => import('./containers/invoice-preview').then((module) => ({default: module.InvoicePreview}))));
 
-const Products = Loadable(lazy(() => import('./containers/products').then((module) => ({ default: module.Products }))));
-const ProductAnalytics = Loadable(lazy(() => import('./containers/product-analytics').then((module) => ({ default: module.ProductAnalytics }))));
-const ProductInventory = Loadable(lazy(() => import('./containers/product-inventory').then((module) => ({ default: module.ProductInventory }))));
-const ProductSummary = Loadable(lazy(() => import('./containers/product-summary').then((module) => ({ default: module.ProductSummary }))));
+const Products = Loadable(lazy(() => import('./containers/products').then((module) => ({default: module.Products}))));
+const ProductAnalytics = Loadable(lazy(() => import('./containers/product-analytics').then((module) => ({default: module.ProductAnalytics}))));
+const ProductInventory = Loadable(lazy(() => import('./containers/product-inventory').then((module) => ({default: module.ProductInventory}))));
+const ProductSummary = Loadable(lazy(() => import('./containers/product-summary').then((module) => ({default: module.ProductSummary}))));
 
-const AccountGeneral = Loadable(lazy(() => import('./containers/account-general').then((module) => ({ default: module.AccountGeneral }))));
-const AccountNotifications = Loadable(lazy(() => import('./containers/account-notifications').then((module) => ({ default: module.AccountNotifications }))));
+const AccountGeneral = Loadable(lazy(() => import('./containers/account-general').then((module) => ({default: module.AccountGeneral}))));
+const AccountNotifications = Loadable(lazy(() => import('./containers/account-notifications').then((module) => ({default: module.AccountNotifications}))));
 
-const OrganizationBilling = Loadable(lazy(() => import('./containers/organization-billing').then((module) => ({ default: module.OrganizationBilling }))));
-const OrganizationGeneral = Loadable(lazy(() => import('./containers/organization-general').then((module) => ({ default: module.OrganizationGeneral }))));
-const OrganizationTeam = Loadable(lazy(() => import('./containers/organization-team').then((module) => ({ default: module.OrganizationTeam }))));
+const OrganizationBilling = Loadable(lazy(() => import('./containers/organization-billing').then((module) => ({default: module.OrganizationBilling}))));
+const OrganizationGeneral = Loadable(lazy(() => import('./containers/organization-general').then((module) => ({default: module.OrganizationGeneral}))));
+const OrganizationTeam = Loadable(lazy(() => import('./containers/organization-team').then((module) => ({default: module.OrganizationTeam}))));
 
 const ComponentsCardHeadings = Loadable(lazy(() => import('./containers/components-card-headers').then(
-  (module) => ({ default: module.ComponentsCardHeaders })
+  (module) => ({default: module.ComponentsCardHeaders})
 )));
 const ComponentsDataStates = Loadable(lazy(() => import('./containers/components-data-states').then(
-  (module) => ({ default: module.ComponentsDataStates })
+  (module) => ({default: module.ComponentsDataStates})
 )));
-const ComponentsDataStats = Loadable(lazy(() => import('./containers/components-data-stats').then((module) => ({ default: module.ComponentsDataStats }))));
+const ComponentsDataStats = Loadable(lazy(() => import('./containers/components-data-stats').then((module) => ({default: module.ComponentsDataStats}))));
 const ComponentsImageUploader = Loadable(lazy(() => import('./containers/components-image-uploader').then(
-  (module) => ({ default: module.ComponentsImageUploader })
+  (module) => ({default: module.ComponentsImageUploader})
 )));
-const ComponentsLists = Loadable(lazy(() => import('./containers/components-lists').then((module) => ({ default: module.ComponentsLists }))));
-const ComponentsOnboarding = Loadable(lazy(() => import('./containers/components-onboarding').then((module) => ({ default: module.ComponentsOnboarding }))));
+const ComponentsLists = Loadable(lazy(() => import('./containers/components-lists').then((module) => ({default: module.ComponentsLists}))));
+const ComponentsOnboarding = Loadable(lazy(() => import('./containers/components-onboarding').then((module) => ({default: module.ComponentsOnboarding}))));
 const ComponentsPageHeadings = Loadable(lazy(() => import('./containers/components-page-headers').then(
-  (module) => ({ default: module.ComponentsPageHeaders })
+  (module) => ({default: module.ComponentsPageHeaders})
 )));
 
-const FoundationBlankPage = Loadable(lazy(() => import('./containers/foundation-blank-page').then((module) => ({ default: module.FoundationBlankPage }))));
-const FoundationButtons = Loadable(lazy(() => import('./containers/foundation-buttons').then((module) => ({ default: module.FoundationButtons }))));
-const FoundationColors = Loadable(lazy(() => import('./containers/foundation-colors').then((module) => ({ default: module.FoundationColors }))));
-const FoundationInputs = Loadable(lazy(() => import('./containers/foundation-inputs').then((module) => ({ default: module.FoundationInputs }))));
-const FoundationShadows = Loadable(lazy(() => import('./containers/foundation-shadows').then((module) => ({ default: module.FoundationShadows }))));
-const FoundationTables = Loadable(lazy(() => import('./containers/foundation-tables').then((module) => ({ default: module.FoundationTables }))));
-const FoundationTypography = Loadable(lazy(() => import('./containers/foundation-typography').then((module) => ({ default: module.FoundationTypography }))));
+const FoundationBlankPage = Loadable(lazy(() => import('./containers/foundation-blank-page').then((module) => ({default: module.FoundationBlankPage}))));
+const FoundationButtons = Loadable(lazy(() => import('./containers/foundation-buttons').then((module) => ({default: module.FoundationButtons}))));
+const FoundationColors = Loadable(lazy(() => import('./containers/foundation-colors').then((module) => ({default: module.FoundationColors}))));
+const FoundationInputs = Loadable(lazy(() => import('./containers/foundation-inputs').then((module) => ({default: module.FoundationInputs}))));
+const FoundationShadows = Loadable(lazy(() => import('./containers/foundation-shadows').then((module) => ({default: module.FoundationShadows}))));
+const FoundationTables = Loadable(lazy(() => import('./containers/foundation-tables').then((module) => ({default: module.FoundationTables}))));
+const FoundationTypography = Loadable(lazy(() => import('./containers/foundation-typography').then((module) => ({default: module.FoundationTypography}))));
 
-const ProductCategories = Loadable(lazy(() => import('./containers/product-categories').then((module) => ({ default: module.default }))));
-const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({ default: module.default }))));
-const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({ default: module.default }))));
+const ProductCategories = Loadable(lazy(() => import('./containers/product-categories').then((module) => ({default: module.default}))));
+const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({default: module.default}))));
+const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({default: module.default}))));
 
-const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({ default: module.VoucherCodes }))));
-const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({ default: module.DiscountRules }))));
-const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({ default: module.DeliveryTypes }))));
-const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({ default: module.Transactions }))));
-const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({ default: module.Ratings }))));
-const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({ default: module.Banners }))));
-const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({ default: module.Files }))));
+const ProductCategorySummary = Loadable(lazy(() => import('./containers/product-category-summary').then((module) => ({default: module.ProductCategorySummary}))));
+
+const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({default: module.VoucherCodes}))));
+const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({default: module.DiscountRules}))));
+const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({default: module.DeliveryTypes}))));
+const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({default: module.Transactions}))));
+const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({default: module.Ratings}))));
+const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({default: module.Banners}))));
+const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({default: module.Files}))));
 
 // Docs pages
-const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({ default: module.Docs }))));
+const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({default: module.Docs}))));
 
 const routes = [
   {
     path: '/',
     element: (
       <GuestGuard>
-        <Login />
+        <Login/>
       </GuestGuard>
     )
   },
@@ -109,7 +111,7 @@ const routes = [
     path: 'login',
     element: (
       <GuestGuard>
-        <Login />
+        <Login/>
       </GuestGuard>
     )
   },
@@ -117,7 +119,7 @@ const routes = [
     path: 'register',
     element: (
       <GuestGuard>
-        <Register />
+        <Register/>
       </GuestGuard>
     )
   },
@@ -125,7 +127,7 @@ const routes = [
     path: 'verify-code',
     element: (
       <GuestGuard>
-        <VerifyCode />
+        <VerifyCode/>
       </GuestGuard>
     )
   },
@@ -133,84 +135,84 @@ const routes = [
     path: 'password-recovery',
     element: (
       <GuestGuard>
-        <PasswordRecovery />
+        <PasswordRecovery/>
       </GuestGuard>
     )
   },
   {
     path: 'password-reset',
     element: (
-      <PasswordReset />
+      <PasswordReset/>
     )
   },
   {
     path: 'dashboard',
     element: (
       <AuthGuard>
-        <DashboardLayout />
+        <DashboardLayout/>
       </AuthGuard>
     ),
     children: [
       {
         path: '/',
         element: (
-            <ReportsOverview />
+          <ReportsOverview/>
         )
       },
       {
         path: 'delivery-types',
-        element: <DeliveryTypes />
+        element: <DeliveryTypes/>
       },
       {
         path: 'transactions',
-        element: <Transactions />
+        element: <Transactions/>
       },
       {
         path: 'ratings',
-        element: <Ratings />
+        element: <Ratings/>
       },
       {
         path: 'content',
         children: [
           {
             path: 'banners',
-            element: <Banners />
+            element: <Banners/>
           },
           {
             path: 'files',
-            element: <Files />
+            element: <Files/>
           }
         ]
       },
       {
         path: 'reports',
-        element: <Reports />,
+        element: <Reports/>,
         children: [
           {
             path: '/',
-            element: <ReportsOverview />
+            element: <ReportsOverview/>
           },
           {
             path: 'sales',
-            element: <ReportsSales />
+            element: <ReportsSales/>
           }
         ]
       },
       {
         path: 'account',
-        element: <Account />,
+        element: <Account/>,
         children: [
           {
             path: '/',
-            element: <AccountGeneral />
+            element: <AccountGeneral/>
           },
           {
             path: 'notifications',
-            element: <AccountNotifications />
+            element: <AccountNotifications/>
           },
           {
             path: 'team',
-            element: <OrganizationTeam />
+            element: <OrganizationTeam/>
           }
         ]
       },
@@ -219,23 +221,23 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Customers />
+            element: <Customers/>
           },
           {
             path: ':customerId',
-            element: <Customer />,
+            element: <Customer/>,
             children: [
               {
                 path: '/',
-                element: <CustomerSummary />
+                element: <CustomerSummary/>
               },
               {
                 path: 'activity',
-                element: <CustomerActivity />
+                element: <CustomerActivity/>
               },
               {
                 path: 'orders',
-                element: <CustomerOrders />
+                element: <CustomerOrders/>
               }
             ]
           }
@@ -246,29 +248,29 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Orders />
+            element: <Orders/>
           },
           {
             path: ':orderId',
-            element: <Order />
+            element: <Order/>
           }
         ]
       },
       {
         path: 'organization',
-        element: <Organization />,
+        element: <Organization/>,
         children: [
           {
             path: '/',
-            element: <OrganizationGeneral />
+            element: <OrganizationGeneral/>
           },
           {
             path: '/team',
-            element: <OrganizationTeam />
+            element: <OrganizationTeam/>
           },
           {
             path: '/billing',
-            element: <OrganizationBilling />
+            element: <OrganizationBilling/>
           }
         ]
       },
@@ -277,11 +279,11 @@ const routes = [
         children: [
           {
             path: 'voucher-codes',
-            element: <VoucherCodes />
+            element: <VoucherCodes/>
           },
           {
             path: 'rules',
-            element: <DiscountRules />
+            element: <DiscountRules/>
           },
         ]
       },
@@ -290,37 +292,46 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Products />
-          },
-          {
-            path: 'categories',
-            element: <ProductCategories />
+            element: <Products/>
           },
           {
             path: 'attributes',
-            element: <ProductAttributes />
+            element: <ProductAttributes/>
           },
           {
             path: 'tags',
-            element: <ProductTags />
+            element: <ProductTags/>
           },
           {
             path: ':productId',
-            element: <Product />,
+            element: <Product/>,
             children: [
               {
                 path: '/',
-                element: <ProductSummary />
+                element: <ProductSummary/>
               },
               {
                 path: 'analytics',
-                element: <ProductAnalytics />
+                element: <ProductAnalytics/>
               },
               {
                 path: 'inventory',
-                element: <ProductInventory />
+                element: <ProductInventory/>
               }
             ]
+          }
+        ]
+      },
+      {
+        path: 'product-categories',
+        children: [
+          {
+            path: '/',
+            element: <ProductCategories/>
+          },
+          {
+            path: ':productCategoryId',
+            element: <ProductCategorySummary/>,
           }
         ]
       },
@@ -329,22 +340,22 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Invoices />
+            element: <Invoices/>
           },
           {
             path: 'create',
-            element: <InvoiceCreate />
+            element: <InvoiceCreate/>
           },
           {
             path: ':invoiceId',
             children: [
               {
                 path: '/',
-                element: <InvoiceSummary />
+                element: <InvoiceSummary/>
               },
               {
                 path: '/preview',
-                element: <InvoicePreview />
+                element: <InvoicePreview/>
               }
             ]
           }
@@ -355,31 +366,31 @@ const routes = [
         children: [
           {
             path: 'onboarding',
-            element: <ComponentsOnboarding />
+            element: <ComponentsOnboarding/>
           },
           {
             path: 'empty-states',
-            element: <ComponentsDataStates />
+            element: <ComponentsDataStates/>
           },
           {
             path: 'page-headings',
-            element: <ComponentsPageHeadings />
+            element: <ComponentsPageHeadings/>
           },
           {
             path: 'card-headings',
-            element: <ComponentsCardHeadings />
+            element: <ComponentsCardHeadings/>
           },
           {
             path: 'image-uploader',
-            element: <ComponentsImageUploader />
+            element: <ComponentsImageUploader/>
           },
           {
             path: 'stats',
-            element: <ComponentsDataStats />
+            element: <ComponentsDataStats/>
           },
           {
             path: 'property-lists',
-            element: <ComponentsLists />
+            element: <ComponentsLists/>
           }
         ]
       },
@@ -388,31 +399,31 @@ const routes = [
         children: [
           {
             path: 'colors',
-            element: <FoundationColors />
+            element: <FoundationColors/>
           },
           {
             path: 'typography',
-            element: <FoundationTypography />
+            element: <FoundationTypography/>
           },
           {
             path: 'shadows',
-            element: <FoundationShadows />
+            element: <FoundationShadows/>
           },
           {
             path: 'buttons',
-            element: <FoundationButtons />
+            element: <FoundationButtons/>
           },
           {
             path: 'inputs',
-            element: <FoundationInputs />
+            element: <FoundationInputs/>
           },
           {
             path: 'tables',
-            element: <FoundationTables />
+            element: <FoundationTables/>
           },
           {
             path: 'blank-page',
-            element: <FoundationBlankPage />
+            element: <FoundationBlankPage/>
           }
         ]
       }
@@ -432,13 +443,13 @@ const routes = [
       },
       {
         path: '*',
-        element: <Docs />
+        element: <Docs/>
       }
     ]
   },
   {
     path: '*',
-    element: <NotFound />
+    element: <NotFound/>
   }
 ];
 

@@ -156,10 +156,7 @@ export const Bills = (props) => {
       />
       <Divider />
       <CardContent>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           {stats.map((item) => (
             <Grid
               item

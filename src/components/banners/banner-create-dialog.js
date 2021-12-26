@@ -39,13 +39,15 @@ export const BannerCreateDialog = (props) => {
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
-        const backgroundImageBlob = await fetch(backgroundImage).then(r => r.blob());
         let formData = new FormData();
+        if (backgroundImage) {
+          const backgroundImageBlob = await fetch(backgroundImage).then(r => r.blob());
+          formData.append("background_image", getFileFromBlob(backgroundImageBlob))
+        }
         formData.append("title", JSON.stringify(title))
         formData.append("description", JSON.stringify(description))
         formData.append("button_text", JSON.stringify(buttonText))
         formData.append("button_url", formik.values.button_url)
-        formData.append("background_image", getFileFromBlob(backgroundImageBlob))
         formData.append("enabled", formik.values.enabled)
 
         isValid && saveBanner(formData).then(response => {

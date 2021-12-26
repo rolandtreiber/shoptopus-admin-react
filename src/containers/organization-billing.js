@@ -22,10 +22,7 @@ export const OrganizationBilling = () => {
         <title>Organization: Billing | Carpatin Dashboard</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <Card variant="outlined">
               <Grid container>

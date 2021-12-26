@@ -118,10 +118,7 @@ export const CustomerSummary = () => {
 
     return (
       <>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid
             container
             item

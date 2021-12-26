@@ -78,7 +78,11 @@ const APIProvider = ({children}) => {
   const patch = async (url, params = {}, headers = {}) => {
     let config = {headers: headers}
 
-    params["_method"] = "patch"
+    if (params instanceof FormData) {
+      params.append('_method', "patch")
+    } else {
+      params["_method"] = "patch"
+    }
     return await createAxios().post(url, params, config)
   }
 
@@ -140,7 +144,7 @@ const APIProvider = ({children}) => {
       fetchProductCategoriesSelectData: async (params) => await get(admin_api_url + "product-categories/select-data", {}, makeHeaders()),
       fetchProductCategory: async (categoryId) => await get(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
       saveProductCategory: async (params) => await postAsMultipartFormData(admin_api_url + "product-category", params, makeHeaders()),
-      updateProductCategory: async (categoryId, params) => await put(admin_api_url + "product-category/" + categoryId, params, makeHeaders()),
+      updateProductCategory: async (categoryId, params) => await patch(admin_api_url + "product-category/" + categoryId, params, makeHeaders()),
       deleteProductCategory: async (categoryId) => await del(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
 
       // Product Attributes

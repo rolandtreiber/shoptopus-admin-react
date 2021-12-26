@@ -11,23 +11,26 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
+import {ProductCategoryInfo} from "../components/product-categories/product-category-info";
+import ProductCategoriesTable from "../components/product-categories/product-categories-table";
+import {ProductCategoryEditDialog} from "../components/product-categories/product-category-edit-dialog";
 
-export const ProductSummary = () => {
+export const ProductCategorySummary = () => {
   const mounted = useMounted();
-  const [productState, setProductState] = useState({ isLoading: true });
+  const [data, setData] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchProduct} = useContext(APIContext)
-  const {productId} = useParams();
+  const {fetchProductCategory} = useContext(APIContext)
+  const {productCategoryId} = useParams();
 
-  const getProduct = useCallback(async () => {
-    setProductState(() => ({ isLoading: true }));
+  const getData = useCallback(async () => {
+    setData(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProduct(productId)
+      const {data: {data}} = await fetchProductCategory(productCategoryId)
       const result = data;
 
       if (mounted.current) {
-        setProductState(() => ({
+        setData(() => ({
           isLoading: false,
           data: result
         }));
@@ -36,7 +39,7 @@ export const ProductSummary = () => {
       console.error(err);
 
       if (mounted.current) {
-        setProductState(() => ({
+        setData(() => ({
           isLoading: false,
           error: err.message
         }));
@@ -45,7 +48,7 @@ export const ProductSummary = () => {
   }, []);
 
   useEffect(() => {
-    getProduct().catch(console.error);
+    getData().catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -53,26 +56,17 @@ export const ProductSummary = () => {
   }, []);
 
   const renderContent = () => {
-    if (productState.isLoading) {
+    if (data.isLoading) {
       return <ResourceLoading />;
     }
 
-    if (productState.error) {
+    if (data.error) {
       return <ResourceError />;
     }
 
     return (
       <>
         <Grid container spacing={3}>
-          {/*<MultilangTextInput*/}
-          {/*    title={"Name"}*/}
-          {/*    field={"name"}*/}
-          {/*    value={{*/}
-          {/*      en: 'Test Product',*/}
-          {/*      de: 'Test Produkt',*/}
-          {/*      fr: 'Test Produit'*/}
-          {/*    }}*/}
-          {/*/>*/}
           <Grid
             container
             item
@@ -91,16 +85,10 @@ export const ProductSummary = () => {
               item
               xs={12}
             >
-              <ProductInfo
+              <ProductCategoryInfo
                 onEdit={() => setOpenInfoDialog(true)}
-                product={productState.data}
+                data={data.data}
               />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductVariants productId={productId} variants={productState.data?.variants} />
             </Grid>
           </Grid>
           <Grid
@@ -117,18 +105,13 @@ export const ProductSummary = () => {
             }}
             xs={12}
           >
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductStatus product={productState.data} />
-            </Grid>
           </Grid>
         </Grid>
-        <ProductInfoDialog
+        <ProductCategoryEditDialog
           onClose={() => setOpenInfoDialog(false)}
           open={openInfoDialog}
-          product={productState.data}
+          onSuccess={() => getData()}
+          initialValues={data.data}
         />
       </>
     );
@@ -137,7 +120,7 @@ export const ProductSummary = () => {
   return (
     <>
       <Helmet>
-        <title>Product: Summary | Carpatin Dashboard</title>
+        <title>Product Category: Summary | Carpatin Dashboard</title>
       </Helmet>
       <Box
         sx={{

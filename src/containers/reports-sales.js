@@ -47,10 +47,7 @@ export const ReportsSales = () => {
         <title>Reports: Sales | Carpatin Dashboard</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <PerformanceIndicators />
           </Grid>
