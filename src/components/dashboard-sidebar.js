@@ -106,7 +106,7 @@ const items = [
                 title: 'Categories'
             },
             {
-                href: '/dashboard/products/attributes',
+                href: '/dashboard/product-attributes',
                 title: 'Attributes'
             },
             {

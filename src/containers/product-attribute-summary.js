@@ -11,23 +11,30 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
+import {ProductCategoryInfo} from "../components/product-categories/product-category-info";
+import ProductCategoriesTable from "../components/product-categories/product-categories-table";
+import {ProductCategoryEditDialog} from "../components/product-categories/product-category-edit-dialog";
+import {SettingsContext} from "../contexts/settings-context";
+import {ProductAttributeInfo} from "../components/product-attributes/product-attribute-info";
+import {ProductAttributeEditDialog} from "../components/product-attributes/product-attribute-edit-dialog";
 
-export const ProductSummary = () => {
+export const ProductAttributeSummary = () => {
   const mounted = useMounted();
-  const [productState, setProductState] = useState({ isLoading: true });
+  const [data, setData] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchProduct} = useContext(APIContext)
-  const {productId} = useParams();
+  const {fetchProductAttribute} = useContext(APIContext)
+  const {productAttributeId} = useParams();
+  const {language, appName} = useContext(SettingsContext)
 
-  const getProduct = useCallback(async () => {
-    setProductState(() => ({ isLoading: true }));
+  const getData = useCallback(async () => {
+    setData(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProduct(productId)
+      const {data: {data}} = await fetchProductAttribute(productAttributeId)
       const result = data;
 
       if (mounted.current) {
-        setProductState(() => ({
+        setData(() => ({
           isLoading: false,
           data: result
         }));
@@ -36,7 +43,7 @@ export const ProductSummary = () => {
       console.error(err);
 
       if (mounted.current) {
-        setProductState(() => ({
+        setData(() => ({
           isLoading: false,
           error: err.message
         }));
@@ -45,7 +52,7 @@ export const ProductSummary = () => {
   }, []);
 
   useEffect(() => {
-    getProduct().catch(console.error);
+    getData().catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -53,26 +60,17 @@ export const ProductSummary = () => {
   }, []);
 
   const renderContent = () => {
-    if (productState.isLoading) {
+    if (data.isLoading) {
       return <ResourceLoading />;
     }
 
-    if (productState.error) {
+    if (data.error) {
       return <ResourceError />;
     }
 
     return (
       <>
         <Grid container spacing={3}>
-          {/*<MultilangTextInput*/}
-          {/*    title={"Name"}*/}
-          {/*    field={"name"}*/}
-          {/*    value={{*/}
-          {/*      en: 'Test Product',*/}
-          {/*      de: 'Test Produkt',*/}
-          {/*      fr: 'Test Produit'*/}
-          {/*    }}*/}
-          {/*/>*/}
           <Grid container item lg={8}
             spacing={3}
             sx={{
@@ -88,16 +86,10 @@ export const ProductSummary = () => {
               item
               xs={12}
             >
-              <ProductInfo
+              <ProductAttributeInfo
                 onEdit={() => setOpenInfoDialog(true)}
-                product={productState.data}
+                data={data.data}
               />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductVariants productId={productId} variants={productState.data?.variants} />
             </Grid>
           </Grid>
           <Grid container item lg={4}
@@ -111,18 +103,13 @@ export const ProductSummary = () => {
             }}
             xs={12}
           >
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductStatus product={productState.data} />
-            </Grid>
           </Grid>
         </Grid>
-        <ProductInfoDialog
+        <ProductAttributeEditDialog
           onClose={() => setOpenInfoDialog(false)}
           open={openInfoDialog}
-          product={productState.data}
+          onSuccess={() => getData()}
+          initialValues={data.data}
         />
       </>
     );
@@ -131,7 +118,7 @@ export const ProductSummary = () => {
   return (
     <>
       <Helmet>
-        <title>Product: Summary | Carpatin Dashboard</title>
+        <title>Product Attribute: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{

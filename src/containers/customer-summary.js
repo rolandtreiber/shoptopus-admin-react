@@ -119,10 +119,7 @@ export const CustomerSummary = () => {
     return (
       <>
         <Grid container spacing={3}>
-          <Grid
-            container
-            item
-            lg={4}
+          <Grid container item lg={4}
             spacing={3}
             sx={{ height: 'fit-content' }}
             xs={12}
@@ -143,10 +140,7 @@ export const CustomerSummary = () => {
               <CustomerProperties customer={customerState.data} />
             </Grid>
           </Grid>
-          <Grid
-            container
-            item
-            lg={8}
+          <Grid container item lg={8}
             spacing={3}
             sx={{ height: 'fit-content' }}
             xs={12}

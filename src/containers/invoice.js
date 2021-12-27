@@ -134,10 +134,7 @@ export const Invoice = () => {
           </Box>
         </Box>
         <Grid container spacing={3}>
-          <Grid
-            container
-            item
-            lg={8}
+          <Grid container item lg={8}
             spacing={3}
             sx={{
               height: 'fit-content',
@@ -167,10 +164,7 @@ export const Invoice = () => {
               <InvoiceLineItems invoice={invoiceState.data} />
             </Grid>
           </Grid>
-          <Grid
-            container
-            item
-            lg={4}
+          <Grid container item lg={4}
             spacing={3}
             sx={{
               height: 'fit-content',

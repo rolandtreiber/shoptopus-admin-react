@@ -151,7 +151,7 @@ const APIProvider = ({children}) => {
       fetchProductAttributes: async (params) => await get(admin_api_url + "product-attributes", params, makeHeaders()),
       fetchProductAttribute: async (attributeId) => await get(admin_api_url + "product-attribute/" + attributeId, {}, makeHeaders()),
       saveProductAttribute: async (params) => await post(admin_api_url + "product-attribute", params, makeHeaders()),
-      updateProductAttribute: async (attributeId, params) => await put(admin_api_url + "product-attribute/" + attributeId, params, makeHeaders()),
+      updateProductAttribute: async (attributeId, params) => await patch(admin_api_url + "product-attribute/" + attributeId, params, makeHeaders()),
       deleteProductAttribute: async (attributeId) => await del(admin_api_url + "product-attribute/" + attributeId, {}, makeHeaders()),
 
       // Product Attribute Options

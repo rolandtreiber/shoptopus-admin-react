@@ -11,33 +11,45 @@ import {
   FormHelperText,
   Grid, Switch, TextField,
 } from '@material-ui/core';
-import {useContext, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import MultilangTextInput from "../multilang-text-input";
+import {useMounted} from "../../hooks/use-mounted";
+import {SettingsContext} from "../../contexts/settings-context";
 import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 
-const types = [
-  'Text', 'Image', 'Color'
-];
-
-export const ProductAttributeCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
-  const {saveProductAttribute} = useContext(APIContext)
+export const ProductAttributeEditDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
+  const {updateProductAttribute} = useContext(APIContext)
+  const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
+  const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
+  const mounted = useMounted();
+  const {language} = useContext(SettingsContext)
   const [image, setImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
 
+  const types = [
+    'Text', 'Image', 'Color'
+  ];
+
+  useEffect(() => {
+    setImages().catch(e => {
+      console.log(e.message)
+    })
+  }, [])
+
+  const setImages = async () => {
+    setImage(initialValues.image ? initialValues.image : null)
+  }
+
   const formik = useFormik({
-    initialValues: {
-      parentId: '',
-      submit: 'null',
-      enabled: true,
-      type: 0
-    },
-    validationSchema: Yup.object().shape({}),
+    initialValues: initialValues,
+    validationSchema: Yup.object().shape({
+    }),
     onSubmit: async (values, helpers) => {
       try {
         let formData = new FormData();
@@ -45,13 +57,13 @@ export const ProductAttributeCreateDialog = (props) => {
           const imageBlob = await fetch(image).then(r => r.blob());
           formData.append("image", getFileFromBlob(imageBlob))
         }
-        formData.append("name", JSON.stringify(name))
-        formData.append("enabled", formik.values.enabled)
-        formData.append("parent_id", formik.values.parentId)
-        formData.append("type", formik.values.type)
 
-        isValid && saveProductAttribute(formData).then(response => {
-          toast.success('Product Attribute Created');
+        formData.append("name", JSON.stringify(name))
+        formData.append("type", formik.values.type)
+        formData.append("enabled", formik.values.enabled)
+
+        isValid && updateProductAttribute(initialValues.id, formData).then(response => {
+          toast.success('Product Attribute Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
@@ -79,7 +91,7 @@ export const ProductAttributeCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Attribute
+        Update Product Category
       </DialogTitle>
       <DialogContent>
         <Grid
@@ -88,6 +100,7 @@ export const ProductAttributeCreateDialog = (props) => {
           mt={1}
         >
           <MultilangTextInput
+            value={initialValues.name}
             width={12}
             title={"Name"}
             field={"name"}
@@ -137,7 +150,7 @@ export const ProductAttributeCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.type ? "Enabled" : "Disabled"}
+              label={formik.values.enabled ? "Enabled" : "Disabled"}
             />
 
           </Grid>
@@ -170,18 +183,18 @@ export const ProductAttributeCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Attribute
+          Update Product Category
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-ProductAttributeCreateDialog.defaultProps = {
+ProductAttributeEditDialog.defaultProps = {
   open: false
 };
 
-ProductAttributeCreateDialog.propTypes = {
+ProductAttributeEditDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

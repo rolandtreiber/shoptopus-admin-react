@@ -148,10 +148,7 @@ export const Order = () => {
           </Box>
         </Box>
         <Grid container spacing={3}>
-          <Grid
-            container
-            item
-            lg={8}
+          <Grid container item lg={8}
             spacing={3}
             sx={{ height: 'fit-content' }}
             xs={12}
@@ -181,10 +178,7 @@ export const Order = () => {
               <OrderLineItems order={orderState.data} />
             </Grid>
           </Grid>
-          <Grid
-            container
-            item
-            lg={4}
+          <Grid container item lg={4}
             spacing={3}
             sx={{ height: 'fit-content' }}
             xs={12}

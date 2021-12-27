@@ -86,6 +86,7 @@ const ProductAttributes = Loadable(lazy(() => import('./containers/product-attri
 const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({default: module.default}))));
 
 const ProductCategorySummary = Loadable(lazy(() => import('./containers/product-category-summary').then((module) => ({default: module.ProductCategorySummary}))));
+const ProductAttributeSummary = Loadable(lazy(() => import('./containers/product-attribute-summary').then((module) => ({default: module.ProductAttributeSummary}))));
 
 const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({default: module.VoucherCodes}))));
 const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({default: module.DiscountRules}))));
@@ -295,10 +296,6 @@ const routes = [
             element: <Products/>
           },
           {
-            path: 'attributes',
-            element: <ProductAttributes/>
-          },
-          {
             path: 'tags',
             element: <ProductTags/>
           },
@@ -332,6 +329,19 @@ const routes = [
           {
             path: ':productCategoryId',
             element: <ProductCategorySummary/>,
+          }
+        ]
+      },
+      {
+        path: 'product-attributes',
+        children: [
+          {
+            path: '/',
+            element: <ProductAttributes/>
+          },
+          {
+            path: ':productAttributeId',
+            element: <ProductAttributeSummary/>,
           }
         ]
       },
