@@ -164,7 +164,7 @@ const APIProvider = ({children}) => {
       fetchProductTags: async (params) => await get(admin_api_url + "product-tags", params, makeHeaders()),
       fetchProductTag: async (productTagId) => await get(admin_api_url + "product-tag/" + productTagId, {}, makeHeaders()),
       saveProductTag: async (params) => await post(admin_api_url + "product-tag", params, makeHeaders()),
-      updateProductTag: async (productTagId, params) => await put(admin_api_url + "product-tag/" + productTagId, params, makeHeaders()),
+      updateProductTag: async (productTagId, params) => await patch(admin_api_url + "product-tag/" + productTagId, params, makeHeaders()),
       deleteProductTag: async (productTagId) => await del(admin_api_url + "product-tag/" + productTagId, {}, makeHeaders()),
 
       // Orders

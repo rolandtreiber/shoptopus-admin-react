@@ -48,6 +48,7 @@ export const ProductTagCreateDialog = (props) => {
         formData.append("name", JSON.stringify(name))
         formData.append("description", JSON.stringify(description))
         formData.append("enabled", formik.values.enabled)
+        formData.append("display_badge", formik.values.display_badge)
 
         isValid && saveProductTag(formData).then(response => {
           toast.success('Product Tag Created');
@@ -85,11 +86,7 @@ export const ProductTagCreateDialog = (props) => {
         Create Product Tag
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             width={12}
             title={"Name"}
@@ -99,11 +96,7 @@ export const ProductTagCreateDialog = (props) => {
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             width={12}
             title={"Description"}
@@ -114,38 +107,6 @@ export const ProductTagCreateDialog = (props) => {
             rows={4}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
-          <Grid item xs={12}>
-            {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
-              <TextField
-                id="outlined-select-currency-native"
-                select
-                label="Parent"
-                value={formik.values.parentId}
-                fullWidth={true}
-                onChange={event => {
-                  formik.setFieldValue("parentId", event.currentTarget.value);
-                }}
-                SelectProps={{
-                  native: true,
-                }}
-              >
-                <option key={'no-parent'} value={null}>
-
-                </option>
-                {categoriesSelectData.data.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name[language]}
-                  </option>
-                ))}
-              </TextField>
-            )}
-          </Grid>
-
           <Grid item xs={12}>
             <Uploader title={"Badge"} multiple={false} data={badge} setData={setBadge}/>
           </Grid>
@@ -189,7 +150,6 @@ export const ProductTagCreateDialog = (props) => {
               </FormHelperText>
             </Grid>
           )}
-        </Grid>
       </DialogContent>
       <DialogActions>
         <Button

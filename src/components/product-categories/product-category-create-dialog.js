@@ -120,11 +120,7 @@ export const ProductCategoryCreateDialog = (props) => {
         Create Product Category
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             width={12}
             title={"Name"}
@@ -134,11 +130,7 @@ export const ProductCategoryCreateDialog = (props) => {
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             width={12}
             title={"Description"}
@@ -149,11 +141,7 @@ export const ProductCategoryCreateDialog = (props) => {
             rows={4}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid item xs={12}>
             {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
               <TextField

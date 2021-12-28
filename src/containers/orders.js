@@ -54,6 +54,11 @@ const filterProperties = [
     label: 'Description',
     name: 'description',
     type: 'string'
+  },
+  {
+    label: 'User',
+    name: 'user.name',
+    type: 'string'
   }
 ];
 
@@ -64,7 +69,7 @@ export const Orders = () => {
     page: 0,
     query: '',
     sort: 'desc',
-    sortBy: 'updated_at',
+    sortBy: 'orders.updated_at',
     view: 'all',
     search: ''
   });

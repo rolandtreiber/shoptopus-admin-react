@@ -110,7 +110,7 @@ const items = [
                 title: 'Attributes'
             },
             {
-                href: '/dashboard/products/tags',
+                href: '/dashboard/product-tags',
                 title: 'Tags'
             }
         ]

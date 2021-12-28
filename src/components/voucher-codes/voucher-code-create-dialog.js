@@ -75,11 +75,7 @@ export const VoucherCodeCreateDialog = (props) => {
         Create Voucher Code
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid
             item
             xs={6}

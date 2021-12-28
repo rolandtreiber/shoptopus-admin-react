@@ -8,22 +8,22 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {SettingsContext} from "../contexts/settings-context";
-import {ProductAttributeInfo} from "../components/product-attributes/product-attribute-info";
-import {ProductAttributeEditDialog} from "../components/product-attributes/product-attribute-edit-dialog";
+import {ProductTagEditDialog} from "../components/product-tags/product-tag-edit-dialog";
+import {ProductTagInfo} from "../components/product-tags/product-tag-info";
 
-export const ProductAttributeSummary = () => {
+export const ProductTagSummary = () => {
   const mounted = useMounted();
   const [data, setData] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchProductAttribute} = useContext(APIContext)
-  const {productAttributeId} = useParams();
+  const {fetchProductTag} = useContext(APIContext)
+  const {productTagId} = useParams();
   const {language, appName} = useContext(SettingsContext)
 
   const getData = useCallback(async () => {
     setData(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProductAttribute(productAttributeId)
+      const {data: {data}} = await fetchProductTag(productTagId)
       const result = data;
 
       if (mounted.current) {
@@ -65,40 +65,40 @@ export const ProductAttributeSummary = () => {
       <>
         <Grid container spacing={3}>
           <Grid container item lg={8}
-            spacing={3}
-            sx={{
-              height: 'fit-content',
-              order: {
-                md: 2,
-                xs: 1
-              }
-            }}
-            xs={12}
+                spacing={3}
+                sx={{
+                  height: 'fit-content',
+                  order: {
+                    md: 2,
+                    xs: 1
+                  }
+                }}
+                xs={12}
           >
             <Grid
               item
               xs={12}
             >
-              <ProductAttributeInfo
+              <ProductTagInfo
                 onEdit={() => setOpenInfoDialog(true)}
                 data={data.data}
               />
             </Grid>
           </Grid>
           <Grid container item lg={4}
-            spacing={3}
-            sx={{
-              height: 'fit-content',
-              order: {
-                md: 2,
-                xs: 1
-              }
-            }}
-            xs={12}
+                spacing={3}
+                sx={{
+                  height: 'fit-content',
+                  order: {
+                    md: 2,
+                    xs: 1
+                  }
+                }}
+                xs={12}
           >
           </Grid>
         </Grid>
-        <ProductAttributeEditDialog
+        <ProductTagEditDialog
           onClose={() => setOpenInfoDialog(false)}
           open={openInfoDialog}
           onSuccess={() => getData()}
@@ -111,7 +111,7 @@ export const ProductAttributeSummary = () => {
   return (
     <>
       <Helmet>
-        <title>Product Attribute: Summary | {appName}</title>
+        <title>Product Tag: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{

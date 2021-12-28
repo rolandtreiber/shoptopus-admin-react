@@ -123,11 +123,7 @@ export const ProductCategoryEditDialog = (props) => {
         Update Product Category
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             value={initialValues.name}
             width={12}
@@ -138,11 +134,7 @@ export const ProductCategoryEditDialog = (props) => {
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             value={initialValues.description}
             width={12}
@@ -154,21 +146,17 @@ export const ProductCategoryEditDialog = (props) => {
             rows={4}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid item xs={12}>
             {categoriesSelectData && categoriesSelectData.isLoading === false && categoriesSelectData.data && (
               <TextField
                 id="outlined-select-currency-native"
                 select
                 label="Parent"
-                value={formik.values.parentId}
+                value={formik.values.parent_id}
                 fullWidth={true}
                 onChange={event => {
-                  formik.setFieldValue("parentId", event.currentTarget.value);
+                  formik.setFieldValue("parent_id", event.currentTarget.value);
                 }}
                 SelectProps={{
                   native: true,

@@ -81,11 +81,7 @@ export const DiscountRuleCreateDialog = (props) => {
         Create Discount Rule
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             width={12}
             title={"Name"}
@@ -95,11 +91,7 @@ export const DiscountRuleCreateDialog = (props) => {
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid
             item
             xs={6}

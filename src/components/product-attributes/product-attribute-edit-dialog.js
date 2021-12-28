@@ -94,11 +94,7 @@ export const ProductAttributeEditDialog = (props) => {
         Update Product Category
       </DialogTitle>
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <MultilangTextInput
             value={initialValues.name}
             width={12}
@@ -109,11 +105,7 @@ export const ProductAttributeEditDialog = (props) => {
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          mt={1}
-        >
+        <Grid container spacing={2} mt={1}>
           <Grid item xs={12}>
             <Uploader title={"Image"} multiple={false} data={image} setData={setImage}/>
           </Grid>
