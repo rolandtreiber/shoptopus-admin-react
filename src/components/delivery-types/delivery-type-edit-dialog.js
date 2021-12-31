@@ -9,50 +9,38 @@ import {
   DialogContent,
   DialogTitle, FormControlLabel,
   FormHelperText,
-  Grid, Switch, TextField,
+  Grid, Switch,
 } from '@material-ui/core';
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import MultilangTextInput from "../multilang-text-input";
-import {Uploader} from "../uploader";
-import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
+import {InputField} from "../input-field";
 
-export const ProductTagCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
-  const {saveProductTag} = useContext(APIContext)
+export const DeliveryTypeEditDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
+  const {updateDeliveryType} = useContext(APIContext)
   const [name, setName] = useState()
   const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
-  const [badge, setBadge] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
 
   const formik = useFormik({
-    initialValues: {
-      parentId: '',
-      submit: 'null',
-      enabled: true,
-      display_badge: false
-    },
+    initialValues: initialValues,
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
       try {
         let formData = new FormData();
-        if (badge) {
-          const badgeBlob = await fetch(badge).then(r => r.blob());
-          formData.append("badge", getFileFromBlob(badgeBlob))
-        }
         formData.append("name", JSON.stringify(name))
         formData.append("description", JSON.stringify(description))
         formData.append("enabled", formik.values.enabled)
-        formData.append("display_badge", formik.values.display_badge)
+        formData.append("price", formik.values.price)
 
-        isValid && saveProductTag(formData).then(response => {
-          toast.success('Product Tag Created');
+        isValid && updateDeliveryType(initialValues.id, formData).then(response => {
+          toast.success('Delivery Type Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
-          setBadge(null)
           setShowErrors(false)
           onSuccess();
           onClose?.();
@@ -76,11 +64,12 @@ export const ProductTagCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Tag
+        Update Delivery Type
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            value={initialValues.name}
             width={12}
             title={"Name"}
             field={"name"}
@@ -91,6 +80,7 @@ export const ProductTagCreateDialog = (props) => {
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            value={initialValues.description}
             width={12}
             title={"Description"}
             field={"description"}
@@ -100,49 +90,44 @@ export const ProductTagCreateDialog = (props) => {
             rows={4}
           />
         </Grid>
-          <Grid item xs={12}>
-            <Uploader title={"Badge"} multiple={false} data={badge} setData={setBadge}/>
-          </Grid>
-          <Grid item xs={6}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formik.values.enabled}
-                  onChange={event => {
-                    formik.setFieldValue("enabled", event.currentTarget.checked);
-                  }}
-                  color="primary"
-                  inputProps={{'aria-label': 'controlled'}}
-                />
-              }
-              label={formik.values.enabled === true ? "Enabled" : "Disabled"}
+        <Grid item xs={12}>
+          <InputField
+            error={Boolean(formik.touched.amount && formik.errors.amount)}
+            fullWidth
+            helperText={formik.touched.amount && formik.errors.amount}
+            label="Price"
+            name="price"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.price}
+            type={"number"}
+          />
+        </Grid>
+        <Grid item xs={6}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={formik.values.enabled}
+              onChange={event => {
+                formik.setFieldValue("enabled", event.currentTarget.checked);
+              }}
+              color="primary"
+              inputProps={{'aria-label': 'controlled'}}
             />
+          }
+          label={formik.values.enabled === true ? "Enabled" : "Disabled"}
+        />
+      </Grid>
+        {formik.errors.submit && (
+          <Grid
+            item
+            xs={12}
+          >
+            <FormHelperText error>
+              {formik.errors.submit}
+            </FormHelperText>
           </Grid>
-          <Grid item xs={6}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formik.values.display_badge}
-                  onChange={event => {
-                    formik.setFieldValue("display_badge", event.currentTarget.checked);
-                  }}
-                  color="primary"
-                  inputProps={{'aria-label': 'controlled'}}
-                />
-              }
-              label={"Display Badge"}
-            />
-          </Grid>
-          {formik.errors.submit && (
-            <Grid
-              item
-              xs={12}
-            >
-              <FormHelperText error>
-                {formik.errors.submit}
-              </FormHelperText>
-            </Grid>
-          )}
+        )}
       </DialogContent>
       <DialogActions>
         <Button
@@ -161,18 +146,18 @@ export const ProductTagCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Tag
+          Update Delivery Type
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-ProductTagCreateDialog.defaultProps = {
+DeliveryTypeEditDialog.defaultProps = {
   open: false
 };
 
-ProductTagCreateDialog.propTypes = {
+DeliveryTypeEditDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

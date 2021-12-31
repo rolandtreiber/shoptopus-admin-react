@@ -191,7 +191,7 @@ const APIProvider = ({children}) => {
       fetchDeliveryTypes: async (params) => await get(admin_api_url + "delivery-types", params, makeHeaders()),
       fetchDeliveryType: async (deliveryTypeId) => await get(admin_api_url + "delivery-type/" + deliveryTypeId, {}, makeHeaders()),
       saveDeliveryType: async (params) => await post(admin_api_url + "delivery-type", params, makeHeaders()),
-      updateDeliveryType: async (deliveryTypeId, params) => await put(admin_api_url + "delivery-type/" + deliveryTypeId, params, makeHeaders()),
+      updateDeliveryType: async (deliveryTypeId, params) => await patch(admin_api_url + "delivery-type/" + deliveryTypeId, params, makeHeaders()),
       deleteDeliveryType: async (deliveryTypeId) => await del(admin_api_url + "delivery-type/" + deliveryTypeId, {}, makeHeaders()),
 
       // Delivery Rules

@@ -11,6 +11,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {DeliveryTypesTable} from "../components/delivery-types/delivery-types-table";
+import {DeliveryTypeCreateDialog} from "../components/delivery-types/delivery-type-create-dialog";
 
 const views = [
     {
@@ -229,9 +230,10 @@ export const DeliveryTypes = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
+          <DeliveryTypeCreateDialog
             onClose={() => setOpenCreateDialog(false)}
             open={openCreateDialog}
+            onSuccess={() => fetchData().catch(console.error)}
           />
       </>
     );

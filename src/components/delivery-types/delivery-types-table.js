@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Proptypes from 'prop-types';
 import {Link as RouterLink} from 'react-router-dom';
-import {format} from 'date-fns';
 import {
   Box,
   Checkbox,
@@ -145,7 +144,7 @@ export const DeliveryTypesTable = (props) => {
                     color="inherit"
                     component={RouterLink}
                     sx={{display: 'block'}}
-                    to={"/dashboard/discount-rules/" + d.id}
+                    to={"/dashboard/delivery-types/" + d.id}
                     underline="none"
                     variant="subtitle2"
                   >

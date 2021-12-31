@@ -8,22 +8,23 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {SettingsContext} from "../contexts/settings-context";
-import {ProductTagEditDialog} from "../components/product-tags/product-tag-edit-dialog";
 import {ProductTagInfo} from "../components/product-tags/product-tag-info";
+import {DeliveryTypeEditDialog} from "../components/delivery-types/delivery-type-edit-dialog";
+import {DeliveryTypeInfo} from "../components/delivery-types/delivery-type-info";
 
-export const ProductTagSummary = () => {
+export const DeliveryTypeSummary = () => {
   const mounted = useMounted();
   const [data, setData] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchProductTag} = useContext(APIContext)
-  const {productTagId} = useParams();
-  const {language, appName} = useContext(SettingsContext)
+  const {fetchDeliveryType} = useContext(APIContext)
+  const {deliveryTypeId} = useParams();
+  const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async () => {
     setData(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchProductTag(productTagId)
+      const {data: {data}} = await fetchDeliveryType(deliveryTypeId)
       const result = data;
 
       if (mounted.current) {
@@ -79,7 +80,7 @@ export const ProductTagSummary = () => {
               item
               xs={12}
             >
-              <ProductTagInfo
+              <DeliveryTypeInfo
                 onEdit={() => setOpenInfoDialog(true)}
                 data={data.data}
               />
@@ -88,7 +89,7 @@ export const ProductTagSummary = () => {
           <Grid container item lg={4} spacing={3} sx={{height: 'fit-content', order: {md: 2, xs: 1} }} xs={12}>
           </Grid>
         </Grid>
-        <ProductTagEditDialog
+        <DeliveryTypeEditDialog
           onClose={() => setOpenInfoDialog(false)}
           open={openInfoDialog}
           onSuccess={() => getData()}
@@ -101,7 +102,7 @@ export const ProductTagSummary = () => {
   return (
     <>
       <Helmet>
-        <title>Product Tag: Summary | {appName}</title>
+        <title>Delivery Type: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{
