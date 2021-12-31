@@ -19,14 +19,20 @@ import {ResourceError} from '../resource-error';
 import {ResourceUnavailable} from '../resource-unavailable';
 import {Scrollbar} from '../scrollbar';
 import {CustomerMenu} from '../customer/customer-menu';
-import {SettingsContext} from "../../contexts/settings-context";
 import {Status} from "../status";
 import {format} from "date-fns";
+import Price from "../price";
+import {language} from "gray-matter";
+import {SettingsContext} from "../../contexts/settings-context";
 
 const columns = [
   {
     id: 'total_price',
     label: 'Price',
+  },
+  {
+    id: 'delivery',
+    label: 'Delivery',
   },
   {
     id: 'user',
@@ -103,6 +109,7 @@ export const OrdersTable = (props) => {
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
+  const {language} = useContext(SettingsContext)
 
   return (
     <Box
@@ -174,6 +181,15 @@ export const OrdersTable = (props) => {
                     >
                       {d.total_price}
                     </Link>
+                  </TableCell>
+
+                  <TableCell>
+                    <Typography
+                      color="textSecondary"
+                      variant="inherit"
+                    >
+                      <Price>{d.delivery}</Price> ({d.delivery_type[language]})
+                    </Typography>
                   </TableCell>
 
                   <TableCell>

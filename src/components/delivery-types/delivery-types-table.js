@@ -36,6 +36,16 @@ const columns = [
     label: 'Price'
   },
   {
+    id: 'order_count',
+    label: 'Orders',
+    nonSortable: true
+  },
+  {
+    id: 'total_revenue',
+    label: 'Total Revenue',
+    nonSortable: true
+  },
+  {
     id: 'status',
     label: 'Status'
   }
@@ -156,6 +166,12 @@ export const DeliveryTypesTable = (props) => {
                 </TableCell>
                 <TableCell>
                   <Price>{d.price}</Price>
+                </TableCell>
+                <TableCell>
+                  {d.order_count}
+                </TableCell>
+                <TableCell>
+                  <Price>{d.total_revenue}</Price>
                 </TableCell>
                 <TableCell>
                   <Status
