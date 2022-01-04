@@ -2,23 +2,39 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Card, CardHeader, Divider, Grid } from '@material-ui/core';
 import { PropertyList } from '../property-list';
 import { PropertyListItem } from '../property-list-item';
+import {Link} from "react-router-dom";
+
+// const Paid =        1;
+// const Processing =  2;
+// const InTransit =   3;
+// const Completed =   4;
+// const OnHold =      5;
+// const Cancelled =   6;
 
 const statusVariants = [
   {
-    label: 'Placed',
-    value: 'placed'
+    label: 'Paid',
+    value: 1
   },
   {
-    label: 'Processed',
-    value: 'processed'
+    label: 'Processing',
+    value: 2
   },
   {
-    label: 'Delivered',
-    value: 'delivered'
+    label: 'InTransit',
+    value: 3
   },
   {
-    label: 'Complete',
-    value: 'complete'
+    label: 'Completed',
+    value: 4
+  },
+  {
+    label: 'OnHold',
+    value: 5
+  },
+  {
+    label: 'Cancelled',
+    value: 6
   }
 ];
 
@@ -57,7 +73,7 @@ export const OrderInfo = (props) => {
           }}
           variant="rounded"
         >
-          {`${order.customer.firstName[0]} ${order.customer.lastName[0]}`}
+          {`${order.user.first_name[0]} ${order.user.last_name[0]}`}
         </Avatar>
       </Box>
       <Grid container>
@@ -69,15 +85,15 @@ export const OrderInfo = (props) => {
           <PropertyList>
             <PropertyListItem
               label="Customer Name"
-              value={`${order.customer.firstName} ${order.customer.lastName}`}
+              value={`${order.user.name}`}
             />
             <PropertyListItem
               label="Email Address"
-              value={order.customer.email}
+              value={order.user.email}
             />
             <PropertyListItem
               label="Phone Number"
-              value={order.customer.phone}
+              value={order.user.phone}
             />
           </PropertyList>
         </Grid>
@@ -93,11 +109,12 @@ export const OrderInfo = (props) => {
             />
             <PropertyListItem
               label="Address"
-              value={order.customer.address}
-            />
+            >
+              <a target="_blank" href={order.address.composite.url}>{order.address.composite.text}</a>
+            </PropertyListItem>
             <PropertyListItem
               label="Country"
-              value={order.customer.country}
+              value={order.address.country}
             />
           </PropertyList>
         </Grid>

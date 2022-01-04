@@ -11,9 +11,13 @@ import {
   Typography
 } from '@material-ui/core';
 import { Scrollbar } from '../scrollbar';
+import {useLanguage} from "../../hooks/use-language";
+import Price from "../price";
+import {darkWarning} from "../../colors";
 
 export const OrderSummary = (props) => {
   const { order, ...other } = props;
+  const {getLang} = useLanguage()
 
   return (
     <Scrollbar>
@@ -27,7 +31,7 @@ export const OrderSummary = (props) => {
               Name
             </TableCell>
             <TableCell>
-              Cost
+              Unit Price
             </TableCell>
             <TableCell>
               Qty
@@ -38,7 +42,7 @@ export const OrderSummary = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.lineItems.map((lineItem) => (
+          {order.products.map((lineItem) => (
             <TableRow key={lineItem.sku}>
               <TableCell>
                 <Box
@@ -48,7 +52,7 @@ export const OrderSummary = (props) => {
                   }}
                 >
                   <Avatar
-                    src={lineItem.image}
+                    src={lineItem.cover_photo_url}
                     sx={{
                       height: 48,
                       mr: 2,
@@ -61,7 +65,7 @@ export const OrderSummary = (props) => {
                       color="textPrimary"
                       variant="body2"
                     >
-                      {lineItem.name}
+                      {getLang(lineItem.name)}
                     </Typography>
                     <Typography
                       color="textSecondary"
@@ -73,13 +77,17 @@ export const OrderSummary = (props) => {
                 </Box>
               </TableCell>
               <TableCell>
-                {numeral(lineItem.unitAmount).format(`${lineItem.currencySymbol}0,0.00`)}
+                <Price>{lineItem.unit_price}</Price>
+                {lineItem.unit_discount > 0 && (<> (<Price>{lineItem.original_unit_price}</Price><Price negative color={darkWarning.main}>{lineItem.unit_discount}</Price>)</>)}
               </TableCell>
               <TableCell>
-                {lineItem.quantity}
+                {lineItem.amount}
               </TableCell>
               <TableCell>
-                {numeral(lineItem.totalAmount).format(`${lineItem.currencySymbol}0,0.00`)}
+                <TableCell>
+                  <Price>{lineItem.final_price}</Price>
+                  {lineItem.total_discount > 0 && (<> (<Price>{lineItem.full_price}</Price><Price negative color={darkWarning.main}>{lineItem.total_discount}</Price>)</>)}
+                </TableCell>
               </TableCell>
             </TableRow>
           ))}
@@ -90,27 +98,37 @@ export const OrderSummary = (props) => {
             <TableCell />
             <TableCell />
             <TableCell>
-              {numeral(order.subtotalAmount).format(`${order.currencySymbol}0,0.00`)}
+              <Price>{order.original_price}</Price>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-              Discount (%)
+              Discount
             </TableCell>
             <TableCell />
             <TableCell />
             <TableCell>
-              {numeral(order.discountAmount).format(`${order.currencySymbol}0,0.00`)}
+              <Price>{order.total_discount}</Price>
             </TableCell>
           </TableRow>
+          {/*<TableRow>*/}
+          {/*  <TableCell>*/}
+          {/*    VAT (25%)*/}
+          {/*  </TableCell>*/}
+          {/*  <TableCell />*/}
+          {/*  <TableCell />*/}
+          {/*  <TableCell>*/}
+          {/*    {numeral(order.taxAmount).format(`${order.currencySymbol}0,0.00`)}*/}
+          {/*  </TableCell>*/}
+          {/*</TableRow>*/}
           <TableRow>
             <TableCell>
-              VAT (25%)
+              Delivery
             </TableCell>
             <TableCell />
             <TableCell />
             <TableCell>
-              {numeral(order.taxAmount).format(`${order.currencySymbol}0,0.00`)}
+              <Price>{order.delivery}</Price>
             </TableCell>
           </TableRow>
           <TableRow>
@@ -129,7 +147,7 @@ export const OrderSummary = (props) => {
                 color="textPrimary"
                 variant="subtitle2"
               >
-                {numeral(order.totalAmount).format(`${order.currencySymbol}0,0.00`)}
+                <Price>{order.total_price}</Price>
               </Typography>
             </TableCell>
           </TableRow>

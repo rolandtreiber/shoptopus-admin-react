@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import {useCallback, useContext, useEffect, useState} from 'react';
+import {Link as RouterLink, useParams} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { Box, Button, Container, Grid, Skeleton, Typography } from '@material-ui/core';
@@ -15,24 +15,29 @@ import { useMounted } from '../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../icons/arrow-left';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../icons/exclamation-outlined';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
 
 export const Order = () => {
   const mounted = useMounted();
   const [orderState, setOrderState] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
+  const {fetchOrder} = useContext(APIContext)
+  const {orderId} = useParams()
 
   const getOrder = useCallback(async () => {
     setOrderState(() => ({ isLoading: true }));
 
     try {
-      const result = await orderApi.getOrder();
+      const result = await fetchOrder(orderId);
+
 
       if (mounted.current) {
         setOrderState(() => ({
           isLoading: false,
-          data: result
+          data: result.data.data
         }));
+        console.log(result.data.data)
       }
     } catch (err) {
       console.error(err);
@@ -166,10 +171,11 @@ export const Order = () => {
               item
               xs={12}
             >
-              <OrderPayment
+              {orderState.data.payments.map(payment => <OrderPayment
+                key={payment.id}
                 onEdit={() => setOpenPaymentDialog(true)}
-                order={orderState.data}
-              />
+                payment={payment}
+              />)}
             </Grid>
             <Grid
               item
@@ -191,16 +197,16 @@ export const Order = () => {
             </Grid>
           </Grid>
         </Grid>
-        <OrderInfoDialog
-          onClose={() => setOpenInfoDialog(false)}
-          open={openInfoDialog}
-          order={orderState.data}
-        />
-        <OrderPaymentDialog
-          onClose={() => setOpenPaymentDialog(false)}
-          open={openPaymentDialog}
-          order={orderState.data}
-        />
+        {/*<OrderInfoDialog*/}
+        {/*  onClose={() => setOpenInfoDialog(false)}*/}
+        {/*  open={openInfoDialog}*/}
+        {/*  order={orderState.data}*/}
+        {/*/>*/}
+        {/*<OrderPaymentDialog*/}
+        {/*  onClose={() => setOpenPaymentDialog(false)}*/}
+        {/*  open={openPaymentDialog}*/}
+        {/*  order={orderState.data}*/}
+        {/*/>*/}
       </>
     );
   };

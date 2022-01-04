@@ -52,7 +52,7 @@ export const OrderDraggable = (props) => {
                 ml: 1,
                 mr: 2
               }}
-              to="/dashboard/orders/1"
+              to={"/dashboard/orders/"+order.id}
               underline="none"
               variant="h5"
             >
@@ -84,7 +84,7 @@ export const OrderDraggable = (props) => {
             />
             <PropertyListItem
               align="horizontal"
-              label="Customer"
+              label="Price"
               value={`${order.total_price}`}
             />
             <PropertyListItem

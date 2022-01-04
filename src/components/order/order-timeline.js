@@ -9,6 +9,7 @@ import {
   TimelineItem
 } from '@material-ui/lab';
 import { Check as CheckIcon } from '../../icons/check';
+import {format} from "date-fns";
 
 const getDotStyles = (value) => {
   if (value === 'complete') {
@@ -59,7 +60,7 @@ const getItems = (status) => {
 };
 
 export const OrderTimeline = (props) => {
-  const { status, ...other } = props;
+  const { status, events, ...other } = props;
   const items = getItems(status);
 
   return (
@@ -70,8 +71,8 @@ export const OrderTimeline = (props) => {
       }}
       {...other}
     >
-      {items.map((item, index) => (
-        <Fragment key={item.title}>
+      {events.map((event, index) => (
+        <Fragment key={event.message}>
           <TimelineItem
             sx={{
               alignItems: 'center',
@@ -83,7 +84,9 @@ export const OrderTimeline = (props) => {
           >
             <TimelineDot
               sx={{
-                ...(getDotStyles(item.value)),
+                backgroundColor: 'success.main',
+                borderColor: 'success.main',
+                color: 'success.contrastText',
                 alignSelf: 'center',
                 boxShadow: 'none',
                 flexShrink: 0,
@@ -91,25 +94,35 @@ export const OrderTimeline = (props) => {
                 width: 36,
                 m: 0
               }}
-              variant={(item.value === 'complete' || item.value === 'active')
-                ? 'filled'
-                : 'outlined'}
+              variant={'filled'}
+              // variant={(event.value === 'complete' || event.value === 'active')
+              //   ? 'filled'
+              //   : 'outlined'}
             >
-              {(item.value === 'complete' || item.value === 'active')
-              && <CheckIcon />}
+              <CheckIcon />
             </TimelineDot>
             <TimelineContent>
               <Typography
-                color={(item.value === 'complete' || item.value === 'active')
-                  ? 'textPrimary'
-                  : 'textSecondary'}
+                color={'textPrimary'}
+                // color={(event.value === 'complete' || event.value === 'active')
+                //   ? 'textPrimary'
+                //   : 'textSecondary'}
                 variant="overline"
               >
-                {item.title}
+                {event.message}
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'text.secondary',
+                  display: 'block'
+                }}
+                variant="caption"
+              >
+                {`${format(new Date(event.created_at), 'dd/MM/yyyy HH:mm')}`}
               </Typography>
             </TimelineContent>
           </TimelineItem>
-          {items.length > index + 1 && (
+          {events.length > index + 1 && (
             <TimelineConnector
               sx={{
                 backgroundColor: 'neutral.200',

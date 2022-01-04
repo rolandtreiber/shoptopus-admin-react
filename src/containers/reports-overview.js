@@ -263,7 +263,7 @@ export const ReportsOverview = () => {
             md={6}
             xs={12}
           >
-            <LatestOrders orders={latestOrders} />
+            {/*<LatestOrders orders={latestOrders} />*/}
           </Grid>
         </Grid>
       </Box>

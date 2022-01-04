@@ -40,7 +40,7 @@ export const Footer = () => (
         color="textSecondary"
         variant="caption"
       >
-        © 2021 Devias
+        © 2022 Shoptopus
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       {links.map((link) => (

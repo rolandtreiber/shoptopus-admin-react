@@ -17,23 +17,33 @@ import { OrderTimeline } from './order-timeline';
 const statusOptions = [
   {
     color: 'info.main',
-    label: 'Placed',
-    value: 'placed'
-  },
-  {
-    color: 'error.main',
-    label: 'Processed',
-    value: 'processed'
+    label: 'Paid',
+    value: 1
   },
   {
     color: 'warning.main',
-    label: 'Delivered',
-    value: 'delivered'
+    label: 'Processing',
+    value: 2
+  },
+  {
+    color: 'info.main',
+    label: 'In Transit',
+    value: 3
   },
   {
     color: 'success.main',
-    label: 'Complete',
-    value: 'complete'
+    label: 'Completed',
+    value: 4
+  },
+  {
+    color: 'warning.main',
+    label: 'On Hold',
+    value: 5
+  },
+  {
+    color: 'error.main',
+    label: 'Cancelled',
+    value: 6
   }
 ];
 
@@ -98,10 +108,10 @@ export const OrderStatus = (props) => {
             }}
             variant="caption"
           >
-            {`Updated ${format(new Date(order.updatedAt), 'dd/MM/yyyy HH:mm')}`}
+            {`Updated ${format(new Date(order.updated_at), 'dd/MM/yyyy HH:mm')}`}
           </Typography>
           <Divider sx={{ my: 2 }} />
-          <OrderTimeline status={status} />
+          <OrderTimeline status={status} events={order.event_logs} />
         </CardContent>
         <Divider />
         <ActionList>

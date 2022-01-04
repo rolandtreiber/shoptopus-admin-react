@@ -1,36 +1,63 @@
 import PropTypes from 'prop-types';
-import { Button, Card, CardHeader, Divider, Grid } from '@material-ui/core';
-import { PropertyList } from '../property-list';
-import { PropertyListItem } from '../property-list-item';
+import {Button, Card, CardHeader, Divider, Grid} from '@material-ui/core';
+import {PropertyList} from '../property-list';
+import {PropertyListItem} from '../property-list-item';
+import Price from "../price";
+
+// const Pending =     0;
+// const Settled =     1;
+// const Refunded =    2;
+// const Rejected =    3;
 
 const paymentStatusOptions = [
   {
-    value: 'paid',
-    label: 'Paid'
+    label: 'Pending',
+    value: 0
   },
   {
-    value: 'not-paid',
-    label: 'Not paid'
+    label: 'Settled',
+    value: 1
+  },
+  {
+    label: 'Refunded',
+    value: 2
+  },
+  {
+    label: 'Rejected',
+    value: 3
   }
 ];
 
+// const Stripe =      0;
+// const PayPal =      1;
+// const GooglePay =   2;
+// const ApplePay =    3;
+
 const paymentMethodOptions = [
   {
-    value: 'debit',
-    label: 'Direct debit'
+    label: 'Stripe',
+    value: 0
   },
   {
-    value: 'paypal',
-    label: 'Paypal'
+    label: 'PayPal',
+    value: 1
+  },
+  {
+    label: 'GooglePay',
+    value: 2
+  },
+  {
+    label: 'ApplePay',
+    value: 3
   }
 ];
 
 export const OrderPayment = (props) => {
-  const { onEdit, order, ...other } = props;
+  const {onEdit, payment, ...other} = props;
   const paymentStatusOption = paymentStatusOptions
-    .find((option) => option.value === order.paymentStatus);
+    .find((option) => option.value === payment.status);
   const paymentMethodOption = paymentMethodOptions
-    .find((option) => option.value === order.paymentMethod);
+    .find((option) => option.value === payment.source.payment_method_id);
 
   return (
     <Card
@@ -47,9 +74,9 @@ export const OrderPayment = (props) => {
             Edit
           </Button>
         )}
-        title="Payment &amp; Courier Details"
+        title="Payment Details"
       />
-      <Divider />
+      <Divider/>
       <Grid container>
         <Grid
           item
@@ -58,16 +85,12 @@ export const OrderPayment = (props) => {
         >
           <PropertyList>
             <PropertyListItem
-              label="Stripe Payment ID"
-              value={order?.paymentId}
+              label="Payment Reference"
+              value={payment.payment_ref}
             />
             <PropertyListItem
               label="Payment Status"
               value={paymentStatusOption.label}
-            />
-            <PropertyListItem
-              label="Payment Method"
-              value={paymentMethodOption.label}
             />
           </PropertyList>
         </Grid>
@@ -78,13 +101,22 @@ export const OrderPayment = (props) => {
         >
           <PropertyList>
             <PropertyListItem
-              label="Courier"
-              value={order.courier}
+              label="Payment Method"
+              value={paymentMethodOption.label}
             />
             <PropertyListItem
-              label="Tracking ID"
-              value={order.trackingCode}
-            />
+              label="Amount"
+            >
+              <Price>{payment.amount}</Price>
+            </PropertyListItem>
+            {/*<PropertyListItem*/}
+            {/*  label="Courier"*/}
+            {/*  value={order.courier}*/}
+            {/*/>*/}
+            {/*<PropertyListItem*/}
+            {/*  label="Tracking ID"*/}
+            {/*  value={order.trackingCode}*/}
+            {/*/>*/}
           </PropertyList>
         </Grid>
       </Grid>
@@ -94,5 +126,5 @@ export const OrderPayment = (props) => {
 
 OrderPayment.propTypes = {
   onEdit: PropTypes.func,
-  order: PropTypes.object.isRequired
+  payment: PropTypes.object.isRequired
 };
