@@ -23,12 +23,8 @@ import {useNestedValidation} from "../../hooks/use-nested-validation";
 export const ProductAttributeEditDialog = (props) => {
   const {initialValues, open, onClose, onSuccess, ...other} = props;
   const {updateProductAttribute} = useContext(APIContext)
-  const [categoriesSelectData, setCategoriesSelectData] = useState()
   const [name, setName] = useState()
-  const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
-  const mounted = useMounted();
-  const {language} = useContext(SettingsContext)
   const [image, setImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
 
@@ -91,7 +87,7 @@ export const ProductAttributeEditDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Update Product Category
+        Update Product Attribute
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -175,7 +171,7 @@ export const ProductAttributeEditDialog = (props) => {
           }}
           variant="contained"
         >
-          Update Product Category
+          Update Product Attribute
         </Button>
       </DialogActions>
     </Dialog>

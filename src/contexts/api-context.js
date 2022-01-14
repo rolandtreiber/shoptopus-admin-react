@@ -236,6 +236,7 @@ const APIProvider = ({children}) => {
       // Custom/Functional
       getProductsPageSummary: async () => await get(admin_api_url + "products/summary", {}, makeHeaders()),
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
+      getSharedOptions: async () => await get(api_url + "shared-options", {}, makeHeaders()),
 
       // Files
       fetchFiles: async (params) => await get(admin_api_url + "files", params, makeHeaders()),

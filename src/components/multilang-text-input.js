@@ -63,7 +63,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
               <InputField
                 error={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang]))}
                 fullWidth
-                helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
+                helperText={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang])) && formik.errors[lang]}
                 label={title+' ('+availableLanguages[lang].label+')'}
                 name={lang}
                 onBlur={formik.handleBlur}
@@ -78,7 +78,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
                 fullWidth
                 multiline={true}
                 maxRows={rows}
-                helperText={(formik.touched[lang] || showErrors) && formik.errors[lang]}
+                helperText={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang])) && formik.errors[lang]}
                 label={title+' ('+availableLanguages[lang].label+')'}
                 name={lang}
                 onBlur={formik.handleBlur}

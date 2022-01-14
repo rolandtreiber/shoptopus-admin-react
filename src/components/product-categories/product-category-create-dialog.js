@@ -189,7 +189,6 @@ export const ProductCategoryCreateDialog = (props) => {
               }
               label={formik.values.enabled ? "Enabled" : "Disabled"}
             />
-
           </Grid>
           {formik.errors.submit && (
             <Grid

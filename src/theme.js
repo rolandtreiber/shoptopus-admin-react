@@ -356,6 +356,26 @@ const baseThemeOptions = {
         }
       }
     },
+    MuiTreeItem: {
+      styleOverrides: {
+        root: {
+          '.MuiTreeItem-content.Mui-selected, .MuiTreeItem-content.Mui-selected.Mui-focused' : {
+              backgroundColor: '#fff',
+              color: '#000'
+          },
+          '.MuiTreeItem-content.Mui-focused' : {
+            backgroundColor: 'inherit',
+            color: 'inherit'
+          },
+          '.MuiTypography-root' : {
+            verticalAlign: 'super'
+          },
+          '&:hover': {
+            cursor: 'pointer'
+          }
+        },
+      }
+    },
     MuiSwitch: {
       styleOverrides: {
         root: {

@@ -69,15 +69,25 @@ export const SettingsProvider = (props) => {
   const { children } = props;
   const [settings, setSettings] = useState(initialSettings);
   const {getAppMetaInformation} = useContext(APIContext)
+  const {getSharedOptions} = useContext(APIContext)
 
   const fetchMetaInformation = useCallback(async (localSettings) => {
 
     try {
       const result = await getAppMetaInformation()
       return {
-        ...localSettings,
         available_locales: result.data.data.locales,
         currency: result.data.data.default_currency
+      }
+    } catch (e) {console.log(e)}
+  }, [])
+
+  const fetchSharedOptions = useCallback(async () => {
+
+    try {
+      const result = await getSharedOptions()
+      return {
+        shared_options: result.data.data,
       }
     } catch (e) {console.log(e)}
   }, [])
@@ -88,11 +98,19 @@ export const SettingsProvider = (props) => {
 
   const getMergedSettings = useCallback(async () => {
     const localSettings = await fetchLocalSettings()
-    return await fetchMetaInformation(localSettings)
+    const metaInformation = await fetchMetaInformation()
+    const sharedOptions = await fetchSharedOptions()
+    return {
+      ...localSettings,
+      ...metaInformation,
+      ...sharedOptions
+    }
   }, [])
 
   useEffect(() => {
-    getMergedSettings().then(r => setSettings(r))
+    getMergedSettings().then(r => {
+      setSettings(r)
+    })
   }, []);
 
   const saveSettings = (updatedSettings) => {
@@ -107,6 +125,7 @@ export const SettingsProvider = (props) => {
         saveSettings,
         language: settings.language,
         availableLanguages: settings.available_locales,
+        sharedOptions: settings.shared_options,
         appName: settings.app_name,
         currency: settings.currency
       }}
