@@ -9,10 +9,10 @@ import {
   DialogContent,
   DialogTitle, FormControlLabel,
   FormHelperText,
-  Grid, Switch
+  Grid, InputLabel, Switch
 } from '@material-ui/core';
 import {InputField} from '../input-field';
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 import {getFileFromBlob} from "../../utils/file-operations";
@@ -21,6 +21,7 @@ import {Uploader} from "../uploader";
 import {SettingsContext} from "../../contexts/settings-context";
 import CategoryTreeSelect from "../category-tree-select";
 import AttributeTreeSelect from "../attribute-tree-select";
+import TagPicker from "../tag-picker";
 
 export const ProductCreateDialog = (props) => {
   const {open, onClose, ...other} = props;
@@ -98,8 +99,14 @@ export const ProductCreateDialog = (props) => {
         Create Product
       </DialogTitle>
       <DialogContent>
+        <InputLabel>Attributes</InputLabel>
         <AttributeTreeSelect attributes={sharedOptions.attributes}/>
+        <InputLabel>Categories</InputLabel>
         <CategoryTreeSelect categories={sharedOptions.categories}/>
+        <InputLabel>Tags</InputLabel>
+        <Grid container spacing={2} mt={1}>
+        <TagPicker tags={sharedOptions.tags}/>
+        </Grid>
         <Grid item xs={12}>
           <Uploader title={"Files"} multiple={true} data={attachments} setData={setAttachments}/>
         </Grid>

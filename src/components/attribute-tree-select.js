@@ -106,7 +106,7 @@ const AttributeTreeSelect = ({attributes}) => {
         multiSelect
       >
         {attributes.map(a => (
-          <TreeItem ContentComponent={TreeItemContent} value={a.id} key={a.id} nodeId={a.id} label={getLang(a.name) + ' - ' + a.id}>
+          <TreeItem ContentComponent={TreeItemContent} value={a.id} key={a.id} nodeId={a.id} label={getLang(a.name)}>
             {a.options.length > 0 && a.options.map(o => (
               <TreeItem ContentComponent={TreeItemContent} value={o.id} key={o.id} nodeId={o.id} label={getLang(o.name)}/>
             ))}
