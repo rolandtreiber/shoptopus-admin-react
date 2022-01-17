@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Box, Button} from "@material-ui/core";
 import {TreeItem, TreeView} from "@material-ui/lab";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -6,9 +6,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {useLanguage} from "../hooks/use-language";
 import TreeItemContent from "./tree-item-content";
 
-const CategoryTreeSelect = ({categories}) => {
+const CategoryTreeSelect = ({categories, selection = [], setSelection}) => {
   const [expanded, setExpanded] = React.useState([]);
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState(selection);
   const {getLang} = useLanguage()
 
   // console.log(categories)
@@ -17,6 +17,10 @@ const CategoryTreeSelect = ({categories}) => {
       setExpanded(nodeIds);
     }
   };
+
+  useEffect(() => {
+    setSelection(selected)
+  }, [selected])
 
   const autoSelectParents = (selectedIds) => {
     const allCategories = flat(categories)
@@ -76,7 +80,7 @@ const CategoryTreeSelect = ({categories}) => {
   )
 
   return (
-    <Box sx={{height: 270, flexGrow: 1, overflowY: 'auto'}}>
+    <Box mb={1} sx={{maxHeight: 270, flexGrow: 1, overflowY: 'auto'}}>
       <Box sx={{mb: 1}}>
         <Button onClick={handleExpandClick}>
           {expanded.length === 0 ? 'Expand all' : 'Collapse all'}

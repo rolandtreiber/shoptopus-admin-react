@@ -6,9 +6,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {useLanguage} from "../hooks/use-language";
 import TreeItemContent from "./tree-item-content";
 
-const AttributeTreeSelect = ({attributes}) => {
+const AttributeTreeSelect = ({attributes, selection = [], setSelection}) => {
   const [expanded, setExpanded] = React.useState([]);
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState(selection);
   const {getLang} = useLanguage()
   const attributeIds = attributes.map(a => a.id);
   const handleToggle = (event, nodeIds) => {
@@ -25,6 +25,38 @@ const AttributeTreeSelect = ({attributes}) => {
   const getAllSelectedAttributeOptions = (attribute, nodeIds) => {
     const optionIds = attribute.options.filter(o => o.id).map(o => o.id);
     return nodeIds.filter(value => optionIds.includes(value));
+  }
+
+  useEffect(() => {
+    setSelection(getAllSelections(selected))
+  }, [selected])
+
+  const removeWhereOptionUnselected = (nodeIds) => {
+    const selectedAttributes = getAllSelectedAttributes(nodeIds)
+    let toRemove = [];
+    selectedAttributes.forEach((a) => {
+      const selectedOptions = getAllSelectedAttributeOptions(a, nodeIds)
+      if (selectedOptions.length === 0) {
+        return toRemove = [...toRemove, a.id]
+      }
+    })
+    return nodeIds.filter(i => !toRemove.includes(i))
+  }
+
+  const getAllSelections = (nodeIds) => {
+    let selections = [];
+    const selectedAttributes = getAllSelectedAttributes(nodeIds)
+    selectedAttributes.some(a => {
+      const selectedOptions = getAllSelectedAttributeOptions(a, nodeIds)
+      if (selectedOptions.length === 1) {
+        const selection = {
+          attributeId: a.id,
+          optionId: selectedOptions[0]
+        }
+        selections = [...selections, selection]
+      }
+    })
+    return selections
   }
 
   const isDuplicateOption = (nodeIds) => {
@@ -55,8 +87,7 @@ const AttributeTreeSelect = ({attributes}) => {
   }
 
   const handleSelect = (event, nodeIds) => {
-
-    const ids = autoSelectParents(nodeIds)
+    const ids = autoSelectParents(removeWhereOptionUnselected(nodeIds))
     if (!isDuplicateOption(ids)) {
       setSelected(ids)
     }
@@ -86,7 +117,7 @@ const AttributeTreeSelect = ({attributes}) => {
   };
 
   return (
-    <Box sx={{height: 270, flexGrow: 1, overflowY: 'auto'}}>
+    <Box mb={1} sx={{maxHeight: 270, flexGrow: 1, overflowY: 'auto'}}>
       <Box sx={{mb: 1}}>
         <Button onClick={handleExpandClick}>
           {expanded.length === 0 ? 'Expand all' : 'Collapse all'}

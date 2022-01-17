@@ -34,6 +34,9 @@ export const ProductCreateDialog = (props) => {
   const {setValidation, isValid} = useNestedValidation()
   const {sharedOptions} = useContext(SettingsContext)
   const {language} = useContext(SettingsContext)
+  const [tags, setTags] = useState([])
+  const [categories, setCategories] = useState([])
+  const [attributes, setAttributes] = useState([])
 
   const getFileBlobs = async (files) => {
     return await Promise.all(files.map(async (file) => {
@@ -100,12 +103,12 @@ export const ProductCreateDialog = (props) => {
       </DialogTitle>
       <DialogContent>
         <InputLabel>Attributes</InputLabel>
-        <AttributeTreeSelect attributes={sharedOptions.attributes}/>
+        <AttributeTreeSelect selection={attributes} setSelection={setAttributes} attributes={sharedOptions.attributes}/>
         <InputLabel>Categories</InputLabel>
-        <CategoryTreeSelect categories={sharedOptions.categories}/>
+        <CategoryTreeSelect selection={categories} setSelection={setCategories} categories={sharedOptions.categories}/>
         <InputLabel>Tags</InputLabel>
         <Grid container spacing={2} mt={1}>
-        <TagPicker tags={sharedOptions.tags}/>
+        <TagPicker tags={sharedOptions.tags} selection={tags} setSelection={setTags}/>
         </Grid>
         <Grid item xs={12}>
           <Uploader title={"Files"} multiple={true} data={attachments} setData={setAttachments}/>
