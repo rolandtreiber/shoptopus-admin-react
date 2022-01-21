@@ -12,7 +12,7 @@ import {
   Grid, InputLabel, Switch
 } from '@material-ui/core';
 import {InputField} from '../input-field';
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 import {getFileFromBlob} from "../../utils/file-operations";
@@ -73,6 +73,13 @@ export const ProductCreateDialog = (props) => {
         formData.append("price", formik.values.price)
         formData.append("stock", formik.values.stock)
 
+        attributes.map(attribute => {
+          formData.append("product_attributes[" + attribute.attributeId + "]", attribute.optionId)
+        })
+
+        categories.map(category => formData.append('product_categories[]', category))
+        tags.map(tag => formData.append('product_tags[]', tag))
+
         isValid && saveProduct(formData).then(response => {
           toast.success('Product created');
           helpers.setStatus({success: true});
@@ -102,16 +109,22 @@ export const ProductCreateDialog = (props) => {
         Create Product
       </DialogTitle>
       <DialogContent>
-        <InputLabel>Attributes</InputLabel>
-        <AttributeTreeSelect selection={attributes} setSelection={setAttributes} attributes={sharedOptions.attributes}/>
-        <InputLabel>Categories</InputLabel>
-        <CategoryTreeSelect selection={categories} setSelection={setCategories} categories={sharedOptions.categories}/>
-        <InputLabel>Tags</InputLabel>
-        <Grid container spacing={2} mt={1}>
-        <TagPicker tags={sharedOptions.tags} selection={tags} setSelection={setTags}/>
-        </Grid>
         <Grid item xs={12}>
           <Uploader title={"Files"} multiple={true} data={attachments} setData={setAttachments}/>
+        </Grid>
+        <Grid item xs={12}>
+          <InputLabel>Attributes</InputLabel>
+          <AttributeTreeSelect selection={attributes} setSelection={setAttributes}
+                               attributes={sharedOptions.attributes}/>
+        </Grid>
+        <Grid item xs={12}>
+          <InputLabel>Categories</InputLabel>
+          <CategoryTreeSelect selection={categories} setSelection={setCategories}
+                              categories={sharedOptions.categories}/>
+        </Grid>
+        <Grid item xs={12} mt={2}>
+          <InputLabel>Tags</InputLabel>
+          <TagPicker tags={sharedOptions.tags} selection={tags} setSelection={setTags}/>
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput

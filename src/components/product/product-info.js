@@ -66,7 +66,10 @@ export const ProductInfo = (props) => {
         <PropertyListItem
           align={align}
           label="Attributes"
-          value={product.attributes.map(attribute => getLang(attribute.name)).join(', ')}
+          value={product.attributes.map(attribute => {
+            return getLang(attribute.name) + ' ('+getLang(attribute.option.name)+')'
+          }).join(', ')
+          }
         />
         <PropertyListItem
           align={align}
