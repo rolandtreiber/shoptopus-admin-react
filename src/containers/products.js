@@ -222,6 +222,7 @@ export const Products = () => {
       <ProductCreateDialog
         onClose={() => setOpenCreateDialog(false)}
         open={openCreateDialog}
+        onSuccess={() => getProducts().catch(console.error)}
       />
     </>
   );

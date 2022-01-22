@@ -24,7 +24,7 @@ import AttributeTreeSelect from "../attribute-tree-select";
 import TagPicker from "../tag-picker";
 
 export const ProductCreateDialog = (props) => {
-  const {open, onClose, ...other} = props;
+  const {open, onClose, onSuccess, ...other} = props;
   const {saveProduct} = useContext(APIContext)
   const [name, setName] = useState()
   const [shortDescription, setShortDescription] = useState()
@@ -72,6 +72,7 @@ export const ProductCreateDialog = (props) => {
         formData.append("enabled", formik.values.enabled)
         formData.append("price", formik.values.price)
         formData.append("stock", formik.values.stock)
+        formData.append("sku", formik.values.sku)
 
         attributes.map(attribute => {
           formData.append("product_attributes[" + attribute.attributeId + "]", attribute.optionId)
@@ -85,6 +86,7 @@ export const ProductCreateDialog = (props) => {
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
+          onSuccess();
           onClose?.();
         })
       } catch (err) {

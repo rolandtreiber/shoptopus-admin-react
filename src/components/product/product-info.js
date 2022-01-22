@@ -35,6 +35,11 @@ export const ProductInfo = (props) => {
       <PropertyList>
         <PropertyListItem
           align={align}
+          label="ID"
+          value={product.id}
+        />
+        <PropertyListItem
+          align={align}
           label="SKU"
           value={product.sku}
         />
@@ -42,11 +47,6 @@ export const ProductInfo = (props) => {
           align={align}
           label="Price"
           value={getRetailPriceText(product)}
-        />
-        <PropertyListItem
-          align={align}
-          label="ID"
-          value={product.id}
         />
         <PropertyListItem
           align={align}

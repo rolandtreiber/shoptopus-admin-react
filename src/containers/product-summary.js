@@ -11,6 +11,7 @@ import { useMounted } from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
+import ImagesDisplay from "../components/images-display";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
@@ -64,15 +65,6 @@ export const ProductSummary = () => {
     return (
       <>
         <Grid container spacing={3}>
-          {/*<MultilangTextInput*/}
-          {/*    title={"Name"}*/}
-          {/*    field={"name"}*/}
-          {/*    value={{*/}
-          {/*      en: 'Test Product',*/}
-          {/*      de: 'Test Produkt',*/}
-          {/*      fr: 'Test Produit'*/}
-          {/*    }}*/}
-          {/*/>*/}
           <Grid container item lg={8}
             spacing={3}
             sx={{
@@ -111,6 +103,12 @@ export const ProductSummary = () => {
             }}
             xs={12}
           >
+            <Grid
+              item
+              xs={12}
+            >
+              <ImagesDisplay product={productState.data} images={productState.data.images} coverPhoto={productState.data.cover_photo} />
+            </Grid>
             <Grid
               item
               xs={12}
