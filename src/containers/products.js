@@ -39,7 +39,7 @@ export const Products = () => {
 
     try {
       const result = await fetchProducts({
-        page: controller.page,
+        page: controller.page+1,
         paginate: 20,
         sort_by_type: controller.sort,
         sort_by_field: controller.sortBy,
