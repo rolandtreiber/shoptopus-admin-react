@@ -1,42 +1,73 @@
 import {useState, useEffect, useCallback, useContext} from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
-  Avatar,
-  Box,
   Button,
   Card,
   CardHeader,
   Divider,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography
 } from '@material-ui/core';
 import { useDialog } from '../../hooks/use-dialog';
-import { CustomCube as CubeIcon } from '../../icons/custom-cube';
-import { generateResourceId } from '../../utils/generate-resource-id';
 import { ConfirmationDialog } from '../confirmation-dialog';
 import { ResourceUnavailable } from '../resource-unavailable';
 import { Scrollbar } from '../scrollbar';
-import { ProductVariantDialog } from './product-variant-dialog';
-import {useLanguage} from "../../hooks/use-language";
+import { ProductVariantDialog } from '../product-variant/product-variant-dialog';
 import {APIContext} from "../../contexts/api-context";
+import {getUrlFilters} from "../../utils/apply-filters";
+import {useMounted} from "../../hooks/use-mounted";
+import {ProductVariantsTable} from "../product-variant/product-variants-table";
 
 export const ProductVariants = (props) => {
   const { variants: variantsProp, productId, ...other } = props;
+  const mounted = useMounted();
   const [variantDialogOpen, handleOpenVariantDialog, handleCloseVariantDialog] = useDialog();
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
   const [variants, setVariants] = useState(variantsProp);
   const [selectedVariant, setSelectedVariant] = useState(null);
-  const {getLang} = useLanguage()
-  const {deleteProductVariant} = useContext(APIContext)
+  const {deleteProductVariant, fetchProductVariants} = useContext(APIContext)
+  const [controller, setController] = useState({
+    filters: [],
+    page: 0,
+    query: '',
+    sort: 'desc',
+    sortBy: 'updated_at',
+    view: 'all'
+  });
 
-  const getName = (variant) => {
-    return variant.attributes.map(attribute => getLang(attribute.option.name)).join(', ')
-  }
+  const getProductVariants = useCallback(async () => {
+    setVariants(() => ({ isLoading: true }));
+
+    try {
+      const result = await fetchProductVariants(productId, {
+        page: controller.page+1,
+        paginate: 20,
+        sort_by_type: controller.sort,
+        sort_by_field: controller.sortBy,
+        filters: getUrlFilters(controller.filters),
+        view: controller.view
+      })
+
+      if (mounted.current) {
+        setVariants(() => ({
+          isLoading: false,
+          data: result.data.data,
+          paginationMeta: result.data.meta
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (mounted.current) {
+        setVariants(() => ({
+          isLoading: false,
+          error: err.message
+        }));
+      }
+    }
+  }, [controller]);
+
+  useEffect(() => {
+    getProductVariants().catch(console.error);
+  }, [controller]);
 
   const handleExitedDialog = () => {
     if (selectedVariant) {
@@ -55,42 +86,34 @@ export const ProductVariants = (props) => {
   const handleDeleteVariant = () => {
     // DELETE VARIANT
     doDeleteVariant(productId, selectedVariant.id).then(r => {
-      console.log(r.data.status)
-      if (r.data.status === 'Success') {
-        setVariants((prevVariants) => prevVariants
-            .filter((variant) => variant.id !== selectedVariant.id));
-        setSelectedVariant(null);
-      }
+      getProductVariants().then()
     })
 
     handleCloseDeleteDialog();
-  };
-
-  const handleVariantsChange = (variant, mode) => {
-    let temp = [...variants];
-
-    if (mode === 'add') {
-      temp = [
-        ...temp,
-        {
-          ...variant,
-          id: generateResourceId(),
-          createdAt: new Date()
-        }
-      ];
-    } else {
-      const index = variants.findIndex((_variant) => _variant.id === variant.id);
-      temp[index] = variant;
-    }
-
-    setVariants(temp);
   };
 
   useEffect(() => {
     setVariants(variantsProp);
   }, [variantsProp]);
 
+  const handleEditVariant = (variant) => {
+    setSelectedVariant(variant);
+    handleOpenVariantDialog();
+  }
+
+  const handleConfirmDeleteVariant = (variant) => {
+    setSelectedVariant(variant);
+    handleOpenDeleteDialog();
+  }
+
   const displayUnavailable = variants.length === 0;
+
+  const handlePageChange = (newPage) => {
+    setController({
+      ...controller,
+      page: newPage - 1
+    });
+  };
 
   return (
     <>
@@ -112,102 +135,15 @@ export const ProductVariants = (props) => {
         />
         <Divider />
         <Scrollbar>
-          <Table sx={{ minWidth: 600 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Variant
-                </TableCell>
-                <TableCell>
-                  SKU
-                </TableCell>
-                <TableCell>
-                  Created
-                </TableCell>
-                <TableCell>
-                  Actions
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {variants.map((variant) => (
-                <TableRow key={variant.id}>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={variant.image}
-                        sx={{
-                          border: (theme) => `1px solid ${theme.palette.divider}`,
-                          height: 48,
-                          mr: 2,
-                          width: 48
-                        }}
-                        variant="rounded"
-                      >
-                        <CubeIcon />
-                      </Avatar>
-                      <div>
-                        <Typography
-                          color="textPrimary"
-                          variant="body2"
-                        >
-                          {getName(variant)}
-                        </Typography>
-                        <Typography
-                          color="textSecondary"
-                          variant="body2"
-                        >
-                          {variant.price}
-                        </Typography>
-                      </div>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {variant.sku}
-                  </TableCell>
-                  <TableCell>
-                    {format(new Date(variant.created_at), 'MMM dd yyyy')}
-                  </TableCell>
-                  <TableCell sx={{ width: 135 }}>
-                    <Box sx={{ display: 'flex' }}>
-                      <Typography
-                        color="primary"
-                        sx={{ cursor: 'pointer' }}
-                        onClick={() => {
-                          setSelectedVariant(variant);
-                          handleOpenVariantDialog();
-                        }}
-                        variant="subtitle2"
-                      >
-                        Edit
-                      </Typography>
-                      <Divider
-                        flexItem
-                        orientation="vertical"
-                        sx={{ mx: 2 }}
-                      />
-                      <Typography
-                        color="primary"
-                        onClick={() => {
-                          setSelectedVariant(variant);
-                          handleOpenDeleteDialog();
-                        }}
-                        sx={{ cursor: 'pointer' }}
-                        variant="subtitle2"
-                      >
-                        Delete
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <ProductVariantsTable
+            data={variants.data ? variants.data : []}
+            onEdit={handleEditVariant}
+            onDelete={handleConfirmDeleteVariant}
+            page={controller.page + 1}
+            pagesCount={variants.paginationMeta ? variants.paginationMeta.last_page : null}
+            onPageChange={handlePageChange}
+          />
+
         </Scrollbar>
         {displayUnavailable && (
           <ResourceUnavailable
@@ -219,7 +155,9 @@ export const ProductVariants = (props) => {
       <ProductVariantDialog
         onClose={handleCloseVariantDialog}
         onExited={handleExitedDialog}
-        onVariantsChange={handleVariantsChange}
+        onVariantsChange={getProductVariants}
+        onSuccess={getProductVariants}
+        productId={productId}
         open={variantDialogOpen}
         variant={selectedVariant}
       />
@@ -236,6 +174,6 @@ export const ProductVariants = (props) => {
 };
 
 ProductVariants.propTypes = {
-  variants: PropTypes.array.isRequired,
+  variants: PropTypes.object.isRequired,
   productId: PropTypes.string.isRequired
 };

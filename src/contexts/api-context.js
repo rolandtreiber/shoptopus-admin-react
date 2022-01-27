@@ -133,10 +133,10 @@ const APIProvider = ({children}) => {
       deleteProduct: async (productId) => await del(admin_api_url + "product/" + productId, {}, makeHeaders()),
 
       // Product variants
-      fetchProductVariants: async (productId, params) => await get(admin_api_url + "products", params, makeHeaders()),
+      fetchProductVariants: async (productId, params) => await get(admin_api_url + "product/" + productId + '/variants', params, makeHeaders()),
       fetchProductVariant: async (productId, productVariantId) => await get(admin_api_url + "product/" + productId + "/variant/" + productVariantId, {}, makeHeaders()),
-      saveProductVariant: async (productId, params) => await post(admin_api_url + "product/" + productId + "variant", params, makeHeaders()),
-      updateProductVariant: async (productId, productVariantId, params) => await put(admin_api_url + "product/" + productId + "/variant" + productVariantId, params, makeHeaders()),
+      saveProductVariant: async (productId, params) => await post(admin_api_url + "product/" + productId + "/variant", params, makeHeaders()),
+      updateProductVariant: async (productId, productVariantId, params) => await patch(admin_api_url + "product/" + productId + "/variant/" + productVariantId, params, makeHeaders()),
       deleteProductVariant: async (productId, productVariantId) => await del(admin_api_url + 'product/' + productId + '/variant/' + productVariantId, {}, makeHeaders()),
 
       // Product Categories

@@ -45,6 +45,7 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
         >
         {imagesWithoutCover().map(image => (
             <img
+              key={image.url}
               alt={image.title}
               src={image.url}
               style={{

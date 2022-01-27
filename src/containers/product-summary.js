@@ -89,7 +89,9 @@ export const ProductSummary = () => {
               item
               xs={12}
             >
-              <ProductVariants productId={productId} variants={productState.data?.variants} />
+              <ProductVariants productId={productId} variants={{
+                data: productState.data?.variants
+              }} />
             </Grid>
           </Grid>
           <Grid container item lg={4}
