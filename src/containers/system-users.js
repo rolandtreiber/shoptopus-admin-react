@@ -1,7 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
-import { ProductCreateDialog } from '../components/product/product-create-dialog';
 import { ProductsFilter } from '../components/product/products-filter';
 import { ProductsSummary } from '../components/product/products-summary';
 import { ProductsTable } from '../components/product/products-table';

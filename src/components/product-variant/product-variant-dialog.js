@@ -53,6 +53,14 @@ export const ProductVariantDialog = (props) => {
       formik.values.stock = variant.stock
       formik.values.price = variant.price
       formik.values.enabled = variant.enabled
+    } else {
+      setDescription(null)
+      setAttachments([])
+      setAttributes([])
+      formik.values.sku = ''
+      formik.values.stock = ''
+      formik.values.price = ''
+      formik.values.enabled = true
     }
   }, [variant])
 

@@ -1,7 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
-import { ProductCreateDialog } from '../components/product/product-create-dialog';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
 import { Plus as PlusIcon } from '../icons/plus';

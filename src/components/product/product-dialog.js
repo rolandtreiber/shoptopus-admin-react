@@ -23,9 +23,9 @@ import CategoryTreeSelect from "../category-tree-select";
 import AttributeTreeSelect from "../attribute-tree-select";
 import TagPicker from "../tag-picker";
 
-export const ProductCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
-  const {saveProduct} = useContext(APIContext)
+export const ProductDialog = (props) => {
+  const {open, onClose, onSuccess, product, ...other} = props;
+  const {saveProduct, updateProduct} = useContext(APIContext)
   const [name, setName] = useState()
   const [shortDescription, setShortDescription] = useState()
   const [description, setDescription] = useState()
@@ -33,7 +33,6 @@ export const ProductCreateDialog = (props) => {
   const [showErrors, setShowErrors] = useState(false)
   const {setValidation, isValid} = useNestedValidation()
   const {sharedOptions} = useContext(SettingsContext)
-  const {language} = useContext(SettingsContext)
   const [tags, setTags] = useState([])
   const [categories, setCategories] = useState([])
   const [attributes, setAttributes] = useState([])
@@ -43,6 +42,36 @@ export const ProductCreateDialog = (props) => {
       return await fetch(file).then(r => r.blob())
     }));
   }
+
+  useEffect(() => {
+    if (product) {
+      setName(product.name)
+      setShortDescription(product.short_description)
+      setDescription(product.description)
+      setAttachments(product.images.map(img => img.url))
+      setCategories(product.categories.map(c => c.id))
+      setTags(product.tags.map(t => t.id))
+      setAttributes(() => {
+        let selection = [];
+        product.attributes.forEach(attr => {
+          selection = [...selection, attr.id, attr.option.id]
+        })
+        return [...selection]
+      })
+      formik.values.sku = product.sku
+      formik.values.stock = product.stock
+      formik.values.price = product.price
+      formik.values.enabled = product.enabled
+    } else {
+      setDescription(null)
+      setAttachments([])
+      setAttributes([])
+      formik.values.sku = ''
+      formik.values.stock = ''
+      formik.values.price = ''
+      formik.values.enabled = true
+    }
+  }, [product])
 
   const formik = useFormik({
     initialValues: {
@@ -81,14 +110,25 @@ export const ProductCreateDialog = (props) => {
         categories.map(category => formData.append('product_categories[]', category))
         tags.map(tag => formData.append('product_tags[]', tag))
 
-        isValid && saveProduct(formData).then(response => {
-          toast.success('Product created');
-          helpers.setStatus({success: true});
-          helpers.setSubmitting(false);
-          helpers.resetForm();
-          onSuccess();
-          onClose?.();
-        })
+        if (product) {
+          isValid && updateProduct(product.id, formData).then(response => {
+            toast.success('Product created');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        } else {
+          isValid && saveProduct(formData).then(response => {
+            toast.success('Product created');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        }
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -108,7 +148,7 @@ export const ProductCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product
+        {product ? 'Update' : 'Create'} Product
       </DialogTitle>
       <DialogContent>
         <Grid item xs={12}>
@@ -130,6 +170,7 @@ export const ProductCreateDialog = (props) => {
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            value={name}
             width={12}
             title={"Name"}
             field={"name"}
@@ -142,6 +183,7 @@ export const ProductCreateDialog = (props) => {
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            value={shortDescription}
             width={12}
             title={"Short description"}
             field={"short_description"}
@@ -155,6 +197,7 @@ export const ProductCreateDialog = (props) => {
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            value={description}
             width={12}
             title={"Description"}
             field={"description"}
@@ -248,18 +291,18 @@ export const ProductCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product
+          {product ? 'Update' : 'Create'} Product
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-ProductCreateDialog.defaultProps = {
+ProductDialog.defaultProps = {
   open: false
 };
 
-ProductCreateDialog.propTypes = {
+ProductDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

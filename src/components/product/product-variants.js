@@ -101,6 +101,11 @@ export const ProductVariants = (props) => {
     handleOpenVariantDialog();
   }
 
+  const handleCreateVariant = (variant) => {
+    setSelectedVariant(null);
+    handleOpenVariantDialog();
+  }
+
   const handleConfirmDeleteVariant = (variant) => {
     setSelectedVariant(variant);
     handleOpenDeleteDialog();
@@ -125,7 +130,7 @@ export const ProductVariants = (props) => {
           action={(
             <Button
               color="primary"
-              onClick={handleOpenVariantDialog}
+              onClick={handleCreateVariant}
               variant="text"
             >
               Add

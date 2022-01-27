@@ -12,11 +12,12 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
 import ImagesDisplay from "../components/images-display";
+import {ProductDialog} from "../components/product/product-dialog";
 
 export const ProductSummary = () => {
   const mounted = useMounted();
   const [productState, setProductState] = useState({ isLoading: true });
-  const [openInfoDialog, setOpenInfoDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
 
@@ -81,7 +82,7 @@ export const ProductSummary = () => {
               xs={12}
             >
               <ProductInfo
-                onEdit={() => setOpenInfoDialog(true)}
+                onEdit={() => setOpenEditDialog(true)}
                 product={productState.data}
               />
             </Grid>
@@ -119,9 +120,10 @@ export const ProductSummary = () => {
             </Grid>
           </Grid>
         </Grid>
-        <ProductInfoDialog
-          onClose={() => setOpenInfoDialog(false)}
-          open={openInfoDialog}
+        <ProductDialog
+          onClose={() => setOpenEditDialog(false)}
+          open={openEditDialog}
+          onSuccess={getProduct}
           product={productState.data}
         />
       </>

@@ -129,7 +129,7 @@ const APIProvider = ({children}) => {
       fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),
       fetchProduct: async (productId) => await get(admin_api_url + "product/" + productId, {}, makeHeaders()),
       saveProduct: async (params) => await post(admin_api_url + "product", params, makeHeaders()),
-      updateProduct: async (productId, params) => await put(admin_api_url + "product/" + productId, params, makeHeaders()),
+      updateProduct: async (productId, params) => await patch(admin_api_url + "product/" + productId, params, makeHeaders()),
       deleteProduct: async (productId) => await del(admin_api_url + "product/" + productId, {}, makeHeaders()),
 
       // Product variants
