@@ -213,7 +213,12 @@ export const ProductsTable = (props) => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <ProductMenu />
+                    <ProductMenu
+                        productId={product.id}
+                        onSuccess={() => {
+                          console.log('reload')
+                        }}
+                    />
                   </TableCell>
                 </TableRow>
               );

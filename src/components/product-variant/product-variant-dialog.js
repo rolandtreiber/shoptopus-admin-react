@@ -96,7 +96,7 @@ export const ProductVariantDialog = (props) => {
           formData.append("product_attributes[" + attribute.attributeId + "]", attribute.optionId)
         })
 
-        if (variant.id) {
+        if (variant) {
           isValid && updateProductVariant(productId, variant.id, formData).then(response => {
             toast.success('Product variant updated');
             helpers.setStatus({success: true});
