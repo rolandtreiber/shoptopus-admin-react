@@ -60,8 +60,8 @@ const ProductCategories = () => {
 
     const {fetchProductCategories} = useContext(APIContext)
 
-    const getCategories = useCallback(async () => {
-        setCategories(() => ({ isLoading: true }));
+    const getCategories = useCallback(async (clearWhileLoading = true) => {
+        clearWhileLoading && setCategories(() => ({ isLoading: true }));
 
         try {
             const result = await fetchProductCategories({
@@ -209,6 +209,7 @@ const ProductCategories = () => {
                             selectedProductCategories={selectedCategories}
                             sort={controller.sort}
                             sortBy={controller.sortBy}
+                            onReload={() => getCategories(false)}
                         />
 
                     </Card>

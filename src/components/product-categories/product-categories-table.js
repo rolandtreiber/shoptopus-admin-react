@@ -14,13 +14,13 @@ import {
 } from "@material-ui/core";
 import {Scrollbar} from "../scrollbar";
 import {Link as RouterLink} from 'react-router-dom';
-import {ProductMenu} from "../product/product-menu";
 import {ResourceError} from "../resource-error";
 import {ResourceUnavailable} from "../resource-unavailable";
 import {Pagination} from "../pagination";
 import {Status} from "../status";
 import {format} from "date-fns";
 import RightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import {ProductCategoryMenu} from "./product-category-menu";
 
 const columns = [
   {
@@ -73,7 +73,8 @@ const ProductCategoriesTable = (props) => {
     categories,
     selectedProductCategories,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
 
   const displayLoading = isLoading;
@@ -173,10 +174,11 @@ const ProductCategoriesTable = (props) => {
             />
           </TableCell>
           <TableCell align="right">
-            <ProductMenu/>
+            <ProductCategoryMenu
+              productCategoryId={rowData.id}
+              onSuccess={onReload}/>
           </TableCell>
         </TableRow>
-        {/*{JSON.stringify(rowData.children)}*/}
         {rowData.children && rowData.children.map(child => getRow(child, level + 1))}
       </React.Fragment>
     )

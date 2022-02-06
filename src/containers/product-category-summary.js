@@ -1,10 +1,6 @@
 import {useState, useEffect, useCallback, useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
-import { ProductInfo } from '../components/product/product-info';
-import { ProductInfoDialog } from '../components/product/product-info-dialog';
-import { ProductStatus } from '../components/product/product-status';
-import { ProductVariants } from '../components/product/product-variants';
 import { ResourceError } from '../components/resource-error';
 import { ResourceLoading } from '../components/resource-loading';
 import { useMounted } from '../hooks/use-mounted';
@@ -12,7 +8,6 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {ProductCategoryInfo} from "../components/product-categories/product-category-info";
-import ProductCategoriesTable from "../components/product-categories/product-categories-table";
 import {ProductCategoryEditDialog} from "../components/product-categories/product-category-edit-dialog";
 
 export const ProductCategorySummary = () => {
