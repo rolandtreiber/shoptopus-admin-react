@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import Proptypes from 'prop-types';
 import {Link as RouterLink} from 'react-router-dom';
 import {
-  Avatar,
   Box,
   Checkbox,
   Divider, Link,
@@ -22,7 +21,6 @@ import {CustomerMenu} from '../customer/customer-menu';
 import {Status} from "../status";
 import {format} from "date-fns";
 import Price from "../price";
-import {language} from "gray-matter";
 import {SettingsContext} from "../../contexts/settings-context";
 
 const columns = [
@@ -155,7 +153,7 @@ export const OrdersTable = (props) => {
           <TableBody>
             {dataState?.map((d) => {
               const statusVariant = statusVariants.find((variant) => variant.value
-                === d.status);
+                === parseInt(d.status));
 
               return (<TableRow
                   hover

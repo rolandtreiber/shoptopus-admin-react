@@ -197,15 +197,7 @@ export const Orders = () => {
                 Orders
               </Typography>
               <Box sx={{ flexGrow: 1 }} />
-              <Button
-                color="primary"
-                onClick={() => setOpenCreateDialog(true)}
-                size="large"
-                startIcon={<PlusIcon fontSize="small" />}
-                variant="contained"
-              >
-                Add
-              </Button>
+
             </Box>
           </Box>
           <Card
@@ -255,10 +247,6 @@ export const Orders = () => {
           </Card>
         </Container>
       </Box>
-      <ProductCreateDialog
-        onClose={() => setOpenCreateDialog(false)}
-        open={openCreateDialog}
-      />
     </>
   );
 };

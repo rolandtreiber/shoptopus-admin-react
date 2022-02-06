@@ -223,10 +223,10 @@ export const Transactions = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
-            onClose={() => setOpenCreateDialog(false)}
-            open={openCreateDialog}
-          />
+          {/*<ProductCreateDialog*/}
+          {/*  onClose={() => setOpenCreateDialog(false)}*/}
+          {/*  open={openCreateDialog}*/}
+          {/*/>*/}
       </>
     );
 };
