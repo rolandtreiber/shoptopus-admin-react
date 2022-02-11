@@ -14,8 +14,6 @@ import {
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import MultilangTextInput from "../multilang-text-input";
-import {useMounted} from "../../hooks/use-mounted";
-import {SettingsContext} from "../../contexts/settings-context";
 import {Uploader} from "../uploader";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {useNestedValidation} from "../../hooks/use-nested-validation";

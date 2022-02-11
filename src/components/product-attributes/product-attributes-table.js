@@ -20,6 +20,7 @@ import {ResourceUnavailable} from "../resource-unavailable";
 import {Pagination} from "../pagination";
 import {Status} from "../status";
 import {format} from "date-fns";
+import {ProductAttributeMenu} from "./product-attribute-menu";
 
 const columns = [
   {
@@ -69,7 +70,8 @@ const ProductAttributesTable = (props) => {
     data,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
 
   const displayLoading = isLoading;
@@ -177,7 +179,10 @@ const ProductAttributesTable = (props) => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <ProductMenu/>
+                    <ProductAttributeMenu
+                      productAttributeId={attribute.id}
+                      onSuccess={onReload}
+                    />
                   </TableCell>
                 </TableRow>
 

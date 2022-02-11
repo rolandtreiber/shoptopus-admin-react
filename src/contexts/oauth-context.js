@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
-import { authApi } from '../api/auth';
+import {authApi} from '../api/auth';
 import {APIContext} from "./api-context";
 
 const initialState = {
@@ -20,7 +20,7 @@ const handlers = {
     }
   },
   INITIALIZE: (state, action) => {
-    const { isAuthenticated, user } = action.payload;
+    const {isAuthenticated, user} = action.payload;
 
     return {
       ...state,
@@ -30,7 +30,7 @@ const handlers = {
     };
   },
   LOGIN: (state, action) => {
-    const { user } = action.payload;
+    const {user} = action.payload;
 
     return {
       ...state,
@@ -44,7 +44,7 @@ const handlers = {
     user: null
   }),
   REGISTER: (state, action) => {
-    const { user } = action.payload;
+    const {user} = action.payload;
 
     return {
       ...state,
@@ -67,7 +67,7 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider = (props) => {
-  const { children } = props;
+  const {children} = props;
   const [state, dispatch] = useReducer(reducer, initialState);
   const {callLoginApi, callMeApi, setAccessToken} = useContext(APIContext)
 
@@ -122,27 +122,29 @@ export const AuthProvider = (props) => {
     const response = await callLoginApi({email, password})
 
     if (response.data) {
-      const accessToken = response.data.access_token;
-      const user = response.data.user;
-      localStorage.setItem('accessToken', accessToken);
-      setAccessToken(accessToken)
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          user,
-          accessToken
-        }
-      });
+      const accessToken = response.data?.data?.auth?.token;
+      if (accessToken) {
+        const user = response.data.user;
+        localStorage.setItem('accessToken', accessToken);
+        setAccessToken(accessToken)
+        dispatch({
+          type: 'LOGIN',
+          payload: {
+            user,
+            accessToken
+          }
+        });
+      }
     }
   };
 
   const logout = async () => {
     localStorage.removeItem('accessToken');
-    dispatch({ type: 'LOGOUT' });
+    dispatch({type: 'LOGOUT'});
   };
 
   const register = async (email, name, password) => {
-    const accessToken = await authApi.register({ email, name, password });
+    const accessToken = await authApi.register({email, name, password});
     const user = await authApi.me(accessToken);
 
     localStorage.setItem('accessToken', accessToken);

@@ -2,6 +2,10 @@ import React from "react";
 import {Box, Card, CardContent, CardHeader, Divider} from "@material-ui/core";
 
 const ImagesDisplay = ({styles, images, coverPhoto}) => {
+  if (!coverPhoto) {
+    coverPhoto = images[0];
+  }
+
   const imagesWithoutCover = () => {
     return images.filter(img => img.id !== coverPhoto.id)
   }

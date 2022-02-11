@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback, useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Grid } from '@material-ui/core';
+import {Box, Grid, Paper} from '@material-ui/core';
 import { ResourceError } from '../components/resource-error';
 import { ResourceLoading } from '../components/resource-loading';
 import { useMounted } from '../hooks/use-mounted';
@@ -10,6 +10,8 @@ import {useParams} from "react-router-dom";
 import {SettingsContext} from "../contexts/settings-context";
 import {ProductAttributeInfo} from "../components/product-attributes/product-attribute-info";
 import {ProductAttributeEditDialog} from "../components/product-attributes/product-attribute-edit-dialog";
+import RightSidebarWrapper from "../components/right-sidebar-wrapper";
+import {ProductAttributeOptions} from "../components/product-attributes/product-attribute-options";
 
 export const ProductAttributeSummary = () => {
   const mounted = useMounted();
@@ -84,18 +86,34 @@ export const ProductAttributeSummary = () => {
                 data={data.data}
               />
             </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <ProductAttributeOptions options={data.data.options} productId={data.data.id}/>
+            </Grid>
           </Grid>
           <Grid container item lg={4}
-            spacing={3}
-            sx={{
-              height: 'fit-content',
-              order: {
-                md: 2,
-                xs: 1
-              }
-            }}
-            xs={12}
+                spacing={3}
+                sx={{
+                  height: 'fit-content',
+                  order: {
+                    md: 2,
+                    xs: 1
+                  }
+                }}
+                xs={12}
           >
+            <Grid
+              item
+              xs={12}
+            >
+            {data.data?.image &&
+              <RightSidebarWrapper title={"Image"}>
+                <img style={{"width":"100%"}} src={data.data.image}/>
+              </RightSidebarWrapper>
+            }
+          </Grid>
           </Grid>
         </Grid>
         <ProductAttributeEditDialog

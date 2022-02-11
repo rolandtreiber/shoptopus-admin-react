@@ -61,8 +61,8 @@ const ProductAttributes = () => {
 
     const {fetchProductAttributes} = useContext(APIContext)
 
-    const getAttributes = useCallback(async () => {
-        setAttributes(() => ({ isLoading: true }));
+    const getAttributes = useCallback(async (clearWhileLoading = true) => {
+        clearWhileLoading && setAttributes(() => ({ isLoading: true }));
 
         try {
             const result = await fetchProductAttributes({
@@ -217,6 +217,7 @@ const ProductAttributes = () => {
                             selectedElements={selectedElements}
                             sort={controller.sort}
                             sortBy={controller.sortBy}
+                            onReload={() => getAttributes(false)}
                         />
 
                     </Card>

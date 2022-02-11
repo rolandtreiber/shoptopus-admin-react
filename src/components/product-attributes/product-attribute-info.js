@@ -51,14 +51,6 @@ export const ProductAttributeInfo = (props) => {
       />
       <Divider />
       <PropertyList>
-        {data.image && <PropertyListItem
-          align={align}
-          label="Header Image">
-          <Paper variant={"outlined"}>
-            <img style={{"width":"100%"}} src={data.image}/>
-          </Paper>
-        </PropertyListItem>
-        }
         <PropertyListItem
           align={align}
           label="Name"
@@ -74,33 +66,33 @@ export const ProductAttributeInfo = (props) => {
           label="Status"
           value={data.enabled ? 'Enabled' : 'Disabled'}
         />
-        <PropertyListItem
-          align={align}
-          label="Options"
-        >
-          <Option variant={"outlined"} >
-            <List dense>
-              {data.options.map(option =>
-                (
-                  <ListItem key={option.id} divider>
-                    {option.image && <ListItemAvatar>
-                      <Avatar
-                        alt={getLang(option.name)}
-                        src={option.image}
-                        sx={{
-                          width: 24,
-                          height: 24
-                        }}
-                        variant="rounded"
-                      />
-                    </ListItemAvatar>}
-                    <ListItemText primary={getLang(option.name)} />
-                  </ListItem>
-                )
-              )}
-            </List>
-          </Option>
-        </PropertyListItem>
+        {/*<PropertyListItem*/}
+        {/*  align={align}*/}
+        {/*  label="Options"*/}
+        {/*>*/}
+        {/*  <Option variant={"outlined"} >*/}
+        {/*    <List dense>*/}
+        {/*      {data.options.map(option =>*/}
+        {/*        (*/}
+        {/*          <ListItem key={option.id} divider>*/}
+        {/*            {option.image && <ListItemAvatar>*/}
+        {/*              <Avatar*/}
+        {/*                alt={getLang(option.name)}*/}
+        {/*                src={option.image}*/}
+        {/*                sx={{*/}
+        {/*                  width: 24,*/}
+        {/*                  height: 24*/}
+        {/*                }}*/}
+        {/*                variant="rounded"*/}
+        {/*              />*/}
+        {/*            </ListItemAvatar>}*/}
+        {/*            <ListItemText primary={getLang(option.name)} />*/}
+        {/*          </ListItem>*/}
+        {/*        )*/}
+        {/*      )}*/}
+        {/*    </List>*/}
+        {/*  </Option>*/}
+        {/*</PropertyListItem>*/}
       </PropertyList>
     </Card>
   );
