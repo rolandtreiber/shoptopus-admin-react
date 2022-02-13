@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { Bills } from '../components/reports/bills';
@@ -10,6 +10,10 @@ import { Cube as CubeIcon } from '../icons/cube';
 import { ShoppingCart as ShoppingCartIcon } from '../icons/shopping-cart';
 import { CustomCreditCard as CustomCreditCardIcon } from '../icons/custom-credit-card';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
+import {useMounted} from "../hooks/use-mounted";
+import {PieChartBreakdown} from "../components/reports/pie-chart-breakdown";
+import {Timeline} from "../components/reports/timeline";
 
 const latestOrders = [
   {
@@ -218,9 +222,44 @@ const stats = [
 ];
 
 export const ReportsOverview = () => {
+  const {fetchReportsOverview} = useContext(APIContext)
+  const [data, setData] = useState({isLoading: true})
+  const mounted = useMounted();
+
+  const getData = useCallback(async () => {
+    setData(() => ({ isLoading: true }));
+
+    try {
+      const {data: {data}} = await fetchReportsOverview()
+      const result = data;
+
+      if (mounted.current) {
+        setData(() => ({
+          isLoading: false,
+          data: result
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (mounted.current) {
+        setData(() => ({
+          isLoading: false,
+          error: err.message
+        }));
+      }
+    }
+  }, []);
+
+
   useEffect(() => {
     gtm.push({ event: 'page_view' });
+    getData().catch(e => console.log(e))
   }, []);
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   return (
     <>
@@ -249,21 +288,21 @@ export const ReportsOverview = () => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Bills />
+            <Timeline title={'User Signups'} data={data.data?.user_signups_over_time} />
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <OrdersOverview />
+            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={"Orders Overview"}/>
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            {/*<LatestOrders orders={latestOrders} />*/}
+            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={"Products Overview"}/>
           </Grid>
         </Grid>
       </Box>

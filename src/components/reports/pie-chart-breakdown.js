@@ -15,9 +15,8 @@ import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../actions-menu';
 import { StatusBadge } from '../status-badge';
 
-
-export const OrdersOverview = (props) => {
-  const {series} = props
+export const PieChartBreakdown = (props) => {
+  const {series, title} = props
   const theme = useTheme();
   const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
@@ -79,7 +78,7 @@ export const OrdersOverview = (props) => {
             variant="text"
           />
         )}
-        title="Orders Overview"
+        title={title}
       />
       <Divider />
       { series && chartOptions && chartSeries && <CardContent>
