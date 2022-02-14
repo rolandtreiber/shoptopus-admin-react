@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../actions-menu';
+import RangeSelector from "./range-selector";
 
 const stats = [
   {
@@ -37,107 +38,90 @@ const data = {
   ]
 };
 
-export const PerformanceIndicators = (props) => {
+export const PerformanceIndicators = ({data, onRangeChange}) => {
   const theme = useTheme();
-  const [range, setRange] = useState('Last 7 days');
+  const [chartOptions, setChartOptions] = useState()
 
-  const ranges = [
-    {
-      label: 'Last 7 days',
-      onClick: () => { setRange('Last 7 days'); }
-    },
-    {
-      label: 'Last Month',
-      onClick: () => { setRange('Last Month'); }
-    },
-    {
-      label: 'Last Year',
-      onClick: () => { setRange('Last Year'); }
-    }
-  ];
-
-  const chartOptions = {
-    chart: {
-      background: 'transparent',
-      stacked: false,
-      toolbar: {
-        show: false
-      },
-      zoom: {
-        enabled: false
-      }
-    },
-    legend: {
-      show: true
-    },
-    colors: ['rgba(49, 129, 237, 1)'],
-    dataLabels: {
-      enabled: false
-    },
-    fill: {
-      type: 'gradient'
-    },
-    grid: {
-      borderColor: theme.palette.divider,
-      xaxis: {
-        lines: {
+  useEffect(() => {
+    if (data) {
+      setChartOptions({
+        chart: {
+          background: 'transparent',
+          stacked: false,
+          toolbar: {
+            show: false
+          },
+          zoom: {
+            enabled: false
+          }
+        },
+        legend: {
           show: true
+        },
+        colors: ['rgba(49, 129, 237, 1)'],
+        dataLabels: {
+          enabled: false
+        },
+        fill: {
+          type: 'gradient'
+        },
+        grid: {
+          borderColor: theme.palette.divider,
+          xaxis: {
+            lines: {
+              show: true
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          }
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        theme: {
+          mode: theme.palette.mode
+        },
+        tooltip: {
+          theme: theme.palette.mode
+        },
+        xaxis: {
+          axisBorder: {
+            color: theme.palette.divider,
+            show: true
+          },
+          axisTicks: {
+            color: theme.palette.divider,
+            show: true
+          },
+          categories: data.categories,
+          labels: {
+            style: {
+              colors: theme.palette.text.secondary
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            offsetX: -12,
+            style: {
+              colors: theme.palette.text.secondary
+            }
+          }
         }
-      },
-      yaxis: {
-        lines: {
-          show: true
-        }
-      }
-    },
-    stroke: {
-      curve: 'straight'
-    },
-    theme: {
-      mode: theme.palette.mode
-    },
-    tooltip: {
-      theme: theme.palette.mode
-    },
-    xaxis: {
-      axisBorder: {
-        color: theme.palette.divider,
-        show: true
-      },
-      axisTicks: {
-        color: theme.palette.divider,
-        show: true
-      },
-      categories: data.categories,
-      labels: {
-        style: {
-          colors: theme.palette.text.secondary
-        }
-      }
-    },
-    yaxis: {
-      labels: {
-        offsetX: -12,
-        style: {
-          colors: theme.palette.text.secondary
-        }
-      }
+      })
     }
-  };
+  }, [data])
 
   return (
     <Card
       variant="outlined"
-      {...props}
     >
       <CardHeader
         action={(
-          <ActionsMenu
-            actions={ranges}
-            label={range}
-            size="small"
-            variant="text"
-          />
+          <RangeSelector onChange={onRangeChange}/>
         )}
         title="Key Performance Indicators"
       />
@@ -179,12 +163,12 @@ export const PerformanceIndicators = (props) => {
             </Card>
           ))}
         </Box>
-        <Chart
+        {data && chartOptions && <Chart
           height="350"
           options={chartOptions}
           series={data.series}
           type="area"
-        />
+        />}
       </CardContent>
     </Card>
   );

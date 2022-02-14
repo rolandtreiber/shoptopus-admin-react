@@ -11,12 +11,11 @@ import {
   ListSubheader,
   Typography
 } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import { ActionsMenu } from '../actions-menu';
-import { StatusBadge } from '../status-badge';
+import {useTheme} from '@material-ui/core/styles';
+import {StatusBadge} from '../status-badge';
+import RangeSelector from "./range-selector";
 
-export const PieChartBreakdown = (props) => {
-  const {series, title} = props
+export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRangeChange}) => {
   const theme = useTheme();
   const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
@@ -52,36 +51,38 @@ export const PieChartBreakdown = (props) => {
   const ranges = [
     {
       label: 'Last 7 days',
-      onClick: () => { setRange('Last 7 days'); }
+      onClick: () => {
+        setRange('Last 7 days');
+      }
     },
     {
       label: 'Last Month',
-      onClick: () => { setRange('Last Month'); }
+      onClick: () => {
+        setRange('Last Month');
+      }
     },
     {
       label: 'Last Year',
-      onClick: () => { setRange('Last Year'); }
+      onClick: () => {
+        setRange('Last Year');
+      }
     }
   ];
 
   return (
     <Card
       variant="outlined"
-      {...props}
     >
       <CardHeader
         action={(
-          <ActionsMenu
-            actions={ranges}
-            label={range}
-            size="small"
-            variant="text"
-          />
+          <>
+            {showRangeSelector && <RangeSelector onChange={onRangeChange}/>}
+          </>
         )}
         title={title}
       />
-      <Divider />
-      { series && chartOptions && chartSeries && <CardContent>
+      <Divider/>
+      {series && chartOptions && chartSeries && <CardContent>
         <Chart
           height={200}
           options={chartOptions}
@@ -104,7 +105,7 @@ export const PieChartBreakdown = (props) => {
             >
               Total
             </Typography>
-            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{flexGrow: 1}}/>
             <Typography
               color="textPrimary"
               variant="subtitle2"
@@ -112,17 +113,17 @@ export const PieChartBreakdown = (props) => {
               {series.reduce((acc, currentValue) => acc + currentValue.data, 0)}
             </Typography>
           </ListSubheader>
-          <Divider />
+          <Divider/>
           {series.map((item, index) => (
             <ListItem
               disableGutters
               divider={series.length > index + 1}
               key={item.name}
-              sx={{ display: 'flex' }}
+              sx={{display: 'flex'}}
             >
               <StatusBadge
                 color={item.color}
-                sx={{ mr: 1 }}
+                sx={{mr: 1}}
               />
               <Typography
                 color="textSecondary"
@@ -130,7 +131,7 @@ export const PieChartBreakdown = (props) => {
               >
                 {item.name}
               </Typography>
-              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{flexGrow: 1}}/>
               <Typography
                 color="textSecondary"
                 variant="body2"

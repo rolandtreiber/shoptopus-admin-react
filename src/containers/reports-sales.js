@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Grid, Typography } from '@material-ui/core';
 import { PerformanceIndicators } from '../components/reports/performance-indicators';
@@ -8,6 +8,8 @@ import { Cash as CashIcon } from '../icons/cash';
 import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
 import { X as XIcon } from '../icons/x';
 import gtm from '../lib/gtm';
+import {APIContext} from "../contexts/api-context";
+import {useMounted} from "../hooks/use-mounted";
 
 const stats = [
   {
@@ -37,9 +39,46 @@ const stats = [
 ];
 
 export const ReportsSales = () => {
+  const {fetchReportsSales} = useContext(APIContext)
+  const [data, setData] = useState({isLoading: true})
+  const mounted = useMounted();
+  const [salesRange, setSalesRange] = useState(1)
+
+  const getData = useCallback(async (setLoading = true) => {
+    setLoading && setData(() => ({ isLoading: true }));
+
+    try {
+      const {data: {data}} = await fetchReportsSales({
+        'revenue_over_time_range': salesRange
+      })
+      const result = data;
+
+      if (mounted.current) {
+        setData(() => ({
+          isLoading: false,
+          data: result
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (mounted.current) {
+        setData(() => ({
+          isLoading: false,
+          error: err.message
+        }));
+      }
+    }
+  }, [salesRange]);
+
   useEffect(() => {
     gtm.push({ event: 'page_view' });
+    getData().catch(e => console.log(e))
   }, []);
+
+  useEffect(() => {
+    getData(false).catch(e => console.log(e))
+  }, [salesRange]);
 
   return (
     <>
@@ -49,7 +88,7 @@ export const ReportsSales = () => {
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <PerformanceIndicators />
+            <PerformanceIndicators data={data.data?.revenue_over_time} onRangeChange={setSalesRange}/>
           </Grid>
           <Grid
             container

@@ -225,12 +225,17 @@ export const ReportsOverview = () => {
   const {fetchReportsOverview} = useContext(APIContext)
   const [data, setData] = useState({isLoading: true})
   const mounted = useMounted();
+  const [signupsRange, setSignupsRange] = useState(1)
+  const [ordersRange, setOrdersRange] = useState(1)
 
-  const getData = useCallback(async () => {
-    setData(() => ({ isLoading: true }));
+  const getData = useCallback(async (setLoading = true) => {
+    setLoading && setData(() => ({ isLoading: true }));
 
     try {
-      const {data: {data}} = await fetchReportsOverview()
+      const {data: {data}} = await fetchReportsOverview({
+        'signups_chart_range': signupsRange,
+        'orders_overview_chart_range': ordersRange,
+      })
       const result = data;
 
       if (mounted.current) {
@@ -249,7 +254,7 @@ export const ReportsOverview = () => {
         }));
       }
     }
-  }, []);
+  }, [signupsRange, ordersRange]);
 
 
   useEffect(() => {
@@ -258,8 +263,9 @@ export const ReportsOverview = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    console.log(signupsRange)
+    getData(false).catch(e => console.log(e))
+  }, [signupsRange, ordersRange])
 
   return (
     <>
@@ -288,21 +294,21 @@ export const ReportsOverview = () => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Timeline title={'User Signups'} data={data.data?.user_signups_over_time} />
+            <Timeline title={'User Signups'} data={data.data?.user_signups_over_time} onRangeChange={setSignupsRange} />
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={"Orders Overview"}/>
+            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={"Orders Overview"} onRangeChange={setOrdersRange}/>
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={"Products Overview"}/>
+            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={"Products Overview"} showRangeSelector={false}/>
           </Grid>
         </Grid>
       </Box>

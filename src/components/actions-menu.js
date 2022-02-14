@@ -40,7 +40,6 @@ export const ActionsMenu = (props) => {
               if (item.onClick) {
                 item.onClick();
               }
-
               handleClose();
             }}
           >

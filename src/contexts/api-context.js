@@ -127,6 +127,7 @@ const APIProvider = ({children}) => {
 
       // Reports
       fetchReportsOverview: async (params) => await post(admin_api_url + "reports/overview", params, makeHeaders()),
+      fetchReportsSales: async (params) => await post(admin_api_url + "reports/sales", params, makeHeaders()),
 
       // Products
       fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),

@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../actions-menu';
+import RangeSelector from "./range-selector";
 
 const stats = [
   {
@@ -23,26 +24,9 @@ const stats = [
   }
 ];
 
-export const Timeline = (props) => {
-  const {data, title} = props;
+export const Timeline = ({data, title, onRangeChange}) => {
   const theme = useTheme();
-  const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
-
-  const ranges = [
-    {
-      label: 'Last 7 days',
-      onClick: () => { setRange('Last 7 days'); }
-    },
-    {
-      label: 'Last Month',
-      onClick: () => { setRange('Last Month'); }
-    },
-    {
-      label: 'Last Year',
-      onClick: () => { setRange('Last Year'); }
-    }
-  ];
 
   useEffect(() => {
     if (data) {
@@ -121,19 +105,21 @@ export const Timeline = (props) => {
     }
   }, [data])
 
+  // {/*<ActionsMenu*/}
+  // {/*  actions={ranges}*/}
+  // {/*  label={range}*/}
+  // {/*  size="small"*/}
+  // {/*  variant="text"*/}
+  // {/*/>*/}
+
+
   return (
     <Card
       variant="outlined"
-      {...props}
     >
       <CardHeader
         action={(
-          <ActionsMenu
-            actions={ranges}
-            label={range}
-            size="small"
-            variant="text"
-          />
+          <RangeSelector onChange={onRangeChange}/>
         )}
         title={title}
       />
