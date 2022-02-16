@@ -1,39 +1,17 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
 import { Box, Card, CardHeader, Divider, Tab, Tabs } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../actions-menu';
+import {useLanguage} from "../../hooks/use-language";
+import RangeSelector from "./range-selector";
 
-const data = {
-  categories: ['Analog', 'Automatic', 'Chronograph', 'Diving', 'Smart'],
-  series: [
-    {
-      color: 'rgba(49, 129, 237, 1)',
-      data: 65
-    },
-    {
-      color: 'rgba(6, 70, 153, 1)',
-      data: 55
-    },
-    {
-      color: 'rgba(81, 119, 236, 1)',
-      data: 10
-    },
-    {
-      color: 'rgba(71, 148, 235, 1)',
-      data: 5
-    },
-    {
-      color: 'rgba(19, 93, 190, 1)',
-      data: 3
-    }
-  ]
-};
-
-export const ProductsBreakdown = (props) => {
+export const ProductsBreakdown = ({data, categories, category, categoryUpdated, onRangeChange}) => {
   const theme = useTheme();
-  const [tab, setTab] = useState(0);
   const [range, setRange] = useState('Last 7 days');
+  const [chartOptions, setChartOptions] = useState()
+  const [chartSeries, setChartSeries] = useState()
+  const {getLang} = useLanguage()
 
   const ranges = [
     {
@@ -51,104 +29,110 @@ export const ProductsBreakdown = (props) => {
   ];
 
   const handleTabChange = (event, newValue) => {
-    setTab(newValue);
+    categoryUpdated(newValue)
   };
 
-  const chartOptions = {
-    chart: {
-      background: 'transparent',
-      toolbar: {
-        show: false
-      }
-    },
-    colors: data.series.map((item) => item.color),
-    dataLabels: {
-      enabled: false
-    },
-    grid: {
-      borderColor: theme.palette.divider,
-      xaxis: {
-        lines: {
-          show: true
+  useEffect(() => {
+    if (data) {
+      setChartOptions({
+        chart: {
+          background: 'transparent',
+          toolbar: {
+            show: false
+          }
+        },
+        colors: data.series.map((item) => item.color),
+        dataLabels: {
+          enabled: false
+        },
+        grid: {
+          borderColor: theme.palette.divider,
+          xaxis: {
+            lines: {
+              show: true
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          }
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            barHeight: '45%',
+            distributed: true
+          }
+        },
+        theme: {
+          mode: theme.palette.mode
+        },
+        legend: {
+          show: false
+        },
+        xaxis: {
+          axisBorder: {
+            color: theme.palette.divider,
+            show: true
+          },
+          axisTicks: {
+            color: theme.palette.divider,
+            show: true
+          },
+          categories: data.categories.map(c => getLang(JSON.parse(c))),
+          labels: {
+            style: {
+              colors: theme.palette.text.secondary
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: theme.palette.text.secondary
+            }
+          }
         }
-      },
-      yaxis: {
-        lines: {
-          show: true
-        }
-      }
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        barHeight: '45%',
-        distributed: true
-      }
-    },
-    theme: {
-      mode: theme.palette.mode
-    },
-    legend: {
-      show: false
-    },
-    xaxis: {
-      axisBorder: {
-        color: theme.palette.divider,
-        show: true
-      },
-      axisTicks: {
-        color: theme.palette.divider,
-        show: true
-      },
-      categories: data.categories,
-      labels: {
-        style: {
-          colors: theme.palette.text.secondary
-        }
-      }
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: theme.palette.text.secondary
-        }
-      }
+      })
     }
-  };
+  }, [data])
 
-  const chartSeries = [{ data: data.series.map((item) => item.data) }];
+  useEffect(() => {
+    !category && categories && categories.length > 0 && categoryUpdated(categories[0].id)
+  }, [categories, category])
+
+  useEffect(() => {
+    if (chartOptions) {
+      setChartSeries([{
+        data: data.series.map((item) => item.data),
+        label: 'hello'
+      }]);
+    }
+  }, [chartOptions])
 
   return (
     <Card
       variant="outlined"
       sx={{ height: '100%' }}
-      {...props}
     >
       <CardHeader
         action={(
-          <ActionsMenu
-            actions={ranges}
-            label={range}
-            size="small"
-            variant="text"
-          />
+          <RangeSelector onChange={onRangeChange}/>
         )}
         title="Products Breakdown"
       />
+      {data && chartOptions && chartSeries && <>
       <Divider />
       <Box sx={{ px: 3 }}>
-        <Tabs
+        {categories && <Tabs
           allowScrollButtonsMobile
           onChange={handleTabChange}
-          value={tab}
+          value={category}
           variant="scrollable"
         >
-          <Tab label="Watches" />
-          <Tab label="Mousepads" />
-          <Tab label="Shoes" />
-          <Tab label="Cameras" />
-          <Tab label="Phones" />
-        </Tabs>
+          {categories.map(c => <Tab key={c.id} label={getLang(c.name)} value={c.id} />)}
+        </Tabs>}
       </Box>
       <Divider />
       <Box sx={{ px: 2 }}>
@@ -159,6 +143,7 @@ export const ProductsBreakdown = (props) => {
           type="bar"
         />
       </Box>
+      </>}
     </Card>
   );
 };

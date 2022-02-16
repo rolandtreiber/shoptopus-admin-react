@@ -10,31 +10,32 @@ import { X as XIcon } from '../icons/x';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useMounted} from "../hooks/use-mounted";
+import Price from "../components/price";
 
 const stats = [
   {
     content: '$25,100.00',
     icon: BanIcon,
     iconColor: 'error.main',
-    label: 'Unsold Products'
+    label: 'Unrealized Revenue'
   },
   {
     content: '$25,100.00',
     icon: CashIcon,
     iconColor: 'success.main',
-    label: 'Market Price Value'
+    label: 'Total Revenue'
   },
   {
     content: '$25,100.00',
     icon: ShoppingBagIcon,
     iconColor: 'warning.main',
-    label: 'Retail Value'
+    label: 'Total Delivery'
   },
   {
     content: '$25,100.00',
     icon: XIcon,
     iconColor: 'info.main',
-    label: 'Unrealized Profit'
+    label: 'Total Discount'
   }
 ];
 
@@ -43,13 +44,18 @@ export const ReportsSales = () => {
   const [data, setData] = useState({isLoading: true})
   const mounted = useMounted();
   const [salesRange, setSalesRange] = useState(1)
+  const [productsBreakdownRange, setProductsBreakdownRange] = useState(1)
+  const [categoryId, setCategoryId] = useState()
+  const [stats, setStats] = useState()
 
   const getData = useCallback(async (setLoading = true) => {
     setLoading && setData(() => ({ isLoading: true }));
 
     try {
       const {data: {data}} = await fetchReportsSales({
-        'revenue_over_time_range': salesRange
+        'revenue_over_time_range': salesRange,
+        'products_breakdown_time_range': productsBreakdownRange,
+        'category_id': categoryId
       })
       const result = data;
 
@@ -69,7 +75,7 @@ export const ReportsSales = () => {
         }));
       }
     }
-  }, [salesRange]);
+  }, [salesRange, productsBreakdownRange, categoryId]);
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
@@ -78,7 +84,38 @@ export const ReportsSales = () => {
 
   useEffect(() => {
     getData(false).catch(e => console.log(e))
-  }, [salesRange]);
+  }, [salesRange, productsBreakdownRange, categoryId]);
+
+  useEffect(() => {
+    if (data.data) {
+      setStats([
+        {
+          content: <Price>{data.data?.totals?.unrealized_revenue}</Price>,
+          icon: BanIcon,
+          iconColor: 'error.main',
+          label: 'Unrealized Revenue'
+        },
+        {
+          content: <Price>{data.data?.totals?.total_revenue}</Price>,
+          icon: CashIcon,
+          iconColor: 'success.main',
+          label: 'Total Revenue'
+        },
+        {
+          content: <Price>{data.data?.totals?.total_delivery}</Price>,
+          icon: ShoppingBagIcon,
+          iconColor: 'warning.main',
+          label: 'Total Delivery'
+        },
+        {
+          content: <Price>{data.data?.totals?.total_discount}</Price>,
+          icon: XIcon,
+          iconColor: 'info.main',
+          label: 'Total Discount'
+        }
+      ])
+    }
+  }, [data])
 
   return (
     <>
@@ -90,7 +127,7 @@ export const ReportsSales = () => {
           <Grid item xs={12}>
             <PerformanceIndicators data={data.data?.revenue_over_time} onRangeChange={setSalesRange}/>
           </Grid>
-          <Grid
+          {stats && <Grid
             container
             item
             spacing={3}
@@ -136,13 +173,18 @@ export const ReportsSales = () => {
                 </Grid>
               );
             })}
-          </Grid>
+          </Grid>}
           <Grid
             item
             md={8}
             xs={12}
           >
-            <ProductsBreakdown />
+            <ProductsBreakdown data={data.data?.products_breakdown.data}
+                               categories={data.data?.products_breakdown.categories}
+                               categoryUpdated={setCategoryId}
+                               category={categoryId}
+                               onRangeChange={setProductsBreakdownRange}
+            />
           </Grid>
         </Grid>
       </Box>
