@@ -12,33 +12,6 @@ import {APIContext} from "../contexts/api-context";
 import {useMounted} from "../hooks/use-mounted";
 import Price from "../components/price";
 
-const stats = [
-  {
-    content: '$25,100.00',
-    icon: BanIcon,
-    iconColor: 'error.main',
-    label: 'Unrealized Revenue'
-  },
-  {
-    content: '$25,100.00',
-    icon: CashIcon,
-    iconColor: 'success.main',
-    label: 'Total Revenue'
-  },
-  {
-    content: '$25,100.00',
-    icon: ShoppingBagIcon,
-    iconColor: 'warning.main',
-    label: 'Total Delivery'
-  },
-  {
-    content: '$25,100.00',
-    icon: XIcon,
-    iconColor: 'info.main',
-    label: 'Total Discount'
-  }
-];
-
 export const ReportsSales = () => {
   const {fetchReportsSales} = useContext(APIContext)
   const [data, setData] = useState({isLoading: true})
@@ -125,7 +98,7 @@ export const ReportsSales = () => {
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <PerformanceIndicators data={data.data?.revenue_over_time} onRangeChange={setSalesRange}/>
+            <PerformanceIndicators snapshots={data.data?.stats} data={data.data?.revenue_over_time} onRangeChange={setSalesRange}/>
           </Grid>
           {stats && <Grid
             container

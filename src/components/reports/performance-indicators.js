@@ -4,29 +4,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@materi
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../actions-menu';
 import RangeSelector from "./range-selector";
-
-const stats = [
-  {
-    content: '€4,800.00',
-    label: 'Revenue'
-  },
-  {
-    content: '€4,900,24',
-    label: 'NET'
-  },
-  {
-    content: '€1,600.50',
-    label: 'Pending orders'
-  },
-  {
-    content: '€6,900.10',
-    label: 'Due'
-  },
-  {
-    content: '€6,500.80',
-    label: 'Overdue'
-  }
-];
+import Price from "../price";
 
 const data = {
   categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -38,9 +16,37 @@ const data = {
   ]
 };
 
-export const PerformanceIndicators = ({data, onRangeChange}) => {
+export const PerformanceIndicators = ({data, onRangeChange, snapshots}) => {
   const theme = useTheme();
   const [chartOptions, setChartOptions] = useState()
+  const [stats, setStats] = useState()
+
+  useEffect(() => {
+    if (snapshots) {
+      setStats([
+        {
+          content: <Price>{snapshots.pending_orders}</Price>,
+          label: 'Pending Orders'
+        },
+        {
+          content: <Price>{snapshots.completed_orders}</Price>,
+          label: 'Completed Orders'
+        },
+        {
+          content: <Price>{snapshots.processing_orders}</Price>,
+          label: 'Processing Orders'
+        },
+        {
+          content: <Price>{snapshots.in_transit_orders}</Price>,
+          label: 'In Transit Orders'
+        },
+        {
+          content: <Price>{snapshots.cancelled_orders}</Price>,
+          label: 'Cancelled Orders'
+        }
+      ])
+    }
+  }, [snapshots])
 
   useEffect(() => {
     if (data) {
@@ -138,7 +144,7 @@ export const PerformanceIndicators = ({data, onRangeChange}) => {
             }
           }}
         >
-          {stats.map((item) => (
+          {stats && stats.map((item) => (
             <Card
               key={item.label}
               variant="outlined"
