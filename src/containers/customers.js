@@ -11,6 +11,7 @@ import {APIContext} from "../contexts/api-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {SettingsContext} from "../contexts/settings-context";
+import {EmailClientContext} from "../contexts/email-client-context";
 
 const views = [
   {
@@ -70,12 +71,25 @@ export const Customers = () => {
   const {fetchCustomers} = useContext(APIContext)
   const {language, appName} = useContext(SettingsContext)
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const {
+    setAddresses,
+    setSubject,
+    setInitialBody,
+    showEmailClient
+  } = useContext(EmailClientContext)[1]
 
   useEffect(() => {
     if (customersState.data) {
       mergeSelectableRows(customersState.data)
     }
   }, [customersState])
+
+  const setupEmailClient = (user) => {
+    setInitialBody('<h1>Hello '+user.name+'</h1>')
+    setAddresses([user.name+ ' <'+user.email+'>'])
+    setSubject('Hello '+user.name)
+    showEmailClient()
+  }
 
   const getCustomers = useCallback(async () => {
     setCustomersState(() => ({isLoading: true}));
@@ -212,6 +226,18 @@ export const Customers = () => {
                 Customers
               </Typography>
               <Box sx={{flexGrow: 1}}/>
+              <Button
+                color="primary"
+                onClick={() => setupEmailClient({
+                  name: 'test',
+                  email: 'hello@hello.com'
+                })}
+                size="large"
+                startIcon={<PlusIcon fontSize="small"/>}
+                variant="contained"
+              >
+                Test Email
+              </Button>
               <Button
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}

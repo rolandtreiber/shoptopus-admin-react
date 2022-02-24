@@ -1,19 +1,21 @@
-import { useEffect } from 'react';
-import { useRoutes } from 'react-router-dom';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { initializeI18n } from './i18n';
-import { RTL } from './components/rtl';
-import { gtmConfig } from './config';
-import { useSettings } from './contexts/settings-context';
-import { useAuth } from './hooks/use-auth';
+import {useEffect} from 'react';
+import {useRoutes} from 'react-router-dom';
+import {CssBaseline, ThemeProvider} from '@material-ui/core';
+import {initializeI18n} from './i18n';
+import {RTL} from './components/rtl';
+import {gtmConfig} from './config';
+import {useSettings} from './contexts/settings-context';
+import {useAuth} from './hooks/use-auth';
 import gtm from './lib/gtm';
 import routes from './routes';
-import { createCustomTheme } from './theme';
+import {createCustomTheme} from './theme';
+import {EmailClientProvider} from "./contexts/email-client-context";
+import {NotificationsProvider} from "./contexts/notifications-context";
 
 export const App = () => {
   const content = useRoutes(routes);
-  const { settings } = useSettings();
-  const { isInitialized } = useAuth();
+  const {settings} = useSettings();
+  const {isInitialized} = useAuth();
 
   useEffect(() => {
     gtm.initialize(gtmConfig);
@@ -27,10 +29,14 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <RTL direction={settings.direction}>
-        <CssBaseline />
-        {isInitialized && content}
-      </RTL>
+      <NotificationsProvider>
+        <EmailClientProvider>
+          <RTL direction={settings.direction}>
+            <CssBaseline/>
+            {isInitialized && content}
+          </RTL>
+        </EmailClientProvider>
+      </NotificationsProvider>
     </ThemeProvider>
   );
 };

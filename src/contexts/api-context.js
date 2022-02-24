@@ -249,7 +249,15 @@ const APIProvider = ({children}) => {
       updateFile: async (fileId, params) => await put(admin_api_url + "file/" + fileId, params, makeHeaders()),
       deleteFile: async (fileId) => await del(admin_api_url + "file/" + fileId, {}, makeHeaders()),
 
-      setAccessToken
+      // Email
+      getUserOptions: async () => {
+        if (accessToken) {
+          return await get(admin_api_url + `get-users`, {}, makeHeaders())
+        }
+      },
+      sendEmail: async (params) => await post(admin_api_url+`send-email`, params, makeHeaders()),
+
+      setAccessToken,
     }),
     [accessToken],
   )

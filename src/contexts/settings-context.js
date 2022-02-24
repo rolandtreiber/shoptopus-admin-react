@@ -127,7 +127,8 @@ export const SettingsProvider = (props) => {
         availableLanguages: settings.available_locales,
         sharedOptions: settings.shared_options,
         appName: settings.app_name,
-        currency: settings.currency
+        currency: settings.currency,
+        theme: settings.theme
       }}
     >
       {children}
