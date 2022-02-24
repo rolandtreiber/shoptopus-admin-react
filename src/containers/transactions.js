@@ -54,11 +54,18 @@ export const Transactions = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
+        handleSelectAll,
+        mergeSelectableRows
     ] = useSelection(dataState.data?.voucherCodes);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchPayments} = useContext(APIContext)
+
+    useEffect(() => {
+        if (dataState.data) {
+            mergeSelectableRows(dataState.data)
+        }
+    }, [dataState])
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));

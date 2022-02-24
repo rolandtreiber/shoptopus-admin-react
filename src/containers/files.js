@@ -74,11 +74,18 @@ export const Files = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
+        handleSelectAll,
+        mergeSelectableRows
     ] = useSelection(dataState.data?.voucherCodes);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchFiles} = useContext(APIContext)
+
+    useEffect(() => {
+        if (dataState.data) {
+            mergeSelectableRows(dataState.data)
+        }
+    }, [dataState])
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
@@ -243,10 +250,10 @@ export const Files = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
-            onClose={() => setOpenCreateDialog(false)}
-            open={openCreateDialog}
-          />
+          {/*<ProductCreateDialog*/}
+          {/*  onClose={() => setOpenCreateDialog(false)}*/}
+          {/*  open={openCreateDialog}*/}
+          {/*/>*/}
       </>
     );
 };

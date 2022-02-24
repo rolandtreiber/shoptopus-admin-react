@@ -72,11 +72,18 @@ export const Ratings = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(dataState.data?.voucherCodes);
+        handleSelectAll,
+        mergeSelectableRows
+    ] = useSelection();
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchRatings} = useContext(APIContext)
+
+    useEffect(() => {
+        if (dataState.data) {
+            mergeSelectableRows(dataState.data)
+        }
+    }, [dataState])
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
@@ -241,10 +248,10 @@ export const Ratings = () => {
                   </Card>
               </Container>
           </Box>
-          <ProductCreateDialog
-            onClose={() => setOpenCreateDialog(false)}
-            open={openCreateDialog}
-          />
+          {/*<ProductCreateDialog*/}
+          {/*  onClose={() => setOpenCreateDialog(false)}*/}
+          {/*  open={openCreateDialog}*/}
+          {/*/>*/}
       </>
     );
 };

@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Box, Button, Card, Container, Divider, Typography} from '@material-ui/core';
 import {CustomerDialog} from '../components/customer/customer-dialog';
-import {CustomersFilter} from '../components/customer/customers-filter';
 import {CustomersTable} from '../components/customer/customers-table';
 import {useMounted} from '../hooks/use-mounted';
 import {useSelection} from '../hooks/use-selection';
@@ -65,11 +64,18 @@ export const Customers = () => {
   const [
     selectedElements,
     handleSelect,
-    handleSelectAll
-  ] = useSelection(customersState.data?.customers);
+    handleSelectAll,
+    mergeSelectableRows
+  ] = useSelection();
   const {fetchCustomers} = useContext(APIContext)
   const {language, appName} = useContext(SettingsContext)
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+
+  useEffect(() => {
+    if (customersState.data) {
+      mergeSelectableRows(customersState.data)
+    }
+  }, [customersState])
 
   const getCustomers = useCallback(async () => {
     setCustomersState(() => ({isLoading: true}));

@@ -54,11 +54,18 @@ const ProductCategories = () => {
     const [
         selectedCategories,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(categories.data?.categories);
+        handleSelectAll,
+        mergeSelectableRows
+    ] = useSelection();
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchProductCategories} = useContext(APIContext)
+
+    useEffect(() => {
+        if (categories.data) {
+            mergeSelectableRows(categories.data)
+        }
+    }, [categories])
 
     const getCategories = useCallback(async (clearWhileLoading = true) => {
         clearWhileLoading && setCategories(() => ({ isLoading: true }));

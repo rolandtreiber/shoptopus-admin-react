@@ -59,11 +59,18 @@ const ProductTags = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(tags.data?.tags);
+        handleSelectAll,
+        mergeSelectableRows
+    ] = useSelection();
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchProductTags} = useContext(APIContext)
+
+    useEffect(() => {
+        if (tags.data) {
+            mergeSelectableRows(tags.data)
+        }
+    }, [tags])
 
     const getAttributes = useCallback(async () => {
         setTags(() => ({ isLoading: true }));

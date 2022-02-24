@@ -1,9 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
-import { Plus as PlusIcon } from '../icons/plus';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
@@ -77,11 +76,17 @@ export const Orders = () => {
   const [
     selectedElements,
     handleSelect,
-    handleSelectAll
-  ] = useSelection(dataState.data?.voucherCodes);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    handleSelectAll,
+    mergeSelectableRows
+  ] = useSelection();
   const [mode, setMode] = useState('dnd');
   const {fetchOrders} = useContext(APIContext)
+
+  useEffect(() => {
+    if (dataState.data) {
+      mergeSelectableRows(dataState.data)
+    }
+  }, [dataState])
 
   const fetchData = useCallback(async () => {
     setDataState(() => ({ isLoading: true }));

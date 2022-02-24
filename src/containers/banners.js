@@ -55,11 +55,18 @@ export const Banners = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(dataState.data?.voucherCodes);
+        handleSelectAll,
+        mergeSelectableRows
+    ] = useSelection();
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchBanners} = useContext(APIContext)
+
+    useEffect(() => {
+        if (dataState.data) {
+            mergeSelectableRows(dataState.data)
+        }
+    }, [dataState])
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));

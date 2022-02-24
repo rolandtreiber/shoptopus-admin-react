@@ -28,11 +28,18 @@ export const Products = () => {
   const [
     selectedProducts,
     handleSelect,
-    handleSelectAll
-  ] = useSelection(productsState.data?.products);
+    handleSelectAll,
+    mergeSelectableRows
+  ] = useSelection();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const {fetchProducts} = useContext(APIContext)
+
+  useEffect(() => {
+    if (productsState.data) {
+      mergeSelectableRows(productsState.data)
+    }
+  }, [productsState])
 
   const getProducts = useCallback(async () => {
     setProductsState(() => ({ isLoading: true }));

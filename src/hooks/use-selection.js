@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-export const useSelection = (rows) => {
+export const useSelection = () => {
   const [selectedRows, setSelectedRows] = useState([]);
+  const [rows, setRows] = useState([])
 
   const handleSelect = (event, rowId) => {
     setSelectedRows((prevSelectedRows) => {
@@ -19,12 +20,17 @@ export const useSelection = (rows) => {
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      setSelectedRows(rows.map((row) => row.id));
+        setSelectedRows(rows.map((row) => row.id));
       return;
     }
 
     handleClearSelected();
   };
 
-  return [selectedRows, handleSelect, handleSelectAll];
+  const mergeSelectableRows = (newRows) => {
+    const newRowState = rows.concat(newRows);
+    setRows(newRowState)
+  }
+
+  return [selectedRows, handleSelect, handleSelectAll, setRows, mergeSelectableRows];
 };

@@ -68,11 +68,18 @@ export const DiscountRules = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(dataState.data?.voucherCodes);
+        handleSelectAll,
+        mergeSelectableRows
+    ] = useSelection();
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchDiscountRules} = useContext(APIContext)
+
+    useEffect(() => {
+        if (dataState.data) {
+            mergeSelectableRows(dataState.data)
+        }
+    }, [dataState])
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));

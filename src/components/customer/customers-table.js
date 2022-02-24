@@ -26,7 +26,7 @@ import { CustomerMenu } from './customer-menu';
 
 const columns = [
   {
-    id: 'fullName',
+    id: 'name',
     disablePadding: true,
     label: 'Name'
   },
@@ -39,7 +39,7 @@ const columns = [
     label: 'Email'
   },
   {
-    id: 'createdAt',
+    id: 'created_at',
     label: 'Created'
   }
 ];

@@ -53,13 +53,20 @@ const ProductAttributes = () => {
     const [
         selectedElements,
         handleSelect,
-        handleSelectAll
-    ] = useSelection(attributes.data?.attributes);
+        handleSelectAll,
+        mergeSelectableRows,
+    ] = useSelection();
     const {language, appName} = useContext(SettingsContext)
 
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {fetchProductAttributes} = useContext(APIContext)
+
+    useEffect(() => {
+        if (attributes.data) {
+            mergeSelectableRows(attributes.data)
+        }
+    }, [attributes])
 
     const getAttributes = useCallback(async (clearWhileLoading = true) => {
         clearWhileLoading && setAttributes(() => ({ isLoading: true }));
