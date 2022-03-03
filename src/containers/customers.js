@@ -84,10 +84,10 @@ export const Customers = () => {
     }
   }, [customersState])
 
-  const setupEmailClient = (user) => {
-    setInitialBody('<h1>Hello '+user.name+'</h1>')
-    setAddresses([user.name+ ' <'+user.email+'>'])
-    setSubject('Hello '+user.name)
+  const setupEmailClient = (users) => {
+    setInitialBody('<h1>Hello {{name}}</h1>')
+    setAddresses(users.map(u => [u.name+ ' <'+u.email+'>']))
+    setSubject('Hello {{name}}')
     showEmailClient()
   }
 
@@ -193,6 +193,15 @@ export const Customers = () => {
     });
   };
 
+  const handleSendEmail = () => {
+    const customers = selectedElements.map(s => {
+      return customersState.data.find(c => {
+        return c.id === s
+      })
+    })
+    setupEmailClient(customers)
+  }
+
   return (
     <>
       <Helmet>
@@ -226,18 +235,18 @@ export const Customers = () => {
                 Customers
               </Typography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
-                color="primary"
-                onClick={() => setupEmailClient({
-                  name: 'test',
-                  email: 'hello@hello.com'
-                })}
-                size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
-                variant="contained"
-              >
-                Test Email
-              </Button>
+              {/*<Button*/}
+              {/*  color="primary"*/}
+              {/*  onClick={() => setupEmailClient({*/}
+              {/*    name: 'test',*/}
+              {/*    email: 'hello@hello.com'*/}
+              {/*  })}*/}
+              {/*  size="large"*/}
+              {/*  startIcon={<PlusIcon fontSize="small"/>}*/}
+              {/*  variant="contained"*/}
+              {/*>*/}
+              {/*  Test Email*/}
+              {/*</Button>*/}
               <Button
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}
@@ -269,6 +278,12 @@ export const Customers = () => {
               view={controller.view}
               filterProperties={filterProperties}
               views={views}
+              bulkMenuItems={[
+                {
+                  name: 'Email selected',
+                  callback: handleSendEmail
+                }
+              ]}
             />
             <Divider/>
             <CustomersTable

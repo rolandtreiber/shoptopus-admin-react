@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
+import {Box, Button, Divider, MenuItem, Tab, Tabs} from '@material-ui/core';
 import { Adjustments as AdjustmentsIcon } from '../../icons/adjustments';
 import {
   containsOperator,
@@ -86,6 +86,14 @@ export const ProductsFilter = (props) => {
   } = props;
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
+  const handleArchive = () => {
+    console.log('Archived')
+  };
+
+  const handleDelete = () => {
+    console.log('Deleted')
+  };
+
   return (
     <>
       <div>
@@ -131,13 +139,16 @@ export const ProductsFilter = (props) => {
             onArchive={() => { }}
             onDelete={() => { }}
             selectedCount={selectedProducts.length}
-            sx={{
-              display: selectedProducts.length > 0 ? 'flex' : 'none',
-              order: {
-                sm: 1,
-                xs: 2
+            menuItems={[
+              {
+                name: 'Archive selected',
+                callback: handleArchive
+              },
+              {
+                name: 'Delete selected',
+                callback: handleDelete
               }
-            }}
+            ]}
           />
           <Query
             disabled={disabled}

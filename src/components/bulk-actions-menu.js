@@ -4,18 +4,8 @@ import { usePopover } from '../hooks/use-popover';
 import { ChevronDown as ChevronDownIcon } from '../icons/chevron-down';
 
 export const BulkActionsMenu = (props) => {
-  const { disabled, onArchive, onDelete, selectedCount, ...other } = props;
+  const { disabled, selectedCount, menuItems } = props;
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
-
-  const handleArchive = () => {
-    onArchive?.();
-    handleClose();
-  };
-
-  const handleDelete = () => {
-    onDelete?.();
-    handleClose();
-  };
 
   return (
     <>
@@ -27,7 +17,13 @@ export const BulkActionsMenu = (props) => {
         size="large"
         startIcon={<ChevronDownIcon />}
         variant="outlined"
-        {...other}
+        sx={{
+          display: selectedCount > 0 ? 'flex' : 'none',
+          order: {
+            sm: 1,
+            xs: 2
+          }
+        }}
       >
         Bulk Actions
       </Button>
@@ -44,12 +40,16 @@ export const BulkActionsMenu = (props) => {
           horizontal: 'right'
         }}
       >
-        <MenuItem onClick={handleArchive}>
-          {`Archive Selected (${selectedCount})`}
-        </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          {`Delete Selected (${selectedCount})`}
-        </MenuItem>
+        {
+          menuItems && menuItems.map(menuItem => (
+            <MenuItem key={menuItem.name} onClick={() => {
+              menuItem.callback()
+              handleClose()
+            }}>
+              {`${menuItem.name} (${selectedCount})`}
+            </MenuItem>
+          ))
+        }
       </Menu>
     </>
   );
