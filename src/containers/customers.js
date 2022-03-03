@@ -86,7 +86,7 @@ export const Customers = () => {
 
   const setupEmailClient = (users) => {
     setInitialBody('<h1>Hello {{name}}</h1>')
-    setAddresses(users.map(u => [u.name+ ' <'+u.email+'>']))
+    setAddresses(users.map(u => u.name+ ' <'+u.email+'>'))
     setSubject('Hello {{name}}')
     showEmailClient()
   }
