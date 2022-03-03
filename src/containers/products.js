@@ -1,8 +1,7 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductDialog } from '../components/product/product-dialog';
-import { ProductsFilter } from '../components/product/products-filter';
 import { ProductsSummary } from '../components/product/products-summary';
 import { ProductsTable } from '../components/product/products-table';
 import { useMounted } from '../hooks/use-mounted';
@@ -12,6 +11,49 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
+import {ListFilter} from "../components/list-filter";
+
+const views = [
+  {
+    label: 'All',
+    value: 'all'
+  },
+  {
+    label: 'Active',
+    value: 'active'
+  },
+  {
+    label: 'Provisional',
+    value: 'provisional'
+  },
+  {
+    label: 'Discontinued',
+    value: 'discontinued'
+  }
+];
+
+const filterProperties = [
+  {
+    label: 'Name',
+    name: 'name',
+    type: 'string'
+  },
+  {
+    label: 'Updated At',
+    name: 'updated_at',
+    type: 'date'
+  },
+  {
+    label: 'Status',
+    name: 'status',
+    type: 'string'
+  },
+  {
+    label: 'Original Price',
+    name: 'price',
+    type: 'number'
+  }
+];
 
 export const Products = () => {
   const mounted = useMounted();
@@ -103,28 +145,6 @@ export const Products = () => {
     });
   };
 
-  const handleFiltersApply = (newFilters) => {
-    const parsedFilters = newFilters.map((filter) => ({
-      property: filter.property.name,
-      value: filter.value,
-      operator: filter.operator.value
-    }));
-
-    setController({
-      ...controller,
-      page: 0,
-      filters: parsedFilters
-    });
-  };
-
-  const handleFiltersClear = () => {
-    setController({
-      ...controller,
-      page: 0,
-      filters: []
-    });
-  };
-
   const handlePageChange = (newPage) => {
     setController({
       ...controller,
@@ -141,6 +161,14 @@ export const Products = () => {
       sort: isAsc ? 'desc' : 'asc',
       sortBy: translatable === true ? property+'->'+language : property
     });
+  };
+
+  const handleBulkArchive = () => {
+    console.log('Archived')
+  };
+
+  const handleBulkDelete = () => {
+    console.log('Deleted')
   };
 
   return (
@@ -196,16 +224,28 @@ export const Products = () => {
               flexGrow: 1
             }}
           >
-            <ProductsFilter
+            <ListFilter
               disabled={productsState.isLoading}
               filters={controller.filters}
-              onFiltersApply={handleFiltersApply}
-              onFiltersClear={handleFiltersClear}
+              onFiltersApply={(data) => setController({...controller, ...data})}
+              onFiltersClear={(data) => setController({...controller, ...data})}
               onQueryChange={handleQueryChange}
               onViewChange={handleViewChange}
               query={controller.query}
-              selectedProducts={selectedProducts}
+              selectedElements={selectedProducts}
               view={controller.view}
+              filterProperties={filterProperties}
+              views={views}
+              bulkMenuItems={[
+                {
+                  name: 'Archive selected',
+                  callback: handleBulkArchive
+                },
+                {
+                  name: 'Delete selected',
+                  callback: handleBulkDelete
+                }
+              ]}
             />
             <Divider />
             <ProductsTable

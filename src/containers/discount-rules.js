@@ -161,6 +161,32 @@ export const DiscountRules = () => {
         });
     };
 
+    const handleBulkExpire = () => {
+        console.log('All selected expired')
+    }
+
+    const handleBulkStart = () => {
+        console.log('All selected started')
+    }
+
+    const handleBulkDelete = () => {
+        console.log('All selected deleted')
+    }
+
+    const handleBulkMakeActive = (length) => {
+        switch (length) {
+            case 'day':
+                console.log('All selected made active for 1 day')
+                break
+            case 'week':
+                console.log('All selected made active for 1 week')
+                break
+            case 'month':
+                console.log('All selected made active for 1 month')
+                break
+        }
+    }
+
     return (
       <>
           <Helmet>
@@ -225,6 +251,32 @@ export const DiscountRules = () => {
                         view={controller.view}
                         filterProperties={filterProperties}
                         views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Expire',
+                                callback: () => handleBulkExpire()
+                            },
+                            {
+                                name: 'Start now',
+                                callback: () => handleBulkStart(false)
+                            },
+                            {
+                                name: 'Make active for a day from now',
+                                callback: () => handleBulkMakeActive('day')
+                            },
+                            {
+                                name: 'Make active for a week from now',
+                                callback: () => handleBulkMakeActive('week')
+                            },
+                            {
+                                name: 'Make active for a month from now',
+                                callback: () => handleBulkMakeActive('month')
+                            },
+                            {
+                                name: 'Delete',
+                                callback: () => handleBulkDelete()
+                            }
+                        ]}
                       />
                       <Divider />
                       <DiscountRulesTable

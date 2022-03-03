@@ -147,6 +147,10 @@ export const Transactions = () => {
         });
     };
 
+    const handleBulkStatusUpdate = (status) => {
+        console.log('Status updated to '+status)
+    }
+
     return (
       <>
           <Helmet>
@@ -211,6 +215,24 @@ export const Transactions = () => {
                         view={controller.view}
                         filterProperties={filterProperties}
                         views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Mark as pending',
+                                callback: () => handleBulkStatusUpdate('pending')
+                            },
+                            {
+                                name: 'Mark as settled',
+                                callback: () => handleBulkStatusUpdate('settled')
+                            },
+                            {
+                                name: 'Mark as refunded',
+                                callback: () => handleBulkStatusUpdate('refunded')
+                            },
+                            {
+                                name: 'Mark as in rejected',
+                                callback: () => handleBulkStatusUpdate('rejected')
+                            }
+                        ]}
                       />
                       <Divider />
                       <TransactionsTable

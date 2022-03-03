@@ -167,6 +167,10 @@ export const Files = () => {
         });
     };
 
+    const handleBulkDelete = () => {
+        console.log('Deleted')
+    };
+
     return (
       <>
           <Helmet>
@@ -231,6 +235,12 @@ export const Files = () => {
                         view={controller.view}
                         filterProperties={filterProperties}
                         views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Delete selected',
+                                callback: handleBulkDelete
+                            }
+                        ]}
                       />
                       <Divider />
                       <FilesTable
@@ -250,10 +260,6 @@ export const Files = () => {
                   </Card>
               </Container>
           </Box>
-          {/*<ProductCreateDialog*/}
-          {/*  onClose={() => setOpenCreateDialog(false)}*/}
-          {/*  open={openCreateDialog}*/}
-          {/*/>*/}
       </>
     );
 };

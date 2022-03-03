@@ -88,6 +88,10 @@ export const Orders = () => {
     }
   }, [dataState])
 
+  const handleBulkStatusUpdate = (status) => {
+    console.log('Status updated to '+status)
+  }
+
   const fetchData = useCallback(async () => {
     setDataState(() => ({ isLoading: true }));
 
@@ -227,6 +231,32 @@ export const Orders = () => {
               view={controller.view}
               filterProperties={filterProperties}
               views={views}
+              bulkMenuItems={[
+                {
+                  name: 'Mark as completed',
+                  callback: () => handleBulkStatusUpdate('completed')
+                },
+                {
+                  name: 'Mark as paid',
+                  callback: () => handleBulkStatusUpdate('paid')
+                },
+                {
+                  name: 'Mark as processing',
+                  callback: () => handleBulkStatusUpdate('processing')
+                },
+                {
+                  name: 'Mark as in transit',
+                  callback: () => handleBulkStatusUpdate('in_transit')
+                },
+                {
+                  name: 'Mark as on hold',
+                  callback: () => handleBulkStatusUpdate('on_hold')
+                },
+                {
+                  name: 'Mark as cancelled',
+                  callback: () => handleBulkStatusUpdate('cancelled')
+                },
+              ]}
             />
             <Divider />
             {mode === 'table'

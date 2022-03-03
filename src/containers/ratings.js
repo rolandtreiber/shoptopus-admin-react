@@ -165,6 +165,14 @@ export const Ratings = () => {
         });
     };
 
+    const handleBulkStatusUpdate = (status) => {
+        console.log('Status updated to '+status)
+    }
+
+    const handleBulkAvailabilityUpdate = (available) => {
+        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+    }
+
     return (
       <>
           <Helmet>
@@ -229,6 +237,24 @@ export const Ratings = () => {
                         view={controller.view}
                         filterProperties={filterProperties}
                         views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Enable',
+                                callback: () => handleBulkAvailabilityUpdate(true)
+                            },
+                            {
+                                name: 'Disable',
+                                callback: () => handleBulkAvailabilityUpdate(false)
+                            },
+                            {
+                                name: 'Mark as verified',
+                                callback: () => handleBulkStatusUpdate('verified')
+                            },
+                            {
+                                name: 'Mark as non verified',
+                                callback: () => handleBulkStatusUpdate('non_verified')
+                            }
+                        ]}
                       />
                       <Divider />
                       <RatingsTable

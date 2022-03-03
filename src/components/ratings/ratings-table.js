@@ -109,7 +109,7 @@ export const RatingsTable = (props) => {
   const getStars = (rating) => {
     let stars = [];
     for (let i = 0; i < rating; i++) {
-      stars = [...stars, (<StarIcon style={{'color': '#cebf17'}}/>)]
+      stars = [...stars, (<StarIcon key={'star-'+i} style={{'color': '#cebf17'}}/>)]
     }
     return stars
   }

@@ -235,18 +235,6 @@ export const Customers = () => {
                 Customers
               </Typography>
               <Box sx={{flexGrow: 1}}/>
-              {/*<Button*/}
-              {/*  color="primary"*/}
-              {/*  onClick={() => setupEmailClient({*/}
-              {/*    name: 'test',*/}
-              {/*    email: 'hello@hello.com'*/}
-              {/*  })}*/}
-              {/*  size="large"*/}
-              {/*  startIcon={<PlusIcon fontSize="small"/>}*/}
-              {/*  variant="contained"*/}
-              {/*>*/}
-              {/*  Test Email*/}
-              {/*</Button>*/}
               <Button
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}

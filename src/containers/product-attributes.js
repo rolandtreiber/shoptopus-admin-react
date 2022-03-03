@@ -142,6 +142,14 @@ const ProductAttributes = () => {
         });
     };
 
+    const handleBulkAvailabilityUpdate = (available) => {
+        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+    }
+
+    const handleBulkDelete = () => {
+        console.log('Deleted')
+    }
+
     return (
         <>
             <Helmet>
@@ -208,6 +216,20 @@ const ProductAttributes = () => {
                             view={controller.view}
                             filterProperties={filterProperties}
                             views={views}
+                            bulkMenuItems={[
+                                {
+                                    name: 'Enable',
+                                    callback: () => handleBulkAvailabilityUpdate(true)
+                                },
+                                {
+                                    name: 'Disable',
+                                    callback: () => handleBulkAvailabilityUpdate(false)
+                                },
+                                {
+                                    name: 'Delete',
+                                    callback: () => handleBulkDelete()
+                                }
+                            ]}
                         />
                         <Divider />
                         <ProductAttributesTable

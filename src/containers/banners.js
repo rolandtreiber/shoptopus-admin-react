@@ -148,6 +148,10 @@ export const Banners = () => {
         });
     };
 
+    const handleBulkAvailabilityUpdate = (available) => {
+        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+    }
+
     return (
       <>
           <Helmet>
@@ -212,6 +216,16 @@ export const Banners = () => {
                         view={controller.view}
                         filterProperties={filterProperties}
                         views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Enable',
+                                callback: () => handleBulkAvailabilityUpdate(true)
+                            },
+                            {
+                                name: 'Disable',
+                                callback: () => handleBulkAvailabilityUpdate(false)
+                            }
+                        ]}
                       />
                       <Divider />
                       <BannersTable
