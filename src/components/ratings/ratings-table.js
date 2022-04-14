@@ -179,12 +179,18 @@ export const RatingsTable = (props) => {
                     <Link
                       color="inherit"
                       component={RouterLink}
-                      sx={{display: 'block'}}
+                      sx={{
+                        display: 'block',
+                    }}
                       to={"/dashboard/rating/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >
-                      {getStars(d.rating)}
+                      <div
+                        style={{ whiteSpace: 'nowrap' }}
+                      >
+                        {getStars(d.rating)}
+                      </div>
                     </Link>
                   </TableCell>
                   <TableCell>
