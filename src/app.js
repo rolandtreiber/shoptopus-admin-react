@@ -11,6 +11,7 @@ import routes from './routes';
 import {createCustomTheme} from './theme';
 import {EmailClientProvider} from "./contexts/email-client-context";
 import {NotificationsProvider} from "./contexts/notifications-context";
+import {DialogProvider} from "./contexts/dialog-context";
 
 export const App = () => {
   const content = useRoutes(routes);
@@ -29,14 +30,16 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NotificationsProvider>
-        <EmailClientProvider>
-          <RTL direction={settings.direction}>
-            <CssBaseline/>
-            {isInitialized && content}
-          </RTL>
-        </EmailClientProvider>
-      </NotificationsProvider>
+      <DialogProvider>
+        <NotificationsProvider>
+          <EmailClientProvider>
+            <RTL direction={settings.direction}>
+              <CssBaseline/>
+              {isInitialized && content}
+            </RTL>
+          </EmailClientProvider>
+        </NotificationsProvider>
+      </DialogProvider>
     </ThemeProvider>
   );
 };

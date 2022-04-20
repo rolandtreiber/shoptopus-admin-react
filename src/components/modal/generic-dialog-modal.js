@@ -36,13 +36,5 @@ export default function GenericDialogModal(props) {
         </Grid>
       </DialogContent>
     </Dialog>
-    // <Modal
-    //   open={open}
-    //   onClose={props.onClose}
-    //   aria-labelledby="simple-modal-title"
-    //   aria-describedby="simple-modal-description"
-    // >
-    //   {body}
-    // </Modal>
   )
 }

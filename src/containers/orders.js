@@ -1,8 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Box, Card, Container, Divider, Typography } from '@material-ui/core';
-import { useMounted } from '../hooks/use-mounted';
-import { useSelection } from '../hooks/use-selection';
+import {Helmet} from 'react-helmet-async';
+import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
+import {useMounted} from '../hooks/use-mounted';
+import {useSelection} from '../hooks/use-selection';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
@@ -10,6 +10,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {OrdersTable} from "../components/order/orders-table";
 import {OrdersDnd} from "../components/order/orders-dnd";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
   {
@@ -60,7 +61,7 @@ const filterProperties = [
   }
 ];
 
-export const Orders = () => {
+export const Orders = (callback, deps) => {
   const mounted = useMounted();
   const [controller, setController] = useState({
     filters: [],
@@ -77,10 +78,18 @@ export const Orders = () => {
     selectedElements,
     handleSelect,
     handleSelectAll,
-    mergeSelectableRows
+    setRows,
+    mergeSelectableRows,
+    clearSelected
   ] = useSelection();
   const [mode, setMode] = useState('dnd');
-  const {fetchOrders} = useContext(APIContext)
+  const {fetchOrders, bulkUpdateOrderStatus} = useContext(APIContext)
+  const {
+    setCallback,
+    setTitle,
+    showGenericDialog,
+    setDescription
+  } = useContext(DialogContext)[1]
 
   useEffect(() => {
     if (dataState.data) {
@@ -88,8 +97,29 @@ export const Orders = () => {
     }
   }, [dataState])
 
+  const doBulkUpdateOrderStatuses = useCallback( async (ids, status) => {
+    try {
+      return await bulkUpdateOrderStatus({
+        ids: ids,
+        status: status
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
   const handleBulkStatusUpdate = (status) => {
-    console.log('Status updated to '+status)
+    const call = () => doBulkUpdateOrderStatuses(selectedElements, status).then(result => {
+      if (result.data?.status === "Success") {
+        clearSelected()
+        fetchData().catch(console.error)
+      }
+    })
+
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to update the status of multiple orders.')
+    showGenericDialog(true)
   }
 
   const fetchData = useCallback(async () => {
@@ -234,27 +264,27 @@ export const Orders = () => {
               bulkMenuItems={[
                 {
                   name: 'Mark as completed',
-                  callback: () => handleBulkStatusUpdate('completed')
+                  callback: () => handleBulkStatusUpdate(4)
                 },
                 {
                   name: 'Mark as paid',
-                  callback: () => handleBulkStatusUpdate('paid')
+                  callback: () => handleBulkStatusUpdate(1)
                 },
                 {
                   name: 'Mark as processing',
-                  callback: () => handleBulkStatusUpdate('processing')
+                  callback: () => handleBulkStatusUpdate(2)
                 },
                 {
                   name: 'Mark as in transit',
-                  callback: () => handleBulkStatusUpdate('in_transit')
+                  callback: () => handleBulkStatusUpdate(3)
                 },
                 {
                   name: 'Mark as on hold',
-                  callback: () => handleBulkStatusUpdate('on_hold')
+                  callback: () => handleBulkStatusUpdate(5)
                 },
                 {
                   name: 'Mark as cancelled',
-                  callback: () => handleBulkStatusUpdate('cancelled')
+                  callback: () => handleBulkStatusUpdate(6)
                 },
               ]}
             />

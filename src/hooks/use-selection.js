@@ -32,5 +32,5 @@ export const useSelection = () => {
     setRows(newRowState)
   }
 
-  return [selectedRows, handleSelect, handleSelectAll, setRows, mergeSelectableRows];
+  return [selectedRows, handleSelect, handleSelectAll, setRows, mergeSelectableRows, handleClearSelected];
 };
