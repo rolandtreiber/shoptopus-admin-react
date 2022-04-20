@@ -257,6 +257,57 @@ const APIProvider = ({children}) => {
       },
       sendEmail: async (params) => await post(admin_api_url+`send-email`, params, makeHeaders()),
 
+      // Bulk operations
+
+      // Orders
+      bulkUpdateOrderStatus: async (fileId, params) => await post(admin_api_url + "orders/bulk/status", params, makeHeaders()),
+
+      // Products
+      bulkDeleteProducts: async (fileId, params) => await del(admin_api_url + "products/bulk", params, makeHeaders()),
+      bulkArchiveProducts: async (fileId, params) => await post(admin_api_url + "products/bulk/archive", params, makeHeaders()),
+
+      // Product Categories
+      bulkDeleteProductCategories: async (fileId, params) => await del(admin_api_url + "product-categories/bulk", params, makeHeaders()),
+      bulkUpdateProductCategoriesAvailability: async (fileId, params) => await post(admin_api_url + "product-categories/bulk/availability", params, makeHeaders()),
+
+      // Product Attributes
+      bulkDeleteProductAttributes: async (fileId, params) => await del(admin_api_url + "product-attributes/bulk", params, makeHeaders()),
+      bulkUpdateProductAttributesAvailability: async (fileId, params) => await post(admin_api_url + "product-attributes/bulk/availability", params, makeHeaders()),
+
+      // Product Tags
+      bulkDeleteProductTags: async (fileId, params) => await del(admin_api_url + "product-tags/bulk", params, makeHeaders()),
+      bulkUpdateProductTagsAvailability: async (fileId, params) => await post(admin_api_url + "product-tags/bulk/availability", params, makeHeaders()),
+
+      // Discount Rules
+      bulkDeleteDiscountRules: async (fileId, params) => await del(admin_api_url + "discount-rules/bulk", params, makeHeaders()),
+      bulkExpireDiscountRules: async (fileId, params) => await post(admin_api_url + "discount-rules/bulk/expire", params, makeHeaders()),
+      bulkStartDiscountRules: async (fileId, params) => await post(admin_api_url + "discount-rules/bulk/start", params, makeHeaders()),
+      bulkActivateDiscountRulesForPeriod: async (fileId, params) => await post(admin_api_url + "discount-rules/bulk/activate", params, makeHeaders()),
+
+      // Voucher Codes
+      bulkDeleteVoucherCodes: async (fileId, params) => await del(admin_api_url + "voucher-codes/bulk", params, makeHeaders()),
+      bulkExpireVoucherCodes: async (fileId, params) => await post(admin_api_url + "voucher-codes/bulk/expire", params, makeHeaders()),
+      bulkStartVoucherCodes: async (fileId, params) => await post(admin_api_url + "voucher-codes/bulk/start", params, makeHeaders()),
+      bulkActivateVoucherCodesForPeriod: async (fileId, params) => await post(admin_api_url + "voucher-codes/bulk/activate", params, makeHeaders()),
+
+      // Delivery Types
+      bulkDeleteDeliveryTypes: async (fileId, params) => await del(admin_api_url + "delivery-types/bulk", params, makeHeaders()),
+      bulkUpdateDeliveryTypesAvailability: async (fileId, params) => await post(admin_api_url + "delivery-types/bulk/availability", params, makeHeaders()),
+
+      // Payments
+      bulkUpdatePaymentStatuses: async (fileId, params) => await post(admin_api_url + "payments/bulk/status", params, makeHeaders()),
+
+      // Banners
+      bulkDeleteBanners: async (fileId, params) => await del(admin_api_url + "banners/bulk", params, makeHeaders()),
+      bulkUpdateBannersAvailability: async (fileId, params) => await post(admin_api_url + "banners/bulk/availability", params, makeHeaders()),
+
+      // Ratings
+      bulkUpdateRatingsAvailability: async (fileId, params) => await post(admin_api_url + "ratings/bulk/availability", params, makeHeaders()),
+      bulkUpdateRatingsVerifiedStatus: async (fileId, params) => await post(admin_api_url + "ratings/bulk/verified-status", params, makeHeaders()),
+
+      // Files
+      bulkDeleteFiles: async (fileId, params) => await del(admin_api_url + "files/bulk", params, makeHeaders()),
+
       setAccessToken,
     }),
     [accessToken],
