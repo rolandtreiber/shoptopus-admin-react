@@ -10,6 +10,7 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {Plus as PlusIcon} from "../icons/plus";
 import {ListFilter} from "../components/list-filter";
 import {ProductCategoryCreateDialog} from "../components/product-categories/product-category-create-dialog";
+import {DialogContext} from "../contexts/dialog-context";
 
 const filterProperties = [
     {
@@ -55,11 +56,21 @@ const ProductCategories = () => {
         selectedCategories,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProductCategories} = useContext(APIContext)
+    const {fetchProductCategories,
+        bulkDeleteProductCategories,
+        bulkUpdateProductCategoriesAvailability} = useContext(APIContext)
 
     useEffect(() => {
         if (categories.data) {
@@ -134,12 +145,55 @@ const ProductCategories = () => {
         });
     };
 
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateProductCategoriesAvailability({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteProductCategories({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedCategories, available).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getCategories().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected product categories '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     const handleBulkDelete = () => {
-        console.log('Deleted')
+        const call = () => doBulkDelete(selectedCategories).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getCategories().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected product categories.')
+        showGenericDialog(true)
     }
 
     return (
@@ -211,11 +265,11 @@ const ProductCategories = () => {
                             bulkMenuItems={[
                                 {
                                     name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(true)
+                                    callback: () => handleBulkAvailabilityUpdate(1)
                                 },
                                 {
                                     name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(false)
+                                    callback: () => handleBulkAvailabilityUpdate(0)
                                 },
                                 {
                                     name: 'Delete',
