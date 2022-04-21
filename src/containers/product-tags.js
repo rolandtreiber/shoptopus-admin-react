@@ -10,6 +10,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import {ListFilter} from "../components/list-filter";
 import {ProductTagCreateDialog} from "../components/product-tags/product-tag-create-dialog";
+import {DialogContext} from "../contexts/dialog-context";
 
 const filterProperties = [
     {
@@ -60,11 +61,22 @@ const ProductTags = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
+
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProductTags} = useContext(APIContext)
+    const {fetchProductTags,
+        bulkDeleteProductTags,
+        bulkUpdateProductTagsAvailability} = useContext(APIContext)
 
     useEffect(() => {
         if (tags.data) {
@@ -72,7 +84,7 @@ const ProductTags = () => {
         }
     }, [tags])
 
-    const getAttributes = useCallback(async () => {
+    const getTags = useCallback(async () => {
         setTags(() => ({ isLoading: true }));
 
         try {
@@ -105,7 +117,7 @@ const ProductTags = () => {
     }, [controller]);
 
     useEffect(() => {
-        getAttributes().catch(console.error);
+        getTags().catch(console.error);
     }, [controller]);
 
     const handleQueryChange = (newQuery) => {
@@ -139,12 +151,55 @@ const ProductTags = () => {
         });
     };
 
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateProductTagsAvailability({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteProductTags({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedElements, available).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getTags().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected product tags '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     const handleBulkDelete = () => {
-        console.log('Deleted')
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getTags().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected product tags.')
+        showGenericDialog(true)
     }
 
     return (
@@ -216,11 +271,11 @@ const ProductTags = () => {
                             bulkMenuItems={[
                                 {
                                     name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(true)
+                                    callback: () => handleBulkAvailabilityUpdate(1)
                                 },
                                 {
                                     name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(false)
+                                    callback: () => handleBulkAvailabilityUpdate(0)
                                 },
                                 {
                                     name: 'Delete',
@@ -251,7 +306,7 @@ const ProductTags = () => {
             <ProductTagCreateDialog
               onClose={() => setOpenCreateDialog(false)}
               open={openCreateDialog}
-              onSuccess={() => getAttributes().catch(console.error)}
+              onSuccess={() => getTags().catch(console.error)}
             />
         </>
     )
