@@ -51,17 +51,17 @@ const statusVariants = [
   {
     color: 'info.main',
     label: 'Provisional',
-    value: 0
+    value: 1
   },
   {
     color: 'success.main',
     label: 'Active',
-    value: 1
+    value: 2
   },
   {
     color: 'error.main',
     label: 'Discontinued',
-    value: 2
+    value: 3
   }
 ];
 

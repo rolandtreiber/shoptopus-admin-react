@@ -12,6 +12,7 @@ import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import {ListFilter} from "../components/list-filter";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
   {
@@ -71,11 +72,19 @@ export const Products = () => {
     selectedProducts,
     handleSelect,
     handleSelectAll,
-    mergeSelectableRows
+    setRows,
+    mergeSelectableRows,
+    clearSelected
   ] = useSelection();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const {
+    setCallback,
+    setTitle,
+    showGenericDialog,
+    setDescription
+  } = useContext(DialogContext)[1]
 
-  const {fetchProducts} = useContext(APIContext)
+  const {fetchProducts, bulkDeleteProducts, bulkArchiveProducts} = useContext(APIContext)
 
   useEffect(() => {
     if (productsState.data) {
@@ -163,12 +172,52 @@ export const Products = () => {
     });
   };
 
+  const doBulkArchive = useCallback( async (ids) => {
+    try {
+      return await bulkArchiveProducts({
+        ids: ids,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+  const doBulkDelete = useCallback( async (ids) => {
+    try {
+      return await bulkDeleteProducts({
+        ids: ids,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
   const handleBulkArchive = () => {
-    console.log('Archived')
+    const call = () => doBulkArchive(selectedProducts).then(result => {
+      if (result.data?.status === "Success") {
+        clearSelected()
+        getProducts().catch(console.error);
+      }
+    })
+
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to archive multiple products.')
+    showGenericDialog(true)
   };
 
   const handleBulkDelete = () => {
-    console.log('Deleted')
+    const call = () => doBulkDelete(selectedProducts).then(result => {
+      if (result.data?.status === "Success") {
+        clearSelected()
+        getProducts().catch(console.error);
+      }
+    })
+
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to delete multiple products.')
+    showGenericDialog(true)
   };
 
   return (
