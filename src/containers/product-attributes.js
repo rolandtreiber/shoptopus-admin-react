@@ -10,6 +10,7 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {Helmet} from "react-helmet-async";
 import {ListFilter} from "../components/list-filter";
 import {ProductAttributeCreateDialog} from "../components/product-attributes/product-attribute-create-dialog";
+import {DialogContext} from "../contexts/dialog-context";
 
 const filterProperties = [
     {
@@ -54,13 +55,24 @@ const ProductAttributes = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
+        setRows,
         mergeSelectableRows,
+        clearSelected
     ] = useSelection();
     const {language, appName} = useContext(SettingsContext)
 
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
+
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProductAttributes} = useContext(APIContext)
+    const {fetchProductAttributes,
+        bulkDeleteProductAttributes,
+        bulkUpdateProductAttributesAvailability} = useContext(APIContext)
 
     useEffect(() => {
         if (attributes.data) {
@@ -142,12 +154,55 @@ const ProductAttributes = () => {
         });
     };
 
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateProductAttributesAvailability({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteProductAttributes({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedElements, available).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getAttributes().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected product attributes '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     const handleBulkDelete = () => {
-        console.log('Deleted')
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                getAttributes().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected product attributes.')
+        showGenericDialog(true)
     }
 
     return (
@@ -219,11 +274,11 @@ const ProductAttributes = () => {
                             bulkMenuItems={[
                                 {
                                     name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(true)
+                                    callback: () => handleBulkAvailabilityUpdate(1)
                                 },
                                 {
                                     name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(false)
+                                    callback: () => handleBulkAvailabilityUpdate(0)
                                 },
                                 {
                                     name: 'Delete',
