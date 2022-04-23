@@ -10,6 +10,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {RatingsTable} from "../components/ratings/ratings-table";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -73,11 +74,23 @@ export const Ratings = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchRatings} = useContext(APIContext)
+    const {
+        fetchRatings,
+        bulkUpdateRatingsAvailability,
+        bulkUpdateRatingsVerifiedStatus
+    } = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -165,12 +178,58 @@ export const Ratings = () => {
         });
     };
 
-    const handleBulkStatusUpdate = (status) => {
-        console.log('Status updated to '+status)
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateRatingsAvailability({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkUpdateVerifiedStatus = useCallback( async (ids, verified) => {
+        try {
+            return await bulkUpdateRatingsVerifiedStatus({
+                verified: verified,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const handleBulkStatusUpdate = (verified) => {
+        const call = () => doBulkUpdateVerifiedStatus(selectedElements, verified).then(result => {
+            if (result?.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        const newStatus = verified ? 'verified' : 'non-verified'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected ratings '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedElements, available).then(result => {
+            if (result?.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected ratings '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     return (
@@ -240,19 +299,19 @@ export const Ratings = () => {
                         bulkMenuItems={[
                             {
                                 name: 'Enable',
-                                callback: () => handleBulkAvailabilityUpdate(true)
+                                callback: () => handleBulkAvailabilityUpdate(1)
                             },
                             {
                                 name: 'Disable',
-                                callback: () => handleBulkAvailabilityUpdate(false)
+                                callback: () => handleBulkAvailabilityUpdate(0)
                             },
                             {
                                 name: 'Mark as verified',
-                                callback: () => handleBulkStatusUpdate('verified')
+                                callback: () => handleBulkStatusUpdate(1)
                             },
                             {
                                 name: 'Mark as non verified',
-                                callback: () => handleBulkStatusUpdate('non_verified')
+                                callback: () => handleBulkStatusUpdate(0)
                             }
                         ]}
                       />
