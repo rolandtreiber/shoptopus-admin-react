@@ -11,6 +11,7 @@ import {APIContext} from "../contexts/api-context";
 import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -69,11 +70,23 @@ export const VoucherCodes = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchVoucherCodes} = useContext(APIContext)
+    const {fetchVoucherCodes,
+        bulkDeleteVoucherCodes,
+        bulkExpireVoucherCodes,
+        bulkStartVoucherCodes,
+        bulkActivateVoucherCodesForPeriod} = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -161,30 +174,113 @@ export const VoucherCodes = () => {
         });
     };
 
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteVoucherCodes({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkExpire = useCallback( async (ids) => {
+        try {
+            return await bulkExpireVoucherCodes({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkStart = useCallback( async (ids) => {
+        try {
+            return await bulkStartVoucherCodes({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkMakeActive = useCallback( async (ids, length) => {
+        try {
+            return await bulkActivateVoucherCodesForPeriod({
+                period: length,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkExpire = () => {
-        console.log('All selected expired')
+        const call = () => doBulkExpire(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected voucher codes expired.')
+        showGenericDialog(true)
     }
 
     const handleBulkStart = () => {
-        console.log('All selected started')
+        const call = () => doBulkStart(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the start date and time to now on the selected voucher codes.')
+        showGenericDialog(true)
     }
 
     const handleBulkDelete = () => {
-        console.log('All selected deleted')
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected voucher codes.')
+        showGenericDialog(true)
     }
 
     const handleBulkMakeActive = (length) => {
+        let message = '';
         switch (length) {
-            case 'day':
-                console.log('All selected made active for 1 day')
+            case 0:
+                message = 'You are about to set the selected voucher codes active for one day starting now.'
                 break
-            case 'week':
-                console.log('All selected made active for 1 week')
+            case 1:
+                message = 'You are about to set the selected voucher codes active for one week starting now.'
                 break
-            case 'month':
-                console.log('All selected made active for 1 month')
-                break
+            case 2:
+                message = 'You are about to set the selected voucher codes active for one month starting now.'
         }
+
+        const call = () => doBulkMakeActive(selectedElements, length).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription(message)
+        showGenericDialog(true)
     }
 
     return (
@@ -262,15 +358,15 @@ export const VoucherCodes = () => {
                               },
                               {
                                   name: 'Make active for a day from now',
-                                  callback: () => handleBulkMakeActive('day')
+                                  callback: () => handleBulkMakeActive(0)
                               },
                               {
                                   name: 'Make active for a week from now',
-                                  callback: () => handleBulkMakeActive('week')
+                                  callback: () => handleBulkMakeActive(1)
                               },
                               {
                                   name: 'Make active for a month from now',
-                                  callback: () => handleBulkMakeActive('month')
+                                  callback: () => handleBulkMakeActive(2)
                               },
                               {
                                   name: 'Delete',
