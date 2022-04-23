@@ -28,16 +28,16 @@ const columns = [
     label: 'Description'
   },
   {
-    id: 'price',
-    label: 'Price'
-  },
-  {
     id: 'status',
     label: 'Status'
+  },
+  {
+    id: 'price',
+    label: 'Amount'
   }
 ];
 
-const statusVariants = [
+const typeVariants = [
   {
     color: 'success.main',
     label: 'Payment',
@@ -47,6 +47,29 @@ const statusVariants = [
     color: 'error.main',
     label: 'Refund',
     value: 1
+  }
+];
+
+const statusVariants = [
+  {
+    color: 'info.main',
+    label: 'Pending',
+    value: 0
+  },
+  {
+    color: 'success.main',
+    label: 'Settled',
+    value: 1
+  },
+  {
+    color: 'info.main',
+    label: 'Refunded',
+    value: 2
+  },
+  {
+    color: 'error.main',
+    label: 'Rejected',
+    value: 3
   }
 ];
 
@@ -119,8 +142,11 @@ export const TransactionsTable = (props) => {
           </TableHead>
           <TableBody>
             {dataState?.map((d) => {
-              const statusVariant = statusVariants.find((variant) => variant.value
+              const typeVariant = typeVariants.find((variant) => variant.value
                 === d.type);
+
+              const statusVariant = statusVariants.find((variant) => variant.value
+                === d.status);
 
               return (<TableRow
                 hover

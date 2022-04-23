@@ -10,6 +10,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {TransactionsTable} from "../components/transactions/transactions-table";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -55,11 +56,19 @@ export const Transactions = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
-    ] = useSelection(dataState.data?.voucherCodes);
+        setRows,
+        mergeSelectableRows,
+        clearSelected
+    ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchPayments} = useContext(APIContext)
+    const { fetchPayments, bulkUpdatePaymentStatuses } = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -147,8 +156,29 @@ export const Transactions = () => {
         });
     };
 
+    const doBulkUpdateOrderStatuses = useCallback( async (ids, status) => {
+        try {
+            return await bulkUpdatePaymentStatuses({
+                ids: ids,
+                status: status
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkStatusUpdate = (status) => {
-        console.log('Status updated to '+status)
+        const call = () => doBulkUpdateOrderStatuses(selectedElements, status).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error)
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to update the status of multiple transactions.')
+        showGenericDialog(true)
     }
 
     return (
@@ -218,19 +248,19 @@ export const Transactions = () => {
                         bulkMenuItems={[
                             {
                                 name: 'Mark as pending',
-                                callback: () => handleBulkStatusUpdate('pending')
+                                callback: () => handleBulkStatusUpdate(0)
                             },
                             {
                                 name: 'Mark as settled',
-                                callback: () => handleBulkStatusUpdate('settled')
+                                callback: () => handleBulkStatusUpdate(1)
                             },
                             {
                                 name: 'Mark as refunded',
-                                callback: () => handleBulkStatusUpdate('refunded')
+                                callback: () => handleBulkStatusUpdate(2)
                             },
                             {
                                 name: 'Mark as in rejected',
-                                callback: () => handleBulkStatusUpdate('rejected')
+                                callback: () => handleBulkStatusUpdate(3)
                             }
                         ]}
                       />
