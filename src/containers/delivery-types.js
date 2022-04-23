@@ -11,6 +11,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {DeliveryTypesTable} from "../components/delivery-types/delivery-types-table";
 import {DeliveryTypeCreateDialog} from "../components/delivery-types/delivery-type-create-dialog";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -61,11 +62,23 @@ export const DeliveryTypes = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchDeliveryTypes} = useContext(APIContext)
+    const {
+        fetchDeliveryTypes,
+        bulkDeleteDeliveryTypes,
+        bulkUpdateDeliveryTypesAvailability
+    } = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -153,12 +166,55 @@ export const DeliveryTypes = () => {
         });
     };
 
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateDeliveryTypesAvailability({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteDeliveryTypes({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedElements, available).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected delivery types '+newStatus+'.')
+        showGenericDialog(true)
     }
 
     const handleBulkDelete = () => {
-        console.log('Deleted')
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected delivery types.')
+        showGenericDialog(true)
     }
 
     return (
@@ -228,11 +284,11 @@ export const DeliveryTypes = () => {
                         bulkMenuItems={[
                             {
                                 name: 'Enable',
-                                callback: () => handleBulkAvailabilityUpdate(true)
+                                callback: () => handleBulkAvailabilityUpdate(1)
                             },
                             {
                                 name: 'Disable',
-                                callback: () => handleBulkAvailabilityUpdate(false)
+                                callback: () => handleBulkAvailabilityUpdate(0)
                             },
                             {
                                 name: 'Delete',
