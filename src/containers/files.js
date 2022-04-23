@@ -10,6 +10,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {FilesTable} from "../components/files/files-table";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -75,11 +76,22 @@ export const Files = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
-    ] = useSelection(dataState.data?.voucherCodes);
+        setRows,
+        mergeSelectableRows,
+        clearSelected
+    ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchFiles} = useContext(APIContext)
+    const {
+        fetchFiles,
+        bulkDeleteFiles
+    } = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -167,8 +179,28 @@ export const Files = () => {
         });
     };
 
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteFiles({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkDelete = () => {
-        console.log('Deleted')
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected files.')
+        showGenericDialog(true)
     };
 
     return (
