@@ -11,6 +11,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {BannersTable} from "../components/banners/banners-table";
 import {BannerCreateDialog} from "../components/banners/banner-create-dialog";
+import {DialogContext} from "../contexts/dialog-context";
 
 const views = [
     {
@@ -56,11 +57,23 @@ export const Banners = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        mergeSelectableRows
+        setRows,
+        mergeSelectableRows,
+        clearSelected
     ] = useSelection();
+    const {
+        setCallback,
+        setTitle,
+        showGenericDialog,
+        setDescription
+    } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchBanners} = useContext(APIContext)
+    const {
+        fetchBanners,
+        bulkDeleteBanners,
+        bulkUpdateBannersAvailabilities
+    } = useContext(APIContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -148,8 +161,55 @@ export const Banners = () => {
         });
     };
 
+    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+        try {
+            return await bulkUpdateBannersAvailabilities({
+                availability: availability,
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    const doBulkDelete = useCallback( async (ids) => {
+        try {
+            return await bulkDeleteBanners({
+                ids: ids,
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
     const handleBulkAvailabilityUpdate = (available) => {
-        console.log('Availability updated to '+(available === true ? 'Enabled' : 'Disabled'))
+        const call = () => doBulkUpdateAvailability(selectedElements, available).then(result => {
+            if (result?.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        const newStatus = available ? 'enabled' : 'disabled'
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to set the selected banners '+newStatus+'.')
+        showGenericDialog(true)
+    }
+
+    const handleBulkDelete = () => {
+        const call = () => doBulkDelete(selectedElements).then(result => {
+            if (result.data?.status === "Success") {
+                clearSelected()
+                fetchData().catch(console.error);
+            }
+        })
+
+        setCallback({method: call})
+        setTitle('Are you sure?')
+        setDescription('You are about to delete the selected banners.')
+        showGenericDialog(true)
     }
 
     return (
@@ -219,11 +279,15 @@ export const Banners = () => {
                         bulkMenuItems={[
                             {
                                 name: 'Enable',
-                                callback: () => handleBulkAvailabilityUpdate(true)
+                                callback: () => handleBulkAvailabilityUpdate(1)
                             },
                             {
                                 name: 'Disable',
-                                callback: () => handleBulkAvailabilityUpdate(false)
+                                callback: () => handleBulkAvailabilityUpdate(0)
+                            },
+                            {
+                                name: 'Delete',
+                                callback: () => handleBulkDelete()
                             }
                         ]}
                       />
