@@ -12,6 +12,7 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {DeliveryTypesTable} from "../components/delivery-types/delivery-types-table";
 import {DeliveryTypeCreateDialog} from "../components/delivery-types/delivery-type-create-dialog";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
     {
@@ -259,6 +260,12 @@ export const DeliveryTypes = () => {
                           >
                               Add
                           </Button>
+                          <ExportButton
+                            name={"delivery-types"}
+                            modelsSimple={["DeliveryType"]}
+                            modelsExtended={["DeliveryType", "DeliveryRule", "Order"]}
+                            showTemplate={false}
+                          />
                       </Box>
                   </Box>
                   <Card

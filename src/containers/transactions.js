@@ -11,6 +11,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {TransactionsTable} from "../components/transactions/transactions-table";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
     {
@@ -223,6 +224,12 @@ export const Transactions = () => {
                           >
                               Add
                           </Button>
+                          <ExportButton
+                            name={"transactions"}
+                            modelsSimple={["Payment"]}
+                            modelsExtended={["Payment", "User", "PaymentSource"]}
+                            showTemplate={false}
+                          />
                       </Box>
                   </Box>
                   <Card

@@ -11,6 +11,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {RatingsTable} from "../components/ratings/ratings-table";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
     {
@@ -274,6 +275,12 @@ export const Ratings = () => {
                           >
                               Add
                           </Button>
+                          <ExportButton
+                            name={"ratings"}
+                            modelsSimple={["Rating"]}
+                            modelsExtended={["Rating", "Customer"]}
+                            showTemplate={false}
+                          />
                       </Box>
                   </Box>
                   <Card

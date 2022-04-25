@@ -12,6 +12,7 @@ import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {SettingsContext} from "../contexts/settings-context";
 import {EmailClientContext} from "../contexts/email-client-context";
+import ExportButton from "../components/export-button";
 
 const views = [
   {
@@ -244,6 +245,12 @@ export const Customers = () => {
               >
                 Add
               </Button>
+              <ExportButton
+                name={"customers"}
+                modelsSimple={["Customer"]}
+                modelsExtended={["Customer", "Address", "Order", "Payment", "PaymentSource"]}
+                showTemplate={false}
+              />
             </Box>
           </Box>
           <Card

@@ -11,6 +11,7 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {ListFilter} from "../components/list-filter";
 import {ProductTagCreateDialog} from "../components/product-tags/product-tag-create-dialog";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const filterProperties = [
     {
@@ -245,6 +246,12 @@ const ProductTags = () => {
                             >
                                 Add
                             </Button>
+                            <ExportButton
+                              name={"product-tags"}
+                              modelsSimple={["ProductTag"]}
+                              modelsExtended={["ProductTag", "Product"]}
+                              showTemplate={false}
+                            />
                         </Box>
                     </Box>
 

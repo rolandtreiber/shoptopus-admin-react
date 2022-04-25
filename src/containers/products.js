@@ -13,6 +13,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import {ListFilter} from "../components/list-filter";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
   {
@@ -262,6 +263,12 @@ export const Products = () => {
               >
                 Add
               </Button>
+              <ExportButton
+                name={"products"}
+                modelsSimple={["Product"]}
+                modelsExtended={["Product", "ProductVariant", "ProductCategory", "ProductAttribute", "ProductTag"]}
+                showTemplate={false}
+              />
             </Box>
           </Box>
           <ProductsSummary />

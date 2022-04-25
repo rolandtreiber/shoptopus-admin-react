@@ -308,6 +308,7 @@ const APIProvider = ({children}) => {
       // Files
       bulkDeleteFiles: async (params) => await del(admin_api_url + "files/bulk", params, makeHeaders()),
 
+      accessToken,
       setAccessToken,
     }),
     [accessToken],

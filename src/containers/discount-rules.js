@@ -12,6 +12,7 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {DiscountRulesTable} from "../components/discount-rules/discount-rules-table";
 import {DiscountRuleCreateDialog} from "../components/discount-rules/discount-rule-create-dialog";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
     {
@@ -325,6 +326,12 @@ export const DiscountRules = () => {
                           >
                               Add
                           </Button>
+                          <ExportButton
+                            name={"discount-rules"}
+                            modelsSimple={["DiscountRule"]}
+                            modelsExtended={["DiscountRule", "Product", "ProductCategory"]}
+                            showTemplate={false}
+                          />
                       </Box>
                   </Box>
                   <Card

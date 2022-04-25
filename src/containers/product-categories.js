@@ -11,6 +11,7 @@ import {Plus as PlusIcon} from "../icons/plus";
 import {ListFilter} from "../components/list-filter";
 import {ProductCategoryCreateDialog} from "../components/product-categories/product-category-create-dialog";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const filterProperties = [
     {
@@ -239,6 +240,12 @@ const ProductCategories = () => {
                             >
                                 Add
                             </Button>
+                            <ExportButton
+                              name={"product-categories"}
+                              modelsSimple={["ProductCategory"]}
+                              modelsExtended={["ProductCategory", "Product"]}
+                              showTemplate={false}
+                            />
                         </Box>
                     </Box>
 

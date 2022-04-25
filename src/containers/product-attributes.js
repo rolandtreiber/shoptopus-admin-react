@@ -11,6 +11,7 @@ import {Helmet} from "react-helmet-async";
 import {ListFilter} from "../components/list-filter";
 import {ProductAttributeCreateDialog} from "../components/product-attributes/product-attribute-create-dialog";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const filterProperties = [
     {
@@ -248,6 +249,12 @@ const ProductAttributes = () => {
                             >
                                 Add
                             </Button>
+                            <ExportButton
+                              name={"product-attributes"}
+                              modelsSimple={["ProductAttribute"]}
+                              modelsExtended={["ProductAttribute", "ProductAttributeOption"]}
+                              showTemplate={false}
+                            />
                         </Box>
                     </Box>
 

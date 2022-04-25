@@ -12,6 +12,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {DialogContext} from "../contexts/dialog-context";
+import ExportButton from "../components/export-button";
 
 const views = [
     {
@@ -325,6 +326,12 @@ export const VoucherCodes = () => {
                             >
                                 Add
                             </Button>
+                            <ExportButton
+                              name={"voucher-codes"}
+                              modelsSimple={["VoucherCode"]}
+                              modelsExtended={["VoucherCode", "Order"]}
+                              showTemplate={false}
+                            />
                         </Box>
                     </Box>
                     <Card
