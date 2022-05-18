@@ -250,7 +250,8 @@ const ProductTags = () => {
                               name={"product-tags"}
                               modelsSimple={["ProductTag"]}
                               modelsExtended={["ProductTag", "Product"]}
-                              showTemplate={false}
+                              modelTemplate={"ProductTag"}
+                              showTemplate={true}
                             />
                         </Box>
                     </Box>

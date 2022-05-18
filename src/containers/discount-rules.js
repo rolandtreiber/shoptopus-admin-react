@@ -330,7 +330,8 @@ export const DiscountRules = () => {
                             name={"discount-rules"}
                             modelsSimple={["DiscountRule"]}
                             modelsExtended={["DiscountRule", "Product", "ProductCategory"]}
-                            showTemplate={false}
+                            modelTemplate={"DiscountRule"}
+                            showTemplate={true}
                           />
                       </Box>
                   </Box>

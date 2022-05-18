@@ -55,6 +55,36 @@ const ExportButton = ({
 
   }
 
+  const initiateTemplateDownload = (name, model) => {
+    const params = {
+      name: name,
+    }
+
+    const urlParams = new URLSearchParams(Object.keys(params).filter(key => key !== 'filters').reduce((obj, key) => {
+      obj[key] = params[key];
+      return obj;
+    }, {}))
+
+    urlParams.append('model', model)
+
+    axios({
+      url: app_url + "io/template?" + urlParams.toString(),
+      method: 'GET',
+      responseType: 'blob',
+      headers: {
+        "Authorization": "Bearer " + accessToken,
+      }
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', name + "_" + getDateString() + '.xlsx');
+      document.body.appendChild(link);
+      link.click();
+    });
+
+  }
+
   const menuItems = [
     {
       name: 'Simple',
@@ -72,7 +102,7 @@ const ExportButton = ({
   if (showTemplate) {
     menuItems.push({
       name: 'Template',
-      callback: () => initiateExportDownload(name + '-template', modelTemplate)
+      callback: () => initiateTemplateDownload(name + '-template', modelTemplate)
     })
   }
 

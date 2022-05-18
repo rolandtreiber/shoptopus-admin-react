@@ -244,7 +244,8 @@ const ProductCategories = () => {
                               name={"product-categories"}
                               modelsSimple={["ProductCategory"]}
                               modelsExtended={["ProductCategory", "Product"]}
-                              showTemplate={false}
+                              modelTemplate={"ProductCategory"}
+                              showTemplate={true}
                             />
                         </Box>
                     </Box>

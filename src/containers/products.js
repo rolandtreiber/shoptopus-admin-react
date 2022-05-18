@@ -267,7 +267,8 @@ export const Products = () => {
                 name={"products"}
                 modelsSimple={["Product"]}
                 modelsExtended={["Product", "ProductVariant", "ProductCategory", "ProductAttribute", "ProductTag"]}
-                showTemplate={false}
+                modelTemplate={"Product"}
+                showTemplate={true}
               />
             </Box>
           </Box>

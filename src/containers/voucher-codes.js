@@ -330,7 +330,8 @@ export const VoucherCodes = () => {
                               name={"voucher-codes"}
                               modelsSimple={["VoucherCode"]}
                               modelsExtended={["VoucherCode", "Order"]}
-                              showTemplate={false}
+                              modelTemplate={"VoucherCode"}
+                              showTemplate={true}
                             />
                         </Box>
                     </Box>
