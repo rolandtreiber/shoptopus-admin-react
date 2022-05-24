@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Proptypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
-import { format } from 'date-fns';
+import {Link as RouterLink} from 'react-router-dom';
+import {format} from 'date-fns';
 import {
   Box,
   Checkbox,
@@ -10,15 +10,16 @@ import {
   Table,
   TableBody,
   TableCell,
+  Link,
   TableHead,
   TableRow,
   TableSortLabel
 } from '@material-ui/core';
-import { Pagination } from '../pagination';
-import { ResourceError } from '../resource-error';
-import { ResourceUnavailable } from '../resource-unavailable';
-import { Scrollbar } from '../scrollbar';
-import { CustomerMenu } from '../customer/customer-menu';
+import {Pagination} from '../pagination';
+import {ResourceError} from '../resource-error';
+import {ResourceUnavailable} from '../resource-unavailable';
+import {Scrollbar} from '../scrollbar';
+import {CustomerMenu} from '../customer/customer-menu';
 
 const columns = [
   {
@@ -78,16 +79,16 @@ export const VoucherCodesTable = (props) => {
       }}
     >
       <Scrollbar>
-        <Table sx={{ minWidth: 1000 }}>
+        <Table sx={{minWidth: 1000}}>
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
                   checked={dataState?.length > 0
-                  && selectedElements.length === dataState?.length}
+                    && selectedElements.length === dataState?.length}
                   disabled={isLoading}
                   indeterminate={selectedElements.length > 0
-                  && selectedElements.length < dataState?.length}
+                    && selectedElements.length < dataState?.length}
                   onChange={onSelectAll}
                 />
               </TableCell>
@@ -107,7 +108,7 @@ export const VoucherCodesTable = (props) => {
                   </TableSortLabel>
                 </TableCell>
               ))}
-              <TableCell />
+              <TableCell/>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -129,7 +130,16 @@ export const VoucherCodesTable = (props) => {
                   {d.value}
                 </TableCell>
                 <TableCell>
-                  {d.code}
+                  <Link
+                    color="inherit"
+                    component={RouterLink}
+                    sx={{display: 'block'}}
+                    to={"/discount/voucher-codes/" + d.id}
+                    underline="none"
+                    variant="subtitle2"
+                  >
+                    {d.code}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   {d.used}x
@@ -141,7 +151,7 @@ export const VoucherCodesTable = (props) => {
                   {format(new Date(d.valid_until), 'dd/MM/yyyy HH:mm')}
                 </TableCell>
                 <TableCell align="right">
-                  <CustomerMenu />
+                  <CustomerMenu/>
                 </TableCell>
               </TableRow>
             ))}
@@ -149,10 +159,10 @@ export const VoucherCodesTable = (props) => {
         </Table>
       </Scrollbar>
       {displayLoading && (
-        <Box sx={{ p: 2 }}>
-          <Skeleton height={42} />
-          <Skeleton height={42} />
-          <Skeleton height={42} />
+        <Box sx={{p: 2}}>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
         </Box>
       )}
       {displayError && (
@@ -172,7 +182,7 @@ export const VoucherCodesTable = (props) => {
           }}
         />
       )}
-      <Divider sx={{ mt: 'auto' }} />
+      <Divider sx={{mt: 'auto'}}/>
       <Pagination
         disabled={isLoading}
         onPageChange={onPageChange}

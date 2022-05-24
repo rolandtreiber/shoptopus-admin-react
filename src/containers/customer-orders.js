@@ -182,7 +182,7 @@ export const CustomerOrders = () => {
                         <Link
                           color="inherit"
                           component={RouterLink}
-                          to="/dashboard/orders/1"
+                          to="/orders/1"
                           underline="none"
                           variant="subtitle2"
                         >

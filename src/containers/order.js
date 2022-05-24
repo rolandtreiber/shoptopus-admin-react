@@ -130,7 +130,7 @@ export const Order = () => {
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
-              to="/dashboard/orders"
+              to="/orders"
               variant="text"
             >
               Orders

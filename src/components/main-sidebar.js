@@ -44,11 +44,11 @@ const sections = [
     items: [
       {
         title: 'List',
-        href: '/dashboard/orders'
+        href: '/orders'
       },
       {
         title: 'Summary',
-        href: '/dashboard/orders/1'
+        href: '/orders/1'
       }
     ]
   },
@@ -57,19 +57,19 @@ const sections = [
     items: [
       {
         title: 'List',
-        href: '/dashboard/customers'
+        href: '/customers'
       },
       {
         title: 'Summary',
-        href: '/dashboard/customers/1'
+        href: '/customers/1'
       },
       {
         title: 'Orders',
-        href: '/dashboard/customers/1/orders'
+        href: '/customers/1/orders'
       },
       {
         title: 'Activity',
-        href: '/dashboard/customers/1/orders'
+        href: '/customers/1/orders'
       }
     ]
   },

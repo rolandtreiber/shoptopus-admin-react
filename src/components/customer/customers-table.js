@@ -173,7 +173,7 @@ export const CustomersTable = (props) => {
                     <Link
                       color="inherit"
                       component={RouterLink}
-                      to={'/dashboard/customers/'+customer.id}
+                      to={'/customers/'+customer.id}
                       underline="none"
                       variant="subtitle2"
                     >

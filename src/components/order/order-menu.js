@@ -10,7 +10,7 @@ export const OrderMenu = (props) => {
 
   const handleEdit = () => {
     handleClose();
-    navigate('/dashboard/orders/1');
+    navigate('/orders/1');
   };
 
   const handleRefund = () => {

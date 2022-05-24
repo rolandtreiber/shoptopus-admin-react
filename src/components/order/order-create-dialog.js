@@ -31,7 +31,7 @@ export const OrderCreateDialog = (props) => {
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         helpers.resetForm();
-        navigate('/dashboard/orders/1');
+        navigate('/orders/1');
       } catch (err) {
         console.error(err);
         helpers.setStatus({ success: false });

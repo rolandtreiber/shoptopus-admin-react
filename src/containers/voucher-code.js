@@ -12,7 +12,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {Link as RouterLink} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 
-export const Customer = () => {
+export const VoucherCode = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const {language, appName} = useContext(SettingsContext)
@@ -20,7 +20,7 @@ export const Customer = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: List | {appName}</title>
+        <title>Voucher Code: List | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -42,10 +42,10 @@ export const Customer = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/customers"
+                to="/discount/voucher-codes"
                 variant="text"
               >
-                Customers
+                Voucher Codes
               </Button>
             </Box>
             <Box
@@ -58,7 +58,7 @@ export const Customer = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Customer
+                Voucher Code
               </Typography>
               <Box sx={{flexGrow: 1}}/>
               <Button

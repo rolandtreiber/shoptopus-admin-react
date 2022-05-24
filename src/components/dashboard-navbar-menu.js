@@ -34,19 +34,19 @@ const items = [
     title: 'Customers',
     items: [
       {
-        href: '/dashboard/customers',
+        href: '/customers',
         title: 'List'
       },
       {
-        href: '/dashboard/customers/1',
+        href: '/customers/1',
         title: 'Summary'
       },
       {
-        href: '/dashboard/customers/1/orders',
+        href: '/customers/1/orders',
         title: 'Orders'
       },
       {
-        href: '/dashboard/customers/1/activity',
+        href: '/customers/1/activity',
         title: 'Activity'
       }
     ]
@@ -56,11 +56,11 @@ const items = [
     title: 'Orders',
     items: [
       {
-        href: '/dashboard/orders',
+        href: '/orders',
         title: 'List'
       },
       {
-        href: '/dashboard/orders/1',
+        href: '/orders/1',
         title: 'Summary'
       }
     ]

@@ -17,7 +17,7 @@ export const LatestOrders = (props) => {
           <Button
             color="primary"
             component={RouterLink}
-            to="/dashboard/orders"
+            to="/orders"
             variant="text"
           >
             Go to orders

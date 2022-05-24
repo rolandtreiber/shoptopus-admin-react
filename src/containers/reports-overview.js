@@ -66,7 +66,7 @@ export const ReportsOverview = () => {
           content: data.data.stats.orders,
           icon: ShoppingCartIcon,
           label: 'Orders',
-          linkHref: '/dashboard/orders',
+          linkHref: '/orders',
           linkLabel: 'Orders'
         },
         {
@@ -87,7 +87,7 @@ export const ReportsOverview = () => {
           content: data.data.stats.customers,
           icon: CustomCreditCardIcon,
           label: 'Customers',
-          linkHref: '/dashboard/customers',
+          linkHref: '/customers',
           linkLabel: 'Customers'
         }
       ])

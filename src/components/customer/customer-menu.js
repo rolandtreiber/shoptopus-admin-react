@@ -10,7 +10,7 @@ export const CustomerMenu = (props) => {
 
   const handleEdit = () => {
     handleClose();
-    navigate('/dashboard/customers/1');
+    navigate('/customers/1');
   };
 
   const handleReport = () => {

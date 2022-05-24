@@ -94,7 +94,7 @@ export const OrderPreviewItem = (props) => {
               color="textPrimary"
               component={RouterLink}
               sx={{ display: 'block' }}
-              to="/dashboard/customers/1"
+              to="/customers/1"
               underline="none"
               variant="body2"
             >
@@ -103,7 +103,7 @@ export const OrderPreviewItem = (props) => {
             <Link
               color="textSecondary"
               component={RouterLink}
-              to="/dashboard/orders/1"
+              to="/orders/1"
               underline="none"
               variant="body2"
             >
