@@ -156,7 +156,7 @@ const ProductAttributesTable = (props) => {
                         color="inherit"
                         component={RouterLink}
                         sx={{display: 'block'}}
-                        to={"/dashboard/product-attributes/" + attribute.id}
+                        to={"/product-attributes/" + attribute.id}
                         underline="none"
                         variant="subtitle2"
                       >

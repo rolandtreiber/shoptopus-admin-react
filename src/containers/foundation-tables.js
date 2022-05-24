@@ -90,7 +90,7 @@ export const FoundationTables = () => {
                   <Link
                     color="primary"
                     component={RouterLink}
-                    to="/dashboard/products"
+                    to="/products"
                     underline="none"
                     variant="inherit"
                   >

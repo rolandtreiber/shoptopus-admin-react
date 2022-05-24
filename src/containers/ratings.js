@@ -39,7 +39,7 @@ const views = [
 const filterProperties = [
     {
         label: 'Rating',
-        name: 'amount',
+        name: 'rating',
         type: 'number'
     },
     {

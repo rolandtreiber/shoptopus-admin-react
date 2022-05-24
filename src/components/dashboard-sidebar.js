@@ -7,21 +7,19 @@ import {Scrollbar} from './scrollbar';
 import {ChevronLeft as ChevronLeftIcon} from '../icons/chevron-left';
 import {ChevronRight as ChevronRightIcon} from '../icons/chevron-right';
 import {Cog as CogIcon} from '../icons/cog';
-import {ColorSwatch as ColorSwatchIcon} from '../icons/color-swatch';
 import {CustomChartPie as ChartPieIcon} from '../icons/custom-chart-pie';
 import {CustomCube as CubeIcon} from '../icons/custom-cube';
 import {CustomShoppingCart as ShoppingCartIcon} from '../icons/custom-shopping-cart';
 import {CustomUsers as UsersIcon} from '../icons/custom-users';
-import {DocumentText as DocumentTextIcon} from '../icons/document-text';
 import {OfficeBuilding as OfficeBuildingIcon} from '../icons/office-building';
 import {ReceiptTax as ReceiptTaxIcon} from '../icons/receipt-tax';
 import {DeliveryVan as DeliveryVan} from '../icons/delivery';
-import {Template as TemplateIcon} from '../icons/template';
 import {Discount as Discount} from "../icons/discount";
 import {Payment} from "../icons/payment";
 import {Star} from "../icons/star";
 import {Content} from "../icons/content";
 import {Dashboard} from "../icons/dashboard";
+import {ImportContacts} from "@material-ui/icons";
 
 const items = [
     {
@@ -34,11 +32,11 @@ const items = [
         title: 'Reports',
         items: [
             {
-                href: '/dashboard/reports',
+                href: '/reports',
                 title: 'Overview'
             },
             {
-                href: '/dashboard/reports/sales',
+                href: '/reports/sales',
                 title: 'Sales'
             }
         ]
@@ -46,71 +44,31 @@ const items = [
     {
         icon: UsersIcon,
         title: 'Customers',
-        href: '/dashboard/customers',
-        // items: [
-        //     {
-        //         href: '/dashboard/customers',
-        //         title: 'List'
-        //     },
-            // {
-            //     href: '/dashboard/customers/1',
-            //     title: 'Summary'
-            // },
-            // {
-            //     href: '/dashboard/customers/1/orders',
-            //     title: 'Orders'
-            // },
-            // {
-            //     href: '/dashboard/customers/1/activity',
-            //     title: 'Activity'
-            // }
-        // ]
+        href: '/customers',
     },
     {
         icon: CubeIcon,
         title: 'Orders',
-        href: '/dashboard/orders',
-        // items: [
-        //     {
-        //         href: '/dashboard/orders',
-        //         title: 'List'
-        //     },
-        //     {
-        //         href: '/dashboard/orders/1',
-        //         title: 'Summary'
-        //     }
-        // ]
+        href: '/orders',
     },
     {
         icon: ShoppingCartIcon,
         title: 'Products',
         items: [
             {
-                href: '/dashboard/products',
+                href: '/products',
                 title: 'List'
             },
-            // {
-            //     href: '/dashboard/products/1',
-            //     title: 'Summary'
-            // },
-            // {
-            //     href: '/dashboard/products/1/inventory',
-            //     title: 'Inventory'
-            // },
-            // {
-            //     href: '/dashboard/products/1/analytics',
-            //     title: 'Insights'
-            // },
             {
-                href: '/dashboard/product-categories',
+                href: '/product-categories',
                 title: 'Categories'
             },
             {
-                href: '/dashboard/product-attributes',
+                href: '/product-attributes',
                 title: 'Attributes'
             },
             {
-                href: '/dashboard/product-tags',
+                href: '/product-tags',
                 title: 'Tags'
             }
         ]
@@ -120,11 +78,11 @@ const items = [
         title: 'Discount',
         items: [
             {
-                href: '/dashboard/discount/voucher-codes',
+                href: '/discount/voucher-codes',
                 title: 'Voucher Codes'
             },
             {
-                href: '/dashboard/discount/rules',
+                href: '/discount/rules',
                 title: 'Discount Rules'
             }
         ]
@@ -132,51 +90,33 @@ const items = [
     {
         icon: DeliveryVan,
         title: 'Delivery Types',
-        href: '/dashboard/delivery-types'
+        href: '/delivery-types'
     },
     {
         icon: Payment,
         title: 'Transactions',
-        href: '/dashboard/transactions',
+        href: '/transactions',
     },
     {
         icon: Star,
         title: 'Ratings',
-        href: '/dashboard/ratings',
+        href: '/ratings',
     },
     {
         icon: ReceiptTaxIcon,
         title: 'Invoices',
-        href: '/dashboard/invoices',
-        // items: [
-        //     {
-        //         href: '/dashboard/invoices',
-        //         title: 'List'
-        //     },
-        //     {
-        //         href: '/dashboard/invoices/create',
-        //         title: 'Create'
-        //     },
-        //     {
-        //         href: '/dashboard/invoices/1',
-        //         title: 'Details'
-        //     },
-        //     {
-        //         href: '/dashboard/invoices/1/preview',
-        //         title: 'Preview'
-        //     }
-        // ]
+        href: '/invoices',
     },
     {
         icon: Content,
         title: 'Content',
         items: [
             {
-                href: '/dashboard/content/banners',
+                href: '/content/banners',
                 title: 'Banners'
             },
             {
-                href: '/dashboard/content/files',
+                href: '/content/files',
                 title: 'Files'
             }
         ]
@@ -186,11 +126,11 @@ const items = [
         title: 'Account',
         items: [
             {
-                href: '/dashboard/account',
+                href: '/account',
                 title: 'General Settings'
             },
             {
-                href: '/dashboard/account/notifications',
+                href: '/account/notifications',
                 title: 'Notifications'
             }
         ]
@@ -200,87 +140,24 @@ const items = [
         title: 'Organization',
         items: [
             {
-                href: '/dashboard/organization',
+                href: '/organization',
                 title: 'General Settings'
             },
             {
-                href: '/dashboard/organization/team',
+                href: '/organization/team',
                 title: 'Team'
             },
             {
-                href: '/dashboard/organization/billing',
+                href: '/organization/billing',
                 title: 'Billing'
             }
         ]
     },
-    // {
-    //     icon: ColorSwatchIcon,
-    //     title: 'Foundation',
-    //     items: [
-    //         {
-    //             href: '/dashboard/foundation/typography',
-    //             title: 'Typography'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/colors',
-    //             title: 'Colors'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/shadows',
-    //             title: 'Shadows'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/buttons',
-    //             title: 'Buttons'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/inputs',
-    //             title: 'Inputs'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/tables',
-    //             title: 'Tables'
-    //         },
-    //         {
-    //             href: '/dashboard/foundation/blank-page',
-    //             title: 'Blank Page'
-    //         }
-    //     ]
-    // },
-    // {
-    //     icon: TemplateIcon,
-    //     title: 'Components',
-    //     items: [
-    //         {
-    //             href: '/dashboard/components/onboarding',
-    //             title: 'Onboarding'
-    //         },
-    //         {
-    //             href: '/dashboard/components/empty-states',
-    //             title: 'Data States'
-    //         },
-    //         {
-    //             href: '/dashboard/components/property-lists',
-    //             title: 'Lists'
-    //         },
-    //         {
-    //             href: '/dashboard/components/stats',
-    //             title: 'Data Stats'
-    //         },
-    //         {
-    //             href: '/dashboard/components/page-headings',
-    //             title: 'Page Headers'
-    //         },
-    //         {
-    //             href: '/dashboard/components/card-headings',
-    //             title: 'Card Headers'
-    //         },
-    //         {
-    //             href: '/dashboard/components/image-uploader',
-    //             title: 'Image Uploader'
-    //         }
-    //     ]
-    // },
+    {
+        icon: ImportContacts,
+        title: 'Import Data',
+        href: '/import',
+    },
     // {
     //     icon: DocumentTextIcon,
     //     title: 'Documentation',

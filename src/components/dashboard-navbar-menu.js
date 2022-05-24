@@ -70,19 +70,19 @@ const items = [
     title: 'Products',
     items: [
       {
-        href: '/dashboard/products',
+        href: '/products',
         title: 'List'
       },
       {
-        href: '/dashboard/products/1',
+        href: '/products/1',
         title: 'Summary'
       },
       {
-        href: '/dashboard/products/1/inventory',
+        href: '/products/1/inventory',
         title: 'Inventory'
       },
       {
-        href: '/dashboard/products/1/analytics',
+        href: '/products/1/analytics',
         title: 'Insights'
       }
     ]

@@ -157,7 +157,7 @@ const ProductTagsTable = (props) => {
                         color="inherit"
                         component={RouterLink}
                         sx={{display: 'block'}}
-                        to={"/dashboard/product-tags/" + tag.id}
+                        to={"/product-tags/" + tag.id}
                         underline="none"
                         variant="subtitle2"
                       >

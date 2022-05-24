@@ -6,8 +6,6 @@ import {Customer} from './containers/customer';
 import {LoadingScreen} from './components/loading-screen';
 import {Account} from './containers/account';
 import {DashboardLayout} from './containers/dashboard-layout';
-import {Home} from './containers/home';
-import {MainLayout} from './containers/main-layout';
 import {Organization} from './containers/organization';
 import {Product} from './containers/product';
 import {Reports} from './containers/reports';
@@ -27,6 +25,9 @@ const PasswordRecovery = Loadable(lazy(() => import('./containers/password-recov
 const PasswordReset = Loadable(lazy(() => import('./containers/password-reset').then((module) => ({default: module.PasswordReset}))));
 const Register = Loadable(lazy(() => import('./containers/register').then((module) => ({default: module.Register}))));
 const VerifyCode = Loadable(lazy(() => import('./containers/verify-code').then((module) => ({default: module.VerifyCode}))));
+
+// Import
+const ImportData = Loadable(lazy(() => import('./containers/import').then((module) => ({default: module.Import}))));
 
 // Dashboard pages
 const ReportsOverview = Loadable(lazy(() => import('./containers/reports-overview').then((module) => ({default: module.ReportsOverview}))));
@@ -149,7 +150,7 @@ const routes = [
     )
   },
   {
-    path: 'dashboard',
+    path: '/',
     element: (
       <AuthGuard>
         <DashboardLayout/>
@@ -157,7 +158,7 @@ const routes = [
     ),
     children: [
       {
-        path: '/',
+        path: '/dashboard',
         element: (
           <ReportsOverview/>
         )
@@ -390,6 +391,10 @@ const routes = [
             ]
           }
         ]
+      },
+      {
+        path: 'import',
+        element: <ImportData/>,
       },
       {
         path: 'components',

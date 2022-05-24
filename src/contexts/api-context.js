@@ -116,6 +116,7 @@ const APIProvider = ({children}) => {
 
   const api_url = process.env.REACT_APP_API_URL;
   const admin_api_url = process.env.REACT_APP_API_URL + 'admin/';
+  const app_url = process.env.REACT_APP_URL
   const [accessToken, setAccessToken] = useState()
 
   const shoptopusApiContext = React.useMemo(
@@ -307,6 +308,10 @@ const APIProvider = ({children}) => {
 
       // Files
       bulkDeleteFiles: async (params) => await del(admin_api_url + "files/bulk", params, makeHeaders()),
+
+      // Upload
+      validateImportFile: async (params) => await post(app_url + "io/validate", params, makeHeaders()),
+      processImportFile: async (params) => await post(app_url + "io/import", params, makeHeaders()),
 
       accessToken,
       setAccessToken,

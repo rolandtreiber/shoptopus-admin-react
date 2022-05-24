@@ -36,15 +36,15 @@ export const Product = () => {
   const {getLang} = useLanguage()
   const tabs = [
     {
-      href: '/dashboard/products/'+productId,
+      href: '/products/'+productId,
       label: 'Summary'
     },
     {
-      href: '/dashboard/products/'+productId+'/analytics',
+      href: '/products/'+productId+'/analytics',
       label: 'Insights'
     },
     {
-      href: '/dashboard/products/'+productId+'/inventory',
+      href: '/products/'+productId+'/inventory',
       label: 'Inventory'
     }
   ];
@@ -151,7 +151,7 @@ export const Product = () => {
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
-              to="/dashboard/products"
+              to="/products"
               variant="text"
             >
               Products

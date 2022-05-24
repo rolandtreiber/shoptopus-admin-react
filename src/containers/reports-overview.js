@@ -73,7 +73,7 @@ export const ReportsOverview = () => {
           content: data.data.stats.products,
           icon: CubeIcon,
           label: 'Products',
-          linkHref: '/dashboard/products',
+          linkHref: '/products',
           linkLabel: 'Products'
         },
         {
