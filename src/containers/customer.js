@@ -17,6 +17,7 @@ import {EmailClientContext} from "../contexts/email-client-context";
 import Price from "../components/price";
 import AddressCard from "../components/address/address-card";
 import OrderCard from "../components/order/order-card";
+import TransactionCard from "../components/transactions/transaction-card";
 
 export const Customer = () => {
   const mounted = useMounted();
@@ -244,7 +245,13 @@ export const Customer = () => {
                   <Typography>Payments</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>Payments</Typography>
+                  <Grid container spacing={2}>
+                    {customerData.data.payments.map(transaction => (
+                      <Grid item sm={6}>
+                        <TransactionCard transaction={transaction}/>
+                      </Grid>
+                    ))}
+                  </Grid>
                 </AccordionDetails>
               </Accordion>
               <Accordion>
