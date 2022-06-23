@@ -18,6 +18,7 @@ import Price from "../components/price";
 import AddressCard from "../components/address/address-card";
 import OrderCard from "../components/order/order-card";
 import TransactionCard from "../components/transactions/transaction-card";
+import PaymentSourceCard from "../components/payment-source/payment-source-card";
 
 export const Customer = () => {
   const mounted = useMounted();
@@ -263,7 +264,11 @@ export const Customer = () => {
                   <Typography>Payment Sources</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>Payment Sources</Typography>
+                  {customerData.data.payment_sources.map(paymentSource => (
+                    <Grid item sm={6}>
+                      <PaymentSourceCard paymentSource={paymentSource}/>
+                    </Grid>
+                  ))}
                 </AccordionDetails>
               </Accordion>
               <Accordion>
