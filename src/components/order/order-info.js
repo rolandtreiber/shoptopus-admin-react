@@ -13,28 +13,32 @@ import {Link} from "react-router-dom";
 
 const statusVariants = [
   {
-    label: 'Paid',
+    label: 'Awaiting Payment',
     value: 1
   },
   {
-    label: 'Processing',
+    label: 'Paid',
     value: 2
   },
   {
-    label: 'InTransit',
+    label: 'Processing',
     value: 3
   },
   {
-    label: 'Completed',
+    label: 'InTransit',
     value: 4
   },
   {
-    label: 'OnHold',
+    label: 'Completed',
     value: 5
   },
   {
-    label: 'Cancelled',
+    label: 'On Hold',
     value: 6
+  },
+  {
+    label: 'Cancelled',
+    value: 7
   }
 ];
 

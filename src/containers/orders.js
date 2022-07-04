@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, Container, Divider, Typography} from '@material-ui/core';
+import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
 import {useMounted} from '../hooks/use-mounted';
 import {useSelection} from '../hooks/use-selection';
 import gtm from '../lib/gtm';
@@ -11,13 +11,16 @@ import {getUrlFilters} from "../utils/apply-filters";
 import {OrdersTable} from "../components/order/orders-table";
 import {OrdersDnd} from "../components/order/orders-dnd";
 import {DialogContext} from "../contexts/dialog-context";
-import {Plus as PlusIcon} from "../icons/plus";
 import ExportButton from "../components/export-button";
 
 const views = [
   {
     label: 'All',
     value: 'all'
+  },
+  {
+    label: 'Awaiting Payment',
+    value: 'awaiting_payment'
   },
   {
     label: 'Paid',

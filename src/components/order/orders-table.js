@@ -53,33 +53,38 @@ const columns = [
 const statusVariants = [
   {
     color: 'info.main',
-    label: 'Paid',
+    label: 'Awaiting Payment',
     value: 1
+  },
+  {
+    color: 'info.main',
+    label: 'Paid',
+    value: 2
   },
   {
     color: 'warning.main',
     label: 'Processing',
-    value: 2
+    value: 3
   },
   {
     color: 'info.main',
     label: 'In Transit',
-    value: 3
+    value: 4
   },
   {
     color: 'success.main',
     label: 'Completed',
-    value: 4
+    value: 5
   },
   {
     color: 'warning.main',
     label: 'On Hold',
-    value: 5
+    value: 6
   },
   {
     color: 'error.main',
     label: 'Cancelled',
-    value: 6
+    value: 7
   }
 ];
 

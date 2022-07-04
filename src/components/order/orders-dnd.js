@@ -8,37 +8,40 @@ import {APIContext} from "../../contexts/api-context";
 const statusVariants = [
   {
     badgeColor: 'info.main',
-    label: 'Paid',
+    label: 'Awaiting Payment',
     value: 1
+  },
+  {
+    badgeColor: 'info.main',
+    label: 'Paid',
+    value: 2
   },
   {
     badgeColor: 'warning.main',
     label: 'Processing',
-    value: 2
+    value: 3
   },
   {
     badgeColor: 'info.main',
     label: 'In Transit',
-    value: 3
+    value: 4
   },
   {
     badgeColor: 'success.main',
     label: 'Completed',
-    value: 4
+    value: 5
   },
   {
     badgeColor: 'warning.main',
     label: 'On Hold',
-    value: 5
+    value: 6
   },
   {
     badgeColor: 'error.main',
     label: 'Cancelled',
-    value: 6
+    value: 7
   }
 ];
-
-
 
 const getColumns = (orders) => {
   const columns = {};

@@ -102,7 +102,7 @@ export const OrderPayment = (props) => {
           <PropertyList>
             <PropertyListItem
               label="Payment Method"
-              value={paymentMethodOption.label}
+              value={paymentMethodOption?.label}
             />
             <PropertyListItem
               label="Amount"
