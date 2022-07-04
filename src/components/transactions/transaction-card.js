@@ -67,7 +67,7 @@ const TransactionCard = ({transaction}) => {
         aria-controls="panel1a-content"
         id={transaction.id}
       >
-        <Typography>{format(new Date(transaction.created_at), 'dd/MM/yyyy HH:mm')}<Status
+        <Typography component={'span'}>{format(new Date(transaction.created_at), 'dd/MM/yyyy HH:mm')}<Status
           color={typeVariant.color}
           label={typeVariant.label}
         /></Typography>

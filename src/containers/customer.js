@@ -22,7 +22,6 @@ import PaymentSourceCard from "../components/payment-source/payment-source-card"
 
 export const Customer = () => {
   const mounted = useMounted();
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const {language, appName} = useContext(SettingsContext)
   const {fetchCustomer} = useContext(APIContext)
   const [customerData, setCustomerData] = useState({isLoading: true})
@@ -116,15 +115,6 @@ export const Customer = () => {
               {customerData.data && <Fragment>
                 <Button
                   color="primary"
-                  onClick={() => setOpenEditDialog(true)}
-                  size="large"
-                  startIcon={<Edit fontSize="small"/>}
-                  variant="contained"
-                >
-                  Edit
-                </Button>
-                <Button
-                  color="primary"
                   onClick={() => setupEmailClient(customerData.data)}
                   size="large"
                   sx={{
@@ -212,7 +202,7 @@ export const Customer = () => {
                 <AccordionDetails>
                   <Grid container spacing={2}>
                     {customerData.data.address.map(address => (
-                      <Grid item sm={6}>
+                      <Grid key={address.id} item sm={6}>
                         <AddressCard address={address}/>
                       </Grid>
                     ))}
@@ -230,7 +220,7 @@ export const Customer = () => {
                 <AccordionDetails>
                   <Grid container spacing={2}>
                     {customerData.data.orders.map(order => (
-                      <Grid item sm={6}>
+                      <Grid key={order.id} item sm={6}>
                         <OrderCard order={order}/>
                       </Grid>
                     ))}
@@ -248,7 +238,7 @@ export const Customer = () => {
                 <AccordionDetails>
                   <Grid container spacing={2}>
                     {customerData.data.payments.map(transaction => (
-                      <Grid item sm={6}>
+                      <Grid key={transaction.id} item sm={6}>
                         <TransactionCard transaction={transaction}/>
                       </Grid>
                     ))}
@@ -265,7 +255,7 @@ export const Customer = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   {customerData.data.payment_sources.map(paymentSource => (
-                    <Grid item sm={6}>
+                    <Grid key={paymentSource.id} item sm={6}>
                       <PaymentSourceCard paymentSource={paymentSource}/>
                     </Grid>
                   ))}

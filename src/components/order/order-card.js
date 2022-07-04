@@ -61,7 +61,7 @@ const OrderCard = ({order}) => {
         aria-controls="panel1a-content"
         id={order.id}
       >
-        <Typography>{format(new Date(order.created_at), 'dd/MM/yyyy HH:mm')}<Status
+        <Typography component={'span'}>{format(new Date(order.created_at), 'dd/MM/yyyy HH:mm')}<Status
           color={statusVariant.color}
           label={statusVariant.label}
         /></Typography>
@@ -79,7 +79,7 @@ const OrderCard = ({order}) => {
             <ListItem>
               <ListItemIcon><Payment/></ListItemIcon>
               <ListItemText>
-                <price>{order.total_price}</price>
+                <Price>{order.total_price}</Price>
               </ListItemText>
             </ListItem>
             <ListItem>
