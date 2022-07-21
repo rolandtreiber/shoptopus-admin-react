@@ -28,20 +28,6 @@ const items = [
         href: '/dashboard'
     },
     {
-        icon: ChartPieIcon,
-        title: 'Reports',
-        items: [
-            {
-                href: '/reports',
-                title: 'Overview'
-            },
-            {
-                href: '/reports/sales',
-                title: 'Sales'
-            }
-        ]
-    },
-    {
         icon: UsersIcon,
         title: 'Customers',
         href: '/customers',
@@ -158,12 +144,11 @@ const items = [
         title: 'Import Data',
         href: '/import',
     },
-    // {
-    //     icon: DocumentTextIcon,
-    //     title: 'Documentation',
-    //     href: '/docs',
-    //     external: true
-    // }
+    {
+        icon: ChartPieIcon,
+        title: 'Reports',
+        href: '/reports'
+    },
 ];
 
 export const DashboardSidebar = (props) => {

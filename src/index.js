@@ -21,7 +21,7 @@ ReactDOM.render(
             <AuthProvider>
               <SettingsProvider>
                 <App/>
-                <Toaster position="bottom-right"/>
+                <Toaster toastOptions={{duration: 4000}} position="bottom-right"/>
               </SettingsProvider>
             </AuthProvider>
           </APIProvider>

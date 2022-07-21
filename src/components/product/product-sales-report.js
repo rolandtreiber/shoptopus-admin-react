@@ -86,7 +86,7 @@ export const ProductSalesReport = (props) => {
       variant="outlined"
       {...props}
     >
-      <CardHeader title="Reports Sales" />
+      <CardHeader title="Dashboard Sales" />
       <Divider />
       <Box sx={{ px: 1 }}>
         <Chart

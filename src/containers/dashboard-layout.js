@@ -5,6 +5,7 @@ import { Footer } from '../components/footer';
 import { DashboardNavbar } from '../components/dashboard-navbar';
 import { DashboardSidebar } from '../components/dashboard-sidebar';
 import { useSettings } from '../contexts/settings-context';
+import Notifications from "../components/notifications";
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -31,6 +32,7 @@ export const DashboardLayout = () => {
 
   return (
     <DashboardLayoutRoot>
+      <Notifications />
       <DashboardNavbar />
       {!mdDown && (
         <DashboardSidebar

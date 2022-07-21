@@ -12,7 +12,7 @@ import {useMounted} from "../hooks/use-mounted";
 import {PieChartBreakdown} from "../components/reports/pie-chart-breakdown";
 import {Timeline} from "../components/reports/timeline";
 
-export const ReportsOverview = () => {
+export const DashboardOverview = () => {
   const {fetchReportsOverview} = useContext(APIContext)
   const [data, setData] = useState({isLoading: true})
   const mounted = useMounted();
@@ -97,7 +97,7 @@ export const ReportsOverview = () => {
   return (
     <>
       <Helmet>
-        <title>Reports: Overview | Carpatin Dashboard</title>
+        <title>Dashboard: Overview | Carpatin Dashboard</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>

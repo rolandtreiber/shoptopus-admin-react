@@ -91,7 +91,7 @@ export const AuthProvider = (props) => {
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user
+              user: user.data.data
             }
           });
         } else {
@@ -124,7 +124,7 @@ export const AuthProvider = (props) => {
     if (response.data) {
       const accessToken = response.data?.data?.auth?.token;
       if (accessToken) {
-        const user = response.data.user;
+        const user = response.data.data.auth.user;
         localStorage.setItem('accessToken', accessToken);
         setAccessToken(accessToken)
         dispatch({

@@ -1,0 +1,23 @@
+{
+  "super_admin" : {
+    "name": "Super Admin"
+  },
+  "admin" : {
+    "name": "Admin"
+  },
+  "store_manager" : {
+    "name": "Store Manager"
+  },
+  "store_assistant" : {
+    "name": "Store Assistant"
+  },
+  "seller" : {
+    "name": "Seller"
+  },
+  "customer" : {
+    "name": "Customer"
+  },
+  "auditor" : {
+    "name": "Auditor"
+  }
+}

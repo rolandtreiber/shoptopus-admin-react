@@ -12,7 +12,7 @@ import {APIContext} from "../contexts/api-context";
 import {useMounted} from "../hooks/use-mounted";
 import Price from "../components/price";
 
-export const ReportsSales = () => {
+export const DashboardSales = () => {
   const {fetchReportsSales} = useContext(APIContext)
   const [data, setData] = useState({isLoading: true})
   const mounted = useMounted();

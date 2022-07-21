@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {
   Avatar,
   Box,
@@ -15,14 +15,15 @@ import {
   Switch,
   ListSubheader
 } from '@material-ui/core';
-import { InputField } from './input-field';
-import { useAuth } from '../hooks/use-auth';
-import { usePopover } from '../hooks/use-popover';
-import { ChevronDown as ChevronDownIcon } from '../icons/chevron-down';
-import { Logout as LogoutIcon } from '../icons/logout';
-import { OfficeBuilding as OfficeBuildingIcon } from '../icons/office-building';
-import { User as UserIcon } from '../icons/user';
-import { lightNeutral } from '../colors';
+import {InputField} from './input-field';
+import {useAuth} from '../hooks/use-auth';
+import {usePopover} from '../hooks/use-popover';
+import {ChevronDown as ChevronDownIcon} from '../icons/chevron-down';
+import {Logout as LogoutIcon} from '../icons/logout';
+import {OfficeBuilding as OfficeBuildingIcon} from '../icons/office-building';
+import {User as UserIcon} from '../icons/user';
+import {lightNeutral} from '../colors';
+import roles from '../data/roles.json'
 
 const languageOptions = {
   en: {
@@ -48,9 +49,9 @@ export const AccountPopover = (props) => {
     rtlDirection,
     ...other
   } = props;
-  const { i18n } = useTranslation();
+  const {i18n} = useTranslation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const {logout, user} = useAuth();
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
 
   const handleOrganizationChange = (event) => {
@@ -72,6 +73,14 @@ export const AccountPopover = (props) => {
     }
   };
 
+  const userRoles = () => {
+    let ur = '';
+    user.roles?.map(r => {
+      ur = ur + roles[r].name + ', '
+    })
+    return ur.substr(0, ur.length-2)
+  }
+
   return (
     <>
       <Box
@@ -85,14 +94,20 @@ export const AccountPopover = (props) => {
         }}
         {...other}
       >
-        <Avatar
-          src="/static/user-chen_simmons.png"
-          variant="rounded"
-          sx={{
-            height: 40,
-            width: 40
-          }}
-        />
+        {
+          user.avatar ? (
+            <Avatar
+              src={user.avatar.url}
+              variant="rounded"
+              sx={{
+                height: 40,
+                width: 40
+              }}
+            />
+          ) : (
+            <Avatar>{user.first_name.charAt(0)}{user.last_name.charAt(0)}</Avatar>
+          )
+        }
         <Box
           sx={{
             alignItems: 'center',
@@ -112,13 +127,13 @@ export const AccountPopover = (props) => {
               }}
               variant="caption"
             >
-              Operation
+              {userRoles()}
             </Typography>
             <Typography
-              sx={{ color: 'primary.contrastText' }}
+              sx={{color: 'primary.contrastText'}}
               variant="subtitle2"
             >
-              Chen Simmons
+              {user.name}
             </Typography>
           </div>
           <ChevronDownIcon
@@ -150,7 +165,7 @@ export const AccountPopover = (props) => {
           fullWidth
           onChange={handleOrganizationChange}
           select
-          SelectProps={{ native: true }}
+          SelectProps={{native: true}}
           value={currentOrganization.id}
           sx={{
             display: {
@@ -172,19 +187,37 @@ export const AccountPopover = (props) => {
         <List>
           <ListItem divider>
             <ListItemAvatar>
-              <Avatar
-                variant="rounded"
-                src="/static/user-chen_simmons.png"
-              />
+              {
+                user.avatar ? (
+                  <Avatar
+                    src={user.avatar.url}
+                    variant="rounded"
+                    sx={{
+                      height: 40,
+                      width: 40
+                    }}
+                  />
+                ) : (
+                  <Avatar>{user.first_name.charAt(0)}{user.last_name.charAt(0)}</Avatar>
+                )
+              }
             </ListItemAvatar>
             <ListItemText
-              primary="Chen Simmons"
-              secondary="ACME Corp LLC."
+              primary={user.name}
+              secondary={userRoles()}
             />
           </ListItem>
           <li>
             <List disablePadding>
-              <ListSubheader disableSticky>
+              <ListSubheader
+                sx={{
+                  py: 0,
+                  display: {
+                    md: 'none',
+                    xs: 'flex'
+                  }
+                }}
+                disableSticky>
                 App Settings
               </ListSubheader>
               <ListItem
@@ -199,7 +232,7 @@ export const AccountPopover = (props) => {
                   fullWidth
                   onChange={handleLanguageChange}
                   select
-                  SelectProps={{ native: true }}
+                  SelectProps={{native: true}}
                   value={i18n.language}
                 >
                   {Object.keys(languageOptions).map((option) => (
@@ -232,21 +265,6 @@ export const AccountPopover = (props) => {
                   Dark Mode
                 </Typography>
               </ListItem>
-              <ListItem
-                divider
-                sx={{ pt: 0 }}
-              >
-                <Switch
-                  checked={rtlDirection}
-                  onChange={onSwitchDirection}
-                />
-                <Typography
-                  color="textPrimary"
-                  variant="body2"
-                >
-                  RTL
-                </Typography>
-              </ListItem>
             </List>
           </li>
           <ListItem
@@ -254,33 +272,33 @@ export const AccountPopover = (props) => {
             component={RouterLink}
             divider
             onClick={handleClose}
-            to="/dashboard/organization"
+            to="/organization"
           >
             <ListItemIcon>
-              <OfficeBuildingIcon />
+              <OfficeBuildingIcon/>
             </ListItemIcon>
-            <ListItemText primary="Organization" />
+            <ListItemText primary="Organization"/>
           </ListItem>
           <ListItem
             button
             component={RouterLink}
             divider
             onClick={handleClose}
-            to="/dashboard/account"
+            to="/account"
           >
             <ListItemIcon>
-              <UserIcon />
+              <UserIcon/>
             </ListItemIcon>
-            <ListItemText primary="Account" />
+            <ListItemText primary="Account"/>
           </ListItem>
           <ListItem
             button
             onClick={handleLogout}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon/>
             </ListItemIcon>
-            <ListItemText primary="Log out" />
+            <ListItemText primary="Log out"/>
           </ListItem>
         </List>
       </Popover>
