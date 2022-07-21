@@ -48,7 +48,7 @@ export const SummaryItem = (props) => {
             color="textPrimary"
             variant="h6"
           >
-            {content}
+            {String(content)}
           </Typography>
         </div>
       </Box>
@@ -75,7 +75,6 @@ export const SummaryItem = (props) => {
 };
 
 SummaryItem.propTypes = {
-  content: PropTypes.string.isRequired,
   icon: PropTypes.elementType,
   iconColor: PropTypes.string,
   label: PropTypes.string.isRequired,
