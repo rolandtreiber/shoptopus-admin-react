@@ -13,57 +13,29 @@ import { ReceiptTax as ReceiptTaxIcon } from '../icons/receipt-tax';
 import { ColorSwatch as ColorSwatchIcon } from '../icons/color-swatch';
 import { Template as TemplateIcon } from '../icons/template';
 import { DocumentText as DocumentTextIcon } from '../icons/document-text';
+import {Dashboard} from "../icons/dashboard";
+import {Discount} from "../icons/discount";
+import {DeliveryVan} from "../icons/delivery";
+import {Payment} from "../icons/payment";
+import {Star} from "../icons/star";
+import {Content} from "../icons/content";
+import {ImportContacts} from "@material-ui/icons";
 
 const items = [
   {
-    icon: ChartPieIcon,
-    title: 'Reports',
-    items: [
-      {
-        href: '/dashboard/reports',
-        title: 'Overview'
-      },
-      {
-        href: '/dashboard/reports/sales',
-        title: 'Sales'
-      }
-    ]
+    icon: Dashboard,
+    title: 'Dashboard',
+    href: '/dashboard'
   },
   {
     icon: UsersIcon,
     title: 'Customers',
-    items: [
-      {
-        href: '/customers',
-        title: 'List'
-      },
-      {
-        href: '/customers/1',
-        title: 'Summary'
-      },
-      {
-        href: '/customers/1/orders',
-        title: 'Orders'
-      },
-      {
-        href: '/customers/1/activity',
-        title: 'Activity'
-      }
-    ]
+    href: '/customers',
   },
   {
     icon: CubeIcon,
     title: 'Orders',
-    items: [
-      {
-        href: '/orders',
-        title: 'List'
-      },
-      {
-        href: '/orders/1',
-        title: 'Summary'
-      }
-    ]
+    href: '/orders',
   },
   {
     icon: ShoppingCartIcon,
@@ -74,38 +46,64 @@ const items = [
         title: 'List'
       },
       {
-        href: '/products/1',
-        title: 'Summary'
+        href: '/product-categories',
+        title: 'Categories'
       },
       {
-        href: '/products/1/inventory',
-        title: 'Inventory'
+        href: '/product-attributes',
+        title: 'Attributes'
       },
       {
-        href: '/products/1/analytics',
-        title: 'Insights'
+        href: '/product-tags',
+        title: 'Tags'
       }
     ]
   },
   {
-    icon: ReceiptTaxIcon,
-    title: 'Invoices',
+    icon: Discount,
+    title: 'Discount',
     items: [
       {
-        href: '/dashboard/invoices',
-        title: 'List'
+        href: '/discount/voucher-codes',
+        title: 'Voucher Codes'
       },
       {
-        href: '/dashboard/invoices/create',
-        title: 'Create'
+        href: '/discount/rules',
+        title: 'Discount Rules'
+      }
+    ]
+  },
+  {
+    icon: DeliveryVan,
+    title: 'Delivery Types',
+    href: '/delivery-types'
+  },
+  {
+    icon: Payment,
+    title: 'Transactions',
+    href: '/transactions',
+  },
+  {
+    icon: Star,
+    title: 'Ratings',
+    href: '/ratings',
+  },
+  {
+    icon: ReceiptTaxIcon,
+    title: 'Invoices',
+    href: '/invoices',
+  },
+  {
+    icon: Content,
+    title: 'Content',
+    items: [
+      {
+        href: '/content/banners',
+        title: 'Banners'
       },
       {
-        href: '/dashboard/invoices/1',
-        title: 'Details'
-      },
-      {
-        href: '/dashboard/invoices/1/preview',
-        title: 'Preview'
+        href: '/content/files',
+        title: 'Files'
       }
     ]
   },
@@ -114,11 +112,11 @@ const items = [
     title: 'Account',
     items: [
       {
-        href: '/dashboard/account',
+        href: '/account',
         title: 'General Settings'
       },
       {
-        href: '/dashboard/account/notifications',
+        href: '/account/notifications',
         title: 'Notifications'
       }
     ]
@@ -128,92 +126,28 @@ const items = [
     title: 'Organization',
     items: [
       {
-        href: '/dashboard/organization',
+        href: '/organization',
         title: 'General Settings'
       },
       {
-        href: '/dashboard/organization/team',
+        href: '/organization/team',
         title: 'Team'
       },
       {
-        href: '/dashboard/organization/billing',
+        href: '/organization/billing',
         title: 'Billing'
       }
     ]
   },
   {
-    icon: ColorSwatchIcon,
-    title: 'Foundation',
-    items: [
-      {
-        href: '/dashboard/foundation/typography',
-        title: 'Typography'
-      },
-      {
-        href: '/dashboard/foundation/colors',
-        title: 'Colors'
-      },
-      {
-        href: '/dashboard/foundation/shadows',
-        title: 'Shadows'
-      },
-      {
-        href: '/dashboard/foundation/buttons',
-        title: 'Buttons'
-      },
-      {
-        href: '/dashboard/foundation/inputs',
-        title: 'Inputs'
-      },
-      {
-        href: '/dashboard/foundation/tables',
-        title: 'Tables'
-      },
-      {
-        href: '/dashboard/foundation/blank-page',
-        title: 'Blank Page'
-      }
-    ]
+    icon: ImportContacts,
+    title: 'Import Data',
+    href: '/import',
   },
   {
-    icon: TemplateIcon,
-    title: 'Components',
-    items: [
-      {
-        href: '/dashboard/components/onboarding',
-        title: 'Onboarding'
-      },
-      {
-        href: '/dashboard/components/empty-states',
-        title: 'Data States'
-      },
-      {
-        href: '/dashboard/components/property-lists',
-        title: 'Lists'
-      },
-      {
-        href: '/dashboard/components/stats',
-        title: 'Data Stats'
-      },
-      {
-        href: '/dashboard/components/page-headings',
-        title: 'Page Headers'
-      },
-      {
-        href: '/dashboard/components/card-headings',
-        title: 'Card Headers'
-      },
-      {
-        href: '/dashboard/components/image-uploader',
-        title: 'Image Uploader'
-      }
-    ]
-  },
-  {
-    icon: DocumentTextIcon,
-    title: 'Documentation',
-    href: '/docs',
-    external: true
+    icon: ChartPieIcon,
+    title: 'Reports',
+    href: '/reports'
   }
 ];
 

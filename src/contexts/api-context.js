@@ -313,6 +313,10 @@ const APIProvider = ({children}) => {
       validateImportFile: async (params) => await post(app_url + "io/validate", params, makeHeaders()),
       processImportFile: async (params) => await post(app_url + "io/import", params, makeHeaders()),
 
+      // Notifications
+      getNotifications: async (params) => await get(app_url + "notifications", params, makeHeaders()),
+      clearNotifications: async (params) => await patch(app_url + "notifications/clear", params, makeHeaders()),
+
       accessToken,
       setAccessToken,
     }),

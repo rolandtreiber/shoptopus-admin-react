@@ -82,10 +82,6 @@ const Files = Loadable(lazy(() => import('./containers/files').then((module) => 
 
 const Reports = Loadable(lazy(() => import('./containers/reports').then((module) => ({default: module.Reports}))));
 
-
-// Docs pages
-const Docs = Loadable(lazy(() => import('./containers/docs').then((module) => ({default: module.Docs}))));
-
 const routes = [
   {
     path: '/',
