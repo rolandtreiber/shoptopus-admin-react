@@ -6,6 +6,10 @@ import { DashboardNavbar } from '../components/dashboard-navbar';
 import { DashboardSidebar } from '../components/dashboard-sidebar';
 import { useSettings } from '../contexts/settings-context';
 import Notifications from "../components/notifications";
+import {useContext, useEffect} from "react";
+import {APIContext} from "../contexts/api-context";
+import {useAuth} from "../hooks/use-auth";
+import {NotificationsContext} from "../contexts/notifications-context";
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -22,6 +26,9 @@ const DashboardLayoutContent = styled('div')(() => ({
 export const DashboardLayout = () => {
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const { settings, saveSettings } = useSettings();
+  const { getLatestNotifications } = useContext(APIContext)
+  const { setNotificationsFromServer } = useContext(NotificationsContext)[1]
+  const { user } = useAuth()
 
   const handlePinSidebar = () => {
     saveSettings({
@@ -29,6 +36,14 @@ export const DashboardLayout = () => {
       pinSidebar: !settings.pinSidebar
     });
   };
+
+  const fetchNotifications = async () => {
+    return await getLatestNotifications()
+  }
+
+  useEffect(() => {
+    fetchNotifications().then(response => setNotificationsFromServer(response.data.data))
+  }, [user])
 
   return (
     <DashboardLayoutRoot>

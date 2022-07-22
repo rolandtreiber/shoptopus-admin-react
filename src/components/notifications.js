@@ -1,21 +1,23 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import useSocket from "../hooks/use-socket";
 import {useAuth} from "../hooks/use-auth";
-import toast from "react-hot-toast";
+import {NotificationsContext} from "../contexts/notifications-context";
 
 const notifications = () => {
   const {accessToken, user} = useAuth()
   const socket = useSocket(accessToken)
+  const [{notifications}, {addSocketNotificationToList}] = useContext(NotificationsContext)
 
   useEffect(() => {
-    socket && socket.private("user-969bfd2e-f597-458c-99b0-fbf6b0cdf225-notifications").listen(".Illuminate\\Notifications\\Events\\BroadcastNotificationCreated", data => {
-      toast.success(data.message);
+    socket && socket.private("user-"+user.id+"-notifications").listen(".Illuminate\\Notifications\\Events\\BroadcastNotificationCreated", data => {
+      socket.leave("user-"+user.id+"-notifications")
+      addSocketNotificationToList(data)
     });
 
     return () => {
-      socket && socket.leave("user-signup")
+      socket && socket.leave("user-"+user.id+"-notifications")
     }
-  }, [socket, user])
+  }, [socket, user, notifications])
 
   return (
     <div/>

@@ -7,48 +7,32 @@ import {
   Popover,
   List,
   ListItem,
-  ListSubheader
+  ListSubheader, Button
 } from '@material-ui/core';
 import { usePopover } from '../hooks/use-popover';
 import { Bell as BellIcon } from '../icons/bell';
-import { Sparkles as SparklesIcon } from '../icons/sparkles';
-import { Speakerphone as SpeakerphoneIcon } from '../icons/speakerphone';
-
-const notifications = [
-  {
-    id: '1',
-    content: 'Sit occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
-    createdAt: new Date().getTime(),
-    icon: SparklesIcon,
-    iconColor: '#ffb400',
-    title: 'New Customer layout!'
-  },
-  {
-    id: '2',
-    content: 'Sit occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
-    createdAt: new Date().getTime(),
-    icon: SparklesIcon,
-    iconColor: '#ffb400',
-    title: 'Inline Edit is now available'
-  },
-  {
-    id: '3',
-    content: 'Sit occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
-    createdAt: new Date().getTime(),
-    icon: SpeakerphoneIcon,
-    iconColor: '#4970ff',
-    title: 'New feature just deployed'
-  }
-];
+import React, {useContext} from "react";
+import {NotificationsContext} from "../contexts/notifications-context";
+import {Visibility} from "@material-ui/icons";
+import {Link as RouterLink} from "react-router-dom";
+import {APIContext} from "../contexts/api-context";
 
 export const NotificationsPopover = (props) => {
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
+  const [{ notifications, unreadCount }, { setAllRead }] = useContext(NotificationsContext)
+  const { clearNotifications } = useContext(APIContext)
+
+  const clearAndClose = () => {
+    clearNotifications()
+    setAllRead()
+    handleClose()
+  }
 
   return (
     <>
       <Badge
         color="success"
-        variant="dot"
+        badgeContent={unreadCount === 0 ? null : unreadCount}
         {...props}
       >
         <IconButton
@@ -68,7 +52,7 @@ export const NotificationsPopover = (props) => {
           vertical: 'bottom'
         }}
         keepMounted
-        onClose={handleClose}
+        onClose={clearAndClose}
         open={open}
         PaperProps={{
           sx: { width: 320 }
@@ -78,6 +62,30 @@ export const NotificationsPopover = (props) => {
           <ListSubheader sx={{ py: 1 }}>
             Notifications
           </ListSubheader>
+          <ListItem
+            disableGutters
+            divider={true}
+            key={"see-all"}
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              flexDirection: 'column',
+              p: 2
+            }}
+          >
+            <Button
+              color="primary"
+              component={RouterLink}
+              size="large"
+              startIcon={<Visibility fontSize="small" />}
+              sx={{
+                width: "100%"
+              }}
+              to={'notifications'}
+            >
+              See All
+            </Button>
+          </ListItem>
           {notifications.map((notification, index) => {
             const { title, content, createdAt, icon: Icon, iconColor } = notification;
 
@@ -100,7 +108,10 @@ export const NotificationsPopover = (props) => {
                   />
                   <Typography
                     color="textPrimary"
-                    sx={{ ml: 1.25 }}
+                    sx={{
+                      ml: 1.25,
+                      fontWeight: notification.read ? '300' : '900'
+                    }}
                     variant="body1"
                   >
                     {title}
@@ -116,7 +127,7 @@ export const NotificationsPopover = (props) => {
                   color="textSecondary"
                   variant="caption"
                 >
-                  {format(createdAt, 'MMM dd, yyyy')}
+                  {createdAt}
                 </Typography>
               </ListItem>
             );

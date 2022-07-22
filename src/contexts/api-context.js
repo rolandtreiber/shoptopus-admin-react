@@ -314,8 +314,9 @@ const APIProvider = ({children}) => {
       processImportFile: async (params) => await post(app_url + "io/import", params, makeHeaders()),
 
       // Notifications
-      getNotifications: async (params) => await get(app_url + "notifications", params, makeHeaders()),
-      clearNotifications: async (params) => await patch(app_url + "notifications/clear", params, makeHeaders()),
+      getLatestNotifications: async () => await get(app_url + "api/notifications/latest", {}, makeHeaders()),
+      getNotificationsList: async () => await get(app_url + "api/notifications", {}, makeHeaders()),
+      clearNotifications: async () => await patch(app_url + "api/notifications/clear", {}, makeHeaders()),
 
       accessToken,
       setAccessToken,
