@@ -81,6 +81,7 @@ const Banners = Loadable(lazy(() => import('./containers/banners').then((module)
 const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({default: module.Files}))));
 
 const Reports = Loadable(lazy(() => import('./containers/reports').then((module) => ({default: module.Reports}))));
+const Notifications = Loadable(lazy(() => import('./containers/notifications').then((module) => ({default: module.Notifications}))));
 
 const routes = [
   {
@@ -382,6 +383,10 @@ const routes = [
       {
         path: 'reports',
         element: <Reports/>,
+      },
+      {
+        path: 'notifications',
+        element: <Notifications/>,
       },
     ]
   },

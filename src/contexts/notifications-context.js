@@ -10,7 +10,7 @@ export const NotificationsProvider = (props) => {
   const [unreadCount, setUnreadCount] = useState(0)
   const notificationTypes = {
     "new-order": {
-      "title": "New order placed!",
+      "title": "New order placed",
       "icon": ShoppingCart,
       "iconColor": '#0051ff'
     },
@@ -75,7 +75,7 @@ export const NotificationsProvider = (props) => {
   }
 
   return (
-    <NotificationsContext.Provider value={[{toast, notifications, unreadCount}, {setNotificationsFromServer, setNotifications, setAllRead, addSocketNotificationToList}]}>
+    <NotificationsContext.Provider value={[{toast, notifications, unreadCount, notificationTypes}, {setNotificationsFromServer, setNotifications, setAllRead, addSocketNotificationToList}]}>
       {props.children}
       <ToastContainer
         position="bottom-center"

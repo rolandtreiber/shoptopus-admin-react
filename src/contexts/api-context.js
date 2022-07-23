@@ -315,7 +315,7 @@ const APIProvider = ({children}) => {
 
       // Notifications
       getLatestNotifications: async () => await get(app_url + "api/notifications/latest", {}, makeHeaders()),
-      getNotificationsList: async () => await get(app_url + "api/notifications", {}, makeHeaders()),
+      fetchNotifications: async (params) => await get(app_url + "api/notifications", params, makeHeaders()),
       clearNotifications: async () => await patch(app_url + "api/notifications/clear", {}, makeHeaders()),
 
       accessToken,
