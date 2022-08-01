@@ -17,10 +17,10 @@ import {Pagination} from '../pagination';
 import {ResourceError} from '../resource-error';
 import {ResourceUnavailable} from '../resource-unavailable';
 import {Scrollbar} from '../scrollbar';
-import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../contexts/settings-context";
 import Price from "../price";
 import {Status} from "../status";
+import {DeliveryTypeMenu} from "./delivery-type-menu";
 
 const columns = [
   {
@@ -77,7 +77,8 @@ export const DeliveryTypesTable = (props) => {
     page,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
   const [dataState, setDataState] = useState(data);
 
@@ -180,7 +181,11 @@ export const DeliveryTypesTable = (props) => {
                   />
                 </TableCell>
                 <TableCell align="right">
-                  <CustomerMenu/>
+                  <DeliveryTypeMenu
+                    id={d.id}
+                    enabled={d.enabled}
+                    onSuccess={onReload}
+                  />
                 </TableCell>
               </TableRow>)
             })}
