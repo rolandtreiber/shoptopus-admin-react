@@ -21,6 +21,7 @@ import {Scrollbar} from '../scrollbar';
 import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../contexts/settings-context";
 import {Status} from "../status";
+import {DiscountRuleMenu} from "./discount-rule-menu";
 
 const columns = [
   {
@@ -73,7 +74,8 @@ export const DiscountRulesTable = (props) => {
     page,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
   const [dataState, setDataState] = useState(data);
 
@@ -173,7 +175,11 @@ export const DiscountRulesTable = (props) => {
                       />
                     </TableCell>
                     <TableCell align="right">
-                      <CustomerMenu/>
+                      <DiscountRuleMenu
+                        id={d.id}
+                        enabled={d.enabled}
+                        onSuccess={onReload}
+                      />
                     </TableCell>
                   </TableRow>
                 )

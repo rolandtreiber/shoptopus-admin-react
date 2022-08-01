@@ -387,6 +387,7 @@ export const DiscountRules = () => {
                         error={dataState.error}
                         isLoading={dataState.isLoading}
                         onPageChange={handlePageChange}
+                        onReload={() => fetchData().catch(console.error)}
                         onSelect={handleSelect}
                         onSelectAll={handleSelectAll}
                         onSortChange={handleSortChange}
