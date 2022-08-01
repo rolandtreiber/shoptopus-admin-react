@@ -175,8 +175,10 @@ const ProductCategoriesTable = (props) => {
           </TableCell>
           <TableCell align="right">
             <ProductCategoryMenu
-              productCategoryId={rowData.id}
-              onSuccess={onReload}/>
+              id={rowData.id}
+              onSuccess={onReload}
+              enabled={rowData.enabled}
+            />
           </TableCell>
         </TableRow>
         {rowData.children && rowData.children.map(child => getRow(child, level + 1))}

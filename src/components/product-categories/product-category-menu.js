@@ -6,19 +6,26 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {ProductCategoryEditDialog} from "./product-category-edit-dialog";
+import {DialogContext} from "../../contexts/dialog-context";
 
 export const ProductCategoryMenu = (props) => {
   const mounted = useMounted();
-  const {productCategoryId, onSuccess} = props;
-  const {fetchProductCategory} = useContext(APIContext)
+  const {id, onSuccess, enabled} = props;
+  const {fetchProductCategory, deleteProductCategory, updateProductCategory} = useContext(APIContext)
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [productCategoryState, setProductCategoryState] = useState();
+  const {
+    setCallback,
+    setTitle,
+    showGenericDialog,
+    setDescription
+  } = useContext(DialogContext)[1]
 
   const getProductCategory = useCallback(async () => {
-    if (productCategoryId) {
+    if (id) {
       try {
-        const result = await fetchProductCategory(productCategoryId)
+        const result = await fetchProductCategory(id)
 
         if (mounted.current) {
           setProductCategoryState(result.data.data)
@@ -27,7 +34,7 @@ export const ProductCategoryMenu = (props) => {
         console.log(e)
       }
     }
-  }, [productCategoryId])
+  }, [id])
 
   const handleEdit = () => {
     handleClose();
@@ -36,14 +43,51 @@ export const ProductCategoryMenu = (props) => {
     }).catch(e => console.log(e))
   };
 
-  const handleArchive = () => {
-    handleClose();
-    toast.error('This action is not available on demo');
-  };
+  const doDelete = useCallback( async (id) => {
+    try {
+      return await deleteProductCategory(id);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
 
-  const handleDelete = () => {
-    handleClose();
-    toast.error('This action is not available on demo');
+  const handleDelete = useCallback(async () => {
+    const call = () => doDelete(id).then(result => {
+      if (result.data?.status === "Success") {
+        handleClose()
+        onSuccess()
+      }
+    })
+
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to delete a product category.')
+    showGenericDialog(true)
+  }, [id])
+
+  const doStatusChange = async (id, status) => {
+    try {
+      return await updateProductCategory(id, {
+        enabled: status
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const handleStatusChange = (currentStatus) => {
+    const call = () => doStatusChange(id, !currentStatus).then(result => {
+      if (result.status === 200) {
+        handleClose()
+        onSuccess()
+      }
+    })
+
+    const text = currentStatus ? 'disable' : 'enable'
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to '+text+' a product category.')
+    showGenericDialog(true)
   };
 
   return (
@@ -70,8 +114,8 @@ export const ProductCategoryMenu = (props) => {
         <MenuItem onClick={handleEdit}>
           Edit
         </MenuItem>
-        <MenuItem onClick={handleArchive}>
-          Archive
+        <MenuItem onClick={() => handleStatusChange(enabled)}>
+          {enabled ? 'Disable' : 'Enable'}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
           Delete
