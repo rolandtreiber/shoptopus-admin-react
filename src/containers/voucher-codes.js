@@ -20,6 +20,14 @@ const views = [
         value: 'all'
     },
     {
+        label: 'Enabled',
+        value: 'enabled'
+    },
+    {
+        label: 'Disabled',
+        value: 'disabled'
+    },
+    {
         label: 'Active',
         value: 'active'
     },
@@ -388,6 +396,7 @@ export const VoucherCodes = () => {
                             isLoading={dataState.isLoading}
                             onPageChange={handlePageChange}
                             onSelect={handleSelect}
+                            onReload={() => fetchData().catch(console.error)}
                             onSelectAll={handleSelectAll}
                             onSortChange={handleSortChange}
                             page={controller.page + 1}

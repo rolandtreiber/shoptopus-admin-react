@@ -43,7 +43,7 @@ const columns = [
   },
   {
     id: 'enabled',
-    label: 'enabled'
+    label: 'Availability'
   }
 ];
 

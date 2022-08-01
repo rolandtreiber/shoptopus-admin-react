@@ -4,16 +4,15 @@ import {DotsVertical as DotsVerticalIcon} from '../../icons/dots-vertical';
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
-import {ProductAttributeEditDialog} from "./product-attribute-edit-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 
-export const ProductAttributeMenu = (props) => {
+export const VoucherCodeMenu = (props) => {
   const mounted = useMounted();
   const {id, onSuccess, enabled} = props;
-  const {fetchProductAttribute, updateProductAttribute, deleteProductAttribute} = useContext(APIContext)
+  const {fetchVoucherCode, updateVoucherCode, deleteVoucherCode} = useContext(APIContext)
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [productAttributeState, setProductAttributeState] = useState();
+  const [entityState, setEntityState] = useState();
   const {
     setCallback,
     setTitle,
@@ -23,7 +22,7 @@ export const ProductAttributeMenu = (props) => {
 
   const doDelete = useCallback( async (id) => {
     try {
-      return await deleteProductAttribute(id);
+      return await deleteVoucherCode(id);
     } catch (err) {
       console.error(err);
     }
@@ -39,13 +38,13 @@ export const ProductAttributeMenu = (props) => {
 
     setCallback({method: call})
     setTitle('Are you sure?')
-    setDescription('You are about to delete a product attribute.')
+    setDescription('You are about to delete a voucher code.')
     showGenericDialog(true)
   }, [id])
 
   const doStatusChange = async (id, status) => {
     try {
-      return await updateProductAttribute(id, {
+      return await updateVoucherCode(id, {
         enabled: status
       });
     } catch (err) {
@@ -64,29 +63,29 @@ export const ProductAttributeMenu = (props) => {
     const text = currentStatus ? 'disable' : 'enable'
     setCallback({method: call})
     setTitle('Are you sure?')
-    setDescription('You are about to '+text+' a product attribute.')
+    setDescription('You are about to '+text+' a voucher code.')
     showGenericDialog(true)
   };
 
   const getProductAttribute = useCallback(async () => {
     if (id) {
       try {
-        const result = await fetchProductAttribute(id)
+        const result = await fetchVoucherCode(id)
 
         if (mounted.current) {
-          setProductAttributeState(result.data.data)
+          setEntityState(result.data.data)
         }
       } catch (e) {
         console.log(e)
       }
     }
-  }, [fetchProductAttribute])
+  }, [fetchVoucherCode])
 
   const handleEdit = () => {
     handleClose();
-    getProductAttribute().then(() => {
-      setOpenEditDialog(true)
-    }).catch(e => console.log(e))
+    // getProductAttribute().then(() => {
+    //   setOpenEditDialog(true)
+    // }).catch(e => console.log(e))
   };
 
   return (
@@ -120,12 +119,12 @@ export const ProductAttributeMenu = (props) => {
           Delete
         </MenuItem>
       </Menu>
-      {productAttributeState && <ProductAttributeEditDialog
-        onClose={() => setOpenEditDialog(false)}
-        open={openEditDialog}
-        onSuccess={onSuccess}
-        initialValues={productAttributeState}
-      />}
+      {/*{productAttributeState && <ProductAttributeEditDialog*/}
+      {/*  onClose={() => setOpenEditDialog(false)}*/}
+      {/*  open={openEditDialog}*/}
+      {/*  onSuccess={onSuccess}*/}
+      {/*  initialValues={productAttributeState}*/}
+      {/*/>}*/}
     </>
   );
 };

@@ -182,14 +182,14 @@ const APIProvider = ({children}) => {
       fetchDiscountRules: async (params) => await get(admin_api_url + "discount-rules", params, makeHeaders()),
       fetchDiscountRule: async (discountRuleId) => await get(admin_api_url + "discount-rule/" + discountRuleId, {}, makeHeaders()),
       saveDiscountRule: async (params) => await post(admin_api_url + "discount-rule", params, makeHeaders()),
-      updateDiscountRule: async (discountRuleId, params) => await put(admin_api_url + "discount-rule/" + discountRuleId, params, makeHeaders()),
+      updateDiscountRule: async (discountRuleId, params) => await patch(admin_api_url + "discount-rule/" + discountRuleId, params, makeHeaders()),
       deleteDiscountRule: async (discountRuleId) => await del(admin_api_url + "discount-rule/" + discountRuleId, {}, makeHeaders()),
 
       // Voucher Codes
       fetchVoucherCodes: async (params) => await get(admin_api_url + "voucher-codes", params, makeHeaders()),
       fetchVoucherCode: async (voucherCodeId) => await get(admin_api_url + "voucher-code/" + voucherCodeId, {}, makeHeaders()),
       saveVoucherCode: async (params) => await post(admin_api_url + "voucher-code", params, makeHeaders()),
-      updateVoucherCode: async (voucherCodeId, params) => await put(admin_api_url + "voucher-code/" + voucherCodeId, params, makeHeaders()),
+      updateVoucherCode: async (voucherCodeId, params) => await patch(admin_api_url + "voucher-code/" + voucherCodeId, params, makeHeaders()),
       deleteVoucherCode: async (voucherCodeId) => await del(admin_api_url + "voucher-code/" + voucherCodeId, {}, makeHeaders()),
 
       // Delivery Types
@@ -202,35 +202,35 @@ const APIProvider = ({children}) => {
       // Delivery Rules
       fetchDeliveryRules: async (deliveryRuleId, params) => await get(admin_api_url + "delivery-rules", params, makeHeaders()),
       saveDeliveryRule: async (deliveryTypeId, params) => await post(admin_api_url + "delivery-type/" + deliveryTypeId + "/delivery-rule", params, makeHeaders()),
-      updateDeliveryRule: async (deliveryTypeId, deliveryRuleId, params) => await put(admin_api_url + "delivery-type/" + deliveryTypeId + "/delivery-rule/" + deliveryRuleId, params, makeHeaders()),
+      updateDeliveryRule: async (deliveryTypeId, deliveryRuleId, params) => await patch(admin_api_url + "delivery-type/" + deliveryTypeId + "/delivery-rule/" + deliveryRuleId, params, makeHeaders()),
       deleteDeliveryRule: async (deliveryTypeId, deliveryRuleId) => await del(admin_api_url + "delivery-type/" + deliveryTypeId + "/delivery-rule/" + deliveryRuleId, {}, makeHeaders()),
 
       // System Users
       fetchUsers: async (params) => await get(admin_api_url + "users", params, makeHeaders()),
       fetchUser: async (userId) => await get(admin_api_url + "user/" + userId, {}, makeHeaders()),
       saveUser: async (params) => await post(admin_api_url + "user", params, makeHeaders()),
-      updateUser: async (userId, params) => await put(admin_api_url + "user/" + userId, params, makeHeaders()),
+      updateUser: async (userId, params) => await patch(admin_api_url + "user/" + userId, params, makeHeaders()),
       deleteUser: async (userId) => await del(admin_api_url + "user/" + userId, {}, makeHeaders()),
 
       // Customers
       fetchCustomers: async (params) => await get(admin_api_url + "customers", params, makeHeaders()),
       fetchCustomer: async (customerId) => await get(admin_api_url + "customer/" + customerId, {}, makeHeaders()),
       saveCustomer: async (params) => await post(admin_api_url + "customer", params, makeHeaders()),
-      updateCustomer: async (customerId, params) => await put(admin_api_url + "customer/" + customerId, params, makeHeaders()),
+      updateCustomer: async (customerId, params) => await patch(admin_api_url + "customer/" + customerId, params, makeHeaders()),
       deleteCustomer: async (customerId) => await del(admin_api_url + "customer/" + customerId, {}, makeHeaders()),
 
       // Payments
       fetchPayments: async (params) => await get(admin_api_url + "payments", params, makeHeaders()),
       fetchPayment: async (paymentId) => await get(admin_api_url + "payment/" + paymentId, {}, makeHeaders()),
       savePayment: async (params) => await post(admin_api_url + "payment", params, makeHeaders()),
-      updatePayment: async (paymentId, params) => await put(admin_api_url + "payment/" + paymentId, params, makeHeaders()),
+      updatePayment: async (paymentId, params) => await patch(admin_api_url + "payment/" + paymentId, params, makeHeaders()),
       deletePayment: async (paymentId) => await del(admin_api_url + "payment/" + paymentId, {}, makeHeaders()),
 
       // Banners
       fetchBanners: async (params) => await get(admin_api_url + "banners", params, makeHeaders()),
       fetchBanner: async (bannerId) => await get(admin_api_url + "banner/" + bannerId, {}, makeHeaders()),
       saveBanner: async (params) => await post(admin_api_url + "banner", params, makeHeaders()),
-      updateBanner: async (bannerId, params) => await put(admin_api_url + "banner/" + bannerId, params, makeHeaders()),
+      updateBanner: async (bannerId, params) => await patch(admin_api_url + "banner/" + bannerId, params, makeHeaders()),
       deleteBanner: async (bannerId) => await del(admin_api_url + "banner/" + bannerId, {}, makeHeaders()),
 
       // Ratings
