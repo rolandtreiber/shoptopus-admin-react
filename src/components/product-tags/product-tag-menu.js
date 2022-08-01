@@ -1,20 +1,16 @@
-import toast from 'react-hot-toast';
 import {IconButton, Menu, MenuItem} from '@material-ui/core';
 import {usePopover} from '../../hooks/use-popover';
 import {DotsVertical as DotsVerticalIcon} from '../../icons/dots-vertical';
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
-import {ProductDialog} from "./product-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 
-export const ProductMenu = (props) => {
+export const ProductTagMenu = (props) => {
   const mounted = useMounted();
-  const {productId, onSuccess} = props;
-  const {fetchProduct, deleteProduct} = useContext(APIContext)
+  const {id, onSuccess, enabled} = props;
+  const {deleteProductTag, updateProductTag} = useContext(APIContext)
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
-  const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [productState, setProductState] = useState();
   const {
     setCallback,
     setTitle,
@@ -22,30 +18,16 @@ export const ProductMenu = (props) => {
     setDescription
   } = useContext(DialogContext)[1]
 
-  const getProduct = useCallback(async () => {
-    if (productId) {
-      try {
-        const result = await fetchProduct(productId)
-
-        if (mounted.current) {
-          setProductState(result.data.data)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }, [productId])
-
-  const doDeleteProduct = useCallback( async (id) => {
+  const doDelete = useCallback( async (id) => {
     try {
-      return await deleteProduct(productId);
+      return await deleteProductTag(id);
     } catch (err) {
       console.error(err);
     }
   }, [])
 
   const handleDelete = useCallback(async () => {
-    const call = () => doDeleteProduct(productId).then(result => {
+    const call = () => doDelete(id).then(result => {
       if (result.data?.status === "Success") {
         onSuccess()
       }
@@ -53,20 +35,32 @@ export const ProductMenu = (props) => {
 
     setCallback({method: call})
     setTitle('Are you sure?')
-    setDescription('You are about to delete a product.')
+    setDescription('You are about to delete a product tag.')
     showGenericDialog(true)
-  }, [productId])
+  }, [id])
 
-  const handleEdit = () => {
-    handleClose();
-    getProduct().then(() => {
-      setOpenEditDialog(true)
-    }).catch(e => console.log(e))
-  };
+  const doStatusChange = async (id, status) => {
+    try {
+      return await updateProductTag(id, {
+        enabled: status
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-  const handleArchive = () => {
-    handleClose();
-    toast.error('This action is not available on demo');
+  const handleStatusChange = (currentStatus) => {
+    const call = () => doStatusChange(id, !currentStatus).then(result => {
+      if (result.status === 200) {
+        onSuccess()
+      }
+    })
+
+    const text = currentStatus ? 'disable' : 'enable'
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to '+text+' a product tag.')
+    showGenericDialog(true)
   };
 
   return (
@@ -90,22 +84,13 @@ export const ProductMenu = (props) => {
           horizontal: 'right'
         }}
       >
-        <MenuItem onClick={handleEdit}>
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleArchive}>
-          Archive
+        <MenuItem onClick={() => handleStatusChange(enabled)}>
+          {enabled ? 'Disable' : 'Enable'}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
           Delete
         </MenuItem>
       </Menu>
-      <ProductDialog
-        onClose={() => setOpenEditDialog(false)}
-        open={openEditDialog}
-        onSuccess={onSuccess}
-        product={productState}
-      />
     </>
   );
 };

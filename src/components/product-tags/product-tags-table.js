@@ -20,6 +20,7 @@ import {ResourceUnavailable} from "../resource-unavailable";
 import {Pagination} from "../pagination";
 import {Status} from "../status";
 import {format} from "date-fns";
+import {ProductTagMenu} from "./product-tag-menu";
 
 const columns = [
   {
@@ -72,7 +73,8 @@ const ProductTagsTable = (props) => {
     data,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
 
   const displayLoading = isLoading;
@@ -188,10 +190,13 @@ const ProductTagsTable = (props) => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <ProductMenu/>
+                    <ProductTagMenu
+                      id={tag.id}
+                      enabled={tag.enabled}
+                      onSuccess={onReload}
+                    />
                   </TableCell>
                 </TableRow>
-
               )
             })}
           </TableBody>

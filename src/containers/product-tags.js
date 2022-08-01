@@ -299,6 +299,7 @@ const ProductTags = () => {
                             onSelect={handleSelect}
                             onSelectAll={handleSelectAll}
                             onSortChange={handleSortChange}
+                            onReload={() => getTags().catch(console.error)}
                             page={controller.page + 1}
                             data={tags.data ? tags.data : []}
                             pagesCount={tags.paginationMeta ? tags.paginationMeta.last_page : null}

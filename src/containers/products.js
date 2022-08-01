@@ -309,6 +309,7 @@ export const Products = () => {
               error={productsState.error}
               isLoading={productsState.isLoading}
               onPageChange={handlePageChange}
+              onReload={() => getProducts().catch(console.error)}
               onSelect={handleSelect}
               onSelectAll={handleSelectAll}
               onSortChange={handleSortChange}

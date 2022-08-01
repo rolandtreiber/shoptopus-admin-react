@@ -26,6 +26,7 @@ import {useContext} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
 import Price from "../price";
 import {darkWarning} from "../../colors";
+import {DialogContext} from "../../contexts/dialog-context";
 
 const columns = [
   {
@@ -78,7 +79,8 @@ export const ProductsTable = (props) => {
     products,
     selectedProducts,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
 
   const displayLoading = isLoading;
@@ -215,9 +217,7 @@ export const ProductsTable = (props) => {
                   <TableCell align="right">
                     <ProductMenu
                         productId={product.id}
-                        onSuccess={() => {
-                          console.log('reload')
-                        }}
+                        onSuccess={onReload}
                     />
                   </TableCell>
                 </TableRow>
