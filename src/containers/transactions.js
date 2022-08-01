@@ -215,15 +215,6 @@ export const Transactions = () => {
                               Transactions
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
-                          <Button
-                            color="primary"
-                            onClick={() => setOpenCreateDialog(true)}
-                            size="large"
-                            startIcon={<PlusIcon fontSize="small" />}
-                            variant="contained"
-                          >
-                              Add
-                          </Button>
                           <ExportButton
                             name={"transactions"}
                             modelsSimple={["Payment"]}
