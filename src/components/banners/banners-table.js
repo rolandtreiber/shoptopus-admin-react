@@ -18,9 +18,9 @@ import {Pagination} from '../pagination';
 import {ResourceError} from '../resource-error';
 import {ResourceUnavailable} from '../resource-unavailable';
 import {Scrollbar} from '../scrollbar';
-import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../contexts/settings-context";
 import {Status} from "../status";
+import {BannerMenu} from "./banner-menu";
 
 const columns = [
   {
@@ -68,7 +68,8 @@ export const BannersTable = (props) => {
     page,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
   const [dataState, setDataState] = useState(data);
 
@@ -173,7 +174,11 @@ export const BannersTable = (props) => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <CustomerMenu/>
+                    <BannerMenu
+                      id={d.id}
+                      onSuccess={onReload}
+                      enabled={d.enabled}
+                    />
                   </TableCell>
                 </TableRow>
               )})}

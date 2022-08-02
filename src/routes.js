@@ -6,7 +6,6 @@ import {Customer} from './containers/customer';
 import {LoadingScreen} from './components/loading-screen';
 import {Account} from './containers/account';
 import {DashboardLayout} from './containers/dashboard-layout';
-import {Organization} from './containers/organization';
 import {Product} from './containers/product';
 import {Dashboard} from './containers/dashboard';
 import {DashboardOverview} from "./containers/dashboard-overview";
@@ -55,10 +54,6 @@ const ProductSummary = Loadable(lazy(() => import('./containers/product-summary'
 
 const AccountGeneral = Loadable(lazy(() => import('./containers/account-general').then((module) => ({default: module.AccountGeneral}))));
 const AccountNotifications = Loadable(lazy(() => import('./containers/account-notifications').then((module) => ({default: module.AccountNotifications}))));
-
-const OrganizationBilling = Loadable(lazy(() => import('./containers/organization-billing').then((module) => ({default: module.OrganizationBilling}))));
-const OrganizationGeneral = Loadable(lazy(() => import('./containers/organization-general').then((module) => ({default: module.OrganizationGeneral}))));
-const OrganizationTeam = Loadable(lazy(() => import('./containers/organization-team').then((module) => ({default: module.OrganizationTeam}))));
 
 const ProductCategories = Loadable(lazy(() => import('./containers/product-categories').then((module) => ({default: module.default}))));
 const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({default: module.default}))));
@@ -198,10 +193,6 @@ const routes = [
             path: 'notifications',
             element: <AccountNotifications/>
           },
-          {
-            path: 'team',
-            element: <OrganizationTeam/>
-          }
         ]
       },
       {
@@ -241,24 +232,6 @@ const routes = [
           {
             path: ':orderId',
             element: <Order/>
-          }
-        ]
-      },
-      {
-        path: 'organization',
-        element: <Organization/>,
-        children: [
-          {
-            path: '/',
-            element: <OrganizationGeneral/>
-          },
-          {
-            path: '/team',
-            element: <OrganizationTeam/>
-          },
-          {
-            path: '/billing',
-            element: <OrganizationBilling/>
           }
         ]
       },

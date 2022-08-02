@@ -122,24 +122,6 @@ const items = [
         ]
     },
     {
-        icon: OfficeBuildingIcon,
-        title: 'Organization',
-        items: [
-            {
-                href: '/organization',
-                title: 'General Settings'
-            },
-            {
-                href: '/organization/team',
-                title: 'Team'
-            },
-            {
-                href: '/organization/billing',
-                title: 'Billing'
-            }
-        ]
-    },
-    {
         icon: ImportContacts,
         title: 'Import Data',
         href: '/import',

@@ -20,6 +20,14 @@ const views = [
         value: 'all'
     },
     {
+        label: 'Enabled',
+        value: 'enabled'
+    },
+    {
+        label: 'Disabled',
+        value: 'disabled'
+    },
+    {
         label: 'Active',
         value: 'active'
     },

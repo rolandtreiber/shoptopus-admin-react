@@ -298,6 +298,7 @@ export const Banners = () => {
                         onPageChange={handlePageChange}
                         onSelect={handleSelect}
                         onSelectAll={handleSelectAll}
+                        onReload={() => fetchData().catch(console.error)}
                         onSortChange={handleSortChange}
                         page={controller.page + 1}
                         data={dataState.data ? dataState.data : []}
