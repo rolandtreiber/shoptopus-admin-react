@@ -152,7 +152,7 @@ export const DiscountRulesTable = (props) => {
                         color="inherit"
                         component={RouterLink}
                         sx={{display: 'block'}}
-                        to={"/dashboard/discount-rules/" + d.id}
+                        to={"/discount/rules/" + d.id}
                         underline="none"
                         variant="subtitle2"
                       >

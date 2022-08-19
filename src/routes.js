@@ -69,6 +69,8 @@ const VoucherCode = Loadable(lazy(() => import('./containers/voucher-code').then
 
 
 const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({default: module.DiscountRules}))));
+const DiscountRule = Loadable(lazy(() => import('./containers/discount-rule').then((module) => ({default: module.DiscountRule}))));
+
 const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({default: module.DeliveryTypes}))));
 const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({default: module.Transactions}))));
 const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({default: module.Ratings}))));
@@ -253,7 +255,16 @@ const routes = [
           },
           {
             path: 'rules',
-            element: <DiscountRules/>
+            children: [
+              {
+                path: '/',
+                element: <DiscountRules/>
+              },
+              {
+                path: ':discountRuleId',
+                element: <DiscountRule/>
+              }
+            ]
           },
         ]
       },

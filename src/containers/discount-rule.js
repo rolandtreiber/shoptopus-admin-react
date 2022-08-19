@@ -12,21 +12,20 @@ import {SettingsContext} from "../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
-import {getUrlFilters} from "../utils/apply-filters";
 
-export const VoucherCode = () => {
+export const DiscountRule = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const {language, appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
-  const {fetchVoucherCode} = useContext(APIContext)
-  const {voucherCodeId} = useParams()
+  const {fetchDiscountRule} = useContext(APIContext)
+  const {discountRuleId} = useParams()
 
   const fetchData = useCallback(async () => {
     setData(() => ({ isLoading: true }));
 
     try {
-      const result = await fetchVoucherCode(voucherCodeId)
+      const result = await fetchDiscountRule(discountRuleId)
 
       if (mounted.current) {
         setData(() => ({
@@ -47,13 +46,13 @@ export const VoucherCode = () => {
   }, []);
 
   useEffect(() => {
-      fetchData().catch(e => console.log(e.message))
+    fetchData().catch(e => console.log(e.message))
   }, [])
 
   return (
     <>
       <Helmet>
-        <title>Voucher Code: List | {appName}</title>
+        <title>Discount Rule: List | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -75,10 +74,10 @@ export const VoucherCode = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/discount/voucher-codes"
+                to="/discount/rules"
                 variant="text"
               >
-                Voucher Codes
+                Discount Rules
               </Button>
             </Box>
             <Box
@@ -91,7 +90,7 @@ export const VoucherCode = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Voucher Code
+                Discount Rule
               </Typography>
               <Box sx={{flexGrow: 1}}/>
               <Button
