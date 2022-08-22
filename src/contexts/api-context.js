@@ -235,6 +235,7 @@ const APIProvider = ({children}) => {
 
       // Ratings
       fetchRatings: async (params) => await get(admin_api_url + "ratings", params, makeHeaders()),
+      fetchRating: async (ratingId) => await get(admin_api_url + "rating/"+ratingId,{} , makeHeaders()),
       saveRating: async (params) => await post(admin_api_url + "rating", params, makeHeaders()),
       deleteRating: async (ratingId) => await del(admin_api_url + "rating/" + ratingId, {}, makeHeaders()),
 

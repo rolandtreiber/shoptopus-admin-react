@@ -62,7 +62,6 @@ const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then
 const ProductCategorySummary = Loadable(lazy(() => import('./containers/product-category-summary').then((module) => ({default: module.ProductCategorySummary}))));
 const ProductAttributeSummary = Loadable(lazy(() => import('./containers/product-attribute-summary').then((module) => ({default: module.ProductAttributeSummary}))));
 const ProductTagSummary = Loadable(lazy(() => import('./containers/product-tag-summary').then((module) => ({default: module.ProductTagSummary}))));
-const DeliveryTypeSummary = Loadable(lazy(() => import('./containers/delivery-type-summary').then((module) => ({default: module.DeliveryTypeSummary}))));
 
 const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({default: module.VoucherCodes}))));
 const VoucherCode = Loadable(lazy(() => import('./containers/voucher-code').then((module) => ({default: module.VoucherCode}))));
@@ -72,10 +71,19 @@ const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').
 const DiscountRule = Loadable(lazy(() => import('./containers/discount-rule').then((module) => ({default: module.DiscountRule}))));
 
 const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({default: module.DeliveryTypes}))));
+const DeliveryType = Loadable(lazy(() => import('./containers/delivery-type').then((module) => ({default: module.DeliveryType}))));
+
 const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({default: module.Transactions}))));
+const Transaction = Loadable(lazy(() => import('./containers/transaction').then((module) => ({default: module.Transaction}))));
+
 const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({default: module.Ratings}))));
+const Rating = Loadable(lazy(() => import('./containers/rating').then((module) => ({default: module.Rating}))));
+
 const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({default: module.Banners}))));
+const Banner = Loadable(lazy(() => import('./containers/banner').then((module) => ({default: module.Banner}))));
+
 const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({default: module.Files}))));
+const FileContent = Loadable(lazy(() => import('./containers/file').then((module) => ({default: module.FileContent}))));
 
 const Reports = Loadable(lazy(() => import('./containers/reports').then((module) => ({default: module.Reports}))));
 const Notifications = Loadable(lazy(() => import('./containers/notifications').then((module) => ({default: module.Notifications}))));
@@ -158,28 +166,64 @@ const routes = [
           },
           {
             path: ':deliveryTypeId',
-            element: <DeliveryTypeSummary/>
+            element: <DeliveryType/>
           }
         ]
       },
       {
         path: 'transactions',
-        element: <Transactions/>
+        children: [
+          {
+            path: '/',
+            element: <Transactions/>
+          },
+          {
+            path: ':transactionId',
+            element: <Transaction/>
+          }
+        ]
       },
       {
         path: 'ratings',
-        element: <Ratings/>
+        children: [
+          {
+            path: '/',
+            element: <Ratings/>
+          },
+          {
+            path: ':ratingId',
+            element: <Rating/>
+          }
+        ]
       },
       {
         path: 'content',
         children: [
           {
             path: 'banners',
-            element: <Banners/>
+            children: [
+              {
+                path: '/',
+                element: <Banners/>
+              },
+              {
+                path: ':bannerId',
+                element: <Banner/>
+              }
+            ]
           },
           {
             path: 'files',
-            element: <Files/>
+            children: [
+              {
+                path: '/',
+                element: <Files/>
+              },
+              {
+                path: ':fileId',
+                element: <FileContent/>
+              }
+            ]
           }
         ]
       },

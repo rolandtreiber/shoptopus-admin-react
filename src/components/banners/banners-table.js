@@ -157,7 +157,7 @@ export const BannersTable = (props) => {
                       color="inherit"
                       component={RouterLink}
                       sx={{display: 'block'}}
-                      to={"/dashboard/transactions/" + d.id}
+                      to={"/content/banners/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >

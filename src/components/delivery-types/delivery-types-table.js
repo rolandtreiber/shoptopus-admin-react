@@ -155,7 +155,7 @@ export const DeliveryTypesTable = (props) => {
                     color="inherit"
                     component={RouterLink}
                     sx={{display: 'block'}}
-                    to={"/dashboard/delivery-types/" + d.id}
+                    to={"/delivery-types/" + d.id}
                     underline="none"
                     variant="subtitle2"
                   >

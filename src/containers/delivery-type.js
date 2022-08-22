@@ -8,11 +8,10 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {SettingsContext} from "../contexts/settings-context";
-import {ProductTagInfo} from "../components/product-tags/product-tag-info";
 import {DeliveryTypeEditDialog} from "../components/delivery-types/delivery-type-edit-dialog";
 import {DeliveryTypeInfo} from "../components/delivery-types/delivery-type-info";
 
-export const DeliveryTypeSummary = () => {
+export const DeliveryType = () => {
   const mounted = useMounted();
   const [data, setData] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);

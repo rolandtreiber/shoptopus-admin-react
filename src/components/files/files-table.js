@@ -181,7 +181,7 @@ export const FilesTable = (props) => {
                       color="inherit"
                       component={RouterLink}
                       sx={{display: 'block'}}
-                      to={"/dashboard/transactions/" + d.id}
+                      to={"/content/files/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >
