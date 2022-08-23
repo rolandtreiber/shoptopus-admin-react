@@ -1,0 +1,37 @@
+[
+  {
+    "color": "info.main",
+    "label": "Awaiting Payment",
+    "value": 1
+  },
+  {
+    "color": "info.main",
+    "label": "Paid",
+    "value": 2
+  },
+  {
+    "color": "warning.main",
+    "label": "Processing",
+    "value": 3
+  },
+  {
+    "color": "info.main",
+    "label": "In Transit",
+    "value": 4
+  },
+  {
+    "color": "success.main",
+    "label": "Completed",
+    "value": 5
+  },
+  {
+    "color": "warning.main",
+    "label": "On Hold",
+    "value": 6
+  },
+  {
+    "color": "error.main",
+    "label": "Cancelled",
+    "value": 7
+  }
+]

@@ -13,6 +13,7 @@ import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
 import {getUrlFilters} from "../utils/apply-filters";
+import VoucherCodeDetails from "../components/voucher-codes/voucher-code-details";
 
 export const VoucherCode = () => {
   const mounted = useMounted();
@@ -104,7 +105,7 @@ export const VoucherCode = () => {
                 Edit
               </Button>
             </Box>
-            <div>{JSON.stringify(data)}</div>
+            {data.data && <VoucherCodeDetails voucherCode={data.data}/>}
           </Box>
         </Container>
       </Box>

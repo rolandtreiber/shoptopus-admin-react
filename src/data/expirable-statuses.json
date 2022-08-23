@@ -1,0 +1,14 @@
+{
+  "0": {
+    "name": "Disabled"
+  },
+  "1": {
+    "name": "Valid"
+  },
+  "2": {
+    "name": "Not yet started"
+  },
+  "3": {
+    "name": "Expired"
+  }
+}
