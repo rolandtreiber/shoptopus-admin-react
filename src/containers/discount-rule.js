@@ -12,6 +12,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
+import DiscountRuleDetails from "../components/discount-rules/discount-rule-details";
 
 export const DiscountRule = () => {
   const mounted = useMounted();
@@ -103,7 +104,7 @@ export const DiscountRule = () => {
                 Edit
               </Button>
             </Box>
-            <div>{JSON.stringify(data)}</div>
+            {data.data && <DiscountRuleDetails discountRule={data.data}/>}
           </Box>
         </Container>
       </Box>
