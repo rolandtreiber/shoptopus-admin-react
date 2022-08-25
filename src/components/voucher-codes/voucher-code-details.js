@@ -35,6 +35,7 @@ const VoucherCodeDetails = ({voucherCode}) => {
           <Grid
             item
             xs={12}
+            marginTop={2}
           >
             <Card
               variant="outlined"
@@ -86,6 +87,7 @@ const VoucherCodeDetails = ({voucherCode}) => {
           <Grid
             item
             xs={12}
+            marginTop={2}
           >
             <Card
               variant="outlined"

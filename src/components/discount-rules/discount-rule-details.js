@@ -36,6 +36,7 @@ const DiscountRuleDetails = ({discountRule}) => {
           <Grid
             item
             xs={12}
+            marginTop={2}
           >
             <Card
               variant="outlined"
@@ -65,7 +66,6 @@ const DiscountRuleDetails = ({discountRule}) => {
                   </ListItem>
                   <PropertyListItem label="Rule" value={discountRule.amount+" off"}/>
                   <PropertyListItem label="Valid" value={format(new Date(discountRule.valid_from), 'dd MMM yyyy HH:mm')+" - "+format(new Date(discountRule.valid_until), 'dd MMM yyyy HH:mm')}/>
-                  {/*<PropertyListItem label="Status" value={expirableStatuses[discountRule.status].name}/>*/}
                 </List>
               </Box>
             </Card>
@@ -79,6 +79,7 @@ const DiscountRuleDetails = ({discountRule}) => {
           <Grid
             item
             xs={12}
+            marginTop={2}
           >
             <Card
               variant="outlined"
