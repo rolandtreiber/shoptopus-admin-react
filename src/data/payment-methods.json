@@ -1,0 +1,17 @@
+{
+  "1": {
+    "name": "Stripe"
+  },
+  "2": {
+    "name": "PayPal"
+  },
+  "3": {
+    "name": "GooglePay"
+  },
+  "4": {
+    "name": "ApplePay"
+  },
+  "5": {
+    "name": "AmazonPay"
+  }
+}

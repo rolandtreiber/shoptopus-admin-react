@@ -13,6 +13,7 @@ import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
 import {getUrlFilters} from "../utils/apply-filters";
+import TransactionDetails from "../components/transactions/transaction-details";
 
 export const Transaction = () => {
   const mounted = useMounted();
@@ -104,7 +105,7 @@ export const Transaction = () => {
                 Edit
               </Button>
             </Box>
-            <div>{JSON.stringify(data)}</div>
+            {data.data && <TransactionDetails transaction={data.data}/>}
           </Box>
         </Container>
       </Box>
