@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
 import { Box, Container, Divider, Tab, Tabs, Typography } from '@material-ui/core';
 import gtm from '../lib/gtm';
-
+import LocationFinder from "../components/maps/locationfinder";
 
 const tabs = [
   {
@@ -17,6 +17,11 @@ const tabs = [
 
 export const Dashboard = () => {
   const location = useLocation();
+  // const [loc, setLoc] = useState({
+  //   lat: 51.45,
+  //   lng: -2.58,
+  //   radius: 2
+  // })
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
@@ -43,6 +48,11 @@ export const Dashboard = () => {
             >
               Welcome
             </Typography>
+            {/*<LocationFinder location={loc}*/}
+            {/*                markers={[]}*/}
+            {/*                updateLocation={(data) => setLoc(data)}*/}
+            {/*                width={'100%'}*/}
+            {/*                height={530}/>*/}
           </Box>
           <Tabs
             allowScrollButtonsMobile

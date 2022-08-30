@@ -17,7 +17,8 @@ const initialSettings = {
     side: "left",
     symbol: "£"
   },
-  app_name: 'Shoptopus'
+  app_name: 'Shoptopus',
+  google_maps_api_key: null
 };
 
 export const restoreSettings = () => {
@@ -77,7 +78,8 @@ export const SettingsProvider = (props) => {
       const result = await getAppMetaInformation()
       return {
         available_locales: result.data.data.locales,
-        currency: result.data.data.default_currency
+        currency: result.data.data.default_currency,
+        google_maps_api_key: result.data.data.google_maps_api_key
       }
     } catch (e) {console.log(e)}
   }, [])
@@ -109,6 +111,7 @@ export const SettingsProvider = (props) => {
 
   useEffect(() => {
     getMergedSettings().then(r => {
+      // console.log(r)
       setSettings(r)
     })
   }, []);
