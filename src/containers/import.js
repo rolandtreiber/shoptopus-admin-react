@@ -208,12 +208,14 @@ export const Import = () => {
                       {row.data.map(item => (
                         <TableCell sx={{backgroundColor: item.errors ? "rgba(117, 21, 21,0.3)" : "rgba(40, 117, 21, 0.3)"}} key={Math.random()} align="left">
                           {item.raw_value}
-                          {item.errors && (
+                          {item.errors && item.errors instanceof Array ? (
                             <ul>
-                              {item.errors.map(error =>
+                              {item.errors && item.errors.map(error =>
                                 <li>{error}</li>
                               )}
                             </ul>
+                          ) : (
+                              <p>{item.errors}</p>
                           )}
                         </TableCell>
                       ))}
