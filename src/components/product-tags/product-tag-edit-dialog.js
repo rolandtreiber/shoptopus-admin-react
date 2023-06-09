@@ -31,7 +31,7 @@ export const ProductTagEditDialog = (props) => {
     setImages().catch(e => {
       console.log(e.message)
     })
-  }, [])
+  }, [initialValues])
 
   const setImages = async () => {
     setBadge(initialValues.badge ? initialValues.badge : null)

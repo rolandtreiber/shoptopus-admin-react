@@ -39,7 +39,7 @@ export const ProductDialog = (props) => {
 
   const getFileBlobs = async (files) => {
     return await Promise.all(files.map(async (file) => {
-      return await fetch(file).then(r => r.blob())
+      return await fetch(file, { mode: 'no-cors'}).then(r => r.blob())
     }));
   }
 
@@ -109,10 +109,9 @@ export const ProductDialog = (props) => {
 
         categories.map(category => formData.append('product_categories[]', category))
         tags.map(tag => formData.append('product_tags[]', tag))
-
         if (product) {
           isValid && updateProduct(product.id, formData).then(response => {
-            toast.success('Product created');
+            toast.success('Product updated');
             helpers.setStatus({success: true});
             helpers.setSubmitting(false);
             helpers.resetForm();

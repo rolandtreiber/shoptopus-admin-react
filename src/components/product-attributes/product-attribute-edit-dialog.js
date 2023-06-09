@@ -34,7 +34,7 @@ export const ProductAttributeEditDialog = (props) => {
     setImages().catch(e => {
       console.log(e.message)
     })
-  }, [])
+  }, [initialValues])
 
   const setImages = async () => {
     setImage(initialValues.image ? initialValues.image : null)

@@ -96,7 +96,7 @@ export const ProductAttributeOptions = (props) => {
     setOptions(optionsProp);
   }, [optionsProp]);
 
-  const handleEditVariant = (option) => {
+  const handleEditOption = (option) => {
     setSelectedOption(option);
     handleOpenOptionDialog();
   }
@@ -142,7 +142,7 @@ export const ProductAttributeOptions = (props) => {
         <Scrollbar>
           <ProductAttributeOptionsTable
             data={options.data ? options.data : []}
-            onEdit={handleEditVariant}
+            onEdit={handleEditOption}
             onDelete={handleConfirmDeleteOption}
             page={controller.page + 1}
             pagesCount={options.paginationMeta ? options.paginationMeta.last_page : null}
@@ -163,6 +163,7 @@ export const ProductAttributeOptions = (props) => {
         onoptionsChange={getProductAttributeOptions}
         onSuccess={getProductAttributeOptions}
         productAttributeId={productId}
+        productAttributeOptionId={selectedOption ? selectedOption.id : null}
         open={optionDialogOpen}
         initialValues={selectedOption}
       />

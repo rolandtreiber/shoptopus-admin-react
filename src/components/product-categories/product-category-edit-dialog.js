@@ -38,7 +38,7 @@ export const ProductCategoryEditDialog = (props) => {
     setImages().catch(e => {
       console.log(e.message)
     })
-  }, [])
+  }, [initialValues])
 
   const setImages = async () => {
     setMenuImage(initialValues.menu_image ? initialValues.menu_image : null)

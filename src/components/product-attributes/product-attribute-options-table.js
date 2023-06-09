@@ -154,7 +154,7 @@ export const ProductAttributeOptionsTable = (props) => {
                         display: 'flex'
                       }}
                     >
-                      {option.common_value}
+                      {option.value}
                     </Box>
                   </TableCell>
                   <TableCell>

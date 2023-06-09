@@ -161,8 +161,8 @@ const APIProvider = ({children}) => {
 
       // Product Attribute Options
       fetchProductAttributeOptions: async (attributeId, params) => await get(admin_api_url + "product-attribute/" + attributeId + "/options", params, makeHeaders()),
-      saveProductAttributeOption: async (attributeId, params) => await post(admin_api_url + "product-attribute" + attributeId + "/option", params, makeHeaders()),
-      updateProductAttributeOption: async (attributeId, attributeOptionId, params) => await put(admin_api_url + "product-attribute/" + attributeId + "/option/" + attributeOptionId, params, makeHeaders()),
+      saveProductAttributeOption: async (attributeId, params) => await post(admin_api_url + "product-attribute/" + attributeId + "/option", params, makeHeaders()),
+      updateProductAttributeOption: async (attributeId, attributeOptionId, params) => await patch(admin_api_url + "product-attribute/" + attributeId + "/option/" + attributeOptionId, params, makeHeaders()),
       deleteProductAttributeOption: async (attributeId, attributeOptionId) => await del(admin_api_url + "product-attribute/" + attributeId + "/option/" + attributeOptionId, {}, makeHeaders()),
 
       // Product Tags

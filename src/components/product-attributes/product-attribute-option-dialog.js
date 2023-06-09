@@ -17,6 +17,7 @@ import {useNestedValidation} from "../../hooks/use-nested-validation";
 import {getFileFromBlob} from "../../utils/file-operations";
 import MultilangTextInput from "../multilang-text-input";
 import {Uploader} from "../uploader";
+import {InputField} from "../input-field";
 
 export const ProductAttributeOptionDialog = (props) => {
   const {productAttributeId, productAttributeOptionId, open, onClose, onSuccess, initialValues, ...other} = props;
@@ -43,7 +44,7 @@ export const ProductAttributeOptionDialog = (props) => {
           formData.append("image", getFileFromBlob(imageBlob))
         }
         formData.append("name", JSON.stringify(name))
-        formData.append("common_value", formik.values.commonValue)
+        formData.append("value", formik.values.commonValue)
         formData.append("enabled", formik.values.enabled)
 
         if (initialValues) {
@@ -83,7 +84,7 @@ export const ProductAttributeOptionDialog = (props) => {
       setEnabled(initialValues.enabled ? initialValues.enabled : true)
 
       formik.values.name = initialValues.name
-      formik.values.commonValue = initialValues.common_value
+      formik.values.commonValue = initialValues.value
       formik.values.enabled = initialValues.enabled
     }
   }, [initialValues])
@@ -118,16 +119,18 @@ export const ProductAttributeOptionDialog = (props) => {
           />
         </Grid>
         <Grid container spacing={2} mt={1}>
-          <MultilangTextInput
-            value={commonValue}
-            width={12}
-            title={"Value"}
-            field={"common_value"}
-            onChange={setCommonValue}
-            showErrors={showErrors}
-            setValid={(valid) => {
-              setValidation({name: valid})
-            }}
+          <InputField
+              error={Boolean(formik.touched.commonValue && formik.errors.commonValue)}
+              fullWidth
+              helperText={formik.touched.sku && formik.errors.sku}
+              label="Value"
+              name="value"
+              onBlur={formik.handleBlur}
+              onChange={event => {
+                formik.setFieldValue("commonValue", event.currentTarget.value)
+              }}
+              value={formik.values.commonValue}
+              type={"text"}
           />
         </Grid>
         <Grid item xs={12} mt={1}>
