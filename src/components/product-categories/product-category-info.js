@@ -34,15 +34,6 @@ export const ProductCategoryInfo = (props) => {
       {...other}
     >
       <CardHeader
-        action={(
-          <Button
-            color="primary"
-            onClick={onEdit}
-            variant="text"
-          >
-            Edit
-          </Button>
-        )}
         title="General Information"
       />
       <Divider />

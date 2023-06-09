@@ -15,6 +15,7 @@ import {APIContext} from "../contexts/api-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import VoucherCodeDetails from "../components/voucher-codes/voucher-code-details";
 import {VoucherCodeDialog} from "../components/voucher-codes/voucher-code-dialog";
+import {useLanguage} from "../hooks/use-language";
 
 export const VoucherCode = () => {
   const mounted = useMounted();
@@ -23,6 +24,7 @@ export const VoucherCode = () => {
   const [data, setData] = useState({ isLoading: true })
   const {fetchVoucherCode} = useContext(APIContext)
   const {voucherCodeId} = useParams()
+  const {getLang} = useLanguage()
 
   const onSuccess = () => {
     fetchData().catch(e => console.log(e.message))
@@ -59,7 +61,7 @@ export const VoucherCode = () => {
   return (
     <>
       <Helmet>
-        <title>Voucher Code: List | {appName}</title>
+        <title>Voucher Code | {appName}</title>
       </Helmet>
       <Box
         sx={{

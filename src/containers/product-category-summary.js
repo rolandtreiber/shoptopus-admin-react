@@ -1,24 +1,28 @@
-import {useState, useEffect, useCallback, useContext} from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Box, Grid } from '@material-ui/core';
-import { ResourceError } from '../components/resource-error';
-import { ResourceLoading } from '../components/resource-loading';
-import { useMounted } from '../hooks/use-mounted';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
+import {Helmet} from 'react-helmet-async';
+import {Box, Button, Container, Grid, Typography} from '@material-ui/core';
+import {ResourceError} from '../components/resource-error';
+import {ResourceLoading} from '../components/resource-loading';
+import {useMounted} from '../hooks/use-mounted';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
-import {useParams} from "react-router-dom";
+import {Link as RouterLink, useParams} from "react-router-dom";
 import {ProductCategoryInfo} from "../components/product-categories/product-category-info";
 import {ProductCategoryEditDialog} from "../components/product-categories/product-category-edit-dialog";
+import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
+import {Pencil as PencilIcon} from "../icons/pencil";
+import {SettingsContext} from "../contexts/settings-context";
 
 export const ProductCategorySummary = () => {
   const mounted = useMounted();
-  const [data, setData] = useState({ isLoading: true });
-  const [openInfoDialog, setOpenInfoDialog] = useState(false);
+  const [data, setData] = useState({isLoading: true});
+  const {language, appName} = useContext(SettingsContext)
   const {fetchProductCategory} = useContext(APIContext)
   const {productCategoryId} = useParams();
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const getData = useCallback(async () => {
-    setData(() => ({ isLoading: true }));
+    setData(() => ({isLoading: true}));
 
     try {
       const {data: {data}} = await fetchProductCategory(productCategoryId)
@@ -47,61 +51,87 @@ export const ProductCategorySummary = () => {
   }, []);
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({event: 'page_view'});
   }, []);
 
   const renderContent = () => {
     if (data.isLoading) {
-      return <ResourceLoading />;
+      return <ResourceLoading/>;
     }
 
     if (data.error) {
-      return <ResourceError />;
+      return <ResourceError/>;
     }
 
     return (
       <>
-        <Grid container spacing={3}>
-          <Grid container item lg={8}
-            spacing={3}
+        <Helmet>
+          <title>Product Category | {appName}</title>
+        </Helmet>
+        <Box
+          sx={{
+            backgroundColor: 'background.default',
+            flexGrow: 1
+          }}
+        >
+          <Container
+            maxWidth="lg"
             sx={{
-              height: 'fit-content',
-              order: {
-                md: 2,
-                xs: 1
-              }
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%'
             }}
-            xs={12}
           >
-            <Grid
-              item
-              xs={12}
-            >
+            <Box sx={{py: 4}}>
+              <Box sx={{mb: 2}}>
+                <Button
+                  color="primary"
+                  component={RouterLink}
+                  startIcon={<ArrowLeftIcon/>}
+                  to="/product-categories"
+                  variant="text"
+                >
+                  Product Categories
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                  alignItems: 'center',
+                  display: 'flex',
+                  marginBottom: 2
+                }}
+              >
+                <Typography
+                  color="textPrimary"
+                  variant="h4"
+                >
+                  Product Category
+                </Typography>
+                <Box sx={{flexGrow: 1}}/>
+                <Button
+                  color="primary"
+                  onClick={() => setOpenEditDialog(true)}
+                  size="large"
+                  startIcon={<PencilIcon fontSize="small"/>}
+                  variant="contained"
+                >
+                  Edit
+                </Button>
+              </Box>
+
               <ProductCategoryInfo
-                onEdit={() => setOpenInfoDialog(true)}
+                onEdit={() => setOpenEditDialog(true)}
                 data={data.data}
               />
-            </Grid>
-          </Grid>
-          <Grid container item lg={4}
-            spacing={3}
-            sx={{
-              height: 'fit-content',
-              order: {
-                md: 2,
-                xs: 1
-              }
-            }}
-            xs={12}
-          >
-          </Grid>
-        </Grid>
-        <ProductCategoryEditDialog
-          onClose={() => setOpenInfoDialog(false)}
-          open={openInfoDialog}
-          onSuccess={() => getData()}
-          initialValues={data.data}
-        />
+            </Box>
+          </Container>
+          <ProductCategoryEditDialog
+            onClose={() => setOpenEditDialog(false)}
+            open={openEditDialog}
+            onSuccess={() => getData()}
+            initialValues={data.data}
+          />
+        </Box>
       </>
     );
   };
