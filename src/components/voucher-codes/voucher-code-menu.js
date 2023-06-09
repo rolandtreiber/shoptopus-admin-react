@@ -5,6 +5,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {DialogContext} from "../../contexts/dialog-context";
+import {VoucherCodeDialog} from "./voucher-code-dialog";
 
 export const VoucherCodeMenu = (props) => {
   const mounted = useMounted();
@@ -67,7 +68,7 @@ export const VoucherCodeMenu = (props) => {
     showGenericDialog(true)
   };
 
-  const getProductAttribute = useCallback(async () => {
+  const getVoucherCode = useCallback(async () => {
     if (id) {
       try {
         const result = await fetchVoucherCode(id)
@@ -83,9 +84,9 @@ export const VoucherCodeMenu = (props) => {
 
   const handleEdit = () => {
     handleClose();
-    // getProductAttribute().then(() => {
-    //   setOpenEditDialog(true)
-    // }).catch(e => console.log(e))
+    getVoucherCode().then(() => {
+      setOpenEditDialog(true)
+    }).catch(e => console.log(e))
   };
 
   return (
@@ -119,12 +120,12 @@ export const VoucherCodeMenu = (props) => {
           Delete
         </MenuItem>
       </Menu>
-      {/*{productAttributeState && <ProductAttributeEditDialog*/}
-      {/*  onClose={() => setOpenEditDialog(false)}*/}
-      {/*  open={openEditDialog}*/}
-      {/*  onSuccess={onSuccess}*/}
-      {/*  initialValues={productAttributeState}*/}
-      {/*/>}*/}
+      {entityState && <VoucherCodeDialog
+        onClose={() => setOpenEditDialog(false)}
+        open={openEditDialog}
+        onSuccess={onSuccess}
+        initialValues={entityState}
+      />}
     </>
   );
 };

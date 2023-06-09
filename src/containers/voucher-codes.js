@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
-import { VoucherCodeCreateDialog } from '../components/voucher-codes/voucher-code-create-dialog';
+import { VoucherCodeDialog } from '../components/voucher-codes/voucher-code-dialog';
 import { VoucherCodesTable } from '../components/voucher-codes/voucher-codes-table';
 import { useMounted } from '../hooks/use-mounted';
 import { useSelection } from '../hooks/use-selection';
@@ -409,7 +409,7 @@ export const VoucherCodes = () => {
                     </Card>
                 </Container>
             </Box>
-            <VoucherCodeCreateDialog
+            <VoucherCodeDialog
                 onClose={() => setOpenCreateDialog(false)}
                 open={openCreateDialog}
                 onSuccess={() => fetchData().catch(console.error)}

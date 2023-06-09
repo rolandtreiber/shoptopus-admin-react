@@ -15,19 +15,30 @@ import {
 } from '@material-ui/core';
 import {InputField} from '../input-field';
 import {DateTimePicker} from "@material-ui/lab";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {format} from "date-fns";
 import MultilangTextInput from "../multilang-text-input";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 
-export const DiscountRuleCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
+export const DiscountRuleDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
   const plusOneMonth = new Date().setMonth(new Date().getMonth() + 1);
-  const {saveDiscountRule} = useContext(APIContext)
+  const {saveDiscountRule, updateDiscountRule} = useContext(APIContext)
   const [name, setName] = useState()
   const [showErrors, setShowErrors] = useState(false)
   const {setValidation, isValid} = useNestedValidation()
+
+  useEffect(() => {
+    if (initialValues) {
+      formik.values.name = initialValues.name
+      formik.values.type = initialValues.type.toString()
+      formik.values.amount = initialValues.value
+      formik.values.validFrom = new Date(initialValues.valid_from)
+      formik.values.validUntil = new Date(initialValues.valid_until)
+      formik.values.enabled = initialValues.enabled
+    }
+  }, [initialValues])
 
   const formik = useFormik({
     initialValues: {
@@ -44,21 +55,39 @@ export const DiscountRuleCreateDialog = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        isValid && saveDiscountRule({
-          name: JSON.stringify(name),
-          amount: formik.values.amount,
-          valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
-          valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
-          enabled: formik.values.enabled,
-          type: formik.values.type
-        }).then(response => {
-          toast.success('Discount Rule Created');
-          helpers.setStatus({success: true});
-          helpers.setSubmitting(false);
-          helpers.resetForm();
-          onSuccess();
-          onClose?.();
-        })
+        if (initialValues?.id) {
+          isValid && updateDiscountRule(initialValues.id, {
+            name: JSON.stringify(name),
+            amount: formik.values.amount,
+            valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+            valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+            enabled: formik.values.enabled,
+            type: formik.values.type
+          }).then(response => {
+            toast.success('Discount Rule Updated');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        } else {
+          isValid && saveDiscountRule({
+            name: JSON.stringify(name),
+            amount: formik.values.amount,
+            valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+            valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+            enabled: formik.values.enabled,
+            type: formik.values.type
+          }).then(response => {
+            toast.success('Discount Rule Created');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        }
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -78,7 +107,7 @@ export const DiscountRuleCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Discount Rule
+        {initialValues ? 'Update' : 'Create'} Discount Rule
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -87,6 +116,7 @@ export const DiscountRuleCreateDialog = (props) => {
             title={"Name"}
             field={"name"}
             onChange={setName}
+            value={formik.values.name}
             showErrors={showErrors}
             setValid={(valid) => {setValidation({name : valid})}}
           />
@@ -126,8 +156,8 @@ export const DiscountRuleCreateDialog = (props) => {
                             formik.setFieldValue("type", event.currentTarget.value.toString());
                           }}
               >
-                <FormControlLabel value={"1"} control={<Radio/>} label="Fix amount"/>
-                <FormControlLabel value={"0"} control={<Radio/>} label="Percentage"/>
+                <FormControlLabel value={"2"} control={<Radio/>} label="Fix amount"/>
+                <FormControlLabel value={"1"} control={<Radio/>} label="Percentage"/>
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -190,18 +220,18 @@ export const DiscountRuleCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Discount Rule
+          {initialValues ? 'Update' : 'Create'} Discount Rule
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-DiscountRuleCreateDialog.defaultProps = {
+DiscountRuleDialog.defaultProps = {
   open: false
 };
 
-DiscountRuleCreateDialog.propTypes = {
+DiscountRuleDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

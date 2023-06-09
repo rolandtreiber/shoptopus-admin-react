@@ -15,14 +15,24 @@ import {
 } from '@material-ui/core';
 import {InputField} from '../input-field';
 import {DateTimePicker} from "@material-ui/lab";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {format} from "date-fns";
 
-export const VoucherCodeCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
+export const VoucherCodeDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
   const plusOneMonth = new Date().setMonth(new Date().getMonth()+1);
-  const { saveVoucherCode } = useContext(APIContext)
+  const { saveVoucherCode, updateVoucherCode } = useContext(APIContext)
+
+  useEffect(() => {
+    if (initialValues) {
+      formik.values.type = initialValues.type.toString()
+      formik.values.amount = initialValues.amount
+      formik.values.validFrom = new Date(initialValues.valid_from)
+      formik.values.validUntil = new Date(initialValues.valid_until)
+      formik.values.enabled = initialValues.enabled
+    }
+  }, [initialValues])
 
   const formik = useFormik({
     initialValues: {
@@ -39,20 +49,37 @@ export const VoucherCodeCreateDialog = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        saveVoucherCode({
-          amount: formik.values.amount,
-          valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
-          valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
-          enabled: formik.values.enabled,
-          type: formik.values.type
-        }).then(response => {
-          toast.success('Voucher Code Created');
-          helpers.setStatus({success: true});
-          helpers.setSubmitting(false);
-          helpers.resetForm();
-          onSuccess();
-          onClose?.();
-        })
+        if (initialValues?.id) {
+          updateVoucherCode(initialValues.id, {
+            amount: formik.values.amount,
+            valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+            valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+            enabled: formik.values.enabled,
+            type: formik.values.type
+          }).then(response => {
+            toast.success('Voucher Code Updated');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        } else {
+          saveVoucherCode({
+            amount: formik.values.amount,
+            valid_from: format(formik.values.validFrom, 'yyyy/MM/dd HH:mm'),
+            valid_until: format(formik.values.validUntil, 'yyyy/MM/dd HH:mm'),
+            enabled: formik.values.enabled,
+            type: formik.values.type
+          }).then(response => {
+            toast.success('Voucher Code Created');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            onSuccess();
+            onClose?.();
+          })
+        }
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -72,7 +99,7 @@ export const VoucherCodeCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Voucher Code
+        {initialValues ? 'Update' : 'Create'} Voucher Code
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -110,8 +137,8 @@ export const VoucherCodeCreateDialog = (props) => {
                             formik.setFieldValue("type", event.currentTarget.value.toString());
                           }}
               >
-                <FormControlLabel value={"1"} control={<Radio/>} label="Fix amount"/>
-                <FormControlLabel value={"0"} control={<Radio/>} label="Percentage"/>
+                <FormControlLabel value={"2"} control={<Radio/>} label="Fix amount"/>
+                <FormControlLabel value={"1"} control={<Radio/>} label="Percentage"/>
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -173,18 +200,18 @@ export const VoucherCodeCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Voucher Code
+          {initialValues ? 'Update' : 'Create'} Voucher Code
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-VoucherCodeCreateDialog.defaultProps = {
+VoucherCodeDialog.defaultProps = {
   open: false
 };
 
-VoucherCodeCreateDialog.propTypes = {
+VoucherCodeDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

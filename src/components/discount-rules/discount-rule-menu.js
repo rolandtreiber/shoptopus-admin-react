@@ -5,6 +5,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {DialogContext} from "../../contexts/dialog-context";
+import {DiscountRuleDialog} from "./discount-rule-dialog";
 
 export const DiscountRuleMenu = (props) => {
   const mounted = useMounted();
@@ -83,9 +84,9 @@ export const DiscountRuleMenu = (props) => {
 
   const handleEdit = () => {
     handleClose();
-    // getProductAttribute().then(() => {
-    //   setOpenEditDialog(true)
-    // }).catch(e => console.log(e))
+    getDiscountRule().then(() => {
+      setOpenEditDialog(true)
+    }).catch(e => console.log(e))
   };
 
   return (
@@ -119,12 +120,12 @@ export const DiscountRuleMenu = (props) => {
           Delete
         </MenuItem>
       </Menu>
-      {/*{productAttributeState && <ProductAttributeEditDialog*/}
-      {/*  onClose={() => setOpenEditDialog(false)}*/}
-      {/*  open={openEditDialog}*/}
-      {/*  onSuccess={onSuccess}*/}
-      {/*  initialValues={productAttributeState}*/}
-      {/*/>}*/}
+      {entityState && <DiscountRuleDialog
+        onClose={() => setOpenEditDialog(false)}
+        open={openEditDialog}
+        onSuccess={onSuccess}
+        initialValues={entityState}
+      />}
     </>
   );
 };

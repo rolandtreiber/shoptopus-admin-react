@@ -10,7 +10,7 @@ import {SettingsContext} from "../contexts/settings-context";
 import {ListFilter} from "../components/list-filter";
 import {getUrlFilters} from "../utils/apply-filters";
 import {DiscountRulesTable} from "../components/discount-rules/discount-rules-table";
-import {DiscountRuleCreateDialog} from "../components/discount-rules/discount-rule-create-dialog";
+import {DiscountRuleDialog} from "../components/discount-rules/discount-rule-dialog";
 import {DialogContext} from "../contexts/dialog-context";
 import ExportButton from "../components/export-button";
 
@@ -409,7 +409,7 @@ export const DiscountRules = () => {
                   </Card>
               </Container>
           </Box>
-          <DiscountRuleCreateDialog
+          <DiscountRuleDialog
             onClose={() => setOpenCreateDialog(false)}
             open={openCreateDialog}
             onSuccess={() => fetchData().catch(console.error)}
