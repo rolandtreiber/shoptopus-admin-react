@@ -5,6 +5,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {DialogContext} from "../../contexts/dialog-context";
+import {DeliveryTypeDialog} from "./delivery-type-dialog";
 
 export const DeliveryTypeMenu = (props) => {
   const mounted = useMounted();
@@ -67,7 +68,7 @@ export const DeliveryTypeMenu = (props) => {
     showGenericDialog(true)
   };
 
-  const getDiscountRule = useCallback(async () => {
+  const getDeliveryType = useCallback(async () => {
     if (id) {
       try {
         const result = await fetchDeliveryType(id)
@@ -83,9 +84,9 @@ export const DeliveryTypeMenu = (props) => {
 
   const handleEdit = () => {
     handleClose();
-    // getProductAttribute().then(() => {
-    //   setOpenEditDialog(true)
-    // }).catch(e => console.log(e))
+    getDeliveryType().then(() => {
+      setOpenEditDialog(true)
+    }).catch(e => console.log(e))
   };
 
   return (
@@ -119,12 +120,12 @@ export const DeliveryTypeMenu = (props) => {
           Delete
         </MenuItem>
       </Menu>
-      {/*{productAttributeState && <ProductAttributeEditDialog*/}
-      {/*  onClose={() => setOpenEditDialog(false)}*/}
-      {/*  open={openEditDialog}*/}
-      {/*  onSuccess={onSuccess}*/}
-      {/*  initialValues={productAttributeState}*/}
-      {/*/>}*/}
+      {entityState && <DeliveryTypeDialog
+        onClose={() => setOpenEditDialog(false)}
+        open={openEditDialog}
+        onSuccess={onSuccess}
+        initialValues={entityState}
+      />}
     </>
   );
 };

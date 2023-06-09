@@ -7,12 +7,14 @@ import {
 } from '@material-ui/core';
 import {useMounted} from '../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
-import {Plus as PlusIcon} from "../icons/plus";
 import {SettingsContext} from "../contexts/settings-context";
+import {Pencil as PencilIcon} from "../icons/pencil";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
 import DiscountRuleDetails from "../components/discount-rules/discount-rule-details";
+import {VoucherCodeDialog} from "../components/voucher-codes/voucher-code-dialog";
+import {DiscountRuleDialog} from "../components/discount-rules/discount-rule-dialog";
 
 export const DiscountRule = () => {
   const mounted = useMounted();
@@ -21,6 +23,10 @@ export const DiscountRule = () => {
   const [data, setData] = useState({ isLoading: true })
   const {fetchDiscountRule} = useContext(APIContext)
   const {discountRuleId} = useParams()
+
+  const onSuccess = () => {
+    fetchData().catch(e => console.log(e.message))
+  }
 
   const fetchData = useCallback(async () => {
     setData(() => ({ isLoading: true }));
@@ -98,7 +104,7 @@ export const DiscountRule = () => {
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
+                startIcon={<PencilIcon fontSize="small"/>}
                 variant="contained"
               >
                 Edit
@@ -107,6 +113,12 @@ export const DiscountRule = () => {
             {data.data && <DiscountRuleDetails discountRule={data.data}/>}
           </Box>
         </Container>
+        {data && <DiscountRuleDialog
+            onClose={() => setOpenEditDialog(false)}
+            open={openEditDialog}
+            onSuccess={onSuccess}
+            initialValues={data.data}
+        />}
       </Box>
     </>
   );

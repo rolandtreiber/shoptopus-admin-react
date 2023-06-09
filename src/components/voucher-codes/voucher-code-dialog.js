@@ -25,7 +25,7 @@ export const VoucherCodeDialog = (props) => {
   const { saveVoucherCode, updateVoucherCode } = useContext(APIContext)
 
   useEffect(() => {
-    if (initialValues) {
+    if (initialValues?.id) {
       formik.values.type = initialValues.type.toString()
       formik.values.amount = initialValues.amount
       formik.values.validFrom = new Date(initialValues.valid_from)

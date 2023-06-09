@@ -82,7 +82,7 @@ export const ProductVariantsTable = (props) => {
   const {getLang} = useLanguage()
 
   const getName = (variant) => {
-    return variant.attributes.map(attribute => getLang(attribute.option.name)).join(', ')
+    return variant.attributes.map(attribute => attribute.option && getLang(attribute.option.name)).join(', ')
   }
 
   return (

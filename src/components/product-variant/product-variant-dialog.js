@@ -45,7 +45,9 @@ export const ProductVariantDialog = (props) => {
       setAttributes(() => {
         let selection = [];
         variant.attributes.forEach(attr => {
-          selection = [...selection, attr.id, attr.option.id]
+          if (attr.option) {
+            selection = [...selection, attr.id, attr.option.id]
+          }
         })
         return [...selection]
       })

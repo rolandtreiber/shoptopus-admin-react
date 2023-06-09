@@ -7,13 +7,14 @@ import {
 } from '@material-ui/core';
 import {useMounted} from '../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
-import {Plus as PlusIcon} from "../icons/plus";
+import {Pencil as PencilIcon} from "../icons/pencil";
 import {SettingsContext} from "../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
 import {APIContext} from "../contexts/api-context";
 import {getUrlFilters} from "../utils/apply-filters";
 import VoucherCodeDetails from "../components/voucher-codes/voucher-code-details";
+import {VoucherCodeDialog} from "../components/voucher-codes/voucher-code-dialog";
 
 export const VoucherCode = () => {
   const mounted = useMounted();
@@ -22,6 +23,10 @@ export const VoucherCode = () => {
   const [data, setData] = useState({ isLoading: true })
   const {fetchVoucherCode} = useContext(APIContext)
   const {voucherCodeId} = useParams()
+
+  const onSuccess = () => {
+    fetchData().catch(e => console.log(e.message))
+  }
 
   const fetchData = useCallback(async () => {
     setData(() => ({ isLoading: true }));
@@ -99,7 +104,7 @@ export const VoucherCode = () => {
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
+                startIcon={<PencilIcon fontSize="small"/>}
                 variant="contained"
               >
                 Edit
@@ -108,6 +113,12 @@ export const VoucherCode = () => {
             {data.data && <VoucherCodeDetails voucherCode={data.data}/>}
           </Box>
         </Container>
+        {data && <VoucherCodeDialog
+            onClose={() => setOpenEditDialog(false)}
+            open={openEditDialog}
+            onSuccess={onSuccess}
+            initialValues={data.data}
+        />}
       </Box>
     </>
   );

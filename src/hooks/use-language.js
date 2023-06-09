@@ -5,7 +5,7 @@ export const useLanguage = () => {
   const {language} = useContext(SettingsContext)
 
   const getLang = useCallback((text) => {
-    return text[language]
+    return text[language] ? text[language] : ''
   }, [language])
 
   return {

@@ -8,9 +8,9 @@ import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {SettingsContext} from "../contexts/settings-context";
-import {DeliveryTypeEditDialog} from "../components/delivery-types/delivery-type-edit-dialog";
 import {DeliveryTypeInfo} from "../components/delivery-types/delivery-type-info";
 import {ArrowLeft as ArrowLeftIcon} from "../icons/arrow-left";
+import {DeliveryTypeDialog} from "../components/delivery-types/delivery-type-dialog";
 
 export const DeliveryType = () => {
   const mounted = useMounted();
@@ -107,7 +107,7 @@ export const DeliveryType = () => {
           </Box>
         </Container>
       </Box>
-      {data.data && <DeliveryTypeEditDialog
+      {data.data && <DeliveryTypeDialog
         onClose={() => setOpenInfoDialog(false)}
         open={openInfoDialog}
         onSuccess={() => getData()}

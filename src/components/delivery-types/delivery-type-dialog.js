@@ -17,13 +17,22 @@ import MultilangTextInput from "../multilang-text-input";
 import {useNestedValidation} from "../../hooks/use-nested-validation";
 import {InputField} from "../input-field";
 
-export const DeliveryTypeCreateDialog = (props) => {
-  const {open, onClose, onSuccess, ...other} = props;
-  const {saveDeliveryType} = useContext(APIContext)
+export const DeliveryTypeDialog = (props) => {
+  const {initialValues, open, onClose, onSuccess, ...other} = props;
+  const {saveDeliveryType, updateDeliveryType} = useContext(APIContext)
   const [name, setName] = useState()
   const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
   const {setValidation, isValid} = useNestedValidation()
+
+  useEffect(() => {
+    if (initialValues) {
+      formik.values.name = initialValues.name
+      formik.values.description = initialValues.description
+      formik.values.price = initialValues.price
+      formik.values.enabled = initialValues.enabled
+    }
+  }, [initialValues])
 
   const formik = useFormik({
     initialValues: {
@@ -41,15 +50,27 @@ export const DeliveryTypeCreateDialog = (props) => {
         formData.append("enabled", formik.values.enabled)
         formData.append("price", formik.values.price)
 
-        isValid && saveDeliveryType(formData).then(response => {
-          toast.success('Delivery Type Created');
-          helpers.setStatus({success: true});
-          helpers.setSubmitting(false);
-          helpers.resetForm();
-          setShowErrors(false)
-          onSuccess();
-          onClose?.();
-        })
+        if (initialValues?.id) {
+          isValid && updateDeliveryType(initialValues.id, formData).then(response => {
+            toast.success('Delivery Type Updated');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            setShowErrors(false)
+            onSuccess();
+            onClose?.();
+          })
+        } else {
+          isValid && saveDeliveryType(formData).then(response => {
+            toast.success('Delivery Type Created');
+            helpers.setStatus({success: true});
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+            setShowErrors(false)
+            onSuccess();
+            onClose?.();
+          })
+        }
       } catch (err) {
         console.error(err);
         helpers.setStatus({success: false});
@@ -69,7 +90,7 @@ export const DeliveryTypeCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Delivery Type
+        {initialValues ? 'Update' : 'Create'} Delivery Type
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -79,6 +100,7 @@ export const DeliveryTypeCreateDialog = (props) => {
             field={"name"}
             onChange={setName}
             showErrors={showErrors}
+            value={formik.values.name}
             setValid={(valid) => {setValidation({name : valid})}}
           />
         </Grid>
@@ -89,20 +111,21 @@ export const DeliveryTypeCreateDialog = (props) => {
             field={"description"}
             onChange={setDescription}
             showErrors={showErrors}
+            value={formik.values.description}
             setValid={(valid) => {setValidation({description : valid})}}
             rows={4}
           />
         </Grid>
         <Grid item xs={12}>
           <InputField
-            error={Boolean(formik.touched.amount && formik.errors.amount)}
+            error={Boolean(formik.touched.price && formik.errors.price)}
             fullWidth
-            helperText={formik.touched.amount && formik.errors.amount}
+            helperText={formik.touched.price && formik.errors.price}
             label="Price"
             name="price"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.amount}
+            value={formik.values.price}
             type={"number"}
           />
         </Grid>        <Grid item xs={6}>
@@ -148,18 +171,18 @@ export const DeliveryTypeCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Delivery Type
+          {initialValues ? 'Update' : 'Create'} Delivery Type
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-DeliveryTypeCreateDialog.defaultProps = {
+DeliveryTypeDialog.defaultProps = {
   open: false
 };
 
-DeliveryTypeCreateDialog.propTypes = {
+DeliveryTypeDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };
