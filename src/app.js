@@ -13,6 +13,7 @@ import {EmailClientProvider} from "./contexts/email-client-context";
 import {NotificationsProvider} from "./contexts/notifications-context";
 import {DialogProvider} from "./contexts/dialog-context";
 import {MapsRefProvider} from "./contexts/maps-ref-context";
+import {NoteProvider} from "./contexts/note-context";
 
 export const App = () => {
   const content = useRoutes(routes);
@@ -35,10 +36,12 @@ export const App = () => {
         <DialogProvider>
           <NotificationsProvider>
             <EmailClientProvider>
-              <RTL direction={settings.direction}>
-                <CssBaseline/>
-                {isInitialized && content}
-              </RTL>
+              <NoteProvider>
+                <RTL direction={settings.direction}>
+                  <CssBaseline/>
+                  {isInitialized && content}
+                </RTL>
+              </NoteProvider>
             </EmailClientProvider>
           </NotificationsProvider>
         </DialogProvider>
