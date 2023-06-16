@@ -319,6 +319,11 @@ const APIProvider = ({children}) => {
       fetchNotifications: async (params) => await get(app_url + "api/notifications", params, makeHeaders()),
       clearNotifications: async () => await patch(app_url + "api/notifications/clear", {}, makeHeaders()),
 
+      // Notifications
+      createNote: async (params) => await post(admin_api_url + "note", params, makeHeaders()),
+      updateNote: async (id, note) => await patch(admin_api_url + "note/"+id, {note : note}, makeHeaders()),
+      deleteNote: async (id) => await del(admin_api_url + "note/"+id, {}, makeHeaders()),
+
       accessToken,
       setAccessToken,
     }),

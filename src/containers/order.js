@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -16,6 +16,7 @@ import { ArrowLeft as ArrowLeftIcon } from '../icons/arrow-left';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../icons/exclamation-outlined';
 import gtm from '../lib/gtm';
 import {APIContext} from "../contexts/api-context";
+import NotesTriggerButton from "../components/notes/notes-trigger-button";
 
 export const Order = () => {
   const mounted = useMounted();
@@ -30,7 +31,6 @@ export const Order = () => {
 
     try {
       const result = await fetchOrder(orderId);
-
 
       if (mounted.current) {
         setOrderState(() => ({
@@ -126,6 +126,7 @@ export const Order = () => {
       <>
         <Box sx={{ py: 4 }}>
           <Box sx={{ mb: 2 }}>
+            {orderState.data && <NotesTriggerButton notes={orderState.data.notes} noteableId={orderId} noteableType={"order"} updatedCallback={{cb: getOrder}}/>}
             <Button
               color="primary"
               component={RouterLink}

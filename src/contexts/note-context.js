@@ -21,6 +21,8 @@ import {useMounted} from "../hooks/use-mounted";
 import {SettingsContext} from "./settings-context";
 import '../static/css/wysiwyg.css';
 import NoteBubble from "../components/notes/note-bubble";
+import RichTextEditor from "../components/rich-text-editor/rich-text-editor";
+import {ConfirmationDialog} from "../components/confirmation-dialog";
 
 export const NoteContext = createContext();
 
@@ -29,62 +31,110 @@ const toolbar = {
 }
 
 export const NoteProvider = ({children}) => {
-  const {getUserOptions, sendEmail} = useContext(APIContext)
+  const {createNote, updateNote, deleteNote} = useContext(APIContext)
   const [notes, setNotes] = useState([])
   const [noteableId, setNoteableId] = useState([])
   const [noteableType, setNoteableType] = useState([])
   const [body, setBody] = useState('<p></p>')
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [modalVisibility, setModalVisibility] = useState(false)
   const [working, setWorking] = useState(false)
-  const editorRef = createRef()
   const {toast} = useContext(NotificationsContext)[0]
   const [confirmationDialogVisibility, setConfirmationDialogVisibility] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState([])
   const mounted = useMounted();
-  const {theme} = useContext(SettingsContext)
-
-  const setEditorStateFromHtml = (initialBody) => {
-    const content = htmlToDraft(initialBody);
-    const contentBlocks = content.contentBlocks;
-    const contentEntityMap = content.entityMap;
-    const contentState = ContentState.createFromBlockArray(contentBlocks, contentEntityMap);
-    const editorStateLocal = EditorState.createWithContent(contentState);
-    setEditorState(editorStateLocal)
-  }
-
-  const handleBodyChange = (e) => {
-    setEditorState(e)
-    setBody(draftToHtml(convertToRaw(e.getCurrentContent())))
-  }
+  const [initialContent, setInitialContent] = useState("<p></p>")
+  const [updatedCallback, setUpdatedCallback] = useState(() => {})
 
   const handleCreateNote = () => {
     setConfirmationDialogVisibility(false)
   }
 
   const noteContextMethods = useMemo(() => ({
-    setInitialBody: (body) => {
-      setBody(body)
-      setEditorStateFromHtml(body)
-    },
     showNoteClient: () => {
       setModalVisibility(true)
     }
   }), [])
 
+  const commitCreateNote = useCallback(async () => {
+    try {
+      const result = await createNote({
+        note: body,
+        noteable_type: noteableType,
+        noteable_id: noteableId
+      })
+
+      updatedCallback.cb()
+    } catch (err) {
+      console.error(err);
+    }
+  }, [body, noteableType, noteableId])
+
+  const commitDeleteNote = useCallback(async (id) => {
+    try {
+      const result = await deleteNote(id)
+
+      updatedCallback.cb()
+    } catch (err) {
+      console.error(err);
+    }
+  }, [body, noteableType, noteableId])
+
+  const commitUpdateNote = useCallback(async (id, content) => {
+    try {
+      const result = await updateNote(id, content)
+
+      updatedCallback.cb()
+    } catch (err) {
+      console.error(err);
+    }
+  }, [body, noteableType, noteableId])
+
+  useEffect(() => {
+    if (initialContent === '') setInitialContent('<p></p>')
+  }, [initialContent])
+  const handleSaveNote = () => {
+    commitCreateNote()
+    setInitialContent('')
+
+    setConfirmationDialogVisibility(false)
+    updatedCallback.cb()
+  }
+
+  const handleUpdateNote = (id, content) => {
+    commitUpdateNote(id, content)
+    updatedCallback.cb()
+  }
+
+  const handleDeleteNote = (id) => {
+    commitDeleteNote(id)
+    updatedCallback.cb()
+  }
+
+  const validate = (callback) => {
+    let e = {}
+    if (body === '<p></p>') {
+      setErrors(['Content should not be empty.'])
+    } else {
+      callback()
+    }
+  }
+
   return (
     <NoteContext.Provider value={[notes, {
       ...noteContextMethods,
+      setInitialContent,
       setNoteableId,
       setNoteableType,
-      setNotes
+      setNotes,
+      setUpdatedCallback
     }]}>
-      <GenericDialogModal
-        onClose={() => setConfirmationDialogVisibility(false)}
+      <ConfirmationDialog
+        message="Are you sure you want to add a note?"
+        onCancel={() => setConfirmationDialogVisibility(false)}
+        onConfirm={handleSaveNote}
         open={confirmationDialogVisibility}
-        title="Are you sure?"
-        description={"You are about to send one or more emails."}
-        onProceed={handleCreateNote}
+        title="Save Note"
+        variant="warning"
       />
       <Dialog
         onClose={() => setModalVisibility(false)}
@@ -103,7 +153,7 @@ export const NoteProvider = ({children}) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>
-                      {notes.map((n) => <NoteBubble note={n}/>)}
+                      {notes.map((n) => <NoteBubble key={n.id} note={n} handleDeleteNote={handleDeleteNote} handleUpdateNote={handleUpdateNote}/>)}
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -120,15 +170,7 @@ export const NoteProvider = ({children}) => {
             <TableBody>
               <TableRow>
                 <TableCell>
-                  {mounted.current && <Editor
-                    toolbarClassName={theme === 'dark' ? "wysiwyg-toolbar-dark" : "wysiwyg-toolbar-light"}
-                    wrapperClassName={theme === 'dark' ? "wysiwyg-toolbar-wrapper-dark" : "wysiwyg-toolbar-wrapper-light"}
-                    editorClassName={theme === 'dark' ? "wysiwyg-toolbar-editor-dark" : "wysiwyg-toolbar-editor-light"}
-                    ref={editorRef}
-                    editorState={editorState}
-                    toolbar={toolbar}
-                    onEditorStateChange={(e) => handleBodyChange(e)}
-                  />}
+                  {mounted.current && <RichTextEditor initialContent={initialContent} setContent={setBody}/>}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -149,7 +191,7 @@ export const NoteProvider = ({children}) => {
                     onClick={() => validate(() => setConfirmationDialogVisibility(true))}
                     variant="contained"
                     startIcon={working ? <CircularProgress size={12}/> : <Send/>}>
-                    Send
+                    Save
                   </Button>
                 </TableCell>
               </TableRow>

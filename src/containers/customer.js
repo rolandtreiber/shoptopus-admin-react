@@ -19,6 +19,7 @@ import AddressCard from "../components/address/address-card";
 import OrderCard from "../components/order/order-card";
 import TransactionCard from "../components/transactions/transaction-card";
 import PaymentSourceCard from "../components/payment-source/payment-source-card";
+import NotesTriggerButton from "../components/notes/notes-trigger-button";
 
 export const Customer = () => {
   const mounted = useMounted();
@@ -62,11 +63,15 @@ export const Customer = () => {
         }));
       }
     }
-  })
+  }, [])
 
   useEffect(() => {
     getCustomerData().catch(err => console.log(err.message))
   }, [])
+
+  const cb = () => {
+    console.log('hello')
+  }
 
   return (
     <>
@@ -89,6 +94,7 @@ export const Customer = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{mb: 2}}>
+              {customerData.data && <NotesTriggerButton notes={customerData.data.notes} noteableId={customerId} noteableType={"user"} updatedCallback={{cb: getCustomerData}}/>}
               <Button
                 color="primary"
                 component={RouterLink}
