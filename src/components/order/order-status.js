@@ -8,10 +8,10 @@ import { Archive as ArchiveIcon } from '../../icons/archive';
 import { CheckCircle as CheckCircleIcon } from '../../icons/check-circle';
 import { Duplicate as DuplicateIcon } from '../../icons/duplicate';
 import { ReceiptRefund as ReceiptRefundIcon } from '../../icons/receipt-refund';
-import { ActionList } from '../action-list';
-import { ActionListItem } from '../action-list-item';
-import { ConfirmationDialog } from '../confirmation-dialog';
-import { StatusSelect } from '../status-select';
+import { ActionList } from '../common/actions/action-list';
+import { ActionListItem } from '../common/actions/action-list-item';
+import { ConfirmationDialog } from '../modal/confirmation-dialog';
+import { StatusSelect } from '../common/status-select';
 import { OrderTimeline } from './order-timeline';
 
 const statusOptions = [
@@ -85,7 +85,7 @@ export const OrderStatus = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader title="Order Status" />
+        <CardHeader title="OrderSingle Status" />
         <Divider />
         <CardContent>
           <StatusSelect
@@ -122,7 +122,7 @@ export const OrderStatus = (props) => {
           />
           <ActionListItem
             icon={DuplicateIcon}
-            label="Duplicate Order"
+            label="Duplicate OrderSingle"
             onClick={handleOpenDuplicateDialog}
           />
           <ActionListItem
@@ -132,7 +132,7 @@ export const OrderStatus = (props) => {
           />
           <ActionListItem
             icon={ArchiveIcon}
-            label="Archive Order"
+            label="Archive OrderSingle"
             onClick={handleOpenArchiveDialog}
           />
         </ActionList>
@@ -142,7 +142,7 @@ export const OrderStatus = (props) => {
         onCancel={handleCloseMarkDialog}
         onConfirm={handleMark}
         open={markDialogOpen}
-        title="Mark Order as paid"
+        title="Mark OrderSingle as paid"
         variant="info"
       />
       <ConfirmationDialog
@@ -150,7 +150,7 @@ export const OrderStatus = (props) => {
         onCancel={handleCloseDuplicateDialog}
         onConfirm={handleDuplicate}
         open={duplicateDialogOpen}
-        title="Duplicate Order"
+        title="Duplicate OrderSingle"
         variant="warning"
       />
       <ConfirmationDialog
@@ -158,7 +158,7 @@ export const OrderStatus = (props) => {
         onCancel={handleCloseArchiveDialog}
         onConfirm={handleArchive}
         open={archiveDialogOpen}
-        title="Archive Order"
+        title="Archive OrderSingle"
         variant="error"
       />
     </>

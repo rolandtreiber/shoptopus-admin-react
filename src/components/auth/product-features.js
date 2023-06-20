@@ -13,8 +13,8 @@ const features = [
   'Authentication Services',
   'Dashboard Reports',
   'Advanced Filters',
-  'Customers Management',
-  'Products Management',
+  'CustomersList Management',
+  'ProductsList Management',
   'Inventory Management'
 ];
 

@@ -15,12 +15,12 @@ export const NotificationsProvider = (props) => {
       "iconColor": '#0051ff'
     },
     "product-out-of-stock": {
-      "title": "Product out of stock",
+      "title": "ProductSingle out of stock",
       "icon": Block,
       "iconColor": '#ff0000'
     },
     "product-running-low": {
-      "title": "Product stock running low",
+      "title": "ProductSingle stock running low",
       "icon": ArrowCircleDown,
       "iconColor": '#ffb400'
     },

@@ -14,7 +14,7 @@ good alternative could be [Fetch](https://developer.mozilla.org/en-US/docs/Web/A
 ## Example of current implementation
 
 ```jsx
-const Customers = () => {
+const CustomersList = () => {
   const [customers, setCustomers] = useState(null);
 
   useEffect(async () => {
@@ -37,7 +37,7 @@ server request to process your input and output data.
 ## Example with Fetch
 
 ```jsx
-const Customers = () => {
+const CustomersList = () => {
   const [customers, setCustomers] = useState(null);
 
   useEffect(async () => {
@@ -59,7 +59,7 @@ const Customers = () => {
 ```jsx
 import axios from 'axios'; // You need to install it
 
-const Customers = () => {
+const CustomersList = () => {
   const [customers, setCustomers] = useState(null);
 
   useEffect(async () => {

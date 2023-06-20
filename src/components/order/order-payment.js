@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import {Button, Card, CardHeader, Divider, Grid} from '@material-ui/core';
-import {PropertyList} from '../property-list';
-import {PropertyListItem} from '../property-list-item';
-import Price from "../price";
+import {PropertyList} from '../common/property-list/property-list';
+import {PropertyListItem} from '../common/property-list/property-list-item';
+import Price from "../common/price";
 
 // const Pending =     0;
 // const Settled =     1;

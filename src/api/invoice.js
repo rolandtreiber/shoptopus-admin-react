@@ -113,7 +113,7 @@ class InvoiceApi {
      */
 
     const queriedInvoices = invoices.filter((_invoice) => {
-      // If query exists, it looks only in customer id field
+      // If query exists, it looks only in customers id field
       if (!!query && !_invoice.id?.toLowerCase().includes(query.toLowerCase())) {
         return false;
       }

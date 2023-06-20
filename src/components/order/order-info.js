@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Card, CardHeader, Divider, Grid } from '@material-ui/core';
-import { PropertyList } from '../property-list';
-import { PropertyListItem } from '../property-list-item';
+import { PropertyList } from '../common/property-list/property-list';
+import { PropertyListItem } from '../common/property-list/property-list-item';
 import {Link} from "react-router-dom";
 
 // const Paid =        1;
@@ -61,7 +61,7 @@ export const OrderInfo = (props) => {
             Edit
           </Button>
         )}
-        title="Order Info"
+        title="OrderSingle Info"
       />
       <Divider />
       <Box
@@ -88,7 +88,7 @@ export const OrderInfo = (props) => {
         >
           <PropertyList>
             <PropertyListItem
-              label="Customer Name"
+              label="CustomerSingle Name"
               value={`${order.user.name}`}
             />
             <PropertyListItem

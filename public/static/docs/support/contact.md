@@ -18,6 +18,6 @@ All 3rd party plugins used in the theme are provided as bonus, and we do not giv
 their functionalities. Our support does not cover any 3rd party plugin customization or bug fixes
 that are not in our control.
 
-Customers are always welcome to ask for feature requests and give suggestions that can improve our
+CustomersList are always welcome to ask for feature requests and give suggestions that can improve our
 premium themes. All feature requests definitely will be considered, and the new features will be
 released with upcoming releases.

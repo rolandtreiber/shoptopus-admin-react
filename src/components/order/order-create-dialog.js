@@ -11,7 +11,7 @@ import {
   FormHelperText,
   Grid
 } from '@material-ui/core';
-import { InputField } from '../input-field';
+import { InputField } from '../common/input-field';
 
 export const OrderCreateDialog = (props) => {
   const { open, onClose, ...other } = props;
@@ -23,8 +23,8 @@ export const OrderCreateDialog = (props) => {
       submit: 'null'
     },
     validationSchema: Yup.object().shape({
-      customerEmail: Yup.string().max(255).email().required('Customer email is required'),
-      customerName: Yup.string().max(255).required('Customer name is required')
+      customerEmail: Yup.string().max(255).email().required('CustomerSingle email is required'),
+      customerName: Yup.string().max(255).required('CustomerSingle name is required')
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -63,7 +63,7 @@ export const OrderCreateDialog = (props) => {
               error={Boolean(formik.touched.customerName && formik.errors.customerName)}
               fullWidth
               helperText={formik.touched.customerName && formik.errors.customerName}
-              label="Customer Name"
+              label="CustomerSingle Name"
               name="customerName"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -75,7 +75,7 @@ export const OrderCreateDialog = (props) => {
               error={Boolean(formik.touched.customerEmail && formik.errors.customerEmail)}
               fullWidth
               helperText={formik.touched.customerEmail && formik.errors.customerEmail}
-              label="Customer Email"
+              label="CustomerSingle Email"
               name="customerEmail"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}

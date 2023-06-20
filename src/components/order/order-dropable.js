@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Droppable } from 'react-beautiful-dnd';
 import { Box, Divider, Typography } from '@material-ui/core';
-import { StatusBadge } from '../status-badge';
+import { StatusBadge } from '../common/status-badge';
 import { OrderDraggable } from './order-draggable';
 
 export const OrderDroppable = (props) => {

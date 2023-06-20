@@ -354,7 +354,7 @@ const customerActivities = [
     adminId: '58232367',
     adminName: 'Chen Simmons',
     createdAt: subMinutes(now, 12),
-    message: 'updated customer',
+    message: 'updated customers',
     type: 'updatedCustomer'
   },
   {
@@ -363,7 +363,7 @@ const customerActivities = [
     adminId: '58232367',
     adminName: 'Chen Simmons',
     createdAt: subMinutes(now, 50),
-    message: 'updated customer',
+    message: 'updated customers',
     type: 'updatedCustomer'
   },
   {
@@ -372,7 +372,7 @@ const customerActivities = [
     adminId: '48237437',
     adminName: 'Horia Tepar',
     createdAt: subDays(subMinutes(now, 17), 15),
-    message: 'triggered the action “Generate Invoice” on the customer',
+    message: 'triggered the action “Generate Invoice” on the customers',
     type: 'generateInvoice'
   },
   {
@@ -381,7 +381,7 @@ const customerActivities = [
     adminId: '48237437',
     adminName: 'Horia Tepar',
     createdAt: subDays(subMinutes(now, 54), 16),
-    message: 'triggered the action “Generate Invoice” on the customer',
+    message: 'triggered the action “Generate Invoice” on the customers',
     type: 'generateInvoice'
   }
 ];
@@ -400,7 +400,7 @@ class CustomerApi {
      */
 
     const queriedCustomers = customers.filter((_customer) => {
-      // If query exists, it looks only in customer full name field
+      // If query exists, it looks only in customers full name field
       if (!!query && !_customer.fullName?.toLowerCase().includes(query.toLowerCase())) {
         return false;
       }

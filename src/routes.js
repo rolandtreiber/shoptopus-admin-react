@@ -1,15 +1,15 @@
 import {Suspense, lazy} from 'react';
 import {Navigate} from 'react-router-dom';
-import {AuthGuard} from './components/auth-guard';
-import {GuestGuard} from './components/guest-guard';
-import {Customer} from './containers/customer';
-import {LoadingScreen} from './components/loading-screen';
-import {Account} from './containers/account';
-import {DashboardLayout} from './containers/dashboard-layout';
-import {Product} from './containers/product';
-import {Dashboard} from './containers/dashboard';
-import {DashboardOverview} from "./containers/dashboard-overview";
-import {DashboardSales} from "./containers/dashboard-sales";
+import {AuthGuard} from './components/guards/auth-guard';
+import {GuestGuard} from './components/guards/guest-guard';
+import {CustomerSingle} from './pages/customers/customer-single';
+import {LoadingScreen} from './components/page-components/layout-elements/loading-screen';
+import {Account} from './pages/account/account';
+import {DashboardLayout} from './pages/dashboard/dashboard-layout';
+import {ProductSingle} from './pages/products/product-single';
+import {Dashboard} from './pages/dashboard/dashboard';
+import {DashboardOverview} from "./pages/dashboard/dashboard-overview";
+import {DashboardSales} from "./pages/dashboard/dashboard-sales";
 
 const Loadable = (Component) => (props) => (
   <Suspense fallback={<LoadingScreen/>}>
@@ -18,75 +18,75 @@ const Loadable = (Component) => (props) => (
 );
 
 // Not found pages
-const NotFound = Loadable(lazy(() => import('./containers/not-found').then((module) => ({default: module.NotFound}))));
+const NotFound = Loadable(lazy(() => import('./pages/404/not-found').then((module) => ({default: module.NotFound}))));
 
 // Auth pages
-const Login = Loadable(lazy(() => import('./containers/login').then((module) => ({default: module.Login}))));
-const PasswordRecovery = Loadable(lazy(() => import('./containers/password-recovery').then((module) => ({default: module.PasswordRecovery}))));
-const PasswordReset = Loadable(lazy(() => import('./containers/password-reset').then((module) => ({default: module.PasswordReset}))));
-const Register = Loadable(lazy(() => import('./containers/register').then((module) => ({default: module.Register}))));
-const VerifyCode = Loadable(lazy(() => import('./containers/verify-code').then((module) => ({default: module.VerifyCode}))));
+const Login = Loadable(lazy(() => import('./pages/auth/login').then((module) => ({default: module.Login}))));
+const PasswordRecovery = Loadable(lazy(() => import('./pages/auth/password-recovery').then((module) => ({default: module.PasswordRecovery}))));
+const PasswordReset = Loadable(lazy(() => import('./pages/auth/password-reset').then((module) => ({default: module.PasswordReset}))));
+const Register = Loadable(lazy(() => import('./pages/auth/register').then((module) => ({default: module.Register}))));
+const VerifyCode = Loadable(lazy(() => import('./pages/auth/verify-code').then((module) => ({default: module.VerifyCode}))));
 
 // Import
-const ImportData = Loadable(lazy(() => import('./containers/import').then((module) => ({default: module.Import}))));
+const ImportData = Loadable(lazy(() => import('./pages/import/import').then((module) => ({default: module.Import}))));
 
 // Dashboard pages
-const ReportsOverview = Loadable(lazy(() => import('./containers/dashboard-overview').then((module) => ({default: module.DashboardOverview}))));
-const ReportsSales = Loadable(lazy(() => import('./containers/dashboard-sales').then((module) => ({default: module.DashboardSales}))));
+const ReportsOverview = Loadable(lazy(() => import('./pages/dashboard/dashboard-overview').then((module) => ({default: module.DashboardOverview}))));
+const ReportsSales = Loadable(lazy(() => import('./pages/dashboard/dashboard-sales').then((module) => ({default: module.DashboardSales}))));
 
-const Customers = Loadable(lazy(() => import('./containers/customers').then((module) => ({default: module.Customers}))));
-const CustomerActivity = Loadable(lazy(() => import('./containers/customer-activity').then((module) => ({default: module.CustomerActivity}))));
-const CustomerOrders = Loadable(lazy(() => import('./containers/customer-orders').then((module) => ({default: module.CustomerOrders}))));
-const CustomerSummary = Loadable(lazy(() => import('./containers/customer-summary').then((module) => ({default: module.CustomerSummary}))));
+const Customers = Loadable(lazy(() => import('./pages/customers/customers-list').then((module) => ({default: module.CustomersList}))));
+const CustomerActivity = Loadable(lazy(() => import('./pages/customers/customer-activity').then((module) => ({default: module.CustomerActivity}))));
+const CustomerOrders = Loadable(lazy(() => import('./pages/customers/customer-orders').then((module) => ({default: module.CustomerOrders}))));
+const CustomerSummary = Loadable(lazy(() => import('./pages/customers/customer-summary').then((module) => ({default: module.CustomerSummary}))));
 
-const Order = Loadable(lazy(() => import('./containers/order').then((module) => ({default: module.Order}))));
-const Orders = Loadable(lazy(() => import('./containers/orders').then((module) => ({default: module.Orders}))));
+const Order = Loadable(lazy(() => import('./pages/orders/order-single').then((module) => ({default: module.OrderSingle}))));
+const Orders = Loadable(lazy(() => import('./pages/orders/orders-list').then((module) => ({default: module.OrdersList}))));
 
-const Invoices = Loadable(lazy(() => import('./containers/invoices').then((module) => ({default: module.Invoices}))));
-const InvoiceCreate = Loadable(lazy(() => import('./containers/invoice-create').then((module) => ({default: module.InvoiceCreate}))));
-const InvoiceSummary = Loadable(lazy(() => import('./containers/invoice').then((module) => ({default: module.Invoice}))));
-const InvoicePreview = Loadable(lazy(() => import('./containers/invoice-preview').then((module) => ({default: module.InvoicePreview}))));
+const Invoices = Loadable(lazy(() => import('./pages/invoices/invoices').then((module) => ({default: module.Invoices}))));
+const InvoiceCreate = Loadable(lazy(() => import('./pages/invoices/invoice-create').then((module) => ({default: module.InvoiceCreate}))));
+const InvoiceSummary = Loadable(lazy(() => import('./pages/invoices/invoice').then((module) => ({default: module.Invoice}))));
+const InvoicePreview = Loadable(lazy(() => import('./pages/invoices/invoice-preview').then((module) => ({default: module.InvoicePreview}))));
 
-const Products = Loadable(lazy(() => import('./containers/products').then((module) => ({default: module.Products}))));
-const ProductAnalytics = Loadable(lazy(() => import('./containers/product-analytics').then((module) => ({default: module.ProductAnalytics}))));
-const ProductInventory = Loadable(lazy(() => import('./containers/product-inventory').then((module) => ({default: module.ProductInventory}))));
-const ProductSummary = Loadable(lazy(() => import('./containers/product-summary').then((module) => ({default: module.ProductSummary}))));
+const Products = Loadable(lazy(() => import('./pages/products/products-list').then((module) => ({default: module.ProductsList}))));
+const ProductAnalytics = Loadable(lazy(() => import('./pages/account/product-analytics').then((module) => ({default: module.ProductAnalytics}))));
+const ProductInventory = Loadable(lazy(() => import('./pages/products/product-inventory').then((module) => ({default: module.ProductInventory}))));
+const ProductSummary = Loadable(lazy(() => import('./pages/products/product-summary').then((module) => ({default: module.ProductSummary}))));
 
-const AccountGeneral = Loadable(lazy(() => import('./containers/account-general').then((module) => ({default: module.AccountGeneral}))));
-const AccountNotifications = Loadable(lazy(() => import('./containers/account-notifications').then((module) => ({default: module.AccountNotifications}))));
+const AccountGeneral = Loadable(lazy(() => import('./pages/account/account-general').then((module) => ({default: module.AccountGeneral}))));
+const AccountNotifications = Loadable(lazy(() => import('./pages/account/account-notifications').then((module) => ({default: module.AccountNotifications}))));
 
-const ProductCategories = Loadable(lazy(() => import('./containers/product-categories').then((module) => ({default: module.default}))));
-const ProductAttributes = Loadable(lazy(() => import('./containers/product-attributes').then((module) => ({default: module.default}))));
-const ProductTags = Loadable(lazy(() => import('./containers/product-tags').then((module) => ({default: module.default}))));
+const ProductCategories = Loadable(lazy(() => import('./pages/product-categories/product-categories-list').then((module) => ({default: module.ProductCategoriesList}))));
+const ProductAttributes = Loadable(lazy(() => import('./pages/product-attributes/product-attributes-list').then((module) => ({default: module.ProductAttributesList}))));
+const ProductTags = Loadable(lazy(() => import('./pages/product-tags/product-tags-list').then((module) => ({default: module.ProductTagsList}))));
 
-const ProductCategorySummary = Loadable(lazy(() => import('./containers/product-category-summary').then((module) => ({default: module.ProductCategorySummary}))));
-const ProductAttributeSummary = Loadable(lazy(() => import('./containers/product-attribute-summary').then((module) => ({default: module.ProductAttributeSummary}))));
-const ProductTagSummary = Loadable(lazy(() => import('./containers/product-tag-summary').then((module) => ({default: module.ProductTagSummary}))));
+const ProductCategorySummary = Loadable(lazy(() => import('./pages/product-categories/product-category-single').then((module) => ({default: module.ProductCategorySingle}))));
+const ProductAttributeSummary = Loadable(lazy(() => import('./pages/product-attributes/product-attribute-single').then((module) => ({default: module.ProductAttributeSingle}))));
+const ProductTagSummary = Loadable(lazy(() => import('./pages/product-tags/product-tag-single').then((module) => ({default: module.ProductTagSingle}))));
 
-const VoucherCodes = Loadable(lazy(() => import('./containers/voucher-codes').then((module) => ({default: module.VoucherCodes}))));
-const VoucherCode = Loadable(lazy(() => import('./containers/voucher-code').then((module) => ({default: module.VoucherCode}))));
+const VoucherCodes = Loadable(lazy(() => import('./pages/voucher-codes/voucher-codes-list').then((module) => ({default: module.VoucherCodesList}))));
+const VoucherCode = Loadable(lazy(() => import('./pages/voucher-codes/voucher-code-single').then((module) => ({default: module.VoucherCodeSingle}))));
 
 
-const DiscountRules = Loadable(lazy(() => import('./containers/discount-rules').then((module) => ({default: module.DiscountRules}))));
-const DiscountRule = Loadable(lazy(() => import('./containers/discount-rule').then((module) => ({default: module.DiscountRule}))));
+const DiscountRules = Loadable(lazy(() => import('./pages/discount-rules/discount-rules-list').then((module) => ({default: module.DiscountRulesList}))));
+const DiscountRule = Loadable(lazy(() => import('./pages/discount-rules/discount-rule-single').then((module) => ({default: module.DiscountRuleSingle}))));
 
-const DeliveryTypes = Loadable(lazy(() => import('./containers/delivery-types').then((module) => ({default: module.DeliveryTypes}))));
-const DeliveryType = Loadable(lazy(() => import('./containers/delivery-type').then((module) => ({default: module.DeliveryType}))));
+const DeliveryTypes = Loadable(lazy(() => import('./pages/delivery-types/delivery-types-list').then((module) => ({default: module.DeliveryTypesList}))));
+const DeliveryType = Loadable(lazy(() => import('./pages/delivery-types/delivery-type-single').then((module) => ({default: module.DeliveryTypeSingle}))));
 
-const Transactions = Loadable(lazy(() => import('./containers/transactions').then((module) => ({default: module.Transactions}))));
-const Transaction = Loadable(lazy(() => import('./containers/transaction').then((module) => ({default: module.Transaction}))));
+const Transactions = Loadable(lazy(() => import('./pages/transactions/transactions-list').then((module) => ({default: module.TransactionsList}))));
+const Transaction = Loadable(lazy(() => import('./pages/transactions/transaction-single').then((module) => ({default: module.TransactionSingle}))));
 
-const Ratings = Loadable(lazy(() => import('./containers/ratings').then((module) => ({default: module.Ratings}))));
-const Rating = Loadable(lazy(() => import('./containers/rating').then((module) => ({default: module.Rating}))));
+const Ratings = Loadable(lazy(() => import('./pages/ratings/ratings-list').then((module) => ({default: module.RatingsList}))));
+const Rating = Loadable(lazy(() => import('./pages/ratings/rating-single').then((module) => ({default: module.RatingSingle}))));
 
-const Banners = Loadable(lazy(() => import('./containers/banners').then((module) => ({default: module.Banners}))));
-const Banner = Loadable(lazy(() => import('./containers/banner').then((module) => ({default: module.Banner}))));
+const Banners = Loadable(lazy(() => import('./pages/banners/banners-list').then((module) => ({default: module.BannersList}))));
+const Banner = Loadable(lazy(() => import('./pages/banners/banner-single').then((module) => ({default: module.BannerSingle}))));
 
-const Files = Loadable(lazy(() => import('./containers/files').then((module) => ({default: module.Files}))));
-const FileContent = Loadable(lazy(() => import('./containers/file').then((module) => ({default: module.FileContent}))));
+const Files = Loadable(lazy(() => import('./pages/files/files-list').then((module) => ({default: module.FilesList}))));
+const FileContent = Loadable(lazy(() => import('./pages/files/file-single').then((module) => ({default: module.FileContent}))));
 
-const Reports = Loadable(lazy(() => import('./containers/reports').then((module) => ({default: module.Reports}))));
-const Notifications = Loadable(lazy(() => import('./containers/notifications').then((module) => ({default: module.Notifications}))));
+const Reports = Loadable(lazy(() => import('./pages/reports/reports').then((module) => ({default: module.Reports}))));
+const Notifications = Loadable(lazy(() => import('./pages/notifications/notifications').then((module) => ({default: module.Notifications}))));
 
 const routes = [
   {
@@ -250,7 +250,7 @@ const routes = [
           },
           {
             path: ':customerId',
-            element: <Customer/>,
+            element: <CustomerSingle/>,
             children: [
               {
                 path: '/',
@@ -321,7 +321,7 @@ const routes = [
           },
           {
             path: ':productId',
-            element: <Product/>,
+            element: <ProductSingle/>,
             children: [
               {
                 path: '/',

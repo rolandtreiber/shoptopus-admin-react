@@ -12,7 +12,7 @@ import {
   Grid,
   MenuItem
 } from '@material-ui/core';
-import { InputField } from '../input-field';
+import { InputField } from '../common/input-field';
 
 const statusOptions = [
   {
@@ -79,7 +79,7 @@ export const OrderInfoDialog = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        toast.success('Order updated');
+        toast.success('OrderSingle updated');
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         onClose?.();

@@ -15,14 +15,14 @@ import {ContentState, convertToRaw, EditorState} from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
 import Autocomplete from '@material-ui/core/Autocomplete';
-import {Uploader} from "../components/uploader";
+import {Uploader} from "../components/common/uploader";
 import {NotificationsContext} from "./notifications-context";
-import GenericDialogModal from "../components/modal/generic-dialog-modal";
 import {APIContext} from "./api-context";
 import {useMounted} from "../hooks/use-mounted";
 import {getFileFromBlob} from "../utils/file-operations";
 import {SettingsContext} from "./settings-context";
 import '../static/css/wysiwyg.css';
+import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
 
 export const EmailClientContext = createContext();
 
@@ -136,11 +136,6 @@ export const EmailClientProvider = ({children}) => {
     }
   }
 
-  const handleMailSending = () => {
-    setConfirmationDialogVisibility(false)
-    sendMail()
-  }
-
   const validate = (callback) => {
     let e = {}
     if (addresses.length === 0) {
@@ -177,12 +172,16 @@ export const EmailClientProvider = ({children}) => {
       setSubject,
       setTitle,
     }]}>
-      <GenericDialogModal
-        onClose={() => setConfirmationDialogVisibility(false)}
+      <ConfirmationDialog
+        message={"You are about to send one or more emails."}
+        onCancel={() => setConfirmationDialogVisibility(false)}
+        onConfirm={() => {
+          sendMail()
+          setConfirmationDialogVisibility(false)
+        }}
         open={confirmationDialogVisibility}
         title="Are you sure?"
-        description={"You are about to send one or more emails."}
-        onProceed={handleMailSending}
+        variant="warning"
       />
       <Dialog
         onClose={() => setModalVisibility(false)}

@@ -85,7 +85,7 @@ then the server will pass the props returned from that function down to your pag
 
 ```jsx
 // Page component
-const Customers = ({ customers }) => {
+const CustomersList = ({ customers }) => {
   // Render data...
 };
 
@@ -103,13 +103,13 @@ export const getServerSideProps = async () => {
   }
 }
 
-export default Customers
+export default CustomersList
 ```
 
 This would be an alternative for the following client side rendering method
 
 ```jsx
-const Customers = () => {
+const CustomersList = () => {
   const [customers, setCustomers] = useState(null);
   
   useEffect(() => {

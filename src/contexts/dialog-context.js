@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import GenericDialogModal from "../components/modal/generic-dialog-modal";
+import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
 
 export const DialogContext = createContext();
 
@@ -16,15 +16,16 @@ export const DialogProvider = ({children}) => {
           {setCallback, showGenericDialog, setTitle, setDescription}
         ]}
     >
-      <GenericDialogModal
-        onClose={() => showGenericDialog(false)}
-        open={genericDialogVisibility}
-        title={title}
-        description={description}
-        onProceed={() => {
+      <ConfirmationDialog
+        message={description}
+        onCancel={() => showGenericDialog(false)}
+        onConfirm={() => {
           callback.method()
           showGenericDialog(false)
         }}
+        open={genericDialogVisibility}
+        title={title}
+        variant="warning"
       />
       {children}
     </DialogContext.Provider>

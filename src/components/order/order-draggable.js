@@ -4,13 +4,13 @@ import { format } from 'date-fns';
 import { Draggable } from 'react-beautiful-dnd';
 import { Box, Card, Chip, IconButton, Link } from '@material-ui/core';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import { PropertyList } from '../property-list';
-import { PropertyListItem } from '../property-list-item';
-import { StatusBadge } from '../status-badge';
+import { PropertyList } from '../common/property-list/property-list';
+import { PropertyListItem } from '../common/property-list/property-list-item';
+import { StatusBadge } from '../common/status-badge';
 import { OrderMenu } from './order-menu';
 import {useContext} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
-import Price from "../price";
+import Price from "../common/price";
 
 export const OrderDraggable = (props) => {
   const { badgeColor, index, order, ...other } = props;
@@ -79,7 +79,7 @@ export const OrderDraggable = (props) => {
             />
             <PropertyListItem
               align="horizontal"
-              label="Customer"
+              label="CustomerSingle"
               value={`${order.user}`}
             />
             <PropertyListItem

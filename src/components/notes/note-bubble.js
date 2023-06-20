@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {styled} from "@material-ui/core/styles";
-import RichTextEditor from "../rich-text-editor/rich-text-editor";
+import RichTextEditor from "../common/rich-text-editor/rich-text-editor";
 import {Button, Typography} from "@material-ui/core";
-import {ConfirmationDialog} from "../confirmation-dialog";
+import {ConfirmationDialog} from "../modal/confirmation-dialog";
 import {format} from "date-fns";
 import {useAuth} from "../../hooks/use-auth";
 

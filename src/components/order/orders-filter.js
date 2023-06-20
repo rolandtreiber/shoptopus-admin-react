@@ -26,9 +26,9 @@ import {
   notEqualOperator,
   startsWithOperator
 } from '../../utils/filter-operators';
-import { BulkActionsMenu } from '../bulk-actions-menu';
-import { FilterDialog } from '../filter-dialog';
-import { Query } from '../query';
+import { BulkActionsMenu } from '../common/bulk-actions-menu';
+import { FilterDialog } from '../common/filter/filter-dialog';
+import { Query } from '../common/filter/query';
 
 const views = [
   {

@@ -2,7 +2,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormHelperText, Grid, Link, Typography } from '@material-ui/core';
-import { InputField } from '../input-field';
+import { InputField } from '../common/input-field';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 

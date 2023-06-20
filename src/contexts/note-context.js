@@ -1,28 +1,21 @@
-import React, {useState, createContext, useEffect, createRef, useContext, useMemo, useCallback} from "react";
+import React, {useState, createContext, useEffect, useContext, useMemo, useCallback} from "react";
 import {
   Button,
   Dialog,
   DialogContent,
   DialogTitle,
   Grid,
-  Table, TableBody, TableRow, TableCell, TextField, Alert, DialogActions, CircularProgress
+  Table, TableBody, TableRow, TableCell, DialogActions, CircularProgress
 } from '@material-ui/core';
-import {Delete, Send} from "@material-ui/icons";
-import IconButton from "@material-ui/core/IconButton";
-import {Editor} from "react-draft-wysiwyg";
+import {Send} from "@material-ui/icons";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import {ContentState, convertToRaw, EditorState} from "draft-js";
-import htmlToDraft from "html-to-draftjs";
-import draftToHtml from "draftjs-to-html";
 import {NotificationsContext} from "./notifications-context";
-import GenericDialogModal from "../components/modal/generic-dialog-modal";
 import {APIContext} from "./api-context";
 import {useMounted} from "../hooks/use-mounted";
-import {SettingsContext} from "./settings-context";
 import '../static/css/wysiwyg.css';
 import NoteBubble from "../components/notes/note-bubble";
-import RichTextEditor from "../components/rich-text-editor/rich-text-editor";
-import {ConfirmationDialog} from "../components/confirmation-dialog";
+import RichTextEditor from "../components/common/rich-text-editor/rich-text-editor";
+import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
 
 export const NoteContext = createContext();
 

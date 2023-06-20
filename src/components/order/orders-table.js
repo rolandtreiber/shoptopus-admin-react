@@ -13,14 +13,14 @@ import {
   TableRow,
   TableSortLabel, Typography
 } from '@material-ui/core';
-import {Pagination} from '../pagination';
-import {ResourceError} from '../resource-error';
-import {ResourceUnavailable} from '../resource-unavailable';
-import {Scrollbar} from '../scrollbar';
-import {CustomerMenu} from '../customer/customer-menu';
-import {Status} from "../status";
+import {Pagination} from '../page-components/layout-elements/pagination';
+import {ResourceError} from '../common/placeholder/resource-error';
+import {ResourceUnavailable} from '../common/placeholder/resource-unavailable';
+import {Scrollbar} from '../common/scrollbar';
+import {CustomerMenu} from '../page-components/customer/customer-menu';
+import {Status} from "../common/status";
 import {format} from "date-fns";
-import Price from "../price";
+import Price from "../common/price";
 import {SettingsContext} from "../../contexts/settings-context";
 
 const columns = [
