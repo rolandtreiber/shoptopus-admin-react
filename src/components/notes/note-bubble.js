@@ -46,7 +46,7 @@ const NoteBubble = ({note, handleUpdateNote, handleDeleteNote}) => {
   }
 
   const canEdit = () => {
-    if (user.roles.indexOf('super_admin') !== -1 || note.user.id === user.id) {
+    if (user.roles?.indexOf('super_admin') !== -1 || note.user.id === user.id) {
       return true
     }
     return false
