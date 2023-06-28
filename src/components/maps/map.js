@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import {MapsRefContext} from "../../contexts/maps-ref-context";
 
-export default function Map({placeId, locationUpdated, height, location, mapStyles = null, markers, clearAutocomplete}) {
+export default function Map({placeId, locationUpdated, height, location, mapStyles = null, markers, clearAutocomplete, style = {}}) {
   const {mapElement} = useContext(MapsRefContext)[0];
   const [mapMarkers, setMapMarkers] = useState([])
   const [currentMarker, setCurrentMarker] = useState();
@@ -138,8 +138,8 @@ export default function Map({placeId, locationUpdated, height, location, mapStyl
   }, [placeId, map])
 
   return (
-    <div>
-      <div style={{height: height, width: '100%'}} ref={mapElement}/>
+    <div style={style}>
+      <div style={{display: "block", height: height, width: '100%'}} ref={mapElement}/>
     </div>
   )
 }
