@@ -17,12 +17,9 @@ import transactionTypes from "../../../data/transaction-types.json"
 import paymentMethods from "../../../data/payment-methods.json"
 import orderStatuses from "../../../data/order-statuses.json"
 import {format} from "date-fns";
-import {lightNeutral} from "../../../colors";
 import {ExpandMore, Visibility} from "@material-ui/icons";
-import {PropertyList} from "../../common/property-list/property-list";
 import {Link as RouterLink} from "react-router-dom";
 import Price from "../../common/price";
-import {OrderSummary} from "../../order/order-summary";
 
 const TransactionDetails = ({transaction}) => {
 

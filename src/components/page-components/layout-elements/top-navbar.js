@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AppBar, Box, Button, Divider, IconButton, Toolbar } from '@material-ui/core';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
-import { useSettings } from '../../../contexts/settings-context';
+import {SettingsContext, useSettings} from '../../../contexts/settings-context';
 import { Moon as MoonIcon } from '../../../icons/moon';
 import { Sun as SunIcon } from '../../../icons/sun';
 import { AccountPopover } from './account-popover';
@@ -14,6 +14,7 @@ import { Logo } from '../../common/logo';
 import { MobileNavbarMenu } from './mobile-navbar-menu';
 import { NotificationsPopover } from './notifications/notifications-popover';
 import { LanguagePopover } from './laguage-popover';
+import {useTheme} from "@material-ui/core/styles";
 
 const organizations = [
   {
@@ -30,6 +31,7 @@ export const TopNavbar = () => {
   const [darkMode, setDarkMode] = useState(settings.theme === 'dark');
   const [rtlDirection, setRtlDirection] = useState(settings.direction === 'rtl');
   const [currentOrganization, setCurrentOrganization] = useState(organizations[0]);
+  const theme = useTheme();
 
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
@@ -72,7 +74,7 @@ export const TopNavbar = () => {
   return (
     <AppBar
       elevation={0}
-      sx={{ backgroundColor: '#1e212a' }}
+      sx={{ backgroundColor: theme.palette.background.navigation }}
     >
       <Toolbar
         disableGutters

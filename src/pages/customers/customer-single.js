@@ -168,8 +168,8 @@ export const CustomerSingle = () => {
                 <Grid item xs={12} md={4}>
                   <CustomerQuickSummary data={customerData.data}/>
                 </Grid>
-                <Grid item xs={12}>
-                  <Panel pv={0}>
+                <Grid item xs={12} style={{paddingBottom: 10}}>
+                  <Panel pv={0} pb={1}>
                     <Box
                       sx={{
                         px: {
@@ -187,7 +187,7 @@ export const CustomerSingle = () => {
                       <Tab label="Logs" {...a11yProps(6)} />
                     </Tabs>
                     </Box>
-                    <Divider/>
+                    <Divider sx={{marginBottom: 2}}/>
                     {value === 0 && <CustomerTabOrders data={customerData.data.orders}/>}
                     {value === 1 && <CustomerTabAddresses data={customerData.data.address}/>}
                     {value === 2 && <CustomerTabPayments data={customerData.data.payments}/>}

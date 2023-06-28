@@ -765,7 +765,8 @@ const lightThemeOptions = {
     },
     background: {
       default: lightBackground.default,
-      paper: lightBackground.paper
+      paper: lightBackground.paper,
+      navigation: lightBackground.navigation
     },
     divider: lightNeutral[200],
     error: {
@@ -1097,7 +1098,8 @@ const darkThemeOptions = {
     },
     background: {
       default: darkBackground.default,
-      paper: darkBackground.paper
+      paper: darkBackground.paper,
+      navigation: darkBackground.navigation
     },
     divider: darkNeutral[200],
     error: {

@@ -42,7 +42,8 @@ export const lightSuccess = {
 
 export const lightBackground = {
   default: '#ffffff',
-  paper: '#ffffff'
+  paper: '#ffffff',
+  navigation: '#82a3da',
 };
 
 export const lightText = {
@@ -106,7 +107,8 @@ export const darkSuccess = {
 
 export const darkBackground = {
   default: '#111318',
-  paper: '#111318'
+  paper: '#111318',
+  navigation: '#1f222b',
 };
 
 export const darkText = {
