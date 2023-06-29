@@ -17,7 +17,7 @@ const CustomerTabOrders = ({data}) => {
   return (
     <Grid container spacing={2}>
       {data.length > 0 ? data.map(order => (
-          <Grid item xs={12} lg={6}>
+          <Grid key={order.id} item xs={12} lg={6}>
             <Card variant="outlined">
               <Grid container spacing={2}>
                 <Grid item xs={6}>

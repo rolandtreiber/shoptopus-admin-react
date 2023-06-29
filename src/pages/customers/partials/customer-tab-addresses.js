@@ -7,15 +7,18 @@ import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-
 import {useTheme} from "@material-ui/core/styles";
 import {useLanguage} from "../../../hooks/use-language";
 import Map from "../../../components/maps/map";
+import {useSettings} from "../../../contexts/settings-context";
 
 const CustomerTabAddresses = ({data}) => {
   const theme = useTheme()
   const {getLang} = useLanguage()
+  const { settings } = useSettings()
+  const maps_api_key = settings && settings.google_maps_api_key
 
   return (
     <Grid container spacing={2}>
       {data.length > 0 ? data.map(address => (
-          <Grid item xs={12} lg={6}>
+          <Grid key={address.id} item xs={12} lg={6}>
             <Card variant="outlined">
               <Grid container spacing={2}>
                 <Grid item xs={6}>
@@ -25,18 +28,8 @@ const CustomerTabAddresses = ({data}) => {
                     minWidth: 210
                   }}>
                     <Box sx={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
-                      <Map markers={[]}
-                           style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}
-                           mapStyles={{}}
-                           locationUpdated={() => {}}
-                           placeId={null}
-                           location={{
-                             lat: parseFloat(address.lat),
-                             lng: parseFloat(address.lon),
-                           }}
-                           height={"100%"}
-                           clearAutocomplete={() => {}}
-                      />
+                      <img width={"100%"} src={"https://maps.googleapis.com/maps/api/staticmap?center="+address.lat+","+address.lon+"&size=300x300&zoom=12\n" +
+                        "&key="+maps_api_key}/>
                     </Box>
                   </FullWidthSquareBox>
                 </Grid>

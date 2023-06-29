@@ -1,0 +1,14 @@
+{
+  "0": {
+    "name": "Pending"
+  },
+  "1": {
+    "name": "Settled"
+  },
+  "2": {
+    "name": "Refunded"
+  },
+  "3": {
+    "name": "Rejected"
+  }
+}
