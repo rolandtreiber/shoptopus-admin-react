@@ -1,5 +1,5 @@
 import React from "react"
-import {Box, Card, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, Typography} from "@material-ui/core";
+import {Box, Card, Grid, List, Link, ListItemText} from "@material-ui/core";
 import statuses from "../../../data/order-statuses.json"
 import FullWidthSquareBox from "../../../components/common/full-width-square-box";
 import {useTheme} from "@material-ui/core/styles";
@@ -42,9 +42,11 @@ const CustomerTabOrders = ({data}) => {
                   </IconButton>
                 </Grid>
                 <Grid item xs={3}>
-                  <IconButton aria-label="locate" size={"small"}>
-                    <NorthEast/>
-                  </IconButton>
+                  <Link href={'/orders/' + order.id} target={"_blank"}>
+                    <IconButton aria-label="locate" size={"small"}>
+                      <NorthEast/>
+                    </IconButton>
+                  </Link>
                 </Grid>
               </Grid>
             </FullWidthSquareBox>

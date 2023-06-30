@@ -1,5 +1,6 @@
 import React from "react";
 import {Box, Card, CardContent, CardHeader, Divider} from "@material-ui/core";
+import NoImg from '../../../static/images/no-image.png'
 
 const ImagesDisplay = ({styles, images, coverPhoto}) => {
   if (!coverPhoto) {
@@ -16,7 +17,7 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
       {...styles}
     >
       <CardHeader
-        title="ProductSingle Images"
+        title="Product Images"
         variant="outlined"
       />
       <Divider/>
@@ -24,8 +25,8 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
         <Box
           sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <img
-            alt={coverPhoto.title}
-            src={coverPhoto.url}
+            alt={coverPhoto?.title ? coverPhoto.title : "no-image"}
+            src={coverPhoto?.url ? coverPhoto.url : NoImg}
             style={{
               maxWidth: '100%'
             }}
@@ -50,7 +51,7 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
         {imagesWithoutCover().map(image => (
             <img
               key={image.url}
-              alt={image.title}
+              alt={image.title ? image.title : ""}
               src={image.url}
               style={{
                 maxWidth: '100%'
