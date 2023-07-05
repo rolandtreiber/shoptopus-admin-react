@@ -1,32 +1,58 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {Link as RouterLink, useParams} from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import {Helmet} from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Box, Button, Container, Grid, Skeleton, Typography } from '@material-ui/core';
-import { ActionsMenu } from '../../components/common/actions/actions-menu';
-import { OrderInfo } from '../../components/order/order-info';
-import { OrderInfoDialog } from '../../components/order/order-info-dialog';
-import { OrderLineItems } from '../../components/order/order-line-items';
-import { OrderPayment } from '../../components/order/order-payment';
-import { OrderPaymentDialog } from '../../components/order/order-payment-dialog';
-import { OrderStatus } from '../../components/order/order-status';
-import { useMounted } from '../../hooks/use-mounted';
-import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
-import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/exclamation-outlined';
+import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs, Typography} from '@material-ui/core';
+import {ActionsMenu} from '../../components/common/actions/actions-menu';
+import {OrderInfo} from '../../components/order/order-info';
+import {OrderInfoDialog} from '../../components/order/order-info-dialog';
+import {OrderLineItems} from '../../components/order/order-line-items';
+import {OrderPayment} from '../../components/order/order-payment';
+import {OrderPaymentDialog} from '../../components/order/order-payment-dialog';
+import {OrderStatus} from '../../components/order/order-status';
+import {useMounted} from '../../hooks/use-mounted';
+import {ArrowLeft as ArrowLeftIcon} from '../../icons/arrow-left';
+import {ExclamationOutlined as ExclamationOutlinedIcon} from '../../icons/exclamation-outlined';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import NotesTriggerButton from "../../components/notes/notes-trigger-button";
+import {SettingsContext} from "../../contexts/settings-context";
+import {Email} from "@material-ui/icons";
+import {EmailClientContext} from "../../contexts/email-client-context";
+import Panel from "../../components/common/panel";
+import OrderTabInfo from "./partials/order-tab-info";
+import OrderTabItems from "./partials/order-tab-items";
+import OrderTabEmails from "./partials/order-tab-emails";
 
 export const OrderSingle = () => {
   const mounted = useMounted();
-  const [orderState, setOrderState] = useState({ isLoading: true });
+  const [orderState, setOrderState] = useState({isLoading: true});
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
   const {fetchOrder} = useContext(APIContext)
   const {orderId} = useParams()
+  const {language, appName} = useContext(SettingsContext)
+  const {
+    setAddresses,
+    setSubject,
+    setInitialBody,
+    showEmailClient
+  } = useContext(EmailClientContext)[1]
+  const [value, setValue] = React.useState(0);
 
-  const getOrder = useCallback(async () => {
-    setOrderState(() => ({ isLoading: true }));
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const a11yProps = (index) => {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+  const getOrder = useCallback(async (setIsLoading = true) => {
+    setIsLoading === true && setOrderState(() => ({isLoading: true}));
 
     try {
       const result = await fetchOrder(orderId);
@@ -55,50 +81,58 @@ export const OrderSingle = () => {
   }, []);
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({event: 'page_view'});
   }, []);
 
-  const handleMark = () => {
-    toast.error('This action is not available on demo');
+  const handleUpdateStatus = () => {
+    toast.success('Status update action handled');
   };
 
-  const handleCancel = () => {
-    toast.error('This action is not available on demo');
+  const handleAddTrackingInformation = () => {
+    toast.success('Add tracking information action handled');
   };
 
-  const handleDelete = () => {
-    toast.error('This action is not available on demo');
+  const handleDownloadPackingOrder = () => {
+    toast.success('Download packing order action handled');
+  };
+
+  const handleDownloadInvoice = () => {
+    toast.success('Download invoice action handled');
   };
 
   const actions = [
     {
-      label: 'Mark as Duplicate',
-      onClick: handleMark
+      label: 'Update Status',
+      onClick: handleUpdateStatus
     },
     {
-      label: 'Cancel OrderSingle',
-      onClick: handleCancel
+      label: 'Add tracking information',
+      onClick: handleAddTrackingInformation
     },
     {
-      label: 'Delete OrderSingle',
-      onClick: handleDelete
+      label: 'Download packing order',
+      onClick: handleDownloadPackingOrder
+    },
+    {
+      label: 'Download invoice',
+      onClick: handleDownloadInvoice
     }
   ];
 
   const renderContent = () => {
     if (orderState.isLoading) {
       return (
-        <Box sx={{ py: 4 }}>
-          <Skeleton height={42} />
-          <Skeleton />
-          <Skeleton />
+        <Box sx={{py: 4}}>
+          <Skeleton height={42}/>
+          <Skeleton/>
+          <Skeleton/>
         </Box>
       );
     }
 
     if (orderState.error) {
       return (
-        <Box sx={{ py: 4 }}>
+        <Box sx={{py: 4}}>
           <Box
             sx={{
               alignItems: 'center',
@@ -108,10 +142,10 @@ export const OrderSingle = () => {
               p: 3
             }}
           >
-            <ExclamationOutlinedIcon />
+            <ExclamationOutlinedIcon/>
             <Typography
               color="textSecondary"
-              sx={{ mt: 2 }}
+              sx={{mt: 2}}
               variant="body2"
             >
               {orderState.error}
@@ -123,13 +157,18 @@ export const OrderSingle = () => {
 
     return (
       <>
-        <Box sx={{ py: 4 }}>
-          <Box sx={{ mb: 2 }}>
-            {orderState.data && <NotesTriggerButton notes={orderState.data.notes} noteableId={orderId} noteableType={"order"} updatedCallback={{cb: getOrder}}/>}
+        <Helmet>
+          <title>Order: {orderState.data ? orderState.data.slug : 'Loading...'} | {appName}</title>
+        </Helmet>
+        <Box sx={{py: 4}}>
+          <Box sx={{mb: 2}}>
+            {orderState.data &&
+              <NotesTriggerButton notes={orderState.data.notes} noteableId={orderId} noteableType={"order"}
+                                  updatedCallback={{cb: getOrder}}/>}
             <Button
               color="primary"
               component={RouterLink}
-              startIcon={<ArrowLeftIcon />}
+              startIcon={<ArrowLeftIcon/>}
               to="/orders"
               variant="text"
             >
@@ -148,15 +187,15 @@ export const OrderSingle = () => {
             >
               {`#${orderState.data.id}`}
             </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <ActionsMenu actions={actions} />
+            <Box sx={{flexGrow: 1}}/>
+            <ActionsMenu actions={actions}/>
           </Box>
         </Box>
         <Grid container spacing={3}>
           <Grid container item lg={8}
-            spacing={3}
-            sx={{ height: 'fit-content' }}
-            xs={12}
+                spacing={3}
+                sx={{height: 'fit-content'}}
+                xs={12}
           >
             <Grid
               item
@@ -181,19 +220,19 @@ export const OrderSingle = () => {
               item
               xs={12}
             >
-              <OrderLineItems order={orderState.data} />
+              <OrderLineItems order={orderState.data}/>
             </Grid>
           </Grid>
           <Grid container item lg={4}
-            spacing={3}
-            sx={{ height: 'fit-content' }}
-            xs={12}
+                spacing={3}
+                sx={{height: 'fit-content'}}
+                xs={12}
           >
             <Grid
               item
               xs={12}
             >
-              <OrderStatus order={orderState.data} />
+              <OrderStatus order={orderState.data}/>
             </Grid>
           </Grid>
         </Grid>
@@ -211,28 +250,142 @@ export const OrderSingle = () => {
     );
   };
 
+  const setupEmailClient = (user) => {
+    setInitialBody('<h1>Hello ' + user.name + '</h1>')
+    setAddresses([user.name + ' <' + user.email + '>'])
+    setSubject('Hello ' + user.name)
+    showEmailClient()
+  }
+
   return (
     <>
       <Helmet>
-        <title>Order: Details | Carpatin Dashboard</title>
+        <title>Order: {orderState.data ? orderState.data.slug : 'Loading...'} | {appName}</title>
       </Helmet>
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          flexGrow: 1
-        }}
-      >
-        <Container
-          maxWidth="lg"
+      {orderState.isLoading ? (
+        <Box sx={{py: 4}}>
+          <Skeleton height={42}/>
+          <Skeleton/>
+          <Skeleton/>
+        </Box>) : (
+        <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%'
+            backgroundColor: 'background.default',
+            flexGrow: 1
           }}
         >
-          {renderContent()}
-        </Container>
-      </Box>
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%'
+            }}
+          >
+            <Box sx={{py: 4}}>
+              <Box sx={{mb: 2}}>
+                <Button
+                  color="primary"
+                  component={RouterLink}
+                  startIcon={<ArrowLeftIcon/>}
+                  to="/orders"
+                  variant="text"
+                >
+                  Orders
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                  alignItems: 'center',
+                  display: 'flex'
+                }}
+              >
+                <Typography
+                  color="textPrimary"
+                  variant="h4"
+                >
+                  Order{orderState.data && ": " + orderState.data.slug}
+                  {orderState.data &&
+                    <NotesTriggerButton notes={orderState.data.notes} noteableId={orderId} noteableType={"order"}
+                                        updatedCallback={{cb: getOrder}}/>}
+                </Typography>
+                <Box sx={{flexGrow: 1}}/>
+                <Button
+                  color="primary"
+                  onClick={() => getOrder(false).catch(err => console.log(err.message))}
+                  size="large"
+                  sx={{
+                    marginLeft: 1
+                  }}
+                  variant="contained"
+                >
+                  Reload
+                </Button>
+                {orderState.data && <Fragment>
+                  <Button
+                    color="primary"
+                    onClick={() => setupEmailClient(orderState.data.user)}
+                    size="large"
+                    sx={{
+                      marginLeft: 1,
+                      marginRight: 1
+                    }}
+                    startIcon={<Email fontSize="small"/>}
+                    variant="contained"
+                  >
+                    Email
+                  </Button>
+                  <ActionsMenu actions={actions}/>
+                </Fragment>}
+              </Box>
+            </Box>
+            <Grid container spacing={2}>
+              <Fragment>
+                <Grid item xs={12} style={{paddingBottom: 10}}>
+                  <Panel pv={0} pb={1}>
+                    <Box
+                      sx={{
+                        px: {
+                          sm: 3
+                        }
+                      }}
+                    >
+                      <Tabs value={value} onChange={handleChange}>
+                        <Tab label="Info" {...a11yProps(0)} />
+                        <Tab label="Items" {...a11yProps(1)} />
+                        <Tab label="Emails" {...a11yProps(2)} />
+                      </Tabs>
+                    </Box>
+                    <Divider sx={{marginBottom: 2}}/>
+                    {value === 0 && <OrderTabInfo updated={() => getOrder(false)} data={orderState.data}/>}
+                    {value === 1 && <OrderTabItems data={orderState.data.products}/>}
+                    {value === 2 && <OrderTabEmails data={orderState.data.id}/>}
+                  </Panel>
+                </Grid>
+
+              </Fragment>
+            </Grid>
+          </Container>
+        </Box>
+
+            )}
+      {/*<Box*/}
+      {/*  sx={{*/}
+      {/*    backgroundColor: 'background.default',*/}
+      {/*    flexGrow: 1*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Container*/}
+      {/*    maxWidth="lg"*/}
+      {/*    sx={{*/}
+      {/*      display: 'flex',*/}
+      {/*      flexDirection: 'column',*/}
+      {/*      height: '100%'*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    {renderContent()}*/}
+      {/*  </Container>*/}
+      {/*</Box>*/}
     </>
   );
 };

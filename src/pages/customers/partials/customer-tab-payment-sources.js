@@ -14,16 +14,16 @@ const CustomerTabPaymentSources = ({data}) => {
     {data.length > 0 ? data.map(paymentSource => (<Grid item xs={12} lg={6}>
       <Card variant="outlined">
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <FullWidthSquareBox style={{
-              borderRadius: theme.shape.borderRadius, backgroundColor: theme.palette.neutral[400], minWidth: 210
+              borderRadius: theme.shape.borderRadius, backgroundColor: theme.palette.neutral[400]
             }}>
               <Box sx={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
                 <PaymentTypeLogo type={paymentSource.payment_method_id} brand={paymentSource.brand}/>
               </Box>
             </FullWidthSquareBox>
           </Grid>
-          <Grid item xs={6} sx={{position: "relative", paddingTop: 0}}>
+          <Grid item xs={8} sx={{position: "relative", paddingTop: 0}}>
             <List>
               <ListItemGridKeyValue
                 left={<ListItemText>Name</ListItemText>}

@@ -39,6 +39,6 @@ StatusSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     color: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
+    value: PropTypes.number.isRequired
   })).isRequired
 };

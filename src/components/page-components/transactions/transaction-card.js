@@ -1,103 +1,69 @@
 import React from "react";
 import {
-  Accordion, AccordionDetails,
-  AccordionSummary,
-  Card,
+  Box,
+  Card, Grid, Link,
   List,
-  ListItem,
-  ListItemIcon,
   ListItemText,
   Typography
 } from "@material-ui/core";
-import {Status} from "../../common/status";
-import {CalendarToday, ExpandMore, LocalShipping, LocationCity, Payment} from "@material-ui/icons";
+import {NorthEast} from "@material-ui/icons";
 import Price from "../../common/price";
-import {useLanguage} from "../../../hooks/use-language";
 import {format} from "date-fns";
+import FullWidthSquareBox from "../../common/full-width-square-box";
+import PaymentTypeLogo from "../../common/payment-type-logo";
+import ListItemGridKeyValue from "../../common/list-item-grid-key-value";
+import PaymentStatuses from "../../../data/payment-statuses.json";
+import IconButton from "@material-ui/core/IconButton";
+import {useTheme} from "@material-ui/core/styles";
 
-
-const typeVariants = [
-  {
-    color: 'success.main',
-    label: 'Payment',
-    value: 0
-  },
-  {
-    color: 'error.main',
-    label: 'Refund',
-    value: 1
-  }
-];
-
-const statusVariants = [
-  {
-    color: 'info.main',
-    label: 'Pending',
-    value: 0
-  },
-  {
-    color: 'success.main',
-    label: 'Settled',
-    value: 1
-  },
-  {
-    color: 'info.main',
-    label: 'Refunded',
-    value: 2
-  },
-  {
-    color: 'error.main',
-    label: 'Rejected',
-    value: 3
-  }
-];
-
-const TransactionCard = ({transaction}) => {
-  const {getLang} = useLanguage()
-  const typeVariant = typeVariants.find((variant) => variant.value
-    === transaction.type);
-
-  const statusVariant = statusVariants.find((variant) => variant.value
-    === transaction.status);
+const TransactionCard = ({payment}) => {
+  const theme = useTheme()
 
   return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMore/>}
-        aria-controls="panel1a-content"
-        id={transaction.id}
-      >
-        <Typography component={'span'}>{format(new Date(transaction.created_at), 'dd/MM/yyyy HH:mm')}<Status
-          color={typeVariant.color}
-          label={typeVariant.label}
-        /></Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-
-        <Card
-          variant="outlined"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexGrow: 1
+    <Card variant="outlined">
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Box sx={{display: "flex", flexDirection: "row", alignItems: "flex-end", margin: 1}}>
+            <Typography sx={{paddingBottom: 0}} variant={"h5"}><Price>{payment.amount}</Price></Typography>
+            <Typography sx={{marginLeft: 2}}
+                        variant={"body"}>{format(new Date(payment.created_at), 'dd-MMM-yyyy HH:mm')}</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <FullWidthSquareBox style={{
+            borderRadius: theme.shape.borderRadius, backgroundColor: theme.palette.neutral[400]
           }}>
+            <Box sx={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
+              <PaymentTypeLogo type={payment.payment_method} brand={payment.brand}/>
+            </Box>
+          </FullWidthSquareBox>
+        </Grid>
+        <Grid item xs={8} sx={{position: "relative", paddingTop: 0}}>
           <List>
-            <ListItem>
-              <ListItemIcon><Payment/></ListItemIcon>
-              <ListItemText>
-                <Price>{transaction.amount}</Price>
-              </ListItemText>
-            </ListItem>
-            <ListItem>
-              <ListItemText>Description: {transaction.description}</ListItemText>
-            </ListItem>
-            <ListItem>
-              <ListItemText>Payment Ref: {transaction.payment_ref}</ListItemText>
-            </ListItem>
+            <ListItemGridKeyValue
+              left={<ListItemText>Status</ListItemText>}
+              right={<ListItemText>{PaymentStatuses[payment.status].name}</ListItemText>}
+            />
+            <ListItemGridKeyValue
+              left={<ListItemText>Reference</ListItemText>}
+              right={<ListItemText>{payment.payment_ref}</ListItemText>}
+            />
+            {payment.type === 1 && <>
+              <ListItemGridKeyValue
+                left={<ListItemText>Last 4 digits</ListItemText>}
+                right={<ListItemText>**** **** **** {payment.last_four}</ListItemText>}
+              />
+              <ListItemGridKeyValue
+                left={<ListItemText>Expiry</ListItemText>}
+                right={<ListItemText>{payment.exp_month}/{payment.exp_year}</ListItemText>}
+              />
+            </>}
           </List>
-        </Card>
-      </AccordionDetails>
-    </Accordion>
+          <Link href={'/transactions/' + payment.id} target={"_blank"}><IconButton
+            sx={{position: "absolute", bottom: 10, right: 10}}><NorthEast/></IconButton></Link>
+        </Grid>
+      </Grid>
+    </Card>
   )
 }
 

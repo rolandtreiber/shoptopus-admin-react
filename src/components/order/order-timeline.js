@@ -8,60 +8,44 @@ import {
   TimelineDot,
   TimelineItem
 } from '@material-ui/lab';
-import { Check as CheckIcon } from '../../icons/check';
+import {Close, Check, AccessAlarm, CreditCard, Settings, AirportShuttle, Link} from '@mui/icons-material';
 import {format} from "date-fns";
-
-const getDotStyles = (value) => {
-  if (value === 'complete') {
-    return {
-      backgroundColor: 'success.main',
-      borderColor: 'success.main',
-      color: 'success.contrastText'
-    };
-  }
-
-  if (value === 'active') {
-    return {
-      backgroundColor: 'neutral.200',
-      borderColor: 'neutral.200',
-      color: 'text.secondary'
-    };
-  }
-
-  return {
-    backgroundColor: 'inherit',
-    borderColor: 'neutral.300',
-    color: 'text.secondary'
-  };
-};
-
-// NOTE: Items should be generated on order data to display information such as ordered date
-const getItems = (status) => {
-  const statusMapping = ['placed', 'processed', 'delivered', 'complete'];
-  const currentStatusIndex = statusMapping.indexOf(status) + 1;
-  const items = [
-    { title: 'Placed at 10/30/2021 03:16' },
-    { title: 'Processed' },
-    { title: 'Delivered' },
-    { title: 'complete' }
-  ];
-
-  return items.map((item, index) => {
-    if (currentStatusIndex > index) {
-      return { ...item, value: 'complete' };
-    }
-
-    if (currentStatusIndex === index) {
-      return { ...item, value: 'active' };
-    }
-
-    return { ...item, value: 'inactive' };
-  });
-};
+import orderStatuses from "../../data/order-statuses.json"
 
 export const OrderTimeline = (props) => {
   const { status, events, ...other } = props;
-  const items = getItems(status);
+
+
+  const getOrderStatus = (statusId) => {
+    const result = orderStatuses.filter(item => {
+      return item.value === statusId
+    })
+    if (result.length > 0) {
+      return result[0]
+    }
+    return null
+  }
+
+  const renderIcon = (status) => {
+    switch (status) {
+      case 1:
+        return <AccessAlarm/>
+      case 2:
+        return <CreditCard/>
+      case 3:
+        return <Settings/>
+      case 4:
+        return <AirportShuttle/>
+      case 5:
+        return <Check/>
+      case 6:
+        return <AccessAlarm/>
+      case 7:
+        return <Close/>
+      default:
+        return <Link/>
+    }
+  }
 
   return (
     <Timeline
@@ -84,8 +68,8 @@ export const OrderTimeline = (props) => {
           >
             <TimelineDot
               sx={{
-                backgroundColor: 'success.main',
-                borderColor: 'success.main',
+                backgroundColor: getOrderStatus(event.data.status) ? getOrderStatus(event.data.status).color : "success.main",
+                borderColor: getOrderStatus(event.data.status) ? getOrderStatus(event.data.status).color : "success.main",
                 color: 'success.contrastText',
                 alignSelf: 'center',
                 boxShadow: 'none',
@@ -95,11 +79,8 @@ export const OrderTimeline = (props) => {
                 m: 0
               }}
               variant={'filled'}
-              // variant={(event.value === 'complete' || event.value === 'active')
-              //   ? 'filled'
-              //   : 'outlined'}
             >
-              <CheckIcon />
+              {renderIcon(event.data.status)}
             </TimelineDot>
             <TimelineContent>
               <Typography
@@ -139,5 +120,5 @@ export const OrderTimeline = (props) => {
 };
 
 OrderTimeline.propTypes = {
-  status: PropTypes.oneOf(['placed', 'processed', 'delivered', 'complete']).isRequired
+  status: PropTypes.number
 };

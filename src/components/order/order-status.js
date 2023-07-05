@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
@@ -13,70 +13,36 @@ import { ActionListItem } from '../common/actions/action-list-item';
 import { ConfirmationDialog } from '../modal/confirmation-dialog';
 import { StatusSelect } from '../common/status-select';
 import { OrderTimeline } from './order-timeline';
+import {APIContext} from "../../contexts/api-context";
+import orderStatuses from "../../data/order-statuses.json";
 
-const statusOptions = [
-  {
-    color: 'info.main',
-    label: 'Paid',
-    value: 1
-  },
-  {
-    color: 'warning.main',
-    label: 'Processing',
-    value: 2
-  },
-  {
-    color: 'info.main',
-    label: 'In Transit',
-    value: 3
-  },
-  {
-    color: 'success.main',
-    label: 'Completed',
-    value: 4
-  },
-  {
-    color: 'warning.main',
-    label: 'On Hold',
-    value: 5
-  },
-  {
-    color: 'error.main',
-    label: 'Cancelled',
-    value: 6
-  }
-];
+const statusOptions = orderStatuses;
 
 export const OrderStatus = (props) => {
-  const { order, ...other } = props;
-  const [markDialogOpen, handleOpenMarkDialog, handleCloseMarkDialog] = useDialog();
-  const [duplicateDialogOpen, handleOpenDuplicateDialog, handleCloseDuplicateDialog] = useDialog();
-  const [archiveDialogOpen, handleOpenArchiveDialog, handleCloseArchiveDialog] = useDialog();
+  const { order, updated, ...other } = props;
+  const [saveDialogOpen, handleOpenSaveMarkDialog, handleCloseSaveDialog] = useDialog();
   const [status, setStatus] = useState(order?.status || '');
   const [newStatus, setNewStatus] = useState(order?.status || '');
+  const {updateOrder} = useContext(APIContext)
 
   const handleStatusChange = (event) => {
     setNewStatus(event.target.value);
   };
 
-  const handleSaveChanges = () => {
+  const doUpdateStatus = useCallback(async () => {
+    try {
+      const result = await updateOrder(order.id, {status: newStatus});
+      result.data.data && toast.success('Changes saved');
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong');
+    }
+  }, [newStatus]);
+
+  const handleSave = () => {
     setStatus(newStatus);
-    toast.success('Changes saved');
-  };
-
-  const handleMark = () => {
-    handleCloseMarkDialog();
-    toast.error('This action is not available on demo');
-  };
-
-  const handleDuplicate = () => {
-    handleCloseDuplicateDialog();
-    toast.error('This action is not available on demo');
-  };
-
-  const handleArchive = () => {
-    handleCloseArchiveDialog();
-    toast.error('This action is not available on demo');
+    doUpdateStatus().then(() => updated()).catch(console.error);
+    handleCloseSaveDialog()
   };
 
   return (
@@ -85,17 +51,17 @@ export const OrderStatus = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader title="OrderSingle Status" />
+        <CardHeader title="Status and History" />
         <Divider />
         <CardContent>
-          <StatusSelect
+          {<StatusSelect
             onChange={handleStatusChange}
             options={statusOptions}
             value={newStatus}
-          />
+          />}
           <Button
             color="primary"
-            onClick={handleSaveChanges}
+            onClick={handleOpenSaveMarkDialog}
             sx={{ my: 2 }}
             variant="contained"
           >
@@ -113,53 +79,37 @@ export const OrderStatus = (props) => {
           <Divider sx={{ my: 2 }} />
           <OrderTimeline status={status} events={order.event_logs} />
         </CardContent>
-        <Divider />
-        <ActionList>
-          <ActionListItem
-            icon={CheckCircleIcon}
-            label="Mark as Paid"
-            onClick={handleOpenMarkDialog}
-          />
-          <ActionListItem
-            icon={DuplicateIcon}
-            label="Duplicate OrderSingle"
-            onClick={handleOpenDuplicateDialog}
-          />
-          <ActionListItem
-            disabled
-            icon={ReceiptRefundIcon}
-            label="Request a Refund"
-          />
-          <ActionListItem
-            icon={ArchiveIcon}
-            label="Archive OrderSingle"
-            onClick={handleOpenArchiveDialog}
-          />
-        </ActionList>
+        {/*<Divider />*/}
+        {/*<ActionList>*/}
+        {/*  <ActionListItem*/}
+        {/*    icon={CheckCircleIcon}*/}
+        {/*    label="Mark as Paid"*/}
+        {/*    onClick={handleOpenMarkDialog}*/}
+        {/*  />*/}
+        {/*  <ActionListItem*/}
+        {/*    icon={DuplicateIcon}*/}
+        {/*    label="Duplicate OrderSingle"*/}
+        {/*    onClick={handleOpenDuplicateDialog}*/}
+        {/*  />*/}
+        {/*  <ActionListItem*/}
+        {/*    disabled*/}
+        {/*    icon={ReceiptRefundIcon}*/}
+        {/*    label="Request a Refund"*/}
+        {/*  />*/}
+        {/*  <ActionListItem*/}
+        {/*    icon={ArchiveIcon}*/}
+        {/*    label="Archive OrderSingle"*/}
+        {/*    onClick={handleOpenArchiveDialog}*/}
+        {/*  />*/}
+        {/*</ActionList>*/}
       </Card>
       <ConfirmationDialog
-        message="Are you sure you want to mark this order as paid? This can't be undone."
-        onCancel={handleCloseMarkDialog}
-        onConfirm={handleMark}
-        open={markDialogOpen}
-        title="Mark OrderSingle as paid"
+        message="Are you sure you want to update the status of this order?"
+        onCancel={handleCloseSaveDialog}
+        onConfirm={handleSave}
+        open={saveDialogOpen}
+        title="Update Order Status"
         variant="info"
-      />
-      <ConfirmationDialog
-        message="Are you sure you want to duplicate this order? This can't be undone."
-        onCancel={handleCloseDuplicateDialog}
-        onConfirm={handleDuplicate}
-        open={duplicateDialogOpen}
-        title="Duplicate OrderSingle"
-        variant="warning"
-      />
-      <ConfirmationDialog
-        message="Are you sure you want to archive this order? This can't be undone."
-        onCancel={handleCloseArchiveDialog}
-        onConfirm={handleArchive}
-        open={archiveDialogOpen}
-        title="Archive OrderSingle"
-        variant="error"
       />
     </>
   );
