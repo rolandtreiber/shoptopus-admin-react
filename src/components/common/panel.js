@@ -1,4 +1,3 @@
-import React from "react"
 import {Box, Card} from "@material-ui/core";
 
 const Panel = ({children, ph = 1, pv = 1, pt = null, pb = null, pr = null, pl = null}) => {

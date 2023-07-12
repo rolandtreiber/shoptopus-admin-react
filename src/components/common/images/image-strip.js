@@ -1,4 +1,3 @@
-import React from 'react'
 
 const imageStrip = ({images}) => {
     return <div className={"image-strip-container"}>

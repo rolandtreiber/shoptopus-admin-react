@@ -1,5 +1,4 @@
-import React from "react"
-import {Card, CardHeader, Divider, Grid, List, ListItemText, Typography} from "@material-ui/core";
+import {Card, CardHeader, Divider, Grid, List, ListItemText} from "@material-ui/core";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
 import {OrderStatus} from "../../../components/order/order-status";
 import Price from "../../../components/common/price";

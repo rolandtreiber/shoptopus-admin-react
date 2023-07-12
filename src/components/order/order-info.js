@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Card, CardHeader, Divider, Grid } from '@material-ui/core';
 import { PropertyList } from '../common/property-list/property-list';
 import { PropertyListItem } from '../common/property-list/property-list-item';
-import {Link} from "react-router-dom";
 
 // const Paid =        1;
 // const Processing =  2;
@@ -114,7 +113,7 @@ export const OrderInfo = (props) => {
             <PropertyListItem
               label="Address"
             >
-              <a target="_blank" href={order.address.composite.url}>{order.address.composite.text}</a>
+              <a target="_blank" href={order.address.composite.url} rel="noreferrer">{order.address.composite.text}</a>
             </PropertyListItem>
             <PropertyListItem
               label="Country"

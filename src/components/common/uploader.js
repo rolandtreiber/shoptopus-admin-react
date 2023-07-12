@@ -4,15 +4,15 @@ import {Trash as TrashIcon} from '../../icons/trash';
 import {ImageDropzone} from "./images/image-dropzone";
 import {
   DndContext,
-  closestCenter,
+  DragOverlay,
   KeyboardSensor,
   PointerSensor,
-  useSensor,
-  useSensors, DragOverlay,
+  closestCenter,
+  useSensor, useSensors,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
+  arrayMove,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
 import {SortableItem} from './sortable-item';

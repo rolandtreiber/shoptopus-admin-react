@@ -1,17 +1,16 @@
-import { format } from 'date-fns';
 import {
   Badge,
   Box,
+  Button,
   IconButton,
-  Typography,
-  Popover,
   List,
   ListItem,
-  ListSubheader, Button
+  ListSubheader,
+  Popover, Typography
 } from '@material-ui/core';
 import { usePopover } from '../../../../hooks/use-popover';
 import { Bell as BellIcon } from '../../../../icons/bell';
-import React, {useContext} from "react";
+import {useContext} from "react";
 import {NotificationsContext} from "../../../../contexts/notifications-context";
 import {Visibility} from "@material-ui/icons";
 import {Link as RouterLink} from "react-router-dom";

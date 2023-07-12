@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -13,7 +13,6 @@ import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
 import DiscountRuleDetails from "../../components/page-components/discount-rules/discount-rule-details";
-import {VoucherCodeDialog} from "../../components/page-components/voucher-codes/voucher-code-dialog";
 import {DiscountRuleDialog} from "../../components/page-components/discount-rules/discount-rule-dialog";
 
 export const DiscountRuleSingle = () => {

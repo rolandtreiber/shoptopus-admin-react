@@ -1,4 +1,3 @@
-import React from "react"
 
 const OrderTabEmails = ({data}) => {
   return (

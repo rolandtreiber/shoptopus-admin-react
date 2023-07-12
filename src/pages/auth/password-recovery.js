@@ -15,7 +15,6 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core';
-import { ProductFeatures } from '../../components/auth/product-features';
 import { InputField } from '../../components/common/input-field';
 import { Logo } from '../../components/common/logo';
 import { useSettings } from '../../contexts/settings-context';

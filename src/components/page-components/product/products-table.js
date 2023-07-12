@@ -26,7 +26,6 @@ import {useContext} from "react";
 import {SettingsContext} from "../../../contexts/settings-context";
 import Price from "../../common/price";
 import {darkWarning} from "../../../colors";
-import {DialogContext} from "../../../contexts/dialog-context";
 
 const columns = [
   {

@@ -1,6 +1,4 @@
-import React from "react"
 import {Card, Grid} from "@material-ui/core";
-import {useTheme} from "@material-ui/core/styles";
 import TransactionCard from "../../../components/page-components/transactions/transaction-card";
 
 const CustomerTabPayments = ({data}) => {

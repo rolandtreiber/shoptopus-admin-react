@@ -10,7 +10,6 @@ import { StatusBadge } from '../common/status-badge';
 import { OrderMenu } from './order-menu';
 import {useContext} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
-import Price from "../common/price";
 
 export const OrderDraggable = (props) => {
   const { badgeColor, index, order, ...other } = props;

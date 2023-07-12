@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogTitle, FormControlLabel,
   FormHelperText,
-  Grid, Switch, TextField,
+  Grid, Switch,
 } from '@material-ui/core';
 import {useContext, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {styled} from "@material-ui/core/styles";
 import RichTextEditor from "../common/rich-text-editor/rich-text-editor";
 import {Button, Typography} from "@material-ui/core";

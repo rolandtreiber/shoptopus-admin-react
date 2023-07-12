@@ -4,16 +4,12 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormHelperText,
-  Grid,
-  Typography
+  Grid
 } from '@material-ui/core';
-import { AutocompleteField } from '../../common/autocomplete-field';
 import { InputField } from '../../common/input-field';
 import MultilangTextInput from "../../common/multilang-text-input";
 

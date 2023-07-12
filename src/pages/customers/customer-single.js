@@ -1,8 +1,8 @@
 import React, {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button, Card, CardContent, CardHeader,
-  Container, Divider, Grid, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Tab, Tabs,
+  Button,
+  Container, Divider, Grid, Tab, Tabs,
   Typography
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';

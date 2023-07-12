@@ -1,4 +1,3 @@
-import React, {useContext} from 'react'
 import {useCurrency} from "./use-currency";
 
 export const useRetailPrice = () => {

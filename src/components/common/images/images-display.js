@@ -1,4 +1,3 @@
-import React from "react";
 import {Box, Card, CardContent, CardHeader, Divider} from "@material-ui/core";
 import NoImg from '../../../static/images/no-image.png'
 

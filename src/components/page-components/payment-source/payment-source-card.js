@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion, AccordionDetails,
   AccordionSummary,
@@ -9,8 +8,7 @@ import {
   ListItemText,
   Typography
 } from "@material-ui/core";
-import {ExpandMore, CreditCard} from "@material-ui/icons";
-import {format} from "date-fns";
+import {CreditCard, ExpandMore} from "@material-ui/icons";
 
 const PaymentSourceCard = ({paymentSource}) => {
   return (

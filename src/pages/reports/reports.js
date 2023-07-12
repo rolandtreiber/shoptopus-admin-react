@@ -1,14 +1,10 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
-import {Box, Button, Card, Container, Typography} from '@material-ui/core';
-import { useMounted } from '../../hooks/use-mounted';
+import {Box, Card, Container, Typography} from '@material-ui/core';
 import {SettingsContext} from "../../contexts/settings-context";
-import {Plus as PlusIcon} from "../../icons/plus";
-import ExportButton from "../../components/common/export-button";
 
 export const Reports = () => {
-  const mounted = useMounted();
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
 
   return (
     <>

@@ -5,15 +5,15 @@ import {useTranslation} from 'react-i18next';
 import {
   Avatar,
   Box,
-  Typography,
-  Popover,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  Popover,
   Switch,
-  ListSubheader
+  Typography
 } from '@material-ui/core';
 import {InputField} from '../../common/input-field';
 import {useAuth} from '../../../hooks/use-auth';

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
@@ -75,7 +75,6 @@ export const RatingsList = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        setRows,
         mergeSelectableRows,
         clearSelected
     ] = useSelection();
@@ -340,6 +339,7 @@ export const RatingsList = () => {
                   </Card>
               </Container>
           </Box>
+          {openCreateDialog && <Fragment></Fragment>}
           {/*<ProductCreateDialog*/}
           {/*  onClose={() => setOpenCreateDialog(false)}*/}
           {/*  open={openCreateDialog}*/}

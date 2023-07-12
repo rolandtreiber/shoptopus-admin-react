@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { ProductDialog } from '../../components/page-components/product/product-dialog';
@@ -73,7 +73,6 @@ export const ProductsList = () => {
     selectedProducts,
     handleSelect,
     handleSelectAll,
-    setRows,
     mergeSelectableRows,
     clearSelected
   ] = useSelection();

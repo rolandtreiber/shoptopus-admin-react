@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {ActionsMenu} from "../../common/actions/actions-menu";
 
 const RangeSelector = ({onChange}) => {

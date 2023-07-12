@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
@@ -63,8 +63,7 @@ export const DeliveryTypesList = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        setRows,
-        mergeSelectableRows,
+            mergeSelectableRows,
         clearSelected
     ] = useSelection();
     const {

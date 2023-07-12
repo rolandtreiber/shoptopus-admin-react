@@ -7,11 +7,11 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle, FormControlLabel,
-  FormHelperText,
-  Grid, Switch, TextField,
+  DialogTitle, FormControl,
+  FormControlLabel,
+  FormHelperText, FormLabel, Grid,
   Radio,
-  RadioGroup, FormControl, FormLabel,
+  RadioGroup, Switch, TextField,
 } from '@material-ui/core';
 import {InputField} from '../../common/input-field';
 import {DateTimePicker} from "@material-ui/lab";

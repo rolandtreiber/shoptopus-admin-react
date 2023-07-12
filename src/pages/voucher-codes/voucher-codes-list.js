@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { VoucherCodeDialog } from '../../components/page-components/voucher-codes/voucher-code-dialog';
@@ -79,7 +79,6 @@ export const VoucherCodesList = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        setRows,
         mergeSelectableRows,
         clearSelected
     ] = useSelection();

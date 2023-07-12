@@ -1,4 +1,3 @@
-import React from "react";
 import {List, ListItemText} from "@material-ui/core";
 import Panel from "../../../components/common/panel";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";

@@ -1,5 +1,4 @@
 import {Suspense, lazy} from 'react';
-import {Navigate} from 'react-router-dom';
 import {AuthGuard} from './components/guards/auth-guard';
 import {GuestGuard} from './components/guards/guest-guard';
 import {CustomerSingle} from './pages/customers/customer-single';
@@ -16,6 +15,7 @@ const Loadable = (Component) => (props) => (
     <Component {...props} />
   </Suspense>
 );
+Loadable.displayName = "Loadable"
 
 // Not found pages
 const NotFound = Loadable(lazy(() => import('./pages/404/not-found').then((module) => ({default: module.NotFound}))));
@@ -29,10 +29,6 @@ const VerifyCode = Loadable(lazy(() => import('./pages/auth/verify-code').then((
 
 // Import
 const ImportData = Loadable(lazy(() => import('./pages/import/import').then((module) => ({default: module.Import}))));
-
-// Dashboard pages
-const ReportsOverview = Loadable(lazy(() => import('./pages/dashboard/dashboard-overview').then((module) => ({default: module.DashboardOverview}))));
-const ReportsSales = Loadable(lazy(() => import('./pages/dashboard/dashboard-sales').then((module) => ({default: module.DashboardSales}))));
 
 const Customers = Loadable(lazy(() => import('./pages/customers/customers-list').then((module) => ({default: module.CustomersList}))));
 const CustomerActivity = Loadable(lazy(() => import('./pages/customers/customer-activity').then((module) => ({default: module.CustomerActivity}))));

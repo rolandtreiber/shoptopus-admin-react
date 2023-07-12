@@ -1,11 +1,11 @@
-import {useContext, useState} from 'react';
+import { useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AppBar, Box, Button, Divider, IconButton, Toolbar } from '@material-ui/core';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
-import {SettingsContext, useSettings} from '../../../contexts/settings-context';
+import { useSettings} from '../../../contexts/settings-context';
 import { Moon as MoonIcon } from '../../../icons/moon';
 import { Sun as SunIcon } from '../../../icons/sun';
 import { AccountPopover } from './account-popover';

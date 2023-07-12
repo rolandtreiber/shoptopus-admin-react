@@ -1,4 +1,4 @@
-import React, {createContext, useCallback, useEffect, useState} from "react";
+import {createContext, useCallback, useEffect, useState} from "react";
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 import {ArrowCircleDown, Block, PersonAddAlt, ShoppingCart} from "@material-ui/icons";

@@ -1,6 +1,5 @@
-import React, {useContext, useState} from "react";
+import {useContext} from "react";
 import {Button, Menu, MenuItem} from "@material-ui/core";
-import {Download as DownloadIcon} from '../../icons/download';
 import {APIContext} from "../../contexts/api-context";
 import axios from "axios";
 import {ChevronDown as ChevronDownIcon} from "../../icons/chevron-down";

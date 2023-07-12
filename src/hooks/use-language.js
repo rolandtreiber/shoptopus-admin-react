@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import {useCallback, useContext} from 'react'
 import {SettingsContext} from "../contexts/settings-context";
 
 export const useLanguage = () => {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer, List } from '@material-ui/core';
@@ -10,9 +10,6 @@ import { CustomShoppingCart as ShoppingCartIcon } from '../../../icons/custom-sh
 import { CustomUsers as UsersIcon } from '../../../icons/custom-users';
 import { OfficeBuilding as OfficeBuildingIcon } from '../../../icons/office-building';
 import { ReceiptTax as ReceiptTaxIcon } from '../../../icons/receipt-tax';
-import { ColorSwatch as ColorSwatchIcon } from '../../../icons/color-swatch';
-import { Template as TemplateIcon } from '../../../icons/template';
-import { DocumentText as DocumentTextIcon } from '../../../icons/document-text';
 import {Dashboard} from "../../../icons/dashboard";
 import {Discount} from "../../../icons/discount";
 import {DeliveryVan} from "../../../icons/delivery";

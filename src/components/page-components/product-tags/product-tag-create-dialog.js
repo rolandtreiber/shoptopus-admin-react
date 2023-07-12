@@ -9,9 +9,9 @@ import {
   DialogContent,
   DialogTitle, FormControlLabel,
   FormHelperText,
-  Grid, Switch, TextField,
+  Grid, Switch,
 } from '@material-ui/core';
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import MultilangTextInput from "../../common/multilang-text-input";
 import {Uploader} from "../../common/uploader";

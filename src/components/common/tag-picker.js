@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useLanguage} from "../../hooks/use-language";
-import {Box, Stack, Chip} from "@material-ui/core";
+import {Box, Chip} from "@material-ui/core";
 
 function Inline(props) {
   return null;

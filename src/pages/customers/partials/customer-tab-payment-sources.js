@@ -1,4 +1,3 @@
-import React from "react"
 import {Box, Card, Grid, List, ListItemText} from "@material-ui/core";
 import FullWidthSquareBox from "../../../components/common/full-width-square-box";
 import PaymentTypeLogo from "../../../components/common/payment-type-logo";

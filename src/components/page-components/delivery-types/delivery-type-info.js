@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import {
-  Button,
-  Card,
-  CardHeader, Chip,
   Box,
+  Button,
+  Card, CardHeader,
+  Chip,
   Divider, Grid,
   List, ListItem, ListItemText,
-  Typography,
-  useMediaQuery, Paper
+  Paper,
+  Typography, useMediaQuery
 } from '@material-ui/core';
 import {useLanguage} from "../../../hooks/use-language";
 import Price from "../../common/price";
-import React from "react";
 import {lightNeutral} from "../../../colors";
 
 export const DeliveryTypeInfo = (props) => {

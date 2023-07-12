@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Button,
   Card,
   CardHeader,
   Divider,
-  List, ListItem, ListItemAvatar, ListItemText,
   Paper,
   useMediaQuery
 } from '@material-ui/core';

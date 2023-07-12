@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from "react";
+import { useContext, useEffect} from "react";
 import useSocket from "../../../../hooks/use-socket";
 import {useAuth} from "../../../../hooks/use-auth";
 import {NotificationsContext} from "../../../../contexts/notifications-context";

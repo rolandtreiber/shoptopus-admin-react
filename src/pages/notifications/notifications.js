@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
@@ -7,7 +7,6 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {useSelection} from "../../hooks/use-selection";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {APIContext} from "../../contexts/api-context";
-import ProductTagsTable from "../../components/page-components/product-tags/product-tags-table";
 import NotificationsTable from "../../components/page-components/notifications/notifications-table";
 import {NotificationsContext} from "../../contexts/notifications-context";
 

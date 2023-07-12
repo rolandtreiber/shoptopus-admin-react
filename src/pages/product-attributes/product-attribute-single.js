@@ -1,6 +1,6 @@
-import {useState, useEffect, useCallback, useContext} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import {Box, Grid, Paper} from '@material-ui/core';
+import {Box, Grid} from '@material-ui/core';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceLoading } from '../../components/common/placeholder/resource-loading';
 import { useMounted } from '../../hooks/use-mounted';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import numeral from 'numeral';
-import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const COL1_WIDTH = 60;
 const COLN_WIDTH = (100 - COL1_WIDTH) / 3;

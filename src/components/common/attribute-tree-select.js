@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import {Box, Button, IconButton, Typography} from "@material-ui/core";
-import {TreeItem, TreeView, useTreeItem} from "@material-ui/lab";
+import {Box, Button} from "@material-ui/core";
+import {TreeItem, TreeView} from "@material-ui/lab";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {useLanguage} from "../../hooks/use-language";

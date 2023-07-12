@@ -1,9 +1,8 @@
-import React from "react"
-import {Box, Card, Grid, List, Link, ListItemText} from "@material-ui/core";
+import {Box, Card, Grid, Link, List, ListItemText} from "@material-ui/core";
 import statuses from "../../../data/order-statuses.json"
 import FullWidthSquareBox from "../../../components/common/full-width-square-box";
 import {useTheme} from "@material-ui/core/styles";
-import {Email, Print, Download, NorthEast, Phone} from "@material-ui/icons";
+import {Download, Email, NorthEast, Print} from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import {format} from "date-fns";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";

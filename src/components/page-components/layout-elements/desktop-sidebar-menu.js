@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useLocation, matchPath} from 'react-router-dom';
+import {matchPath, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Box, Divider, Drawer, IconButton, List} from '@material-ui/core';
 import {DektopSidebarMenuItem} from './dektop-sidebar-menu-item';
@@ -11,7 +11,6 @@ import {CustomChartPie as ChartPieIcon} from '../../../icons/custom-chart-pie';
 import {CustomCube as CubeIcon} from '../../../icons/custom-cube';
 import {CustomShoppingCart as ShoppingCartIcon} from '../../../icons/custom-shopping-cart';
 import {CustomUsers as UsersIcon} from '../../../icons/custom-users';
-import {OfficeBuilding as OfficeBuildingIcon} from '../../../icons/office-building';
 import {ReceiptTax as ReceiptTaxIcon} from '../../../icons/receipt-tax';
 import {DeliveryVan as DeliveryVan} from '../../../icons/delivery';
 import {Discount as Discount} from "../../../icons/discount";

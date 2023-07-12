@@ -1,4 +1,3 @@
-import React from "react"
 import {Card, Grid} from "@material-ui/core";
 import AddressCard from "../../../components/page-components/addresses/address-card";
 

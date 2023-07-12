@@ -8,7 +8,7 @@ import {
   TimelineDot,
   TimelineItem
 } from '@material-ui/lab';
-import {Close, Check, AccessAlarm, CreditCard, Settings, AirportShuttle, Link} from '@mui/icons-material';
+import {AccessAlarm, AirportShuttle, Check, Close, CreditCard, Link, Settings} from '@mui/icons-material';
 import {format} from "date-fns";
 import orderStatuses from "../../data/order-statuses.json"
 

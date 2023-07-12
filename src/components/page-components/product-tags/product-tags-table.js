@@ -1,20 +1,19 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {SettingsContext} from "../../../contexts/settings-context";
 import {
+  Avatar,
   Box,
   Checkbox,
+  Divider,
+  Link,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Typography,
-  Link, Skeleton, Divider, Avatar
+  TableHead, TableRow, TableSortLabel, Typography
 } from "@material-ui/core";
 import {Scrollbar} from "../../common/scrollbar";
 import {Link as RouterLink} from 'react-router-dom';
-import {ProductMenu} from "../product/product-menu";
 import {ResourceError} from "../../common/placeholder/resource-error";
 import {ResourceUnavailable} from "../../common/placeholder/resource-unavailable";
 import {Pagination} from "../layout-elements/pagination";

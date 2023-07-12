@@ -1,8 +1,7 @@
-import {useEffect, useState} from 'react';
-import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
+import {useEffect} from 'react';
+import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, Container, Divider, Tab, Tabs, Typography } from '@material-ui/core';
 import gtm from '../../lib/gtm';
-import LocationFinder from "../../components/maps/locationfinder";
 
 const tabs = [
   {

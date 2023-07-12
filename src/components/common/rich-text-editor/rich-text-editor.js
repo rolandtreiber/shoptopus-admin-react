@@ -1,7 +1,7 @@
-import React, {createRef, useContext, useEffect, useState} from 'react'
+import {createRef, useContext, useEffect, useState} from 'react'
 import {Editor} from "react-draft-wysiwyg";
 import htmlToDraft from "html-to-draftjs";
-import {ContentState, convertToRaw, EditorState} from "draft-js";
+import {ContentState, EditorState, convertToRaw} from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import {SettingsContext} from "../../../contexts/settings-context";
 

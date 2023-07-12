@@ -1,16 +1,16 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Card,
   CardHeader,
+  Chip,
   Divider,
   Grid,
-  List,
-  ListItem,
-  Chip,
-  Typography,
-  Accordion, AccordionSummary, AccordionDetails, ListItemText
+  List, ListItem, ListItemText, Typography
 } from "@material-ui/core";
 import {PropertyListItem} from "../../common/property-list/property-list-item";
 import productStatuses from "../../../data/product-statuses.json"

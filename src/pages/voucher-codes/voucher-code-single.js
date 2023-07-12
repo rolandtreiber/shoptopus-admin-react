@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -12,19 +12,16 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import {getUrlFilters} from "../../utils/apply-filters";
 import VoucherCodeDetails from "../../components/page-components/voucher-codes/voucher-code-details";
 import {VoucherCodeDialog} from "../../components/page-components/voucher-codes/voucher-code-dialog";
-import {useLanguage} from "../../hooks/use-language";
 
 export const VoucherCodeSingle = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchVoucherCode} = useContext(APIContext)
   const {voucherCodeId} = useParams()
-  const {getLang} = useLanguage()
 
   const onSuccess = () => {
     fetchData().catch(e => console.log(e.message))

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -12,12 +12,11 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import {getUrlFilters} from "../../utils/apply-filters";
 
 export const RatingSingle = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchRating} = useContext(APIContext)
   const {ratingId} = useParams()
@@ -104,6 +103,7 @@ export const RatingSingle = () => {
                 Edit
               </Button>
             </Box>
+            {openEditDialog && <Fragment></Fragment>}
             <div>{JSON.stringify(data)}</div>
           </Box>
         </Container>

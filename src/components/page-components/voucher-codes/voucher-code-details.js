@@ -1,16 +1,15 @@
-import React from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Card,
   CardHeader,
+  Chip,
   Divider,
   Grid,
-  List,
-  ListItem,
-  Chip,
-  Typography,
-  Accordion, AccordionSummary, AccordionDetails
+  List, ListItem, Typography
 } from "@material-ui/core";
 import {PropertyListItem} from "../../common/property-list/property-list-item";
 import expirableStatuses from "../../../data/expirable-statuses.json"
@@ -20,7 +19,6 @@ import {lightNeutral} from "../../../colors";
 import {ExpandMore, Visibility} from "@material-ui/icons";
 import {PropertyList} from "../../common/property-list/property-list";
 import {Link as RouterLink} from "react-router-dom";
-import {ArrowLeft as ArrowLeftIcon} from "../../../icons/arrow-left";
 
 const VoucherCodeDetails = ({voucherCode}) => {
 

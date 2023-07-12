@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
@@ -83,7 +83,6 @@ export const OrdersList = (callback, deps) => {
     selectedElements,
     handleSelect,
     handleSelectAll,
-    setRows,
     mergeSelectableRows,
     clearSelected
   ] = useSelection();

@@ -1,7 +1,7 @@
 import { Link as BrowserLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Alert, Box, Button, FormHelperText, Grid, Typography } from '@material-ui/core';
+import { Box, Button, FormHelperText, Grid, Typography } from '@material-ui/core';
 import { InputField } from '../common/input-field';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';

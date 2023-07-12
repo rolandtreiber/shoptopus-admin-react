@@ -1,5 +1,4 @@
-import React from "react"
-import {Box, Card, Grid, ListItem, ListItemText} from "@material-ui/core";
+import { Grid, ListItem} from "@material-ui/core";
 
 const ListItemGridKeyValue = ({left, right}) => {
   return (

@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback, useContext} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
@@ -17,7 +17,7 @@ export const ProductTagSingle = () => {
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const {fetchProductTag} = useContext(APIContext)
   const {productTagId} = useParams();
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async () => {
     setData(() => ({ isLoading: true }));

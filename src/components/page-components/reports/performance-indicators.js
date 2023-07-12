@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { ActionsMenu } from '../../common/actions/actions-menu';
 import RangeSelector from "./range-selector";
 import Price from "../../common/price";
 

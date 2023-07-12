@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Button,
@@ -6,18 +5,12 @@ import {
   CardHeader,
   Divider,
   Grid,
-  List,
-  ListItem,
-  Chip,
-  Typography,
-  Accordion, AccordionSummary, AccordionDetails, ListItemText
+  List, ListItem, ListItemText
 } from "@material-ui/core";
-import {PropertyListItem} from "../../common/property-list/property-list-item";
 import transactionTypes from "../../../data/transaction-types.json"
 import paymentMethods from "../../../data/payment-methods.json"
-import orderStatuses from "../../../data/order-statuses.json"
 import {format} from "date-fns";
-import {ExpandMore, Visibility} from "@material-ui/icons";
+import { Visibility} from "@material-ui/icons";
 import {Link as RouterLink} from "react-router-dom";
 import Price from "../../common/price";
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Proptypes from 'prop-types';
 import {Link as RouterLink} from 'react-router-dom';
 import {format} from 'date-fns';
@@ -6,11 +6,11 @@ import {
   Box,
   Checkbox,
   Divider,
+  Link,
   Skeleton,
   Table,
   TableBody,
   TableCell,
-  Link,
   TableHead,
   TableRow,
   TableSortLabel

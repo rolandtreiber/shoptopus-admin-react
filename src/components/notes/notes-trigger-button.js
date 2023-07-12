@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import {useContext, useEffect} from "react";
 import IconButton from "@material-ui/core/IconButton";
 import {Summarize} from "@material-ui/icons";
 import {NoteContext} from "../../contexts/note-context";

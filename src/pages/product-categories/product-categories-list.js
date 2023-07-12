@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import {useCallback, useContext, useEffect, useState} from 'react'
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
@@ -57,8 +57,7 @@ const ProductCategoriesList = () => {
         selectedCategories,
         handleSelect,
         handleSelectAll,
-        setRows,
-        mergeSelectableRows,
+            mergeSelectableRows,
         clearSelected
     ] = useSelection();
     const {

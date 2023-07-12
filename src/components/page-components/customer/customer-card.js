@@ -1,7 +1,6 @@
 import {Box, Card, Grid, List, ListItem, ListItemIcon, ListItemText, Typography} from "@material-ui/core";
 import FullSpaceAvatar from "../../common/full-space-avatar";
 import {Email, Phone} from "@material-ui/icons";
-import React from "react";
 
 const CustomerCard = ({data}) => {
   return (

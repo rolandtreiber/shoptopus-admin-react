@@ -1,8 +1,7 @@
-import {useState, useEffect, useCallback, useContext} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { ProductInfo } from '../../components/page-components/product/product-info';
-import { ProductInfoDialog } from '../../components/page-components/product/product-info-dialog';
 import { ProductStatus } from '../../components/page-components/product/product-status';
 import { ProductVariants } from '../../components/page-components/product/product-variants';
 import { ResourceError } from '../../components/common/placeholder/resource-error';

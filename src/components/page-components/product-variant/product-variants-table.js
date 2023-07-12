@@ -20,7 +20,6 @@ import Price from "../../common/price";
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import {useLanguage} from "../../../hooks/use-language";
 import {Status} from "../../common/status";
-import React from "react";
 
 const columns = [
   {

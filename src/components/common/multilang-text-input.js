@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {SettingsContext} from "../../contexts/settings-context";
 import {InputField} from "./input-field";
 import {Grid, TextField} from "@material-ui/core";

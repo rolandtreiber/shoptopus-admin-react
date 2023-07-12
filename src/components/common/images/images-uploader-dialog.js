@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
   Button,
   Checkbox,
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
   Typography
 } from '@material-ui/core';
 import { Trash as TrashIcon } from '../../../icons/trash';

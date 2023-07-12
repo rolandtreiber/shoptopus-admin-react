@@ -1,5 +1,4 @@
 import Proptypes from 'prop-types';
-import { format } from 'date-fns';
 import {
   Avatar,
   Box,
@@ -16,11 +15,9 @@ import { Pagination } from '../layout-elements/pagination';
 import { ResourceError } from '../../common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../common/scrollbar';
-import Price from "../../common/price";
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import {useLanguage} from "../../../hooks/use-language";
 import {Status} from "../../common/status";
-import React from "react";
 
 const columns = [
   {

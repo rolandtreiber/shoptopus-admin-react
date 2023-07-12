@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -12,13 +12,12 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import {getUrlFilters} from "../../utils/apply-filters";
 import TransactionDetails from "../../components/page-components/transactions/transaction-details";
 
 export const TransactionSingle = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchPayment} = useContext(APIContext)
   const {transactionId} = useParams()
@@ -105,6 +104,7 @@ export const TransactionSingle = () => {
                 Edit
               </Button>
             </Box>
+            {openEditDialog && <Fragment></Fragment>}
             {data.data && <TransactionDetails transaction={data.data}/>}
           </Box>
         </Container>

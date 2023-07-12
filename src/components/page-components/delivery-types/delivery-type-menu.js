@@ -1,7 +1,7 @@
 import {IconButton, Menu, MenuItem} from '@material-ui/core';
 import {usePopover} from '../../../hooks/use-popover';
 import {DotsVertical as DotsVerticalIcon} from '../../../icons/dots-vertical';
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {DialogContext} from "../../../contexts/dialog-context";

@@ -213,6 +213,8 @@ ListFilter.defaultProps = {
 };
 
 ListFilter.propTypes = {
+  mode: PropTypes.string,
+  onModeChange: PropTypes.func,
   disabled: PropTypes.bool,
   filters: PropTypes.array,
   onFiltersApply: PropTypes.func,
@@ -221,5 +223,8 @@ ListFilter.propTypes = {
   onViewChange: PropTypes.func,
   query: PropTypes.string,
   selectedElements: PropTypes.array,
-  view: PropTypes.string
+  view: PropTypes.string,
+  views: PropTypes.array,
+  filterProperties: PropTypes.array,
+  bulkMenuItems: PropTypes.array
 };

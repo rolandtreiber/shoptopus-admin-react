@@ -1,9 +1,8 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
-import { Plus as PlusIcon } from '../../icons/plus';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
@@ -57,7 +56,6 @@ export const TransactionsList = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        setRows,
         mergeSelectableRows,
         clearSelected
     ] = useSelection();
@@ -67,7 +65,6 @@ export const TransactionsList = () => {
         showGenericDialog,
         setDescription
     } = useContext(DialogContext)[1]
-    const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const { fetchPayments, bulkUpdatePaymentStatuses } = useContext(APIContext)
 

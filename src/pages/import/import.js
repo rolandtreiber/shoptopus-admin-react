@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
 import {
   Alert,
@@ -16,7 +16,7 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {useDropzone} from 'react-dropzone';
 import {APIContext} from "../../contexts/api-context";
 import {getFileFromBlob} from "../../utils/file-operations";
-import {NotInterested, Check} from "@material-ui/icons";
+import {Check, NotInterested} from "@material-ui/icons";
 
 const acceptedMimeTypes = [
   'application/vnd.ms-excel',

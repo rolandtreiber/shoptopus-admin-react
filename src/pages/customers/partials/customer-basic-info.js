@@ -1,4 +1,3 @@
-import React from "react";
 import CustomerCard from "../../../components/page-components/customer/customer-card";
 
 const CustomerBasicInfo = ({data}) => {

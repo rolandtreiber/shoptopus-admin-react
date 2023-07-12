@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import {useCallback, useContext, useEffect, useState} from 'react'
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
@@ -56,8 +56,7 @@ const ProductAttributesList = () => {
         selectedElements,
         handleSelect,
         handleSelectAll,
-        setRows,
-        mergeSelectableRows,
+            mergeSelectableRows,
         clearSelected
     ] = useSelection();
     const {language, appName} = useContext(SettingsContext)
@@ -134,13 +133,6 @@ const ProductAttributesList = () => {
             ...controller,
             page: 0,
             view: newView
-        });
-    };
-
-    const handlePageChange = (newPage) => {
-        setController({
-            ...controller,
-            page: newPage - 1
         });
     };
 

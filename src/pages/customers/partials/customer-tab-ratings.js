@@ -1,5 +1,4 @@
-import React from "react"
-import {Box, Card, Grid, Link, List, ListItemText} from "@material-ui/core";
+import { Card, Grid, Link, List, ListItemText} from "@material-ui/core";
 import {Star as StarIcon} from "../../../icons/star";
 import {format} from "date-fns";
 import IconButton from "@material-ui/core/IconButton";

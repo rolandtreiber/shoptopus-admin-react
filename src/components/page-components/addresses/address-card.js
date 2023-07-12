@@ -1,4 +1,3 @@
-import React from "react";
 import {useTheme} from "@material-ui/core/styles";
 import {useLanguage} from "../../../hooks/use-language";
 import {useSettings} from "../../../contexts/settings-context";

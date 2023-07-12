@@ -1,11 +1,10 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, Container, Divider, Typography} from '@material-ui/core';
+import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
 import {CustomerDialog} from '../../components/page-components/customer/customer-dialog';
 import {CustomersTable} from '../../components/page-components/customer/customers-table';
 import {useMounted} from '../../hooks/use-mounted';
 import {useSelection} from '../../hooks/use-selection';
-import {Plus as PlusIcon} from '../../icons/plus';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {ListFilter} from "../../components/common/filter/list-filter";

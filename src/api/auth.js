@@ -1,5 +1,5 @@
 import { generateResourceId } from '../utils/generate-resource-id';
-import { sign, decode, JWT_SECRET, JWT_EXPIRES_IN } from '../utils/jwt';
+import { JWT_EXPIRES_IN, JWT_SECRET, decode, sign } from '../utils/jwt';
 import { wait } from '../utils/wait';
 
 const users = [

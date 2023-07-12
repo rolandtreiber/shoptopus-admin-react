@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Proptypes from 'prop-types';
 import {Link as RouterLink} from 'react-router-dom';
 import {format} from 'date-fns';
@@ -18,7 +18,6 @@ import {Pagination} from '../layout-elements/pagination';
 import {ResourceError} from '../../common/placeholder/resource-error';
 import {ResourceUnavailable} from '../../common/placeholder/resource-unavailable';
 import {Scrollbar} from '../../common/scrollbar';
-import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../../contexts/settings-context";
 import {Status} from "../../common/status";
 import {DiscountRuleMenu} from "./discount-rule-menu";

@@ -1,4 +1,3 @@
-import React from "react";
 import PaymentTypes from "../../data/payment-methods.json";
 import VisaLogo from "../../static/images/payment-types/visa.png";
 import MastercardLogo from "../../static/images/payment-types/mastercard.png";
@@ -20,6 +19,8 @@ const PaymentTypeLogo = ({type, brand}) => {
             return <img alt="mastercard-logo" src={MastercardLogo} width={"100%"}/>
           case "american express":
             return <img alt="american-express-logo" src={AmericanExpressLogo} width={"100%"}/>
+          default:
+            return <img alt="visa-logo" src={VisaLogo} width={"100%"}/>
         }
       case "PayPal":
         return <img alt="paypal-logo" src={PayPalLogo} width={"100%"}/>

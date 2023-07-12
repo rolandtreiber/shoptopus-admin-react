@@ -1,15 +1,14 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {
   Box,
-  Checkbox,
+  Divider,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
-  Typography,
-  Skeleton, Divider
+  TableSortLabel, Typography
 } from "@material-ui/core";
 import {Scrollbar} from "../../common/scrollbar";
 import {ResourceError} from "../../common/placeholder/resource-error";

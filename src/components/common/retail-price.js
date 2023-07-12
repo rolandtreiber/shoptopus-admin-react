@@ -1,4 +1,3 @@
-import React from 'react'
 import Price from "./price";
 import {darkWarning} from "../../colors";
 
