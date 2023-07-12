@@ -49,7 +49,7 @@ export const Import = () => {
       formData.append("file", getFileFromBlob(fileBlob))
       validateImportFile(formData).then(result => {
         setValidationResult(result.data)
-      }).catch(e => {
+      }).catch(() => {
         setValidationResult({
           message: "File upload failed. Please check the file type, extension and columns."
         })
@@ -70,7 +70,7 @@ export const Import = () => {
           setValidatedData([])
           setColumnNames([])
         }
-      }).catch(e => {
+      }).catch(() => {
         setValidationResult({
           message: "File upload failed. Please check the file type, extension and columns."
         })
@@ -97,7 +97,7 @@ export const Import = () => {
     }
   }, [validationResult])
 
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     accept: acceptedMimeTypes,
@@ -211,7 +211,7 @@ export const Import = () => {
                           {item.errors && item.errors instanceof Array ? (
                             <ul>
                               {item.errors && item.errors.map(error =>
-                                <li>{error}</li>
+                                <li key={error}>{error}</li>
                               )}
                             </ul>
                           ) : (

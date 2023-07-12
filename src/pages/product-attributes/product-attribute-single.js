@@ -19,7 +19,7 @@ export const ProductAttributeSingle = () => {
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const {fetchProductAttribute} = useContext(APIContext)
   const {productAttributeId} = useParams();
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async () => {
     setData(() => ({ isLoading: true }));

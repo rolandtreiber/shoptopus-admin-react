@@ -1,7 +1,11 @@
+import {Fragment} from "react";
 
 const OrderTabItems = ({data}) => {
   return (
-    <h1>Items</h1>
+    <Fragment>
+      <h1>Items</h1>
+      <div>{JSON.stringify(data)}</div>
+    </Fragment>
   )
 }
 

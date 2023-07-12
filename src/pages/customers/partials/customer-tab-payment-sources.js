@@ -10,7 +10,7 @@ const CustomerTabPaymentSources = ({data}) => {
   const theme = useTheme()
 
   return (<Grid container spacing={2}>
-    {data.length > 0 ? data.map(paymentSource => (<Grid item xs={12} lg={6}>
+    {data.length > 0 ? data.map(paymentSource => (<Grid key={data.id} item xs={12} lg={6}>
       <Card variant="outlined">
         <Grid container spacing={2}>
           <Grid item xs={4}>

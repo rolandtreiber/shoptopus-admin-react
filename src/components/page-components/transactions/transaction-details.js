@@ -54,7 +54,7 @@ const TransactionDetails = ({transaction}) => {
                 <List>
                   <ListItem>
                     <ListItemText sx={{flex: 1}}>Amount</ListItemText>
-                    <ListItemText sx={{flex: 3}}><h2 sx={{fontSize: 34, padding: 4}} color="primary"><Price>{transaction.amount}</Price></h2></ListItemText>
+                    <ListItemText sx={{flex: 3}}><h2 style={{fontSize: 34, padding: 4}} color="primary"><Price>{transaction.amount}</Price></h2></ListItemText>
                   </ListItem>
                   <ListItem>
                     <ListItemText sx={{flex: 1}}>Type</ListItemText>

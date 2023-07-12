@@ -74,45 +74,6 @@ export const DeliveryTypeInfo = (props) => {
                 <ListItemText sx={{"flex": "3"}}><Price>{data.total_revenue}</Price></ListItemText>
               </ListItem>
             </List>
-            {/*<PropertyList>*/}
-            {/*  <PropertyListItem*/}
-            {/*    align={align}*/}
-            {/*    label="Name"*/}
-            {/*    value={getLang(data.name)}*/}
-            {/*  />*/}
-            {/*  <PropertyListItem*/}
-            {/*    align={align}*/}
-            {/*    label="Description"*/}
-            {/*    value={getLang(data.description)}*/}
-            {/*  />*/}
-            {/*  <PropertyListItem*/}
-            {/*    align={align}*/}
-            {/*    label="Status"*/}
-            {/*    value={data.enabled ? 'Enabled' : 'Disabled'}*/}
-            {/*  />*/}
-            {/*  <PropertyListItem*/}
-            {/*    align={align}*/}
-            {/*    label="Price"*/}
-            {/*  >*/}
-            {/*    <Price>{data.price}</Price>*/}
-            {/*  </PropertyListItem>*/}
-            {/*  <PropertyListItem*/}
-            {/*    align={align}*/}
-            {/*    label="Rules"*/}
-            {/*  >*/}
-            {/*    <Rule variant={"outlined"} >*/}
-            {/*      <List dense>*/}
-            {/*        {data.rules.map(rule =>*/}
-            {/*          (*/}
-            {/*            <ListItem key={rule.id} divider>*/}
-            {/*              <ListItemText primary={rule.id} />*/}
-            {/*            </ListItem>*/}
-            {/*          )*/}
-            {/*        )}*/}
-            {/*      </List>*/}
-            {/*    </Rule>*/}
-            {/*  </PropertyListItem>*/}
-            {/*</PropertyList>*/}
           </Card>
         </Grid>
       </Grid>
@@ -158,7 +119,7 @@ export const DeliveryTypeInfo = (props) => {
                 >There are no rules to show</Typography>
               ) : (
                 <>
-                  {data.rules.map(r => <Paper sx={{padding: 1}} variant={"outlined"}>
+                  {data.rules.map(r => <Paper key={r.id} sx={{padding: 1}} variant={"outlined"}>
                     <List>
                       <ListItem>
                         <ListItemText sx={{flex: 1}}>Weight</ListItemText>
@@ -171,7 +132,7 @@ export const DeliveryTypeInfo = (props) => {
                       <ListItem>
                         <ListItemText sx={{flex: 1}}>Postcodes</ListItemText>
                         <ListItemText sx={{flex: 2}}>
-                          {r.postcodes.map(p => <Chip sx={{margin: "2px"}} variant={"outlined"} color="primary" size={"small"} label={p}/>)}
+                          {r.postcodes.map(p => <Chip key={p} sx={{margin: "2px"}} variant={"outlined"} color="primary" size={"small"} label={p}/>)}
                         </ListItemText>
                       </ListItem>
                     </List>

@@ -23,8 +23,6 @@ const filterProperties = [
   }
 ];
 
-const views = []
-
 export const Notifications = () => {
   const [notifications, setNotifications] = useState({isLoading: true})
   const mounted = useMounted();

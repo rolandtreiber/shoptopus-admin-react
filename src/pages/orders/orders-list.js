@@ -66,7 +66,7 @@ const filterProperties = [
   }
 ];
 
-export const OrdersList = (callback, deps) => {
+export const OrdersList = () => {
   const mounted = useMounted();
   const [controller, setController] = useState({
     filters: [],

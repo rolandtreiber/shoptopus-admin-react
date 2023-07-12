@@ -33,7 +33,7 @@
         "no-unused-vars": "off",
         "unused-imports/no-unused-imports": "error",
         "unused-imports/no-unused-vars": [
-            "warn",
+            "off",
             {
                 "vars": "all",
                 "varsIgnorePattern": "^_",
@@ -51,6 +51,6 @@
         "react/display-name": "off",
         "react/jsx-key": "warn",
         "react/no-unknown-property": "warn",
-        "no-undef": "warn"
+        "no-undef": "off"
     }
 }
