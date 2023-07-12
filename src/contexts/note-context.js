@@ -19,10 +19,6 @@ import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
 
 export const NoteContext = createContext();
 
-const toolbar = {
-  options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'link', 'emoji', 'remove', 'history'],
-}
-
 export const NoteProvider = ({children}) => {
   const {createNote, updateNote, deleteNote} = useContext(APIContext)
   const [notes, setNotes] = useState([])
@@ -38,10 +34,6 @@ export const NoteProvider = ({children}) => {
   const [initialContent, setInitialContent] = useState("<p></p>")
   const [updatedCallback, setUpdatedCallback] = useState(() => {})
 
-  const handleCreateNote = () => {
-    setConfirmationDialogVisibility(false)
-  }
-
   const noteContextMethods = useMemo(() => ({
     showNoteClient: () => {
       setModalVisibility(true)
@@ -55,7 +47,8 @@ export const NoteProvider = ({children}) => {
         noteable_type: noteableType,
         noteable_id: noteableId
       })
-
+      setWorking(false)
+      toast.success('Note saved');
       updatedCallback.cb()
     } catch (err) {
       console.error(err);
@@ -86,6 +79,7 @@ export const NoteProvider = ({children}) => {
     if (initialContent === '') setInitialContent('<p></p>')
   }, [initialContent])
   const handleSaveNote = () => {
+    setWorking(true)
     commitCreateNote()
     setInitialContent('')
 

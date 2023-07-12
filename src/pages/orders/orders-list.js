@@ -77,7 +77,7 @@ export const OrdersList = () => {
     view: 'all',
     search: ''
   });
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [dataState, setDataState] = useState({ isLoading: true });
   const [
     selectedElements,

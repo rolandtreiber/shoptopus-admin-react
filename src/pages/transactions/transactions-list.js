@@ -50,7 +50,7 @@ export const TransactionsList = () => {
         sortBy: 'updated_at',
         view: 'all'
     });
-    const {language, appName} = useContext(SettingsContext)
+    const {appName} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
         selectedElements,

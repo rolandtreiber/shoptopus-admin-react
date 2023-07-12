@@ -44,7 +44,7 @@ const views = [
 const ProductCategoriesList = () => {
     const [categories, setCategories] = useState({isLoading: true})
     const mounted = useMounted();
-    const {language, appName} = useContext(SettingsContext)
+    const {appName} = useContext(SettingsContext)
     const [controller, setController] = useState({
         filters: [],
         page: 0,

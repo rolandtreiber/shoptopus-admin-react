@@ -69,7 +69,7 @@ export const CustomersList = () => {
     mergeSelectableRows
   ] = useSelection();
   const {fetchCustomers} = useContext(APIContext)
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const {
     setAddresses,
@@ -150,28 +150,6 @@ export const CustomersList = () => {
           operator: "contains"
         }
       ]
-    });
-  };
-
-  const handleFiltersApply = (newFilters) => {
-    const parsedFilters = newFilters.map((filter) => ({
-      property: filter.property.name,
-      value: filter.value,
-      operator: filter.operator.value
-    }));
-
-    setController({
-      ...controller,
-      page: 0,
-      filters: parsedFilters
-    });
-  };
-
-  const handleFiltersClear = () => {
-    setController({
-      ...controller,
-      page: 0,
-      filters: []
     });
   };
 

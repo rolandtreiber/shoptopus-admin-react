@@ -59,7 +59,7 @@ const ProductAttributesList = () => {
             mergeSelectableRows,
         clearSelected
     ] = useSelection();
-    const {language, appName} = useContext(SettingsContext)
+    const {appName} = useContext(SettingsContext)
 
     const {
         setCallback,

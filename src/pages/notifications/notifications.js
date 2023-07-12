@@ -26,7 +26,7 @@ const filterProperties = [
 export const Notifications = () => {
   const [notifications, setNotifications] = useState({isLoading: true})
   const mounted = useMounted();
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const {fetchNotifications} = useContext(APIContext)
   const {notificationTypes} = useContext(NotificationsContext)[0]
   const views = [{

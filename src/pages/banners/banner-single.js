@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ import {APIContext} from "../../contexts/api-context";
 export const BannerSingle = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchBanner} = useContext(APIContext)
   const {bannerId} = useParams()
@@ -104,6 +104,7 @@ export const BannerSingle = () => {
               </Button>
             </Box>
             <div>{JSON.stringify(data)}</div>
+            {openEditDialog && <Fragment/>}
           </Box>
         </Container>
       </Box>

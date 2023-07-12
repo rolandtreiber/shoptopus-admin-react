@@ -27,7 +27,7 @@ import CustomerTabLog from "./partials/customer-tab-log";
 
 export const CustomerSingle = () => {
   const mounted = useMounted();
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const {fetchCustomer} = useContext(APIContext)
   const [customerData, setCustomerData] = useState({isLoading: true})
   const {customerId} = useParams()

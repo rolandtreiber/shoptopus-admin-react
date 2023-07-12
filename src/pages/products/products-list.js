@@ -67,7 +67,7 @@ export const ProductsList = () => {
     sortBy: 'updated_at',
     view: 'all'
   });
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [productsState, setProductsState] = useState({ isLoading: true });
   const [
     selectedProducts,

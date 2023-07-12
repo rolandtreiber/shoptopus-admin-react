@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
@@ -70,7 +70,7 @@ export const FilesList = () => {
         sortBy: 'updated_at',
         view: 'all'
     });
-    const {language, appName} = useContext(SettingsContext)
+    const {appName} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
         selectedElements,
@@ -288,6 +288,7 @@ export const FilesList = () => {
                         sort={controller.sort}
                         sortBy={controller.sortBy}
                       />
+                      {openCreateDialog && <Fragment/>}
                   </Card>
               </Container>
           </Box>

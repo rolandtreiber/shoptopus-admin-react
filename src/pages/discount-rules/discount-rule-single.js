@@ -18,7 +18,7 @@ import {DiscountRuleDialog} from "../../components/page-components/discount-rule
 export const DiscountRuleSingle = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const {language, appName} = useContext(SettingsContext)
+  const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchDiscountRule} = useContext(APIContext)
   const {discountRuleId} = useParams()

@@ -72,7 +72,7 @@ export const SettingsProvider = (props) => {
   const {getAppMetaInformation} = useContext(APIContext)
   const {getSharedOptions} = useContext(APIContext)
 
-  const fetchMetaInformation = useCallback(async (localSettings) => {
+  const fetchMetaInformation = useCallback(async () => {
 
     try {
       const result = await getAppMetaInformation()
