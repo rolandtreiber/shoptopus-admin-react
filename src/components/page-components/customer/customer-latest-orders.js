@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Card, Typography } from '@material-ui/core';
-import { OrderPreviewItem } from '../../order/order-preview-item';
-import { OrderPreviewList } from '../../order/order-preview-list';
+import { OrderPreviewItem } from '../order/order-preview-item';
+import { OrderPreviewList } from '../order/order-preview-list';
 import { ResourceUnavailable } from '../../common/placeholder/resource-unavailable';
 
 export const CustomerLatestOrders = (props) => {

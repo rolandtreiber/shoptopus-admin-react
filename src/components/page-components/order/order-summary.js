@@ -9,10 +9,10 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import { Scrollbar } from '../common/scrollbar';
-import {useLanguage} from "../../hooks/use-language";
-import Price from "../common/price";
-import {darkWarning} from "../../colors";
+import { Scrollbar } from '../../common/scrollbar';
+import {useLanguage} from "../../../hooks/use-language";
+import Price from "../../common/price";
+import {darkWarning} from "../../../colors";
 
 export const OrderSummary = (props) => {
   const { order, ...other } = props;

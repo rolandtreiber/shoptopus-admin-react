@@ -12,7 +12,7 @@ import {
   Grid,
   MenuItem
 } from '@material-ui/core';
-import { InputField } from '../common/input-field';
+import { InputField } from '../../common/input-field';
 
 const statusOptions = [
   {

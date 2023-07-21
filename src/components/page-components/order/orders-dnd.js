@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Card } from '@material-ui/core';
 import { OrderDroppable } from './order-dropable';
-import {APIContext} from "../../contexts/api-context";
+import {APIContext} from "../../../contexts/api-context";
 
 const statusVariants = [
   {

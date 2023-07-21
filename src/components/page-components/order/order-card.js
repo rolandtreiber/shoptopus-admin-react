@@ -8,10 +8,10 @@ import {
   ListItemText,
   Typography
 } from "@material-ui/core";
-import {Status} from "../common/status";
+import {Status} from "../../common/status";
 import {CalendarToday, ExpandMore, LocalShipping, LocationCity, Payment} from "@material-ui/icons";
-import Price from "../common/price";
-import {useLanguage} from "../../hooks/use-language";
+import Price from "../../common/price";
+import {useLanguage} from "../../../hooks/use-language";
 import {format} from "date-fns";
 
 

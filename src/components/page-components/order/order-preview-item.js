@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Box, Collapse, Divider, IconButton, Link, ListItem, Typography } from '@material-ui/core';
-import { ChevronDown as ChevronDownIcon } from '../../icons/chevron-down';
-import { Status } from '../common/status';
+import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
+import { Status } from '../../common/status';
 import { OrderSummary } from './order-summary';
 
 const statusVariants = [

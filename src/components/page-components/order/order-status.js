@@ -3,12 +3,12 @@ import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
-import { useDialog } from '../../hooks/use-dialog';
-import { ConfirmationDialog } from '../modal/confirmation-dialog';
-import { StatusSelect } from '../common/status-select';
+import { useDialog } from '../../../hooks/use-dialog';
+import { ConfirmationDialog } from '../../modal/confirmation-dialog';
+import { StatusSelect } from '../../common/status-select';
 import { OrderTimeline } from './order-timeline';
-import {APIContext} from "../../contexts/api-context";
-import orderStatuses from "../../data/order-statuses.json";
+import {APIContext} from "../../../contexts/api-context";
+import orderStatuses from "../../../data/order-statuses.json";
 
 const statusOptions = orderStatuses;
 

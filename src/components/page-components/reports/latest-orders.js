@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Card, CardHeader, Divider } from '@material-ui/core';
-import { OrderPreviewItem } from '../../order/order-preview-item';
-import { OrderPreviewList } from '../../order/order-preview-list';
+import { OrderPreviewItem } from '../order/order-preview-item';
+import { OrderPreviewList } from '../order/order-preview-list';
 
 export const LatestOrders = (props) => {
   const { orders } = props;

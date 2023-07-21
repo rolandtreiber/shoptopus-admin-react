@@ -11,7 +11,7 @@ import {
   FormHelperText,
   Grid
 } from '@material-ui/core';
-import { InputField } from '../common/input-field';
+import { InputField } from '../../common/input-field';
 
 export const OrderCreateDialog = (props) => {
   const { open, onClose, ...other } = props;

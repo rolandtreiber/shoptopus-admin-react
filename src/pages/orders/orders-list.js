@@ -8,8 +8,8 @@ import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
-import {OrdersTable} from "../../components/order/orders-table";
-import {OrdersDnd} from "../../components/order/orders-dnd";
+import {OrdersTable} from "../../components/page-components/order/orders-table";
+import {OrdersDnd} from "../../components/page-components/order/orders-dnd";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 

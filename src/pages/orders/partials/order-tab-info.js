@@ -1,11 +1,11 @@
 import {Card, CardHeader, Divider, Grid, List, ListItemText} from "@material-ui/core";
-import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
-import {OrderStatus} from "../../../components/order/order-status";
-import Price from "../../../components/common/price";
-import {format} from "date-fns";
+import {OrderStatus} from "../../../components/page-components/order/order-status";
 import TransactionCard from "../../../components/page-components/transactions/transaction-card";
 import CustomerCard from "../../../components/page-components/customer/customer-card";
 import AddressCard from "../../../components/page-components/addresses/address-card";
+import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
+import Price from "../../../components/common/price";
+import {format} from "date-fns";
 
 const OrderTabInfo = ({data, updated}) => {
   return (<Grid container spacing={2}>
@@ -33,7 +33,7 @@ const OrderTabInfo = ({data, updated}) => {
             />
             <ListItemGridKeyValue
               left={<ListItemText>Voucher Code</ListItemText>}
-              right={<ListItemText>{data.voucher_code ? data.voucher_code : "none"}</ListItemText>}
+              right={<ListItemText>{data.voucher_code ? data.voucher_code.code : "none"}</ListItemText>}
             />
             <ListItemGridKeyValue
               left={<ListItemText>Placed At</ListItemText>}

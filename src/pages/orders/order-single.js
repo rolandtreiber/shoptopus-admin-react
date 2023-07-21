@@ -23,6 +23,7 @@ export const OrderSingle = () => {
   const {fetchOrder} = useContext(APIContext)
   const {orderId} = useParams()
   const {appName} = useContext(SettingsContext)
+  const backendUrl = process.env.REACT_APP_URL;
   const {
     setAddresses,
     setSubject,
@@ -88,10 +89,11 @@ export const OrderSingle = () => {
   };
 
   const handleDownloadInvoice = () => {
+    window.open(backendUrl+"invoice/"+orderState.data?.invoice_access_token, '_blank');
     toast.success('Download invoice action handled');
   };
 
-  const actions = [
+  const actions = orderState.data?.invoice_access_token ? [
     {
       label: 'Update Status',
       onClick: handleUpdateStatus
@@ -107,6 +109,19 @@ export const OrderSingle = () => {
     {
       label: 'Download invoice',
       onClick: handleDownloadInvoice
+    }
+  ] : [
+    {
+      label: 'Update Status',
+      onClick: handleUpdateStatus
+    },
+    {
+      label: 'Add tracking information',
+      onClick: handleAddTrackingInformation
+    },
+    {
+      label: 'Download packing order',
+      onClick: handleDownloadPackingOrder
     }
   ];
 

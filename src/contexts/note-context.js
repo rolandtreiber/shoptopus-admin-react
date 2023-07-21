@@ -47,6 +47,7 @@ export const NoteProvider = ({children}) => {
         noteable_type: noteableType,
         noteable_id: noteableId
       })
+
       setWorking(false)
       toast.success('Note saved');
       updatedCallback.cb()

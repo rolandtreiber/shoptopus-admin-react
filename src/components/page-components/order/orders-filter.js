@@ -9,9 +9,9 @@ import {
   ToggleButton,
   ToggleButtonGroup
 } from '@material-ui/core';
-import { Adjustments as AdjustmentsIcon } from '../../icons/adjustments';
-import { ViewGrid as ViewGridIcon } from '../../icons/view-grid';
-import { ViewList as ViewListIcon } from '../../icons/view-list';
+import { Adjustments as AdjustmentsIcon } from '../../../icons/adjustments';
+import { ViewGrid as ViewGridIcon } from '../../../icons/view-grid';
+import { ViewList as ViewListIcon } from '../../../icons/view-list';
 import {
   containsOperator,
   endsWithOperator,
@@ -25,10 +25,10 @@ import {
   notContainsOperator,
   notEqualOperator,
   startsWithOperator
-} from '../../utils/filter-operators';
-import { BulkActionsMenu } from '../common/bulk-actions-menu';
-import { FilterDialog } from '../common/filter/filter-dialog';
-import { Query } from '../common/filter/query';
+} from '../../../utils/filter-operators';
+import { BulkActionsMenu } from '../../common/bulk-actions-menu';
+import { FilterDialog } from '../../common/filter/filter-dialog';
+import { Query } from '../../common/filter/query';
 
 const views = [
   {

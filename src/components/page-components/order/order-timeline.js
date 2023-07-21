@@ -10,7 +10,7 @@ import {
 } from '@material-ui/lab';
 import {AccessAlarm, AirportShuttle, Check, Close, CreditCard, Link, Settings} from '@mui/icons-material';
 import {format} from "date-fns";
-import orderStatuses from "../../data/order-statuses.json"
+import orderStatuses from "../../../data/order-statuses.json"
 
 export const OrderTimeline = (props) => {
   const { status, events, ...other } = props;

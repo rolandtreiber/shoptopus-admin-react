@@ -1,11 +1,8 @@
-import {Fragment} from "react";
+import OrderProductsTable from "../../../components/page-components/order/order-products-table";
 
 const OrderTabItems = ({data}) => {
   return (
-    <Fragment>
-      <h1>Items</h1>
-      <div>{JSON.stringify(data)}</div>
-    </Fragment>
+    <OrderProductsTable data={data}/>
   )
 }
 
