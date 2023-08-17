@@ -69,7 +69,7 @@ export const AuthContext = createContext({
 export const AuthProvider = (props) => {
   const {children} = props;
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {callLoginApi, callMeApi, setAccessToken} = useContext(APIContext)
+  const {callLoginApi, callMeApi, setAccessToken, callPasswordRecoveryApi, callPasswordResetApi} = useContext(APIContext)
 
   useEffect(() => {
     const initialize = async () => {
@@ -157,6 +157,14 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const passwordRecovery = async (email) => {
+    await callPasswordRecoveryApi({email})
+  };
+
+  const passwordReset = async (payload) => {
+    await callPasswordResetApi(payload)
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -164,7 +172,9 @@ export const AuthProvider = (props) => {
         method: 'oAuth',
         login,
         logout,
-        register
+        register,
+        passwordRecovery,
+        passwordReset
       }}
     >
       {children}

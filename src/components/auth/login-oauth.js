@@ -137,18 +137,6 @@ export const LoginOAuth = () => {
           </Button>
         </Grid>
       </Grid>
-      {/*<Alert*/}
-      {/*  severity="info"*/}
-      {/*  sx={{ mt: 3 }}*/}
-      {/*>*/}
-      {/*  You can use*/}
-      {/*  &nbsp;*/}
-      {/*  <strong>demo@devias.io</strong>*/}
-      {/*  &nbsp;*/}
-      {/*  and password*/}
-      {/*  &nbsp;*/}
-      {/*  <strong>Password123!</strong>*/}
-      {/*</Alert>*/}
     </form>
   );
 };

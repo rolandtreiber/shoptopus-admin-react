@@ -126,7 +126,7 @@ const routes = [
     )
   },
   {
-    path: 'password-reset',
+    path: 'reset-password',
     element: (
       <PasswordReset/>
     )

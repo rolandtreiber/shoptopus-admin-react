@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Box, Card, CardContent, Container, Grid, Toolbar } from '@material-ui/core';
@@ -7,7 +7,7 @@ import { LoginAuth0 } from '../../components/auth/login-auth0';
 import { LoginFirebase } from '../../components/auth/login-firebase';
 import { LoginJwt } from '../../components/auth/login-jwt';
 import { Logo } from '../../components/common/logo';
-import { useSettings } from '../../contexts/settings-context';
+import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import { useAuth } from '../../hooks/use-auth';
 import gtm from '../../lib/gtm';
 import {LoginOAuth} from "../../components/auth/login-oauth";
@@ -15,6 +15,7 @@ import {LoginOAuth} from "../../components/auth/login-oauth";
 export const Login = () => {
   const { method } = useAuth();
   const { settings } = useSettings();
+  const {appName} = useContext(SettingsContext)
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
@@ -23,7 +24,7 @@ export const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Carpatin Dashboard</title>
+        <title>Login | {appName}</title>
       </Helmet>
       <AppBar
         elevation={0}

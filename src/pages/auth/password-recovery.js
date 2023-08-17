@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import { InputField } from '../../components/common/input-field';
 import { Logo } from '../../components/common/logo';
-import { useSettings } from '../../contexts/settings-context';
+import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
@@ -26,6 +26,7 @@ export const PasswordRecovery = () => {
   const mounted = useMounted();
   const { passwordRecovery } = useAuth();
   const { settings } = useSettings();
+  const {appName} = useContext(SettingsContext)
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -39,7 +40,7 @@ export const PasswordRecovery = () => {
       try {
         await passwordRecovery?.(values.email);
 
-        navigate('/password-reset', {
+        navigate('/login', {
           state: {
             username: values.email
           }
@@ -62,7 +63,7 @@ export const PasswordRecovery = () => {
   return (
     <>
       <Helmet>
-        <title>Password Recovery | Carpatin Dashboard</title>
+        <title>Password Recovery | {appName}</title>
       </Helmet>
       <AppBar
         elevation={0}

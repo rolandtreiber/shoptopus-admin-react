@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import {Link as RouterLink, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import { InputField } from '../../components/common/input-field';
 import { Logo } from '../../components/common/logo';
-import { useSettings } from '../../contexts/settings-context';
+import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
@@ -29,17 +29,17 @@ export const PasswordReset = () => {
   const { settings } = useSettings();
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  const email = searchParams.get('email');
+  const {appName} = useContext(SettingsContext)
   const formik = useFormik({
     initialValues: {
-      code: '',
-      email: location.state?.username || '',
       password: '',
       passwordConfirm: '',
       submit: null
     },
     validationSchema: Yup.object().shape({
-      code: Yup.string().max(6).required('Code is required'),
-      email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
       password: Yup
         .string()
         .min(7, 'Must be at least 7 characters')
@@ -52,7 +52,7 @@ export const PasswordReset = () => {
     }),
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await passwordReset?.(values.email, values.code, values.password);
+        await passwordReset?.({email: email, token: token, password: values.password, password_confirmation: values.passwordConfirm});
 
         navigate('/login');
       } catch (err) {
@@ -75,7 +75,7 @@ export const PasswordReset = () => {
   return (
     <>
       <Helmet>
-        <title>Password Reset | Carpatin Dashboard</title>
+        <title>Password Reset | {appName}</title>
       </Helmet>
       <AppBar
         elevation={0}
@@ -117,19 +117,6 @@ export const PasswordReset = () => {
             >
               <Grid
                 item
-                md={2}
-                sx={{
-                  display: {
-                    md: 'block',
-                    xs: 'none'
-                  }
-                }}
-                xs={12}
-              >
-                {/*<ProductFeatures />*/}
-              </Grid>
-              <Grid
-                item
                 md={8}
                 xs={12}
               >
@@ -138,7 +125,7 @@ export const PasswordReset = () => {
                   elevation={0}
                 >
                   <CardContent>
-                    <form onSubmit={formik.handleSubmit}>
+                    {token ? <form onSubmit={formik.handleSubmit}>
                       <Box
                         sx={{
                           alignItems: 'center',
@@ -166,40 +153,6 @@ export const PasswordReset = () => {
                         container
                         spacing={2}
                       >
-                        <Grid
-                          item
-                          xs={12}
-                        >
-                          <InputField
-                            autoFocus
-                            disabled={!!location.state?.username}
-                            error={Boolean(formik.touched.email && formik.errors.email)}
-                            fullWidth
-                            helperText={formik.touched.email && formik.errors.email}
-                            label="Email Address"
-                            name="email"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            type="email"
-                            value={formik.values.email}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                        >
-                          <InputField
-                            autoFocus={!!location.state?.username}
-                            error={Boolean(formik.touched.code && formik.errors.code)}
-                            fullWidth
-                            helperText={formik.touched.code && formik.errors.code}
-                            label="Reset code"
-                            name="code"
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            value={formik.values.code}
-                          />
-                        </Grid>
                         <Grid
                           item
                           xs={12}
@@ -261,7 +214,12 @@ export const PasswordReset = () => {
                           </Button>
                         </Grid>
                       </Grid>
-                    </form>
+                    </form> : <Typography
+                      color="textPrimary"
+                      variant="p"
+                    >
+                      The url is missing the token required for password recovery. Please click on or copy the link in the password recovery email.
+                    </Typography>}
                   </CardContent>
                 </Card>
               </Grid>

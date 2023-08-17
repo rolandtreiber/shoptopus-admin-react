@@ -122,6 +122,8 @@ const APIProvider = ({children}) => {
   const shoptopusApiContext = React.useMemo(
     () => ({
       callLoginApi: async (params) => await post(api_url + "auth/login", params, makeHeaders()),
+      callPasswordRecoveryApi: async (params) => await post(api_url + "auth/forgot-password", params, makeHeaders()),
+      callPasswordResetApi: async (params) => await post(api_url + "auth/reset-password", params, makeHeaders()),
       callMeApi: async (token) => await post(api_url + "auth/me", {}, makeHeaders({
         accessToken: token
       })),
