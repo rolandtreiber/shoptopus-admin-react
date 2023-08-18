@@ -24,8 +24,6 @@ const NotFound = Loadable(lazy(() => import('./pages/404/not-found').then((modul
 const Login = Loadable(lazy(() => import('./pages/auth/login').then((module) => ({default: module.Login}))));
 const PasswordRecovery = Loadable(lazy(() => import('./pages/auth/password-recovery').then((module) => ({default: module.PasswordRecovery}))));
 const PasswordReset = Loadable(lazy(() => import('./pages/auth/password-reset').then((module) => ({default: module.PasswordReset}))));
-const Register = Loadable(lazy(() => import('./pages/auth/register').then((module) => ({default: module.Register}))));
-const VerifyCode = Loadable(lazy(() => import('./pages/auth/verify-code').then((module) => ({default: module.VerifyCode}))));
 
 // Import
 const ImportData = Loadable(lazy(() => import('./pages/import/import').then((module) => ({default: module.Import}))));
@@ -98,22 +96,6 @@ const routes = [
     element: (
       <GuestGuard>
         <Login/>
-      </GuestGuard>
-    )
-  },
-  {
-    path: 'register',
-    element: (
-      <GuestGuard>
-        <Register/>
-      </GuestGuard>
-    )
-  },
-  {
-    path: 'verify-code',
-    element: (
-      <GuestGuard>
-        <VerifyCode/>
       </GuestGuard>
     )
   },

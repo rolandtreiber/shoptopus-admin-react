@@ -158,11 +158,11 @@ export const AuthProvider = (props) => {
   };
 
   const passwordRecovery = async (email) => {
-    await callPasswordRecoveryApi({email})
+    return await callPasswordRecoveryApi({email})
   };
 
   const passwordReset = async (payload) => {
-    await callPasswordResetApi(payload)
+    return await callPasswordResetApi(payload)
   };
 
   return (

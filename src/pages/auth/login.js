@@ -2,18 +2,12 @@ import {useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Box, Card, CardContent, Container, Grid, Toolbar } from '@material-ui/core';
-import { LoginAmplify } from '../../components/auth/login-amplify';
-import { LoginAuth0 } from '../../components/auth/login-auth0';
-import { LoginFirebase } from '../../components/auth/login-firebase';
-import { LoginJwt } from '../../components/auth/login-jwt';
 import { Logo } from '../../components/common/logo';
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
-import { useAuth } from '../../hooks/use-auth';
 import gtm from '../../lib/gtm';
 import {LoginOAuth} from "../../components/auth/login-oauth";
 
 export const Login = () => {
-  const { method } = useAuth();
   const { settings } = useSettings();
   const {appName} = useContext(SettingsContext)
 
@@ -65,7 +59,6 @@ export const Login = () => {
                 }}
                 xs={12}
               >
-                {/*<ProductFeatures />*/}
               </Grid>
               <Grid
                 item
@@ -77,11 +70,7 @@ export const Login = () => {
                   elevation={0}
                 >
                   <CardContent>
-                    {method === 'Amplify' && <LoginAmplify />}
-                    {method === 'Auth0' && <LoginAuth0 />}
-                    {method === 'Firebase' && <LoginFirebase />}
-                    {method === 'JWT' && <LoginJwt />}
-                    {method === 'oAuth' && <LoginOAuth />}
+                    <LoginOAuth />
                   </CardContent>
                 </Card>
               </Grid>

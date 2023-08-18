@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import {Link as RouterLink, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -30,6 +30,7 @@ export const PasswordReset = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [submitted, setSubmitted] = useState(false);
   const token = searchParams.get('token');
   const email = searchParams.get('email');
   const {appName} = useContext(SettingsContext)
@@ -52,9 +53,10 @@ export const PasswordReset = () => {
     }),
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await passwordReset?.({email: email, token: token, password: values.password, password_confirmation: values.passwordConfirm});
-
-        navigate('/login');
+        const result = await passwordReset?.({email: email, token: token, password: values.password, password_confirmation: values.passwordConfirm});
+        if (result?.data?.data?.message?.indexOf('success') !== -1) {
+          setSubmitted(true)
+        }
       } catch (err) {
         console.error(err);
         if (mounted.current) {
@@ -125,7 +127,7 @@ export const PasswordReset = () => {
                   elevation={0}
                 >
                   <CardContent>
-                    {token ? <form onSubmit={formik.handleSubmit}>
+                    {token && email && !submitted && <form onSubmit={formik.handleSubmit}>
                       <Box
                         sx={{
                           alignItems: 'center',
@@ -195,6 +197,7 @@ export const PasswordReset = () => {
                           >
                             <FormHelperText error>
                               {formik.errors.submit}
+                              Something went wrong.
                             </FormHelperText>
                           </Grid>
                         )}
@@ -214,12 +217,95 @@ export const PasswordReset = () => {
                           </Button>
                         </Grid>
                       </Grid>
-                    </form> : <Typography
-                      color="textPrimary"
-                      variant="p"
-                    >
-                      The url is missing the token required for password recovery. Please click on or copy the link in the password recovery email.
-                    </Typography>}
+                    </form>}
+                    {(!email || !token) && (<Grid
+                          container
+                          spacing={2}
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                          >
+                            <Typography
+                              color="textPrimary"
+                              variant="h4"
+                            >
+                              Invalid url
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                          >
+                            <Typography
+                              color="textPrimary"
+                              variant="body1"
+                            >
+                              One or more of the required url parameters is missing. Please click on the link in the password recovery email to access this page.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                          >
+                            <Button
+                              color="primary"
+                              onClick={() => {
+                                navigate('/login')
+                              }}
+                              variant="text"
+                            >
+                              Login
+                            </Button>
+                          </Grid>
+                        </Grid>)}
+                    {submitted && <>
+                      <Grid
+                        container
+                        spacing={2}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Typography
+                            color="textPrimary"
+                            variant="h4"
+                          >
+                            Your password was updated successfully
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Typography
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            You can now sign in with your new password.
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Button
+                            color="primary"
+                            onClick={() => {
+                              navigate('/login', {
+                                state: {
+                                  username: email
+                                }
+                              });
+                            }}
+                            variant="text"
+                          >
+                            Login
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </>}
                   </CardContent>
                 </Card>
               </Grid>

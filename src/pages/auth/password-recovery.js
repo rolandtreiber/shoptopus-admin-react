@@ -1,7 +1,7 @@
-import {useContext, useEffect} from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
+import {useContext, useEffect, useState} from 'react';
+import {Helmet} from 'react-helmet-async';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {
   AppBar,
@@ -15,19 +15,20 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core';
-import { InputField } from '../../components/common/input-field';
-import { Logo } from '../../components/common/logo';
+import {InputField} from '../../components/common/input-field';
+import {Logo} from '../../components/common/logo';
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
-import { useAuth } from '../../hooks/use-auth';
-import { useMounted } from '../../hooks/use-mounted';
+import {useAuth} from '../../hooks/use-auth';
+import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 
 export const PasswordRecovery = () => {
   const mounted = useMounted();
-  const { passwordRecovery } = useAuth();
-  const { settings } = useSettings();
+  const {passwordRecovery} = useAuth();
+  const {settings} = useSettings();
   const {appName} = useContext(SettingsContext)
   const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,20 +37,15 @@ export const PasswordRecovery = () => {
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Must be a valid email').max(255).required('Email is required')
     }),
-    onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
+    onSubmit: async (values, {setErrors, setStatus, setSubmitting}) => {
       try {
         await passwordRecovery?.(values.email);
-
-        navigate('/login', {
-          state: {
-            username: values.email
-          }
-        });
+        setSubmitted(true)
       } catch (err) {
         console.error(err);
         if (mounted.current) {
-          setStatus({ success: false });
-          setErrors({ submit: err.message });
+          setStatus({success: false});
+          setErrors({submit: err.message});
           setSubmitting(false);
         }
       }
@@ -57,7 +53,7 @@ export const PasswordRecovery = () => {
   });
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({event: 'page_view'});
   }, []);
 
   return (
@@ -67,15 +63,15 @@ export const PasswordRecovery = () => {
       </Helmet>
       <AppBar
         elevation={0}
-        sx={{ backgroundColor: 'background.paper' }}
+        sx={{backgroundColor: 'background.paper'}}
       >
         <Container maxWidth="md">
           <Toolbar
             disableGutters
-            sx={{ height: 64 }}
+            sx={{height: 64}}
           >
             <RouterLink to="/">
-              <Logo variant={settings.theme === 'dark' ? 'light' : 'dark'} />
+              <Logo variant={settings.theme === 'dark' ? 'light' : 'dark'}/>
             </RouterLink>
           </Toolbar>
         </Container>
@@ -87,7 +83,7 @@ export const PasswordRecovery = () => {
           pt: '64px'
         }}
       >
-        <Box sx={{ py: 9 }}>
+        <Box sx={{py: 9}}>
           <Container maxWidth="md">
             <Grid
               container
@@ -104,7 +100,6 @@ export const PasswordRecovery = () => {
                 }}
                 xs={12}
               >
-                {/*<ProductFeatures />*/}
               </Grid>
               <Grid
                 item
@@ -112,11 +107,11 @@ export const PasswordRecovery = () => {
                 xs={12}
               >
                 <Card
-                  sx={{ backgroundColor: 'background.default' }}
+                  sx={{backgroundColor: 'background.default'}}
                   elevation={0}
                 >
                   <CardContent>
-                    <form onSubmit={formik.handleSubmit}>
+                    {submitted === false ? <form onSubmit={formik.handleSubmit}>
                       <Grid
                         container
                         spacing={2}
@@ -125,12 +120,29 @@ export const PasswordRecovery = () => {
                           item
                           xs={12}
                         >
-                          <Typography
-                            color="textPrimary"
-                            variant="h4"
+                          <Box
+                            sx={{
+                              alignItems: 'center',
+                              display: 'flex',
+                              mb: 3
+                            }}
                           >
-                            Forgot password
-                          </Typography>
+                            <Typography
+                              color="textPrimary"
+                              variant="h4"
+                            >
+                              Forgot password
+                            </Typography>
+                            <Box sx={{flexGrow: 1}}/>
+                            <Button
+                              color="primary"
+                              component={RouterLink}
+                              to="/login"
+                              variant="text"
+                            >
+                              Sign in
+                            </Button>
+                          </Box>
                         </Grid>
                         <Grid
                           item
@@ -187,7 +199,54 @@ export const PasswordRecovery = () => {
                           </Button>
                         </Grid>
                       </Grid>
-                    </form>
+                    </form> : <>
+                      <Grid
+                        container
+                        spacing={2}
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Typography
+                            color="textPrimary"
+                            variant="h4"
+                          >
+                            Check your email
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Typography
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            If the email you entered is in our system, we sent you an email with the instructions for
+                            resetting your password. Check your inbox.
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                        >
+                          <Button
+                            color="primary"
+                            onClick={() => {
+                              navigate('/login', {
+                                state: {
+                                  username: formik.values.email
+                                }
+                              });
+                            }}
+                            variant="text"
+                          >
+                            Login
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </>}
                   </CardContent>
                 </Card>
               </Grid>

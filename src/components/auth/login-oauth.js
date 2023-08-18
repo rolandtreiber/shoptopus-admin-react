@@ -54,15 +54,6 @@ export const LoginOAuth = () => {
         >
           Login
         </Typography>
-        <Box sx={{ flexGrow: 1 }} />
-        <Button
-          color="primary"
-          component={BrowserLink}
-          to="/register"
-          variant="text"
-        >
-          Sign Up
-        </Button>
       </Box>
       <Grid
         container
@@ -104,7 +95,7 @@ export const LoginOAuth = () => {
         {formik.errors.submit && (
           <Grid item xs={12}>
             <FormHelperText error>
-              {formik.errors.submit}
+              Invalid email or password
             </FormHelperText>
           </Grid>
         )}

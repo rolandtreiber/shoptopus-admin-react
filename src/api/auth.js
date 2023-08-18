@@ -26,39 +26,6 @@ class AuthApi {
     });
   }
 
-  async register({ email, name, password }) {
-    await wait(1000);
-
-    return new Promise((resolve, reject) => {
-      try {
-        // Check if a user already exists
-        let user = users.find((_user) => _user.email === email);
-
-        if (user) {
-          reject(new Error('User already exists'));
-          return;
-        }
-
-        user = {
-          id: generateResourceId(),
-          avatar: null,
-          email,
-          name,
-          password
-        };
-
-        users.push(user);
-
-        const accessToken = sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-
-        resolve(accessToken);
-      } catch (err) {
-        console.error('[Auth Api]: ', err);
-        reject(new Error('Internal server error'));
-      }
-    });
-  }
-
   me(accessToken) {
     return new Promise((resolve, reject) => {
       try {
