@@ -1,19 +1,12 @@
 pipeline {
     agent any
+    tools { nodejs "nodejs" }
     stages {
         stage('Preparing node version') {
             steps {
                 sh '''
-                    set +ex
-                    export NVM_DIR="$HOME/.nvm"
-                    . ~/.nvm/nvm.sh
-                    . ~/.profile
-                    nvm use 16
-                    node -v
-                    set -ex
+                    npm --version
                 '''
-                sh '/Users/rolandtreiber/.nvm/versions/node/v16.20.2/bin/npm install'
-                sh '/Users/rolandtreiber/.nvm/versions/node/v16.20.2/bin/npm run build'
             }
         }
         stage("Create artifact") {
