@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools { nodejs "nodejs" }
+    tools { nodejs "nodejs16" }
     stages {
         stage('Preparing node version') {
             steps {
