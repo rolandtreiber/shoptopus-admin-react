@@ -9,6 +9,20 @@ pipeline {
                 '''
             }
         }
+        stage('Npm install') {
+            steps {
+                sh '''
+                    npm install
+                '''
+            }
+        }
+        stage('Npm install') {
+            steps {
+                sh '''
+                    npm run build
+                '''
+            }
+        }
         stage("Create artifact") {
             steps {
                 zip zipFile: 'shoptopusAdmin.zip', archive: true, overwrite: true, dir: 'build'
