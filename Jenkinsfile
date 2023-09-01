@@ -3,6 +3,9 @@ pipeline {
     stages {
         stage("Npm Install") {
             steps {
+                sh 'export NVM_DIR="$HOME/.nvm"
+                      [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+                      [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"'
                 sh 'nvm use 16'
                 sh 'npm install'
             }
