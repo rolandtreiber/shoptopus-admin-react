@@ -2,15 +2,17 @@ pipeline {
     agent any
     stages {
         stage('Preparing node version') {
-            sh '''
-                set +ex
-                export NVM_DIR="$HOME/.nvm"
-                . ~/.nvm/nvm.sh
-                . ~/.profile
-                nvm use 16
-                node -v
-                set -ex
-            '''
+            steps {
+                sh '''
+                    set +ex
+                    export NVM_DIR="$HOME/.nvm"
+                    . ~/.nvm/nvm.sh
+                    . ~/.profile
+                    nvm use 16
+                    node -v
+                    set -ex
+                '''
+            }
         }
         stage("Npm Install") {
             steps {
