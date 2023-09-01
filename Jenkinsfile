@@ -12,8 +12,8 @@ pipeline {
                     node -v
                     set -ex
                 '''
-                sh 'npm install'
-                sh 'npm run build'
+                sh '/Users/rolandtreiber/.nvm/versions/node/v16.20.2/bin/npm install'
+                sh '/Users/rolandtreiber/.nvm/versions/node/v16.20.2/bin/npm run build'
             }
         }
         stage("Create artifact") {
