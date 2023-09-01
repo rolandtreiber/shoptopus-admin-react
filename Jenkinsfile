@@ -40,7 +40,7 @@ pipeline {
         }
         stage("Unzip artifact in place") {
             steps {
-                sh 'unzip -o /Users/rolandtreiber/Sites/shoptopusAdmin.zip -d /Users/rolandtreiber/Sites/shoptopus/admin'
+                sh 'unzip -o /Users/rolandtreiber/Sites/shoptopusAdmin.zip -d /Users/rolandtreiber/Sites/shoptopus/public/admin'
             }
         }
         stage("Delete artifact zip file") {
