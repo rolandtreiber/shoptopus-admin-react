@@ -16,7 +16,7 @@ pipeline {
                 '''
             }
         }
-        stage('Npm install') {
+        stage('Npm build') {
             steps {
                 sh '''
                     npm run build
