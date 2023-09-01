@@ -12,15 +12,7 @@ pipeline {
                     node -v
                     set -ex
                 '''
-            }
-        }
-        stage("Npm Install") {
-            steps {
                 sh 'npm install'
-            }
-        }
-        stage("Npm Build") {
-            steps {
                 sh 'npm run build'
             }
         }
