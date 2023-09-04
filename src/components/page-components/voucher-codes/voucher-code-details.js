@@ -126,7 +126,7 @@ const VoucherCodeDetails = ({voucherCode}) => {
                             color="primary"
                             component={RouterLink}
                             startIcon={<Visibility />}
-                            to={"/orders/"+o.id}
+                            to={"/admin/orders/"+o.id}
                             variant="contained"
                             size={"small"}
                             sx={{

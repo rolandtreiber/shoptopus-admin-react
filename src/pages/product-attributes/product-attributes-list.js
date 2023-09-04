@@ -41,7 +41,7 @@ const views = [
     }
 ];
 
-const ProductAttributesList = () => {
+export const ProductAttributesList = () => {
     const [attributes, setAttributes] = useState({isLoading: true})
     const mounted = useMounted();
     const [controller, setController] = useState({
@@ -314,5 +314,3 @@ const ProductAttributesList = () => {
         </>
     )
 }
-
-export default ProductAttributesList

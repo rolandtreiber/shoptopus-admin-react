@@ -151,7 +151,7 @@ export const DiscountRulesTable = (props) => {
                         color="inherit"
                         component={RouterLink}
                         sx={{display: 'block'}}
-                        to={"/discount/rules/" + d.id}
+                        to={"/admin/discount/rules/" + d.id}
                         underline="none"
                         variant="subtitle2"
                       >

@@ -136,7 +136,7 @@ const DiscountRuleDetails = ({discountRule}) => {
                                 color="primary"
                                 component={RouterLink}
                                 startIcon={<Visibility />}
-                                to={"/product-categories/"+c.id}
+                                to={"/admin/product-categories/"+c.id}
                                 variant="contained"
                                 size={"small"}
                                 sx={{
@@ -201,7 +201,7 @@ const DiscountRuleDetails = ({discountRule}) => {
                                 color="primary"
                                 component={RouterLink}
                                 startIcon={<Visibility />}
-                                to={"/products/"+p.id}
+                                to={"/admin/products/"+p.id}
                                 variant="contained"
                                 size={"small"}
                                 sx={{

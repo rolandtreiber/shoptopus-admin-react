@@ -122,7 +122,7 @@ const TransactionDetails = ({transaction}) => {
                   <Button
                     color="primary"
                     component={RouterLink}
-                    to={"/customers/"+transaction.user.id}
+                    to={"/admin/customers/"+transaction.user.id}
                     variant="text"
                     size={"small"}
                     sx={{
@@ -212,7 +212,7 @@ const TransactionDetails = ({transaction}) => {
                         color="primary"
                         component={RouterLink}
                         startIcon={<Visibility />}
-                        to={"/orders/"+transaction.payable_id}
+                        to={"/admin/orders/"+transaction.payable_id}
                         variant="contained"
                         size={"small"}
                       >

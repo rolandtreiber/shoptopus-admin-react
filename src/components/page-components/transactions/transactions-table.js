@@ -166,7 +166,7 @@ export const TransactionsTable = (props) => {
                     color="inherit"
                     component={RouterLink}
                     sx={{display: 'block'}}
-                    to={"/transactions/" + d.id}
+                    to={"/admin/transactions/" + d.id}
                     underline="none"
                     variant="subtitle2"
                   >

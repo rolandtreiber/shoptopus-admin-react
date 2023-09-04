@@ -80,7 +80,7 @@ export const NotificationsPopover = (props) => {
               sx={{
                 width: "100%"
               }}
-              to={'notifications'}
+              to={'/admin/notifications'}
             >
               See All
             </Button>

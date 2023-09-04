@@ -51,7 +51,7 @@ export const OrderDraggable = (props) => {
                 ml: 1,
                 mr: 2
               }}
-              to={"/orders/"+order.id}
+              to={"/admin/orders/"+order.id}
               underline="none"
               variant="h5"
             >

@@ -178,7 +178,7 @@ export const OrdersTable = (props) => {
                       color="inherit"
                       component={RouterLink}
                       sx={{display: 'block'}}
-                      to={"/orders/" + d.id}
+                      to={"/admin/orders/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >

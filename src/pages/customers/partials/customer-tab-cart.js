@@ -88,7 +88,7 @@ const CustomerTabCart = ({data}) => {
                               color="inherit"
                               component={RouterLink}
                               sx={{ display: 'block' }}
-                              to={"/products/"+product.id}
+                              to={"/admin/products/"+product.id}
                               underline="none"
                               variant="subtitle2"
                             >

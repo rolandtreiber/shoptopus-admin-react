@@ -182,7 +182,7 @@ export const RatingsTable = (props) => {
                       sx={{
                         display: 'block',
                     }}
-                      to={"/ratings/" + d.id}
+                      to={"/admin/ratings/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >

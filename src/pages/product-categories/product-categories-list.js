@@ -41,7 +41,7 @@ const views = [
     }
 ];
 
-const ProductCategoriesList = () => {
+export const ProductCategoriesList = () => {
     const [categories, setCategories] = useState({isLoading: true})
     const mounted = useMounted();
     const {appName} = useContext(SettingsContext)
@@ -57,7 +57,7 @@ const ProductCategoriesList = () => {
         selectedCategories,
         handleSelect,
         handleSelectAll,
-            mergeSelectableRows,
+        mergeSelectableRows,
         clearSelected
     ] = useSelection();
     const {
@@ -68,9 +68,11 @@ const ProductCategoriesList = () => {
     } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-    const {fetchProductCategories,
+    const {
+        fetchProductCategories,
         bulkDeleteProductCategories,
-        bulkUpdateProductCategoriesAvailability} = useContext(APIContext)
+        bulkUpdateProductCategoriesAvailability
+    } = useContext(APIContext)
 
     useEffect(() => {
         if (categories.data) {
@@ -79,11 +81,11 @@ const ProductCategoriesList = () => {
     }, [categories])
 
     const getCategories = useCallback(async (clearWhileLoading = true) => {
-        clearWhileLoading && setCategories(() => ({ isLoading: true }));
+        clearWhileLoading && setCategories(() => ({isLoading: true}));
 
         try {
             const result = await fetchProductCategories({
-                page: controller.page+1,
+                page: controller.page + 1,
                 paginate: 20,
                 sort_by_type: controller.sort,
                 sort_by_field: controller.sortBy,
@@ -119,7 +121,7 @@ const ProductCategoriesList = () => {
             ...controller,
             page: 0,
             filters: [{
-                property: 'name->'+language,
+                property: 'name->' + language,
                 value: newQuery,
                 operator: "contains"
             }]
@@ -135,17 +137,17 @@ const ProductCategoriesList = () => {
     };
 
     const handleSortChange = (event, property, translatable) => {
-        const isAsc = translatable === true ? controller.sortBy === property+'->'+language && controller.sort === 'asc' : controller.sortBy === property && controller.sort === 'asc';
+        const isAsc = translatable === true ? controller.sortBy === property + '->' + language && controller.sort === 'asc' : controller.sortBy === property && controller.sort === 'asc';
 
         setController({
             ...controller,
             page: 0,
             sort: isAsc ? 'desc' : 'asc',
-            sortBy: translatable === true ? property+'->'+language : property
+            sortBy: translatable === true ? property + '->' + language : property
         });
     };
 
-    const doBulkUpdateAvailability = useCallback( async (ids, availability) => {
+    const doBulkUpdateAvailability = useCallback(async (ids, availability) => {
         try {
             return await bulkUpdateProductCategoriesAvailability({
                 availability: availability,
@@ -156,7 +158,7 @@ const ProductCategoriesList = () => {
         }
     }, [])
 
-    const doBulkDelete = useCallback( async (ids) => {
+    const doBulkDelete = useCallback(async (ids) => {
         try {
             return await bulkDeleteProductCategories({
                 ids: ids,
@@ -178,7 +180,7 @@ const ProductCategoriesList = () => {
 
         setCallback({method: call})
         setTitle('Are you sure?')
-        setDescription('You are about to set the selected product categories '+newStatus+'.')
+        setDescription('You are about to set the selected product categories ' + newStatus + '.')
         showGenericDialog(true)
     }
 
@@ -197,121 +199,119 @@ const ProductCategoriesList = () => {
     }
 
     return (
-        <>
-            <Helmet>
-                <title>Product Categories | {appName}</title>
-            </Helmet>
-            <Box
+      <>
+          <Helmet>
+              <title>Product Categories | {appName}</title>
+          </Helmet>
+          <Box
+            sx={{
+                backgroundColor: 'background.default',
+                flexGrow: 1
+            }}
+          >
+              <Container
+                maxWidth="lg"
                 sx={{
-                    backgroundColor: 'background.default',
-                    flexGrow: 1
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%'
                 }}
-            >
-                <Container
-                    maxWidth="lg"
+              >
+
+                  <Box sx={{py: 4}}>
+                      <Box
+                        sx={{
+                            alignItems: 'center',
+                            display: 'flex'
+                        }}
+                      >
+                          <Typography
+                            color="textPrimary"
+                            variant="h4"
+                          >
+                              Product Categories
+                          </Typography>
+                          <Box sx={{flexGrow: 1}}/>
+                          <Button
+                            color="primary"
+                            onClick={() => setOpenCreateDialog(true)}
+                            size="large"
+                            startIcon={<PlusIcon fontSize="small"/>}
+                            variant="contained"
+                          >
+                              Add
+                          </Button>
+                          <ExportButton
+                            name={"product-categories"}
+                            modelsSimple={["ProductCategory"]}
+                            modelsExtended={["ProductCategory", "Product"]}
+                            modelTemplate={"ProductCategory"}
+                            showTemplate={true}
+                          />
+                      </Box>
+                  </Box>
+
+                  <Card
+                    variant="outlined"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        height: '100%'
+                        flexGrow: 1
                     }}
-                >
+                  >
+                      <ListFilter
+                        disabled={categories.isLoading}
+                        filters={controller.filters}
+                        onFiltersApply={(data) => setController({...controller, ...data})}
+                        onFiltersClear={(data) => setController({...controller, ...data})}
+                        onQueryChange={handleQueryChange}
+                        onViewChange={handleViewChange}
+                        query={controller.query}
+                        selectedElements={selectedCategories}
+                        view={controller.view}
+                        filterProperties={filterProperties}
+                        views={views}
+                        bulkMenuItems={[
+                            {
+                                name: 'Enable',
+                                callback: () => handleBulkAvailabilityUpdate(1)
+                            },
+                            {
+                                name: 'Disable',
+                                callback: () => handleBulkAvailabilityUpdate(0)
+                            },
+                            {
+                                name: 'Delete',
+                                callback: () => handleBulkDelete()
+                            }
+                        ]}
+                      />
+                      <Divider/>
+                      <ProductCategoriesTable
+                        error={categories.error}
+                        isLoading={categories.isLoading}
+                        onPageChange={(page) => setController({...controller, page: page - 1})}
+                        onSelect={handleSelect}
+                        onSelectAll={handleSelectAll}
+                        onSortChange={handleSortChange}
+                        page={controller.page + 1}
+                        categories={categories.data ? categories.data : []}
+                        pagesCount={categories.paginationMeta ? categories.paginationMeta.last_page : null}
+                        categoriesCount={categories.data?.categoriesCount}
+                        selectedProductCategories={selectedCategories}
+                        sort={controller.sort}
+                        sortBy={controller.sortBy}
+                        onReload={() => getCategories(false)}
+                      />
 
-                    <Box sx={{ py: 4 }}>
-                        <Box
-                            sx={{
-                                alignItems: 'center',
-                                display: 'flex'
-                            }}
-                        >
-                            <Typography
-                                color="textPrimary"
-                                variant="h4"
-                            >
-                                Product Categories
-                            </Typography>
-                            <Box sx={{ flexGrow: 1 }} />
-                            <Button
-                                color="primary"
-                                onClick={() => setOpenCreateDialog(true)}
-                                size="large"
-                                startIcon={<PlusIcon fontSize="small" />}
-                                variant="contained"
-                            >
-                                Add
-                            </Button>
-                            <ExportButton
-                              name={"product-categories"}
-                              modelsSimple={["ProductCategory"]}
-                              modelsExtended={["ProductCategory", "Product"]}
-                              modelTemplate={"ProductCategory"}
-                              showTemplate={true}
-                            />
-                        </Box>
-                    </Box>
-
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flexGrow: 1
-                        }}
-                    >
-                        <ListFilter
-                            disabled={categories.isLoading}
-                            filters={controller.filters}
-                            onFiltersApply={(data) => setController({...controller, ...data})}
-                            onFiltersClear={(data) => setController({...controller, ...data})}
-                            onQueryChange={handleQueryChange}
-                            onViewChange={handleViewChange}
-                            query={controller.query}
-                            selectedElements={selectedCategories}
-                            view={controller.view}
-                            filterProperties={filterProperties}
-                            views={views}
-                            bulkMenuItems={[
-                                {
-                                    name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(1)
-                                },
-                                {
-                                    name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(0)
-                                },
-                                {
-                                    name: 'Delete',
-                                    callback: () => handleBulkDelete()
-                                }
-                            ]}
-                        />
-                        <Divider />
-                        <ProductCategoriesTable
-                            error={categories.error}
-                            isLoading={categories.isLoading}
-                            onPageChange={(page) => setController({...controller, page:page-1})}
-                            onSelect={handleSelect}
-                            onSelectAll={handleSelectAll}
-                            onSortChange={handleSortChange}
-                            page={controller.page + 1}
-                            categories={categories.data ? categories.data : []}
-                            pagesCount={categories.paginationMeta ? categories.paginationMeta.last_page : null}
-                            categoriesCount={categories.data?.categoriesCount}
-                            selectedProductCategories={selectedCategories}
-                            sort={controller.sort}
-                            sortBy={controller.sortBy}
-                            onReload={() => getCategories(false)}
-                        />
-
-                    </Card>
-                </Container>
-            </Box>
-            <ProductCategoryCreateDialog
-              onClose={() => setOpenCreateDialog(false)}
-              open={openCreateDialog}
-              onSuccess={() => getCategories().catch(console.error)}
-            />
-        </>
+                  </Card>
+              </Container>
+          </Box>
+          <ProductCategoryCreateDialog
+            onClose={() => setOpenCreateDialog(false)}
+            open={openCreateDialog}
+            onSuccess={() => getCategories().catch(console.error)}
+          />
+      </>
     )
 }
-
-export default ProductCategoriesList

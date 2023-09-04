@@ -157,7 +157,7 @@ export const VoucherCodesTable = (props) => {
                       color="inherit"
                       component={RouterLink}
                       sx={{display: 'block'}}
-                      to={"/discount/voucher-codes/" + d.id}
+                      to={"/admin/discount/voucher-codes/" + d.id}
                       underline="none"
                       variant="subtitle2"
                     >

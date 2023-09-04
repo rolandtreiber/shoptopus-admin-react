@@ -63,7 +63,7 @@ const OrderProductsTable = ({data}) => {
                       color="inherit"
                       component={RouterLink}
                       sx={{ display: 'block' }}
-                      to={"/products/"+p.product_id}
+                      to={"/admin/products/"+p.product_id}
                       underline="none"
                       variant="subtitle2"
                     >

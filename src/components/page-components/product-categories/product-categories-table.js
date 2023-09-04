@@ -128,7 +128,7 @@ const ProductCategoriesTable = (props) => {
                 color="inherit"
                 component={RouterLink}
                 sx={{display: 'block'}}
-                to={"/product-categories/" + rowData.id}
+                to={"/admin/product-categories/" + rowData.id}
                 underline="none"
                 variant="subtitle2"
               >
