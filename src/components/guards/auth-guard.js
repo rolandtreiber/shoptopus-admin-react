@@ -25,7 +25,7 @@ export const AuthGuard = (props) => {
   // requested route.
   if (requestedLocation && location.pathname !== requestedLocation) {
     setRequestedLocation(null);
-    return <Navigate to={requestedLocation} />;
+    return <Navigate to={'/admin/'+requestedLocation} />;
   }
 
   return <>{children}</>;

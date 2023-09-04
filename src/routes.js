@@ -92,7 +92,7 @@ const routes = [
     )
   },
   {
-    path: 'login',
+    path: '/admin/',
     element: (
       <GuestGuard>
         <Login/>
@@ -100,7 +100,15 @@ const routes = [
     )
   },
   {
-    path: 'password-recovery',
+    path: '/admin/login',
+    element: (
+      <GuestGuard>
+        <Login/>
+      </GuestGuard>
+    )
+  },
+  {
+    path: '/admin/password-recovery',
     element: (
       <GuestGuard>
         <PasswordRecovery/>
@@ -108,13 +116,13 @@ const routes = [
     )
   },
   {
-    path: 'reset-password',
+    path: '/admin/reset-password',
     element: (
       <PasswordReset/>
     )
   },
   {
-    path: '/',
+    path: '/admin',
     element: (
       <AuthGuard>
         <DashboardLayout/>
@@ -122,7 +130,7 @@ const routes = [
     ),
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         element: <Dashboard/>,
         children: [
           {

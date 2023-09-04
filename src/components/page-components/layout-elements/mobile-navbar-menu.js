@@ -22,36 +22,36 @@ const items = [
   {
     icon: Dashboard,
     title: 'Dashboard',
-    href: '/dashboard'
+    href: '/admin/dashboard'
   },
   {
     icon: UsersIcon,
     title: 'Customers',
-    href: '/customers',
+    href: '/admin/customers',
   },
   {
     icon: CubeIcon,
     title: 'Orders',
-    href: '/orders',
+    href: '/admin/orders',
   },
   {
     icon: ShoppingCartIcon,
     title: 'Products',
     items: [
       {
-        href: '/products',
+        href: '/admin/products',
         title: 'List'
       },
       {
-        href: '/product-categories',
+        href: '/admin/product-categories',
         title: 'Categories'
       },
       {
-        href: '/product-attributes',
+        href: '/admin/product-attributes',
         title: 'Attributes'
       },
       {
-        href: '/product-tags',
+        href: '/admin/product-tags',
         title: 'Tags'
       }
     ]
@@ -61,11 +61,11 @@ const items = [
     title: 'Discount',
     items: [
       {
-        href: '/discount/voucher-codes',
+        href: '/admin/discount/voucher-codes',
         title: 'Voucher Codes'
       },
       {
-        href: '/discount/rules',
+        href: '/admin/discount/rules',
         title: 'Discount Rules'
       }
     ]
@@ -73,33 +73,33 @@ const items = [
   {
     icon: DeliveryVan,
     title: 'Delivery Types',
-    href: '/delivery-types'
+    href: '/admin/delivery-types'
   },
   {
     icon: Payment,
     title: 'Transactions',
-    href: '/transactions',
+    href: '/admin/transactions',
   },
   {
     icon: Star,
     title: 'Ratings',
-    href: '/ratings',
+    href: '/admin/ratings',
   },
   {
     icon: ReceiptTaxIcon,
     title: 'Invoices',
-    href: '/invoices',
+    href: '/admin/invoices',
   },
   {
     icon: Content,
     title: 'Content',
     items: [
       {
-        href: '/content/banners',
+        href: '/admin/content/banners',
         title: 'Banners'
       },
       {
-        href: '/content/files',
+        href: '/admin/content/files',
         title: 'Files'
       }
     ]
@@ -109,11 +109,11 @@ const items = [
     title: 'Account',
     items: [
       {
-        href: '/account',
+        href: '/admin/account',
         title: 'General Settings'
       },
       {
-        href: '/account/notifications',
+        href: '/admin/account/notifications',
         title: 'Notifications'
       }
     ]
@@ -123,15 +123,15 @@ const items = [
     title: 'Organization',
     items: [
       {
-        href: '/organization',
+        href: '/admin/organization',
         title: 'General Settings'
       },
       {
-        href: '/organization/team',
+        href: '/admin/organization/team',
         title: 'Team'
       },
       {
-        href: '/organization/billing',
+        href: '/admin/organization/billing',
         title: 'Billing'
       }
     ]
@@ -139,12 +139,12 @@ const items = [
   {
     icon: ImportContacts,
     title: 'Import Data',
-    href: '/import',
+    href: '/admin/import',
   },
   {
     icon: ChartPieIcon,
     title: 'Reports',
-    href: '/reports'
+    href: '/admin/reports'
   }
 ];
 

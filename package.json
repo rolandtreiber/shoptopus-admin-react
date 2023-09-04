@@ -7,7 +7,7 @@
     "lint": "eslint src --ext .js",
     "lint-fix": "eslint src --ext .js --fix",
     "start": "react-scripts start --host 0.0.0.0",
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -28,6 +28,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://shoptopus.test/admin/",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.16.0",
     "@dnd-kit/core": "^5.0.1",
@@ -45,6 +46,7 @@
     "apexcharts": "^3.27.1",
     "aws-amplify": "^4.1.0",
     "axios": "^0.21.1",
+    "chokidar": "^3.5.3",
     "clsx": "^1.1.1",
     "date-fns": "^2.22.1",
     "draft-js": "^0.11.7",
