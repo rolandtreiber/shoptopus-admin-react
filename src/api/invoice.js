@@ -86,7 +86,7 @@ const invoice = {
       currency: 'USD',
       currencySymbol: '$',
       discountAmount: 0,
-      image: '/static/product-01.png',
+      image: '/admin/static/product-01.png',
       name: 'Watch with Leather Strap',
       quantity: 1,
       sku: 'BBAK01-A',

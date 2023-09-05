@@ -8,8 +8,8 @@ import { Trash as TrashIcon } from '../../../icons/trash';
 export const ImagesUploader = () => {
   const [uploadDialogOpen, handleOpenUploadDialog, handleCloseUploadDialog] = useDialog();
   const [selectedImages, setSelectedImages] = useState([
-    '/static/product-09.png',
-    '/static/product-10.png'
+    '/admin/static/product-09.png',
+    '/admin/static/product-10.png'
   ]);
 
   const handleDeleteImage = (image) => {

@@ -17,10 +17,10 @@ import { ImageDropzone } from './image-dropzone';
 export const ImagesUploaderDialog = (props) => {
   const { onCancel, onSaveImages, open, selectedImages: selectedImagesProp, ...other } = props;
   const [images, setImages] = useState([
-    '/static/product-07.png',
-    '/static/product-08.png',
-    '/static/product-09.png',
-    '/static/product-10.png'
+    '/admin/static/product-07.png',
+    '/admin/static/product-08.png',
+    '/admin/static/product-09.png',
+    '/admin/static/product-10.png'
   ]);
   const [selectedImages, setSelectedImages] = useState(selectedImagesProp);
 

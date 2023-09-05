@@ -17,7 +17,7 @@ export const LanguagePopover = (props) => {
   const [open, setOpen] = useState(false);
   const {availableLanguages} = useContext(SettingsContext)
   const [languageOptions, setLanguageOptions] = useState({en: {
-      icon: '/static/uk_flag.svg',
+      icon: '/admin/static/uk_flag.svg',
       label: 'English'
     }})
 
@@ -25,7 +25,7 @@ export const LanguagePopover = (props) => {
     let languages = {}
     Object.keys(availableLanguages).map(key => languages[key] = {
       ...availableLanguages[key],
-      icon: '/static/'+key+'_flag.svg'
+      icon: '/admin/static/'+key+'_flag.svg'
     })
     setLanguageOptions(languages)
   }, [availableLanguages])
