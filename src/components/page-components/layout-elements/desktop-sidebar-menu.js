@@ -221,7 +221,7 @@ export const DesktopSidebarMenu = (props) => {
                     }}
                 >
                     <List disablePadding>
-                        {activeItem && (items.map((item) => (
+                        {(items.map((item) => (
                             <DektopSidebarMenuItem
                                 active={activeItem?.title === item.title}
                                 activeHref={activeHref}

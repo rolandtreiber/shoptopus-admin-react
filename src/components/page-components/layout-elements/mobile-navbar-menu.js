@@ -212,7 +212,7 @@ export const MobileNavbarMenu = (props) => {
       }}
     >
       <List>
-        {activeItem && (items.map((item) => (
+        {(items.map((item) => (
           <MobileNavbarMenuItem
             active={activeItem?.title === item.title}
             activeHref={activeHref}
