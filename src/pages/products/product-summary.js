@@ -2,8 +2,8 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { ProductInfo } from '../../components/page-components/product/product-info';
-import { ProductStatus } from '../../components/page-components/product/product-status';
-import { ProductVariants } from '../../components/page-components/product/product-variants';
+// import { ProductStatus } from '../../components/page-components/product/product-status';
+// import { ProductVariants } from '../../components/page-components/product/product-variants';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceLoading } from '../../components/common/placeholder/resource-loading';
 import { useMounted } from '../../hooks/use-mounted';
@@ -85,14 +85,14 @@ export const ProductSummary = () => {
                 product={productState.data}
               />
             </Grid>
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductVariants productId={productId} variants={{
-                data: productState.data?.variants
-              }} />
-            </Grid>
+            {/*<Grid*/}
+            {/*  item*/}
+            {/*  xs={12}*/}
+            {/*>*/}
+            {/*  <ProductVariants productId={productId} variants={{*/}
+            {/*    data: productState.data?.variants*/}
+            {/*  }} />*/}
+            {/*</Grid>*/}
           </Grid>
           <Grid container item lg={4}
             spacing={3}
@@ -111,12 +111,12 @@ export const ProductSummary = () => {
             >
               <ImagesDisplay product={productState.data} images={productState.data.images} coverPhoto={productState.data.cover_photo} />
             </Grid>
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductStatus product={productState.data} />
-            </Grid>
+            {/*<Grid*/}
+            {/*  item*/}
+            {/*  xs={12}*/}
+            {/*>*/}
+            {/*  <ProductStatus product={productState.data} />*/}
+            {/*</Grid>*/}
           </Grid>
         </Grid>
         <ProductDialog

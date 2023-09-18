@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { ActionsMenu } from '../../components/common/actions/actions-menu';
 import { ConfirmationDialog } from '../../components/modal/confirmation-dialog';
-import { Status } from '../../components/common/status';
+// import { Status } from '../../components/common/status';
 import { useDialog } from '../../hooks/use-dialog';
 import { useMounted } from '../../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
@@ -36,16 +36,24 @@ export const ProductSingle = () => {
   const {getLang} = useLanguage()
   const tabs = [
     {
-      href: '/products/'+productId,
-      label: 'Summary'
+      href: '/admin/products/'+productId,
+      label: 'Info'
     },
     {
-      href: '/products/'+productId+'/analytics',
+      href: '/admin/products/'+productId+'/variants',
+      label: 'Variants'
+    },
+    {
+      href: '/admin/products/'+productId+'/ratings',
+      label: 'Ratings'
+    },
+    {
+      href: '/admin/products/'+productId+'/insights',
       label: 'Insights'
     },
     {
-      href: '/products/'+productId+'/inventory',
-      label: 'Inventory'
+      href: '/admin/products/'+productId+'/preview',
+      label: 'Preview'
     }
   ];
 
@@ -94,15 +102,15 @@ export const ProductSingle = () => {
 
   const actions = [
     {
-      label: 'Send Invoice to CustomerSingle',
+      label: 'Send Invoice to Customer',
       onClick: handleSendInvoice
     },
     {
-      label: 'Discontinue ProductSingle',
+      label: 'Discontinue Product',
       onClick: handleOpenDiscontinueDialog
     },
     {
-      label: 'Archive ProductSingle',
+      label: 'Archive Product',
       onClick: handleOpenArchiveDialog
     }
   ];
@@ -171,12 +179,6 @@ export const ProductSingle = () => {
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <ActionsMenu actions={actions} />
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Status
-              color="success.main"
-              label="Published"
-            />
           </Box>
           <Tabs
             allowScrollButtonsMobile
