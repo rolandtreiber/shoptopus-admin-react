@@ -7,21 +7,26 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
-import { ConfirmationDialog } from '../../modal/confirmation-dialog';
-import { ResourceUnavailable } from '../../common/placeholder/resource-unavailable';
-import { Scrollbar } from '../../common/scrollbar';
-import { ProductVariantDialog } from '../product-variant/product-variant-dialog';
+import { ConfirmationDialog } from '../../../components/modal/confirmation-dialog';
+import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
+import { Scrollbar } from '../../../components/common/scrollbar';
+import { ProductVariantDialog } from '../../../components/page-components/product-variant/product-variant-dialog';
 import {APIContext} from "../../../contexts/api-context";
 import {getUrlFilters} from "../../../utils/apply-filters";
 import {useMounted} from "../../../hooks/use-mounted";
-import {ProductVariantsTable} from "../product-variant/product-variants-table";
+import {ProductVariantsTable} from "../../../components/page-components/product-variant/product-variants-table";
+import {useOutletContext, useParams} from "react-router-dom";
 
 export const ProductVariants = (props) => {
-  const { variants: variantsProp, productId, ...other } = props;
+  const { ...other } = props;
+  const [productState] = useOutletContext()
+  const {productId} = useParams();
   const mounted = useMounted();
   const [variantDialogOpen, handleOpenVariantDialog, handleCloseVariantDialog] = useDialog();
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
-  const [variants, setVariants] = useState(variantsProp);
+  const [variants, setVariants] = useState({
+    isLoading:true
+  });
   const [selectedVariant, setSelectedVariant] = useState(null);
   const {deleteProductVariant, fetchProductVariants} = useContext(APIContext)
   const [controller, setController] = useState({
@@ -91,10 +96,6 @@ export const ProductVariants = (props) => {
 
     handleCloseDeleteDialog();
   };
-
-  useEffect(() => {
-    setVariants(variantsProp);
-  }, [variantsProp]);
 
   const handleEditVariant = (variant) => {
     setSelectedVariant(variant);

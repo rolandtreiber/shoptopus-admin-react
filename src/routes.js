@@ -44,7 +44,8 @@ const InvoicePreview = Loadable(lazy(() => import('./pages/invoices/invoice-prev
 const Products = Loadable(lazy(() => import('./pages/products/products-list').then((module) => ({default: module.ProductsList}))));
 const ProductAnalytics = Loadable(lazy(() => import('./pages/account/product-analytics').then((module) => ({default: module.ProductAnalytics}))));
 const ProductInventory = Loadable(lazy(() => import('./pages/products/product-inventory').then((module) => ({default: module.ProductInventory}))));
-const ProductSummary = Loadable(lazy(() => import('./pages/products/product-summary').then((module) => ({default: module.ProductSummary}))));
+const ProductVariants = Loadable(lazy(() => import('./pages/products/partials/product-variants').then((module) => ({default: module.ProductVariants}))));
+const ProductSummary = Loadable(lazy(() => import('./pages/products/partials/product-summary').then((module) => ({default: module.ProductSummary}))));
 
 const AccountGeneral = Loadable(lazy(() => import('./pages/account/account-general').then((module) => ({default: module.AccountGeneral}))));
 const AccountNotifications = Loadable(lazy(() => import('./pages/account/account-notifications').then((module) => ({default: module.AccountNotifications}))));
@@ -134,79 +135,79 @@ const routes = [
         element: <Dashboard/>,
         children: [
           {
-            path: '/',
+            path: '/admin/dashboard',
             element: <DashboardOverview/>
           },
           {
-            path: 'sales',
+            path: '/admin/dashboard/sales',
             element: <DashboardSales/>
           }
         ]
       },
       {
-        path: 'delivery-types',
+        path: '/admin/delivery-types',
         children: [
           {
-            path: '/',
+            path: '/admin/delivery-types',
             element: <DeliveryTypes/>
           },
           {
-            path: ':deliveryTypeId',
+            path: '/admin/delivery-types/:deliveryTypeId',
             element: <DeliveryType/>
           }
         ]
       },
       {
-        path: 'transactions',
+        path: '/admin/transactions',
         children: [
           {
-            path: '/',
+            path: '/admin/transactions/',
             element: <Transactions/>
           },
           {
-            path: ':transactionId',
+            path: '/admin/transactions/:transactionId',
             element: <Transaction/>
           }
         ]
       },
       {
-        path: 'ratings',
+        path: '/admin/ratings',
         children: [
           {
-            path: '/',
+            path: '/admin/ratings',
             element: <Ratings/>
           },
           {
-            path: ':ratingId',
+            path: '/admin/ratings/:ratingId',
             element: <Rating/>
           }
         ]
       },
       {
-        path: 'content',
+        path: '/admin/content',
         children: [
           {
-            path: 'banners',
+            path: '/admin/content/banners',
             children: [
               {
-                path: '/',
+                path: '/admin/content/banners',
                 element: <Banners/>
               },
               {
-                path: ':bannerId',
+                path: '/admin/content/banners/:bannerId',
                 element: <Banner/>
               }
             ]
           },
           {
-            path: 'files',
+            path: '/admin/content/files',
             children: [
               {
-                path: '/',
+                path: '/admin/content/files',
                 element: <Files/>
               },
               {
-                path: ':fileId',
+                path: '/admin/content/files/:fileId',
                 element: <FileContent/>
               }
             ]
@@ -214,40 +215,40 @@ const routes = [
         ]
       },
       {
-        path: 'account',
+        path: '/admin/account',
         element: <Account/>,
         children: [
           {
-            path: '/',
+            path: '/admin/account',
             element: <AccountGeneral/>
           },
           {
-            path: 'notifications',
+            path: '/admin/account/notifications',
             element: <AccountNotifications/>
           },
         ]
       },
       {
-        path: 'customers',
+        path: '/admin/customers',
         children: [
           {
-            path: '/',
+            path: '/admin/customers',
             element: <Customers/>
           },
           {
-            path: ':customerId',
+            path: '/admin/customers/:customerId',
             element: <CustomerSingle/>,
             children: [
               {
-                path: '/',
+                path: '/admin/customers/:customerId',
                 element: <CustomerSummary/>
               },
               {
-                path: 'activity',
+                path: '/admin/customers/:customerId/activity',
                 element: <CustomerActivity/>
               },
               {
-                path: 'orders',
+                path: '/admin/customers/:customerId/orders',
                 element: <CustomerOrders/>
               }
             ]
@@ -255,43 +256,43 @@ const routes = [
         ]
       },
       {
-        path: 'orders',
+        path: '/admin/orders',
         children: [
           {
-            path: '/',
+            path: '/admin/orders',
             element: <Orders/>
           },
           {
-            path: ':orderId',
+            path: '/admin/orders/:orderId',
             element: <Order/>
           }
         ]
       },
       {
-        path: 'discount',
+        path: '/admin/discount',
         children: [
           {
-            path: 'voucher-codes',
+            path: '/admin/discount/voucher-codes',
             children: [
               {
-                path: '/',
+                path: '/admin/discount/voucher-codes',
                 element: <VoucherCodes/>
               },
               {
-                path: ':voucherCodeId',
+                path: '/admin/discount/voucher-codes/:voucherCodeId',
                 element: <VoucherCode/>
               }
             ]
           },
           {
-            path: 'rules',
+            path: '/admin/discount/rules',
             children: [
               {
-                path: '/',
+                path: '/admin/discount/rules',
                 element: <DiscountRules/>
               },
               {
-                path: ':discountRuleId',
+                path: '/admin/discount/rules/:discountRuleId',
                 element: <DiscountRule/>
               }
             ]
@@ -299,26 +300,30 @@ const routes = [
         ]
       },
       {
-        path: 'products',
+        path: '/admin/products',
         children: [
           {
-            path: '/',
+            path: '/admin/products',
             element: <Products/>
           },
           {
-            path: ':productId',
+            path: '/admin/products/:productId',
             element: <ProductSingle/>,
             children: [
               {
-                path: '/',
+                path: '/admin/products/:productId',
                 element: <ProductSummary/>
               },
               {
-                path: 'analytics',
+                path: '/admin/products/:productId/variants',
+                element: <ProductVariants/>
+              },
+              {
+                path: '/admin/products/:productId/analytics',
                 element: <ProductAnalytics/>
               },
               {
-                path: 'inventory',
+                path: '/admin/products/:productId/inventory',
                 element: <ProductInventory/>
               }
             ]
@@ -326,64 +331,64 @@ const routes = [
         ]
       },
       {
-        path: 'product-tags',
+        path: '/admin/product-tags',
         children: [
           {
-            path: '/',
+            path: '/admin/product-tags',
             element: <ProductTags/>
           },
           {
-            path: ':productTagId',
+            path: '/admin/product-tags/:productTagId',
             element: <ProductTagSummary/>,
           }
         ]
       },
       {
-        path: 'product-categories',
+        path: '/admin/product-categories',
         children: [
           {
-            path: '/',
+            path: '/admin/product-categories',
             element: <ProductCategories/>
           },
           {
-            path: ':productCategoryId',
+            path: '/admin/product-categories/:productCategoryId',
             element: <ProductCategorySummary/>,
           }
         ]
       },
       {
-        path: 'product-attributes',
+        path: '/admin/product-attributes',
         children: [
           {
-            path: '/',
+            path: '/admin/product-attributes',
             element: <ProductAttributes/>
           },
           {
-            path: ':productAttributeId',
+            path: '/admin/product-attributes/:productAttributeId',
             element: <ProductAttributeSummary/>,
           }
         ]
       },
       {
-        path: 'invoices',
+        path: '/admin/invoices',
         children: [
           {
-            path: '/',
+            path: '/admin/invoices',
             element: <Invoices/>
           },
           {
-            path: 'create',
+            path: '/admin/invoices/create',
             element: <InvoiceCreate/>
           },
           {
-            path: ':invoiceId',
+            path: '/admin/invoices/:invoiceId',
             children: [
               {
-                path: '/',
+                path: '/admin/invoices/:invoiceId',
                 element: <InvoiceSummary/>
               },
               {
-                path: '/preview',
+                path: '/admin/invoices/:invoiceId/preview',
                 element: <InvoicePreview/>
               }
             ]
@@ -391,15 +396,15 @@ const routes = [
         ]
       },
       {
-        path: 'import',
+        path: '/admin/import',
         element: <ImportData/>,
       },
       {
-        path: 'reports',
+        path: '/admin/reports',
         element: <Reports/>,
       },
       {
-        path: 'notifications',
+        path: '/admin/notifications',
         element: <Notifications/>,
       },
     ]

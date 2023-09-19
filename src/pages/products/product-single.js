@@ -151,6 +151,10 @@ export const ProductSingle = () => {
       );
     }
 
+    const reload = {
+      callback: getProduct
+    }
+
     return (
       <>
         <Box sx={{ py: 4 }}>
@@ -197,7 +201,7 @@ export const ProductSingle = () => {
           </Tabs>
           <Divider />
         </Box>
-        <Outlet />
+        <Outlet context={[productState, reload]} />
         <ConfirmationDialog
           message="Are you sure you want to discontinue this product? This can't be undone."
           onCancel={handleCloseDiscontinueDialog}

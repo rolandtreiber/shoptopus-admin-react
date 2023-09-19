@@ -11,6 +11,7 @@ import {AuthProvider} from './contexts/oauth-context';
 import {APIProvider} from "./contexts/api-context";
 import {SettingsProvider} from './contexts/settings-context';
 import {App} from './app';
+import "react-awesome-lightbox/build/style.css";
 
 ReactDOM.render(
   <StrictMode>
