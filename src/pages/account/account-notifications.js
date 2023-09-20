@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import {Fragment, useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -16,6 +16,7 @@ import {
   Typography
 } from '@material-ui/core';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 const notifications = [
   {

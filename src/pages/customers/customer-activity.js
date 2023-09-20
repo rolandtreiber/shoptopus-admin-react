@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, List, Skeleton } from '@material-ui/core';
 import { customerApi } from '../../api/customer';
@@ -8,6 +8,7 @@ import { ResourceUnavailable } from '../../components/common/placeholder/resourc
 import { useMounted } from '../../hooks/use-mounted';
 import { ChevronDown as ChevronDownIcon } from '../../icons/chevron-down';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const CustomerActivity = () => {
   const {appName} = useContext(SettingsContext)

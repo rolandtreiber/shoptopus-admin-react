@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import numeral from 'numeral';
@@ -27,6 +27,7 @@ import { Scrollbar } from '../../components/common/scrollbar';
 import { useMounted } from '../../hooks/use-mounted';
 import { CustomCube as CubeIcon } from '../../icons/custom-cube';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 const VariantTableRow = (props) => {
   const {appName} = useContext(SettingsContext)

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
 import { customerApi } from '../../api/customer';
@@ -11,6 +11,7 @@ import { ResourceError } from '../../components/common/placeholder/resource-erro
 import { ResourceLoading } from '../../components/common/placeholder/resource-loading';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const CustomerSummary = () => {
   const mounted = useMounted();

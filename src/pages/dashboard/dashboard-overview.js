@@ -11,6 +11,7 @@ import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {PieChartBreakdown} from "../../components/page-components/reports/pie-chart-breakdown";
 import {Timeline} from "../../components/page-components/reports/timeline";
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const DashboardOverview = () => {
   const {fetchReportsOverview} = useContext(APIContext)

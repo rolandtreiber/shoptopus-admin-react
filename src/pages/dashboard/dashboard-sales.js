@@ -11,6 +11,7 @@ import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import Price from "../../components/common/price";
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const DashboardSales = () => {
   const {fetchReportsSales} = useContext(APIContext)

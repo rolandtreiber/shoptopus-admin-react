@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Container, Grid, Skeleton, Typography } from '@material-ui/core';
@@ -14,6 +14,7 @@ import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/exclamation-outlined';
 import { Eye as EyeIcon } from '../../icons/eye';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const Invoice = () => {
   const {appName} = useContext(SettingsContext)

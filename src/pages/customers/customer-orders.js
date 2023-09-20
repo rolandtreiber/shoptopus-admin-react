@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -24,6 +24,7 @@ import { Scrollbar } from '../../components/common/scrollbar';
 import { Status } from '../../components/common/status';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 const columns = [
   {
