@@ -28,7 +28,7 @@ const CustomerTabRatings = ({data}) => {
           </Card>
         </Grid>)) : (<Grid item xs={12}>
           <Card variant="outlined" style={{padding: 10}}>
-            No orders to display
+            No ratings to display
           </Card>
         </Grid>)}
     </Grid>)

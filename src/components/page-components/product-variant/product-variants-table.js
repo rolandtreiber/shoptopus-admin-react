@@ -131,7 +131,7 @@ export const ProductVariantsTable = (props) => {
                       }}
                     >
                       <Avatar
-                        src={variant.image ? variant.image : null}
+                        src={variant.image ? variant.image.url : null}
                         sx={{
                           border: (theme) => `1px solid ${theme.palette.divider}`,
                           height: 48,

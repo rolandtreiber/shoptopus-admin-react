@@ -163,7 +163,7 @@ export const ProductSingle = () => {
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
-              to="/products"
+              to="/admin/products"
               variant="text"
             >
               Products

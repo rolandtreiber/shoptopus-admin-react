@@ -22,6 +22,7 @@ import {SettingsContext} from "../../../contexts/settings-context";
 import CategoryTreeSelect from "../../common/category-tree-select";
 import AttributeTreeSelect from "../../common/attribute-tree-select";
 import TagPicker from "../../common/tag-picker";
+import {LoadingButton} from "@material-ui/lab";
 
 export const ProductDialog = (props) => {
     const {open, onClose, onSuccess, product, ...other} = props;
@@ -36,6 +37,7 @@ export const ProductDialog = (props) => {
     const [tags, setTags] = useState([])
     const [categories, setCategories] = useState([])
     const [attributes, setAttributes] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const getFileBlobs = async (files) => {
         return await Promise.all(files.map(async (file) => {
@@ -87,6 +89,7 @@ export const ProductDialog = (props) => {
             sku: Yup.string().required('Please enter a SKU'),
         }),
         onSubmit: async (values, helpers) => {
+            setLoading(true)
             try {
                 let formData = new FormData();
                 if (attachments && attachments.length > 0) {
@@ -119,7 +122,7 @@ export const ProductDialog = (props) => {
                         helpers.resetForm();
                         onSuccess();
                         onClose?.();
-                    })
+                    }).finally(() => setLoading(false))
                 } else {
                     isValid && saveProduct(formData).then(response => {
                         toast.success('ProductSingle created');
@@ -128,7 +131,7 @@ export const ProductDialog = (props) => {
                         helpers.resetForm();
                         onSuccess();
                         onClose?.();
-                    })
+                    }).finally(() => setLoading(false))
                 }
             } catch (err) {
                 console.error(err);
@@ -286,9 +289,9 @@ export const ProductDialog = (props) => {
                 >
                     Cancel
                 </Button>
-                <Button
+                <LoadingButton
                     color="primary"
-                    disabled={formik.isSubmitting}
+                    loading={loading}
                     onClick={() => {
                         setShowErrors(true)
                         formik.handleSubmit();
@@ -296,7 +299,7 @@ export const ProductDialog = (props) => {
                     variant="contained"
                 >
                     {product ? 'Update' : 'Create'} Product
-                </Button>
+                </LoadingButton>
             </DialogActions>
         </Dialog>
     );

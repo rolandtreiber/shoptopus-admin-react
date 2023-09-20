@@ -1,5 +1,4 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Card,
@@ -177,9 +176,4 @@ export const ProductVariants = (props) => {
       />
     </>
   );
-};
-
-ProductVariants.propTypes = {
-  variants: PropTypes.object.isRequired,
-  productId: PropTypes.string.isRequired
 };

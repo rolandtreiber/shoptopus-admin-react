@@ -1,21 +1,24 @@
 import {useContext, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
-import { Button, Card, CardContent, CardHeader, Divider } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Divider } from '@material-ui/core';
 import { StatusSelect } from '../../common/status-select';
 import statusOptions from '../../../data/product-statuses.json'
 import {APIContext} from "../../../contexts/api-context";
+import {LoadingButton} from "@material-ui/lab";
 
 export const ProductStatus = (props) => {
   const { onSuccess, product, ...other } = props;
   const [status, setStatus] = useState(product.status);
   const {updateProduct} = useContext(APIContext)
+  const [loading, setLoading] = useState(false)
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
 
   const handleSaveChanges = () => {
+    setLoading(true)
     let formData = new FormData();
     formData.append("status", parseInt(status))
     formData.append("delete_files", "0")
@@ -24,6 +27,8 @@ export const ProductStatus = (props) => {
         toast.success('Changes saved');
       }
       onSuccess();
+    }).finally(() => {
+      setLoading(false)
     })
   };
 
@@ -44,14 +49,15 @@ export const ProductStatus = (props) => {
             options={statusOptions}
             value={status}
           />
-          <Button
+          <LoadingButton
+            loading={loading}
             color="primary"
             onClick={handleSaveChanges}
             sx={{ mt: 2 }}
             variant="contained"
           >
             Save Changes
-          </Button>
+          </LoadingButton>
         </CardContent>
       </Card>
     </>
