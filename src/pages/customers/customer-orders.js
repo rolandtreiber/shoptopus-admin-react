@@ -72,6 +72,8 @@ const statusVariants = [
 ];
 
 export const CustomerOrders = () => {
+  const {appName} = useContext(SettingsContext)
+
   const mounted = useMounted();
   const [controller, setController] = useState({
     sort: 'desc',
@@ -133,7 +135,7 @@ export const CustomerOrders = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: Orders | Carpatin Dashboard</title>
+        <title>Customer: Orders | {appName}</title>
       </Helmet>
       <Box
         sx={{

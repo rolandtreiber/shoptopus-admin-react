@@ -16,6 +16,7 @@ import { Eye as EyeIcon } from '../../icons/eye';
 import gtm from '../../lib/gtm';
 
 export const Invoice = () => {
+  const {appName} = useContext(SettingsContext)
   const mounted = useMounted();
   const [invoiceState, setInvoiceState] = useState({ isLoading: true });
 
@@ -196,7 +197,7 @@ export const Invoice = () => {
   return (
     <>
       <Helmet>
-        <title>Invoice: Summary | Carpatin Dashboard</title>
+        <title>Invoice: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{

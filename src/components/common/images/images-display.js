@@ -12,7 +12,7 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
   }
 
   const imagesWithoutCover = () => {
-    return images.filter(img => img.id !== coverPhoto.id)
+    return images.filter(img => img.url !== coverPhoto.url)
   }
 
   return (

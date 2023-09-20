@@ -27,6 +27,7 @@ import { Plus as PlusIcon } from '../../icons/plus';
 import { Trash as TrashIcon } from '../../icons/trash';
 
 export const InvoiceCreate = () => {
+  const {appName} = useContext(SettingsContext)
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -103,7 +104,7 @@ export const InvoiceCreate = () => {
   return (
     <>
       <Helmet>
-        <title>Invoice: Create | Carpatin Dashboard</title>
+        <title>Invoice: Create | {appName}</title>
       </Helmet>
       <Box
         sx={{

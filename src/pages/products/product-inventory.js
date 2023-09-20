@@ -29,6 +29,7 @@ import { CustomCube as CubeIcon } from '../../icons/custom-cube';
 import gtm from '../../lib/gtm';
 
 const VariantTableRow = (props) => {
+  const {appName} = useContext(SettingsContext)
   const { onSaveQuantity, variant, ...other } = props;
   const [mode, setMode] = useState('add');
   const [quantity, setQuantity] = useState('');
@@ -190,7 +191,7 @@ export const ProductInventory = () => {
   return (
     <>
       <Helmet>
-        <title>Product: Inventory | Carpatin Dashboard</title>
+        <title>Product: Inventory | {appName}</title>
       </Helmet>
       <Box
         sx={{

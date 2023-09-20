@@ -13,6 +13,7 @@ import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/excl
 import gtm from '../../lib/gtm';
 
 export const InvoicePreview = () => {
+  const {appName} = useContext(SettingsContext)
   const mounted = useMounted();
   const [invoiceState, setInvoiceState] = useState({ isLoading: true });
 
@@ -135,7 +136,7 @@ export const InvoicePreview = () => {
   return (
     <>
       <Helmet>
-        <title>Invoice: Preview | Carpatin Dashboard</title>
+        <title>Invoice: Preview | {appName}</title>
       </Helmet>
       <Box
         sx={{

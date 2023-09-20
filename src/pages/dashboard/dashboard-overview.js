@@ -19,6 +19,7 @@ export const DashboardOverview = () => {
   const [signupsRange, setSignupsRange] = useState(1)
   const [ordersRange, setOrdersRange] = useState(1)
   const [stats, setStats] = useState()
+  const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async (setLoading = true) => {
     setLoading && setData(() => ({ isLoading: true }));
@@ -97,7 +98,7 @@ export const DashboardOverview = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard: Overview | Carpatin Dashboard</title>
+        <title>Dashboard: Overview | {appName}</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>

@@ -14,9 +14,9 @@ import {Pencil as PencilIcon} from "../../icons/pencil";
 import {SettingsContext} from "../../contexts/settings-context";
 
 export const ProductCategorySingle = () => {
+  const {appName} = useContext(SettingsContext)
   const mounted = useMounted();
   const [data, setData] = useState({isLoading: true});
-  const {appName} = useContext(SettingsContext)
   const {fetchProductCategory} = useContext(APIContext)
   const {productCategoryId} = useParams();
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -139,7 +139,7 @@ export const ProductCategorySingle = () => {
   return (
     <>
       <Helmet>
-        <title>Product Category: Summary | Carpatin Dashboard</title>
+        <title>Product Category: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{

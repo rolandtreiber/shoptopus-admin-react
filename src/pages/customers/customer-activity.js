@@ -10,6 +10,8 @@ import { ChevronDown as ChevronDownIcon } from '../../icons/chevron-down';
 import gtm from '../../lib/gtm';
 
 export const CustomerActivity = () => {
+  const {appName} = useContext(SettingsContext)
+
   const mounted = useMounted();
   const [activitiesState, setActivitiesState] = useState({ isLoading: true });
 
@@ -55,7 +57,7 @@ export const CustomerActivity = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: Activity | Carpatin Dashboard</title>
+        <title>Customer: Activity | {appName}</title>
       </Helmet>
       <Box
         sx={{

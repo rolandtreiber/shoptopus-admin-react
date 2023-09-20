@@ -1,48 +1,30 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { Button, Card, CardContent, CardHeader, Divider } from '@material-ui/core';
-import { useDialog } from '../../../hooks/use-dialog';
-import { Duplicate as DuplicateIcon } from '../../../icons/duplicate';
-import { Eye as EyeIcon } from '../../../icons/eye';
-import { ActionList } from '../../common/actions/action-list';
-import { ActionListItem } from '../../common/actions/action-list-item';
-import { ConfirmationDialog } from '../../modal/confirmation-dialog';
 import { StatusSelect } from '../../common/status-select';
-
-const statusOptions = [
-  {
-    color: 'info.main',
-    label: 'Draft',
-    value: 'draft'
-  },
-  {
-    color: 'success.main',
-    label: 'Published',
-    value: 'published'
-  }
-];
+import statusOptions from '../../../data/product-statuses.json'
+import {APIContext} from "../../../contexts/api-context";
 
 export const ProductStatus = (props) => {
-  const { product, ...other } = props;
-  const [duplicateDialogOpen, handleOpenDuplicateDialog, handleCloseDuplicateDialog] = useDialog();
+  const { onSuccess, product, ...other } = props;
   const [status, setStatus] = useState(product.status);
+  const {updateProduct} = useContext(APIContext)
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
 
   const handleSaveChanges = () => {
-    toast.success('Changes saved');
-  };
-
-  const handlePreview = () => {
-    toast.error('This action is not available on demo');
-  };
-
-  const handleDuplicate = () => {
-    handleCloseDuplicateDialog();
-    toast.error('This action is not available on demo');
+    let formData = new FormData();
+    formData.append("status", parseInt(status))
+    formData.append("delete_files", "0")
+    updateProduct(product.id, formData).then(response => {
+      if (response.status === 200) {
+        toast.success('Changes saved');
+      }
+      onSuccess();
+    })
   };
 
   return (
@@ -52,7 +34,7 @@ export const ProductStatus = (props) => {
         {...other}
       >
         <CardHeader
-          title="ProductSingle Status"
+          title="Product Status"
           variant="outlined"
         />
         <Divider />
@@ -71,28 +53,7 @@ export const ProductStatus = (props) => {
             Save Changes
           </Button>
         </CardContent>
-        <Divider />
-        <ActionList>
-          <ActionListItem
-            icon={EyeIcon}
-            label="Preview"
-            onClick={handlePreview}
-          />
-          <ActionListItem
-            icon={DuplicateIcon}
-            label="Duplicate"
-            onClick={handleOpenDuplicateDialog}
-          />
-        </ActionList>
       </Card>
-      <ConfirmationDialog
-        message="Are you sure you want to duplicate this product? This can't be undone."
-        onCancel={handleCloseDuplicateDialog}
-        onConfirm={handleDuplicate}
-        open={duplicateDialogOpen}
-        title="Duplicate ProductSingle"
-        variant="warning"
-      />
     </>
   );
 };

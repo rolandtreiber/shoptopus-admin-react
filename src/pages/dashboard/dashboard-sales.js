@@ -20,6 +20,7 @@ export const DashboardSales = () => {
   const [productsBreakdownRange, setProductsBreakdownRange] = useState(1)
   const [categoryId, setCategoryId] = useState()
   const [stats, setStats] = useState()
+  const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async (setLoading = true) => {
     setLoading && setData(() => ({ isLoading: true }));
@@ -93,7 +94,7 @@ export const DashboardSales = () => {
   return (
     <>
       <Helmet>
-        <title>Reports: Sales | Carpatin Dashboard</title>
+        <title>Reports: Sales | {appName}</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>

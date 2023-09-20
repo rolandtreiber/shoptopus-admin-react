@@ -38,7 +38,6 @@ export const ProductDialog = (props) => {
     const [attributes, setAttributes] = useState([])
 
     const getFileBlobs = async (files) => {
-        console.log(files)
         return await Promise.all(files.map(async (file) => {
             return await fetch(file).then(r => r.blob())
         }));
@@ -90,12 +89,13 @@ export const ProductDialog = (props) => {
         onSubmit: async (values, helpers) => {
             try {
                 let formData = new FormData();
-                if (attachments) {
+                if (attachments && attachments.length > 0) {
                     const attachmentBlobs = await getFileBlobs(attachments)
-                    console.log(attachmentBlobs)
                     attachmentBlobs.forEach(attachmentBlob => {
                         formData.append("attachments[]", getFileFromBlob(attachmentBlob))
                     })
+                } else {
+                    formData.append("attachments", "none")
                 }
                 formData.append("name", JSON.stringify(name))
                 formData.append("short_description", JSON.stringify(shortDescription))

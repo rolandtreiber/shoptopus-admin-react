@@ -18,6 +18,7 @@ export const CustomerSummary = () => {
   const [ordersState, setOrdersState] = useState({ isLoading: true });
   const [notesState, setNotesState] = useState({ isLoading: true });
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
+  const {appName} = useContext(SettingsContext)
 
   const getCustomer = useCallback(async () => {
     setCustomerState(() => ({ isLoading: true }));
@@ -171,7 +172,7 @@ export const CustomerSummary = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: Summary | Carpatin Dashboard</title>
+        <title>Customer: Summary | {appName}</title>
       </Helmet>
       <Box
         sx={{

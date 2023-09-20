@@ -36,6 +36,8 @@ const notifications = [
 ];
 
 export const AccountNotifications = () => {
+  const {appName} = useContext(SettingsContext)
+
   const formik = useFormik({
     initialValues: {
       newCompanySignups: true,
@@ -59,7 +61,7 @@ export const AccountNotifications = () => {
   return (
     <>
       <Helmet>
-        <title>Account: Notifications | Carpatin Dashboard</title>
+        <title>Account: Notifications | {appName}</title>
       </Helmet>
       <Card variant="outlined">
         <CardHeader

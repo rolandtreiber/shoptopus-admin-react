@@ -8,6 +8,8 @@ import { ProductSalesReport } from '../../components/page-components/product/pro
 import gtm from '../../lib/gtm';
 
 export const ProductAnalytics = () => {
+  const {appName} = useContext(SettingsContext)
+
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
@@ -15,7 +17,7 @@ export const ProductAnalytics = () => {
   return (
     <>
       <Helmet>
-        <title>Product: Analytics | Carpatin Dashboard</title>
+        <title>Product: Analytics | {appName}</title>
       </Helmet>
       <Box
         sx={{

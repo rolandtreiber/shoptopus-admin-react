@@ -7,6 +7,8 @@ import { Account2FA } from '../../components/page-components/account/account-2fa
 import gtm from '../../lib/gtm';
 
 export const AccountGeneral = () => {
+  const {appName} = useContext(SettingsContext)
+
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
@@ -14,7 +16,7 @@ export const AccountGeneral = () => {
   return (
     <>
       <Helmet>
-        <title>Account: General | Carpatin Dashboard</title>
+        <title>Account: General | {appName}</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
         <AccountDetails />

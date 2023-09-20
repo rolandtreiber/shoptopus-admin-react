@@ -12,6 +12,7 @@ import { Plus as PlusIcon } from '../../icons/plus';
 import gtm from '../../lib/gtm';
 
 export const Invoices = () => {
+  const {appName} = useContext(SettingsContext)
   const mounted = useMounted();
   const [controller, setController] = useState({
     filters: [],
@@ -126,7 +127,7 @@ export const Invoices = () => {
   return (
     <>
       <Helmet>
-        <title>Invoice: List | Carpatin Dashboard</title>
+        <title>Invoice: List | {appName}</title>
       </Helmet>
       <Box
         sx={{

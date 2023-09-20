@@ -5,8 +5,6 @@ import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
 import {useLanguage} from "../../../hooks/use-language";
 import {useRetailPrice} from "../../../hooks/use-retail-price";
-import {Status} from "../../common/status";
-import productStatuses from "../../../data/product-statuses.json";
 
 export const ProductInfo = (props) => {
   const { onEdit, product, ...other } = props;
@@ -65,15 +63,6 @@ export const ProductInfo = (props) => {
             align={align}
             label="Total Sold"
             value={product.purchase_count}
-        />
-        <PropertyListItem
-            align={align}
-            label="Status"
-            value={<Status
-                  color="success.main"
-                  label={productStatuses.find(s => s.value === product.status).label}
-              />
-            }
         />
       </PropertyList>
     </Card>
