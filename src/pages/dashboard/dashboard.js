@@ -5,11 +5,11 @@ import gtm from '../../lib/gtm';
 
 const tabs = [
   {
-    href: '/dashboard',
+    href: '/admin/dashboard',
     label: 'Overview'
   },
   {
-    href: '/dashboard/sales',
+    href: '/admin/dashboard/sales',
     label: 'Sales'
   }
 ];

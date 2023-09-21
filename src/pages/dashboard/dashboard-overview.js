@@ -1,7 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
-import { Notifications } from '../../components/page-components/reports/notifications';
 import { SummaryItem } from '../../components/page-components/reports/summary-item';
 import { Cube as CubeIcon } from '../../icons/cube';
 import { ShoppingCart as ShoppingCartIcon } from '../../icons/shopping-cart';
@@ -68,28 +67,28 @@ export const DashboardOverview = () => {
           content: data.data.stats.orders,
           icon: ShoppingCartIcon,
           label: 'Orders',
-          linkHref: '/orders',
+          linkHref: '/admin/orders',
           linkLabel: 'Orders'
         },
         {
           content: data.data.stats.products,
           icon: CubeIcon,
           label: 'Products',
-          linkHref: '/products',
+          linkHref: '/admin/products',
           linkLabel: 'Products'
         },
         {
           content: data.data.stats.payments,
           icon: CustomCreditCardIcon,
           label: 'Transactions',
-          linkHref: '/dashboard/transactions',
+          linkHref: '/admin/transactions',
           linkLabel: 'Transactions'
         },
         {
           content: data.data.stats.customers,
           icon: CustomCreditCardIcon,
           label: 'Customers',
-          linkHref: '/customers',
+          linkHref: '/admin/customers',
           linkLabel: 'Customers'
         }
       ])
@@ -103,9 +102,6 @@ export const DashboardOverview = () => {
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Notifications />
-          </Grid>
           {stats && stats.map((item) => (
             <Grid
               item
