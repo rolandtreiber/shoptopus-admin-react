@@ -14,8 +14,9 @@ import {
 import {useTheme} from '@material-ui/core/styles';
 import {StatusBadge} from '../../common/status-badge';
 import RangeSelector from "./range-selector";
+import {Star as StarIcon} from "../../../icons/star";
 
-export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRangeChange}) => {
+export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRangeChange, stars = false}) => {
   const theme = useTheme();
   const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
@@ -68,6 +69,14 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
       }
     }
   ];
+
+  const getStars = (rating) => {
+    let stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars = [...stars, (<StarIcon key={'star-'+i} style={{'color': '#cebf17'}}/>)]
+    }
+    return stars
+  }
 
   return (
     <Card
@@ -129,7 +138,11 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
                 color="textSecondary"
                 variant="body2"
               >
-                {item.name}
+                {stars ? (
+                    <>{getStars(parseInt(item.name))}</>
+                ) : (
+                 <>{item.name}</>
+                )}
               </Typography>
               <Box sx={{flexGrow: 1}}/>
               <Typography

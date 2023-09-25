@@ -24,7 +24,7 @@ const APIProvider = ({children}) => {
         const {response} = error
 
         // console.log(response)
-        if (response.status === 401) {
+        if (response && response.status === 401) {
           // logout()
           return
         }
@@ -135,18 +135,21 @@ const APIProvider = ({children}) => {
       // ProductsList
       fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),
       fetchProduct: async (productId) => await get(admin_api_url + "product/" + productId, {}, makeHeaders()),
+      fetchProductInsights: async (productId, salesChartRange) => await get(admin_api_url + "product/" + productId + "/insights", {
+          sales_chart_range: salesChartRange
+      }, makeHeaders()),
       saveProduct: async (params) => await post(admin_api_url + "product", params, makeHeaders()),
       updateProduct: async (productId, params) => await patch(admin_api_url + "product/" + productId, params, makeHeaders()),
       deleteProduct: async (productId) => await del(admin_api_url + "product/" + productId, {}, makeHeaders()),
 
-      // ProductSingle variants
+      // Product variants
       fetchProductVariants: async (productId, params) => await get(admin_api_url + "product/" + productId + '/variants', params, makeHeaders()),
       fetchProductVariant: async (productId, productVariantId) => await get(admin_api_url + "product/" + productId + "/variant/" + productVariantId, {}, makeHeaders()),
       saveProductVariant: async (productId, params) => await post(admin_api_url + "product/" + productId + "/variant", params, makeHeaders()),
       updateProductVariant: async (productId, productVariantId, params) => await patch(admin_api_url + "product/" + productId + "/variant/" + productVariantId, params, makeHeaders()),
       deleteProductVariant: async (productId, productVariantId) => await del(admin_api_url + 'product/' + productId + '/variant/' + productVariantId, {}, makeHeaders()),
 
-      // ProductSingle Categories
+      // Product Categories
       fetchProductCategories: async (params) => await get(admin_api_url + "product-categories", params, makeHeaders()),
       fetchProductCategoriesSelectData: async (params) => await get(admin_api_url + "product-categories/select-data", {}, makeHeaders()),
       fetchProductCategory: async (categoryId) => await get(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
@@ -154,20 +157,20 @@ const APIProvider = ({children}) => {
       updateProductCategory: async (categoryId, params) => await patch(admin_api_url + "product-category/" + categoryId, params, makeHeaders()),
       deleteProductCategory: async (categoryId) => await del(admin_api_url + "product-category/" + categoryId, {}, makeHeaders()),
 
-      // ProductSingle Attributes
+      // Product Attributes
       fetchProductAttributes: async (params) => await get(admin_api_url + "product-attributes", params, makeHeaders()),
       fetchProductAttribute: async (attributeId) => await get(admin_api_url + "product-attribute/" + attributeId, {}, makeHeaders()),
       saveProductAttribute: async (params) => await post(admin_api_url + "product-attribute", params, makeHeaders()),
       updateProductAttribute: async (attributeId, params) => await patch(admin_api_url + "product-attribute/" + attributeId, params, makeHeaders()),
       deleteProductAttribute: async (attributeId) => await del(admin_api_url + "product-attribute/" + attributeId, {}, makeHeaders()),
 
-      // ProductSingle Attribute Options
+      // Product Attribute Options
       fetchProductAttributeOptions: async (attributeId, params) => await get(admin_api_url + "product-attribute/" + attributeId + "/options", params, makeHeaders()),
       saveProductAttributeOption: async (attributeId, params) => await post(admin_api_url + "product-attribute/" + attributeId + "/option", params, makeHeaders()),
       updateProductAttributeOption: async (attributeId, attributeOptionId, params) => await patch(admin_api_url + "product-attribute/" + attributeId + "/option/" + attributeOptionId, params, makeHeaders()),
       deleteProductAttributeOption: async (attributeId, attributeOptionId) => await del(admin_api_url + "product-attribute/" + attributeId + "/option/" + attributeOptionId, {}, makeHeaders()),
 
-      // ProductSingle Tags
+      // Product Tags
       fetchProductTags: async (params) => await get(admin_api_url + "product-tags", params, makeHeaders()),
       fetchProductTag: async (productTagId) => await get(admin_api_url + "product-tag/" + productTagId, {}, makeHeaders()),
       saveProductTag: async (params) => await post(admin_api_url + "product-tag", params, makeHeaders()),

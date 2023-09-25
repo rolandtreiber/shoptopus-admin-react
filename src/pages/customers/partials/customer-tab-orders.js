@@ -41,7 +41,7 @@ const CustomerTabOrders = ({data}) => {
                   </IconButton>
                 </Grid>
                 <Grid item xs={3}>
-                  <Link href={'/orders/' + order.id} target={"_blank"}>
+                  <Link href={'/admin/orders/' + order.id} target={"_blank"}>
                     <IconButton aria-label="locate" size={"small"}>
                       <NorthEast/>
                     </IconButton>
