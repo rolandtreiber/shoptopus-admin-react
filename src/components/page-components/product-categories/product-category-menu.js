@@ -67,7 +67,8 @@ export const ProductCategoryMenu = (props) => {
   const doStatusChange = async (id, status) => {
     try {
       return await updateProductCategory(id, {
-        enabled: status
+        enabled: status,
+        clear_images: false
       });
     } catch (err) {
       console.error(err);

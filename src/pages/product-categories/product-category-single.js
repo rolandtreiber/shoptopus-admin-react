@@ -44,11 +44,11 @@ export const ProductCategorySingle = () => {
         }));
       }
     }
-  }, []);
+  }, [productCategoryId]);
 
   useEffect(() => {
     getData().catch(console.error);
-  }, []);
+  }, [productCategoryId]);
 
   useEffect(() => {
     gtm.push({event: 'page_view'});
@@ -88,7 +88,7 @@ export const ProductCategorySingle = () => {
                   color="primary"
                   component={RouterLink}
                   startIcon={<ArrowLeftIcon/>}
-                  to="/product-categories"
+                  to="/admin/product-categories"
                   variant="text"
                 >
                   Product Categories
