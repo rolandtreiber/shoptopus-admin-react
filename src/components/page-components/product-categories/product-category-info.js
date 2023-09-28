@@ -76,9 +76,12 @@ export const ProductCategoryInfo = (props) => {
             <Card
               variant="outlined"
               {...other}
+              sx={{
+                mt: 2
+              }}
             >
               <CardHeader
-                title="General Information"
+                title="Products"
               />
               <Divider/>
               <CardContent>
