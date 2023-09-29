@@ -61,36 +61,9 @@ export const ProductAttributeInfo = (props) => {
         />
         <PropertyListItem
           align={align}
-          label="Status"
-          value={data.enabled ? 'Enabled' : 'Disabled'}
+          label="Enabled"
+          value={data.enabled ? 'Yes' : 'No'}
         />
-        {/*<PropertyListItem*/}
-        {/*  align={align}*/}
-        {/*  label="Options"*/}
-        {/*>*/}
-        {/*  <Option variant={"outlined"} >*/}
-        {/*    <List dense>*/}
-        {/*      {data.options.map(option =>*/}
-        {/*        (*/}
-        {/*          <ListItem key={option.id} divider>*/}
-        {/*            {option.image && <ListItemAvatar>*/}
-        {/*              <Avatar*/}
-        {/*                alt={getLang(option.name)}*/}
-        {/*                src={option.image}*/}
-        {/*                sx={{*/}
-        {/*                  width: 24,*/}
-        {/*                  height: 24*/}
-        {/*                }}*/}
-        {/*                variant="rounded"*/}
-        {/*              />*/}
-        {/*            </ListItemAvatar>}*/}
-        {/*            <ListItemText primary={getLang(option.name)} />*/}
-        {/*          </ListItem>*/}
-        {/*        )*/}
-        {/*      )}*/}
-        {/*    </List>*/}
-        {/*  </Option>*/}
-        {/*</PropertyListItem>*/}
       </PropertyList>
     </Card>
   );

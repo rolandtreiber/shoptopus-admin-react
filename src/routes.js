@@ -54,7 +54,7 @@ const AccountNotifications = Loadable(lazy(() => import('./pages/account/account
 
 const ProductCategories = Loadable(lazy(() => import('./pages/product-categories/product-categories-list').then((module) => ({default: module.ProductCategoriesList}))));
 const ProductAttributes = Loadable(lazy(() => import('./pages/product-attributes/product-attributes-list').then((module) => ({default: module.ProductAttributesList}))));
-const ProductTags = Loadable(lazy(() => import('./pages/product-tags/product-tags-list').then((module) => ({default: module.ProductTagsList}))));
+const ProductTags = Loadable(lazy(() => import('./pages/product-tags/product-tags-list').then((module) => ({default: module.default}))));
 
 const ProductCategorySummary = Loadable(lazy(() => import('./pages/product-categories/product-category-single').then((module) => ({default: module.ProductCategorySingle}))));
 const ProductAttributeSummary = Loadable(lazy(() => import('./pages/product-attributes/product-attribute-single').then((module) => ({default: module.ProductAttributeSingle}))));

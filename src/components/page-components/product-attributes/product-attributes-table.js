@@ -20,6 +20,7 @@ import {Pagination} from "../layout-elements/pagination";
 import {Status} from "../../common/status";
 import {format} from "date-fns";
 import {ProductAttributeMenu} from "./product-attribute-menu";
+import NoImg from '../../../static/images/no-image.png'
 
 const columns = [
   {
@@ -134,9 +135,9 @@ const ProductAttributesTable = (props) => {
                     />
                   </TableCell>
                   <TableCell>
-                    {attribute.image && <Avatar
+                    {<Avatar
                       alt={attribute.name[language]}
-                      src={attribute.image}
+                      src={attribute.image ? attribute.image : NoImg}
                       sx={{
                         width: 64,
                         height: 64

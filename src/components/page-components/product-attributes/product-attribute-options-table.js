@@ -22,7 +22,7 @@ import {Status} from "../../common/status";
 const columns = [
   {
     id: 'image',
-    label: 'First Image',
+    label: 'Image',
     translatable: true
   },
   {
@@ -32,7 +32,11 @@ const columns = [
   },
   {
     id: 'common_value',
-    label: 'value'
+    label: 'Value'
+  },
+  {
+    id: 'product_variants_count',
+    label: 'Product Variants / Products Directly'
   },
   {
     id: 'enabled',
@@ -62,11 +66,12 @@ export const ProductAttributeOptionsTable = (props) => {
     page,
     pagesCount,
     data,
-    selectedElements,
     sort,
     sortBy,
     onEdit,
-    onDelete
+    onDelete,
+    onRowClicked,
+    selected
   } = props;
 
   const displayLoading = isLoading;
@@ -83,7 +88,7 @@ export const ProductAttributeOptionsTable = (props) => {
       }}
     >
       <Scrollbar>
-        <Table sx={{ minWidth: 800 }}>
+        <Table sx={{ width: "100%" }}>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -109,9 +114,9 @@ export const ProductAttributeOptionsTable = (props) => {
               return (
                 <TableRow
                   hover
+                  onClick={() => onRowClicked(option.id)}
                   key={option.id}
-                  selected={!!selectedElements.find((selectedElement) => selectedElement
-                    === option.id)}
+                  selected={selected === option.id}
                 >
                   <TableCell>
                     <Box
@@ -152,6 +157,16 @@ export const ProductAttributeOptionsTable = (props) => {
                       }}
                     >
                       {option.value}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      {option.product_variants_count ? option.product_variants_count : 0} / {option.products_count ? option.products_count : 0}
                     </Box>
                   </TableCell>
                   <TableCell>

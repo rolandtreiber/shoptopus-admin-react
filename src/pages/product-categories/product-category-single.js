@@ -65,9 +65,6 @@ export const ProductCategorySingle = () => {
 
     return (
       <>
-        <Helmet>
-          <title>Product Category | {appName}</title>
-        </Helmet>
         <Box
           sx={{
             backgroundColor: 'background.default',
@@ -139,7 +136,7 @@ export const ProductCategorySingle = () => {
   return (
     <>
       <Helmet>
-        <title>Product Category: Summary | {appName}</title>
+        <title>Product Category | {appName}</title>
       </Helmet>
       <Box
         sx={{

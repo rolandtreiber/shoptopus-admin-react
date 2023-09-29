@@ -17,12 +17,11 @@ import {ProductAttributeOptionsTable} from "./product-attribute-options-table"
 import {ProductAttributeOptionDialog} from "./product-attribute-option-dialog";
 
 export const ProductAttributeOptions = (props) => {
-  const { options: optionsProp, productId, ...other } = props;
+  const { options: optionsProp, productId, selectedOption, setSelectedOption, ...other } = props;
   const mounted = useMounted();
   const [optionDialogOpen, handleOpenOptionDialog, handleCloseOptionDialog] = useDialog();
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
   const [options, setOptions] = useState(optionsProp);
-  const [selectedOption, setSelectedOption] = useState(null);
   const {deleteProductAttributeOption, fetchProductAttributeOptions} = useContext(APIContext)
   const [controller, setController] = useState({
     filters: [],
@@ -136,7 +135,7 @@ export const ProductAttributeOptions = (props) => {
               Add
             </Button>
           )}
-          title="options"
+          title="Attribute Options"
         />
         <Divider />
         <Scrollbar>
@@ -147,6 +146,8 @@ export const ProductAttributeOptions = (props) => {
             page={controller.page + 1}
             pagesCount={options.paginationMeta ? options.paginationMeta.last_page : null}
             onPageChange={handlePageChange}
+            onRowClicked={setSelectedOption}
+            selected={selectedOption}
           />
 
         </Scrollbar>
