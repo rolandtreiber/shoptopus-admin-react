@@ -71,7 +71,8 @@ export const ProductAttributeOptionsTable = (props) => {
     onEdit,
     onDelete,
     onRowClicked,
-    selected
+    selected,
+    productAttributeType
   } = props;
 
   const displayLoading = isLoading;
@@ -114,7 +115,7 @@ export const ProductAttributeOptionsTable = (props) => {
               return (
                 <TableRow
                   hover
-                  onClick={() => onRowClicked(option.id)}
+                  onClick={() => onRowClicked(option)}
                   key={option.id}
                   selected={selected === option.id}
                 >
@@ -126,16 +127,17 @@ export const ProductAttributeOptionsTable = (props) => {
                       }}
                     >
                       <Avatar
-                        src={option.image ? option.image : null}
+                        src={option.image && productAttributeType !== 3 ? option.image : null}
                         sx={{
                           border: (theme) => `1px solid ${theme.palette.divider}`,
+                          backgroundColor: productAttributeType === 3 ? option.value : "#ebebeb",
                           height: 48,
                           mr: 2,
                           width: 48
                         }}
                         variant="rounded"
                       >
-                        <CubeIcon/>
+                        {productAttributeType !== 3 && <CubeIcon/>}
                       </Avatar>
                     </Box>
                   </TableCell>

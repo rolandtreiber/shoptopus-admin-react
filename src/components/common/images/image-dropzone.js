@@ -6,7 +6,7 @@ import { Upload as UploadIcon } from '../../../icons/upload';
 export const ImageDropzone = (props) => {
   const { accept, maxFiles, maxSize, minSize, onDrop, sx } = props;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept,
+    accept: accept ? accept : ['image/png', 'image/jpg', 'image/jpeg'],
     maxFiles,
     maxSize,
     minSize,

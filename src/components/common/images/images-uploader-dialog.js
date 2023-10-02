@@ -86,7 +86,6 @@ export const ImagesUploaderDialog = (props) => {
           <ImageDropzone
             onDrop={handleDrop}
             sx={{ height: '100%' }}
-            accept="image/jpeg, image/png"
           />
           {images.map((image) => {
             const isSelected = selectedImages.includes(image);

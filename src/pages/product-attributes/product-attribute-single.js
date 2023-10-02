@@ -26,14 +26,14 @@ export const ProductAttributeSingle = () => {
   const {fetchProductAttribute, fetchProductAttributeOption} = useContext(APIContext)
   const {productAttributeId} = useParams();
   const {appName} = useContext(SettingsContext)
-  const [selectedAttributeOptionId, setSelectedAttributeOptionId] = useState()
+  const [selectedAttributeOption, setSelectedAttributeOption] = useState()
   const [attributeOptionData, setAttributeOptionData] = useState({isLoading: true})
 
   const getAttributeOptionData = useCallback(async () => {
     setAttributeOptionData(() => ({isLoading: true}));
 
     try {
-      const {data: {data}} = await fetchProductAttributeOption(productAttributeId, selectedAttributeOptionId)
+      const {data: {data}} = await fetchProductAttributeOption(productAttributeId, selectedAttributeOption.id)
       const result = data;
 
       if (mounted.current) {
@@ -52,13 +52,13 @@ export const ProductAttributeSingle = () => {
         }));
       }
     }
-  }, [selectedAttributeOptionId])
+  }, [selectedAttributeOption])
 
   useEffect(() => {
-    if (selectedAttributeOptionId) {
+    if (selectedAttributeOption) {
       getAttributeOptionData().catch(console.error);
     }
-  }, [selectedAttributeOptionId]);
+  }, [selectedAttributeOption]);
 
   const getData = useCallback(async () => {
     setData(() => ({isLoading: true}));
@@ -140,7 +140,7 @@ export const ProductAttributeSingle = () => {
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"
-                onClick={() => setOpenEditDialog(true)}
+                onClick={() => setOpenInfoDialog(true)}
                 size="large"
                 startIcon={<PencilIcon fontSize="small"/>}
                 variant="contained"
@@ -175,7 +175,7 @@ export const ProductAttributeSingle = () => {
                   item
                   xs={12}
                 >
-                  <ProductAttributeOptions selectedOption={selectedAttributeOptionId} setSelectedOption={setSelectedAttributeOptionId} options={data.data.options} productId={data.data.id}/>
+                  <ProductAttributeOptions productAttributeType={data.data?.type} productAttributeId={productAttributeId} selectedOption={selectedAttributeOption} setSelectedOption={setSelectedAttributeOption} options={data.data.options} productId={data.data.id}/>
                 </Grid>
               </Grid>
               <Grid container item lg={4}
@@ -204,7 +204,7 @@ export const ProductAttributeSingle = () => {
                     />
                     <Divider/>
                     <CardContent>
-                      {(selectedAttributeOptionId) ?
+                      {(selectedAttributeOption) ?
                         (<>
                           {attributeOptionData.isLoading === true ? <Card variant="outlined" style={{padding: 10}}>
                             Loading

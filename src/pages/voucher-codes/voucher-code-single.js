@@ -109,7 +109,7 @@ export const VoucherCodeSingle = () => {
                 Edit
               </Button>
             </Box>
-            {data.data && <VoucherCodeDetails voucherCode={data.data}/>}
+            {data.data && <VoucherCodeDetails onEdit={() => setOpenEditDialog(true)} voucherCode={data.data}/>}
           </Box>
         </Container>
         {data && <VoucherCodeDialog

@@ -33,15 +33,6 @@ const TransactionDetails = ({transaction}) => {
               variant="outlined"
             >
               <CardHeader
-                action={(
-                  <Button
-                    color="primary"
-                    onClick={() => console.log('edit')}
-                    variant="text"
-                  >
-                    Edit
-                  </Button>
-                )}
                 title="Details"
               />
               <Divider />
@@ -182,7 +173,7 @@ const TransactionDetails = ({transaction}) => {
                   py: 1.5
                 }}
               >
-                {transaction.payable_type === "App\\Models\\OrderSingle" && <>
+                {transaction.payable_type === "App\\Models\\Order" && <>
                   <List>
                     <ListItem>
                       <ListItemText sx={{flex: 1}}><h2>Order</h2></ListItemText>

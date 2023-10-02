@@ -13,6 +13,8 @@ import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
 import TransactionDetails from "../../components/page-components/transactions/transaction-details";
+import {ResourceLoading} from "../../components/common/placeholder/resource-loading";
+import {ResourceError} from "../../components/common/placeholder/resource-error";
 
 export const TransactionSingle = () => {
   const mounted = useMounted();
@@ -75,7 +77,7 @@ export const TransactionSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/transactions"
+                to="/admin/transactions"
                 variant="text"
               >
                 Transactions
@@ -101,11 +103,13 @@ export const TransactionSingle = () => {
                 startIcon={<PlusIcon fontSize="small"/>}
                 variant="contained"
               >
-                Edit
+                Partial refund
               </Button>
             </Box>
             {openEditDialog && <Fragment></Fragment>}
             {data.data && <TransactionDetails transaction={data.data}/>}
+            {data.isLoading && <ResourceLoading/>}
+            {data.error && <ResourceError/>}
           </Box>
         </Container>
       </Box>

@@ -165,7 +165,6 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
               {showDropZone && <ImageDropzone
                 onDrop={handleDrop}
                 sx={{height: '100%', marginBottom: '15px'}}
-                accept="image/jpeg, image/png"
               />}
               <SortableContext
                 items={data}
@@ -203,7 +202,6 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
               {showDropZone && <ImageDropzone
                 onDrop={handleDrop}
                 sx={{height: '100%'}}
-                accept="image/jpeg, image/png"
               />}
               <Box
                 sx={{

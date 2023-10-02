@@ -25,9 +25,21 @@ export const ProductAttributeEditDialog = (props) => {
   const [showErrors, setShowErrors] = useState(false)
   const [image, setImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
+  const [saving, setSaving] = useState(false)
 
   const types = [
-    'Text', 'Image', 'Color'
+    {
+      text: 'Text',
+      value: 1
+    },
+    {
+      text: 'Image',
+      value: 2
+    },
+    {
+      text: 'Color',
+      value: 3
+    },
   ];
 
   useEffect(() => {
@@ -45,6 +57,7 @@ export const ProductAttributeEditDialog = (props) => {
     validationSchema: Yup.object().shape({
     }),
     onSubmit: async (values, helpers) => {
+      setSaving(true)
       try {
         let formData = new FormData();
         if (image) {
@@ -61,6 +74,7 @@ export const ProductAttributeEditDialog = (props) => {
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
+          setSaving(false)
           setImage(null)
           setShowErrors(false)
           onSuccess();
@@ -70,6 +84,7 @@ export const ProductAttributeEditDialog = (props) => {
         console.error(err);
         helpers.setStatus({success: false});
         helpers.setErrors({submit: err.message});
+        setSaving(false)
         helpers.setSubmitting(false);
       }
     }
@@ -117,9 +132,9 @@ export const ProductAttributeEditDialog = (props) => {
                 native: true,
               }}
             >
-              {types.map((option, index) => (
-                <option key={option} value={index}>
-                  {option}
+              {types.map((option) => (
+                <option key={option.text} value={option.value}>
+                  {option.text}
                 </option>
               ))}
             </TextField>
@@ -162,7 +177,7 @@ export const ProductAttributeEditDialog = (props) => {
         </Button>
         <Button
           color="primary"
-          disabled={formik.isSubmitting}
+          disabled={saving}
           onClick={() => {
             setShowErrors(true)
             formik.handleSubmit();

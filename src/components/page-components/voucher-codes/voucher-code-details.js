@@ -20,7 +20,7 @@ import {ExpandMore, Visibility} from "@material-ui/icons";
 import {PropertyList} from "../../common/property-list/property-list";
 import {Link as RouterLink} from "react-router-dom";
 
-const VoucherCodeDetails = ({voucherCode}) => {
+const VoucherCodeDetails = ({voucherCode, onEdit}) => {
 
   return (
     <>
@@ -42,7 +42,7 @@ const VoucherCodeDetails = ({voucherCode}) => {
                 action={(
                   <Button
                     color="primary"
-                    onClick={() => console.log('edit')}
+                    onClick={onEdit}
                     variant="text"
                   >
                     Edit

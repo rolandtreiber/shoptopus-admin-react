@@ -19,9 +19,11 @@ export const ProductAttributeInfo = (props) => {
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
-  const types = [
-    'Text', 'Image', 'Color'
-  ];
+  const types = {
+    1: 'Text',
+    2: 'Image',
+    3: 'Color'
+  }
 
   const Option = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,

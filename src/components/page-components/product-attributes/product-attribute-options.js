@@ -17,7 +17,7 @@ import {ProductAttributeOptionsTable} from "./product-attribute-options-table"
 import {ProductAttributeOptionDialog} from "./product-attribute-option-dialog";
 
 export const ProductAttributeOptions = (props) => {
-  const { options: optionsProp, productId, selectedOption, setSelectedOption, ...other } = props;
+  const { productAttributeType, options: optionsProp, productId, productAttributeId, selectedOption, setSelectedOption, ...other } = props;
   const mounted = useMounted();
   const [optionDialogOpen, handleOpenOptionDialog, handleCloseOptionDialog] = useDialog();
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
@@ -74,17 +74,17 @@ export const ProductAttributeOptions = (props) => {
     }
   };
 
-  const doDeleteOption = useCallback(async (productAttributeIdId, optionId) => {
+  const doDeleteOption = useCallback(async () => {
     try {
-      return await deleteProductAttributeOption(productAttributeIdId, optionId)
+      return await deleteProductAttributeOption(productAttributeId, selectedOption?.id)
     } catch (e) {
       console.log(e)
     }
-  })
+  }, [productAttributeId, selectedOption])
 
   const handleDeleteOption = () => {
     // DELETE VARIANT
-    doDeleteOption(productId, selectedOption.id).then(r => {
+    doDeleteOption().then(r => {
       getProductAttributeOptions().then()
     })
 
@@ -140,6 +140,7 @@ export const ProductAttributeOptions = (props) => {
         <Divider />
         <Scrollbar>
           <ProductAttributeOptionsTable
+            productAttributeType={productAttributeType}
             data={options.data ? options.data : []}
             onEdit={handleEditOption}
             onDelete={handleConfirmDeleteOption}
@@ -159,17 +160,18 @@ export const ProductAttributeOptions = (props) => {
         )}
       </Card>
       <ProductAttributeOptionDialog
+        productAttributeType={productAttributeType}
         onClose={handleCloseOptionDialog}
         onExited={handleExitedDialog}
         onoptionsChange={getProductAttributeOptions}
         onSuccess={getProductAttributeOptions}
-        productAttributeId={productId}
+        productAttributeId={productAttributeId}
         productAttributeOptionId={selectedOption ? selectedOption.id : null}
         open={optionDialogOpen}
         initialValues={selectedOption}
       />
       <ConfirmationDialog
-        message="Are you sure you want to delete this option? This can't be undone."
+        message={"Are you sure you want to delete this option? This can't be undone."}
         onCancel={handleCloseDeleteDialog}
         onConfirm={handleDeleteOption}
         open={deleteDialogOpen}

@@ -1,26 +1,30 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Box, Grid } from '@material-ui/core';
-import { ResourceError } from '../../components/common/placeholder/resource-error';
-import { ResourceLoading } from '../../components/common/placeholder/resource-loading';
-import { useMounted } from '../../hooks/use-mounted';
+import {Helmet} from 'react-helmet-async';
+import {Box, Button, Card, CardContent, CardHeader, Container, Divider, Grid, Typography} from '@material-ui/core';
+import {ResourceError} from '../../components/common/placeholder/resource-error';
+import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
+import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
-import {useParams} from "react-router-dom";
+import {Link as RouterLink, useParams} from "react-router-dom";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ProductTagEditDialog} from "../../components/page-components/product-tags/product-tag-edit-dialog";
 import {ProductTagInfo} from "../../components/page-components/product-tags/product-tag-info";
+import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
+import {Pencil as PencilIcon} from "../../icons/pencil";
+import ProductTagProductListItem
+  from "../../components/page-components/product-tags/partials/product-tag-product-list-item";
 
 export const ProductTagSingle = () => {
   const mounted = useMounted();
-  const [data, setData] = useState({ isLoading: true });
+  const [data, setData] = useState({isLoading: true});
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const {fetchProductTag} = useContext(APIContext)
   const {productTagId} = useParams();
   const {appName} = useContext(SettingsContext)
 
   const getData = useCallback(async () => {
-    setData(() => ({ isLoading: true }));
+    setData(() => ({isLoading: true}));
 
     try {
       const {data: {data}} = await fetchProductTag(productTagId)
@@ -49,45 +53,122 @@ export const ProductTagSingle = () => {
   }, []);
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({event: 'page_view'});
   }, []);
 
   const renderContent = () => {
     if (data.isLoading) {
-      return <ResourceLoading />;
+      return <ResourceLoading/>;
     }
 
     if (data.error) {
-      return <ResourceError />;
+      return <ResourceError/>;
     }
 
     return (
       <>
-        <Grid container spacing={3}>
-          <Grid container item lg={8}
-                spacing={3}
-                sx={{
-                  height: 'fit-content',
-                  order: {
-                    md: 2,
-                    xs: 1
-                  }
-                }}
-                xs={12}
+        <Box
+          sx={{
+            backgroundColor: 'background.default',
+            flexGrow: 1
+          }}
+        >
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%'
+            }}
           >
-            <Grid
-              item
-              xs={12}
-            >
-              <ProductTagInfo
-                onEdit={() => setOpenInfoDialog(true)}
-                data={data.data}
-              />
-            </Grid>
-          </Grid>
-          <Grid container item lg={4} spacing={3} sx={{height: 'fit-content', order: {md: 2, xs: 1} }} xs={12}>
-          </Grid>
-        </Grid>
+
+            <Box sx={{py: 4}}>
+              <Box sx={{mb: 2}}>
+                <Button
+                  color="primary"
+                  component={RouterLink}
+                  startIcon={<ArrowLeftIcon/>}
+                  to="/admin/product-tags"
+                  variant="text"
+                >
+                  Product Tags
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                  alignItems: 'center',
+                  display: 'flex',
+                  marginBottom: 2
+                }}
+              >
+                <Typography
+                  color="textPrimary"
+                  variant="h4"
+                >
+                  Product Tag
+                </Typography>
+                <Box sx={{flexGrow: 1}}/>
+                <Button
+                  color="primary"
+                  onClick={() => setOpenInfoDialog(true)}
+                  size="large"
+                  startIcon={<PencilIcon fontSize="small"/>}
+                  variant="contained"
+                >
+                  Edit
+                </Button>
+              </Box>
+
+              <Grid container spacing={3}>
+                <Grid container item lg={8}
+                      spacing={3}
+                      sx={{
+                        height: 'fit-content',
+                        order: {
+                          md: 2,
+                          xs: 1
+                        }
+                      }}
+                      xs={12}
+                >
+                  <Grid
+                    item
+                    xs={12}
+                  >
+                    <ProductTagInfo
+                      onEdit={() => setOpenInfoDialog(true)}
+                      data={data.data}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item lg={4} spacing={3} sx={{height: 'fit-content', order: {md: 2, xs: 1}}} xs={12}>
+
+                  <Grid
+                    item
+                    xs={12}
+                  >
+                    <Card
+                      variant="outlined"
+                      sx={{
+                        mb: 2
+                      }}
+                    >
+                      <CardHeader
+                        title="Products"
+                      />
+                      <Divider/>
+                      <CardContent>
+                        {data.data?.products && data.data.products.map(product => <ProductTagProductListItem key={product.id} product={product}/>)}
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                </Grid>
+              </Grid>
+            </Box>
+
+          </Container>
+        </Box>
         <ProductTagEditDialog
           onClose={() => setOpenInfoDialog(false)}
           open={openInfoDialog}
