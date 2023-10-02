@@ -5,22 +5,19 @@ import { usePopover } from '../../../hooks/use-popover';
 import { DotsVertical as DotsVerticalIcon } from '../../../icons/dots-vertical';
 
 export const OrderMenu = (props) => {
+  const {order} = props
   const navigate = useNavigate();
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
 
   const handleEdit = () => {
     handleClose();
-    navigate('/orders/1');
+    navigate('/admin/orders/'+order.id);
   };
 
-  const handleRefund = () => {
-    handleClose();
-    toast.error('This action is not available on demo');
-  };
 
-  const handleDelete = () => {
+  const handleViewNote = () => {
     handleClose();
-    toast.error('This action is not available on demo');
+    toast.error('Coming soon');
   };
 
   return (
@@ -46,13 +43,10 @@ export const OrderMenu = (props) => {
         }}
       >
         <MenuItem onClick={handleEdit}>
-          Edit
+          View Order
         </MenuItem>
-        <MenuItem onClick={handleRefund}>
-          Refund
-        </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          Delete
+        <MenuItem onClick={handleViewNote}>
+          Leave a Note
         </MenuItem>
       </Menu>
     </>

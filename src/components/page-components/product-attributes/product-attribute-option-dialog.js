@@ -93,7 +93,7 @@ export const ProductAttributeOptionDialog = (props) => {
   useEffect(() => {
     if (initialValues) {
       setName(initialValues.name)
-      setCommonValue(initialValues.common_value)
+      setCommonValue(initialValues.value)
       setImage(initialValues.image ? initialValues.image : null)
       setEnabled(initialValues.enabled ? initialValues.enabled : true)
 
@@ -102,13 +102,13 @@ export const ProductAttributeOptionDialog = (props) => {
       formik.values.enabled = initialValues.enabled
     } else {
       setName(null)
-      setCommonValue(null)
+      setCommonValue()
       setImage(null)
       setEnabled(true)
+      formik.values.name = ""
+      formik.values.commonValue = ""
+      formik.values.enabled = true
     }
-    formik.values.name = ""
-    formik.values.commonValue = ""
-    formik.values.enabled = true
   }, [initialValues])
 
   const renderValueInputField = () => {
@@ -168,7 +168,7 @@ export const ProductAttributeOptionDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        {initialValues ? 'Update' : 'Create'} Attribute Option {productAttributeType}
+        {initialValues ? 'Update' : 'Create'} Attribute Option
       </DialogTitle>
       <DialogContent>
         <Grid container>

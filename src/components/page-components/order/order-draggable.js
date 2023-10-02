@@ -55,11 +55,11 @@ export const OrderDraggable = (props) => {
               underline="none"
               variant="h5"
             >
-              {`#${order.id}`}
+              {`${order.slug}`}
             </Link>
             <StatusBadge color={badgeColor} />
             <Box sx={{ flexGrow: 1 }} />
-            <OrderMenu />
+            <OrderMenu order={order} />
           </Box>
           <PropertyList>
             <PropertyListItem
@@ -78,7 +78,7 @@ export const OrderDraggable = (props) => {
             />
             <PropertyListItem
               align="horizontal"
-              label="CustomerSingle"
+              label="Customer"
               value={`${order.user}`}
             />
             <PropertyListItem
