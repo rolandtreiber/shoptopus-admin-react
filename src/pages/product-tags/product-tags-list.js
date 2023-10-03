@@ -48,6 +48,7 @@ const views = [
 
 const ProductTagsList = () => {
     const [tags, setTags] = useState({isLoading: true})
+    const {language} = useContext(SettingsContext)
     const mounted = useMounted();
     const {appName} = useContext(SettingsContext)
     const [controller, setController] = useState({

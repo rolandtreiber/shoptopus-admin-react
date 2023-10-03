@@ -73,7 +73,7 @@ export const DiscountRulesList = () => {
         sortBy: 'updated_at',
         view: 'all'
     });
-    const {appName} = useContext(SettingsContext)
+    const {appName, language} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
         selectedElements,

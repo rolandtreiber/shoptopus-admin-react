@@ -83,6 +83,7 @@ export const ProductsList = () => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const {language} = useContext(SettingsContext)
 
   const {fetchProducts, bulkDeleteProducts, bulkArchiveProducts} = useContext(APIContext)
 

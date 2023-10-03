@@ -67,6 +67,7 @@ export const ProductCategoriesList = () => {
         setDescription
     } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    const {language} = useContext(SettingsContext)
 
     const {
         fetchProductCategories,

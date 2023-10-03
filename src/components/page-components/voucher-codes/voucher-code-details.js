@@ -91,7 +91,7 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
               variant="outlined"
             >
               <CardHeader
-                title="OrdersList"
+                title="Orders"
               />
               <Divider />
               <Box

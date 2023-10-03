@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Button,
   Card,
   CardHeader,
   Divider,
-  List, ListItem, ListItemAvatar, ListItemText,
   Paper,
   useMediaQuery
 } from '@material-ui/core';
@@ -82,33 +80,6 @@ export const ProductTagInfo = (props) => {
           label="Display Badge"
           value={data.display_badge ? 'Yes' : 'No'}
         />
-        <PropertyListItem
-          align={align}
-          label="ProductsList"
-        >
-          <Product variant={"outlined"} >
-            <List dense>
-              {data.products.map(product =>
-                (
-                  <ListItem key={product.id} divider>
-                    {product.cover_photo_url && <ListItemAvatar>
-                      <Avatar
-                        alt={getLang(product.name)}
-                        src={product.cover_photo_url}
-                        sx={{
-                          width: 24,
-                          height: 24
-                        }}
-                        variant="rounded"
-                      />
-                    </ListItemAvatar>}
-                    <ListItemText primary={getLang(product.name)} />
-                  </ListItem>
-                )
-              )}
-            </List>
-          </Product>
-        </PropertyListItem>
       </PropertyList>
     </Card>
   );
