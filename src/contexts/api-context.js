@@ -191,6 +191,16 @@ const APIProvider = ({children}) => {
       updateDiscountRule: async (discountRuleId, params) => await patch(admin_api_url + "discount-rule/" + discountRuleId, params, makeHeaders()),
       deleteDiscountRule: async (discountRuleId) => await del(admin_api_url + "discount-rule/" + discountRuleId, {}, makeHeaders()),
 
+      // Fetch available products and categories for discount rules
+      fetchAvailableProducts: async (discountRuleId) => await get(admin_api_url + "discount-rule/" + discountRuleId + "/available-products", {}, makeHeaders()),
+      fetchAvailableProductCategories: async (discountRuleId) => await get(admin_api_url + "discount-rule/" + discountRuleId + "/available-categories", {}, makeHeaders()),
+
+      // Manage product and category associations
+      addProductAssociation: async (discountRuleId, productId) => await post(admin_api_url + "discount-rule/" + discountRuleId + "/products/" + productId, {}, makeHeaders()),
+      removeProductAssociation: async (discountRuleId, productId) => await del(admin_api_url + "discount-rule/" + discountRuleId + "/products/" + productId, {}, makeHeaders()),
+      addProductCategoryAssociation: async (discountRuleId, productCategoryId) => await post(admin_api_url + "discount-rule/" + discountRuleId + "/product-categories/" + productCategoryId, {}, makeHeaders()),
+      removeProductCategoryAssociation: async (discountRuleId, productCategoryId) => await del(admin_api_url + "discount-rule/" + discountRuleId + "/product-categories/" + productCategoryId, {}, makeHeaders()),
+
       // Voucher Codes
       fetchVoucherCodes: async (params) => await get(admin_api_url + "voucher-codes", params, makeHeaders()),
       fetchVoucherCode: async (voucherCodeId) => await get(admin_api_url + "voucher-code/" + voucherCodeId, {}, makeHeaders()),

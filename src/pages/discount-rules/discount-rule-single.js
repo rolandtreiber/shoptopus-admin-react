@@ -80,7 +80,7 @@ export const DiscountRuleSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/discount/rules"
+                to="/admin/discount/rules"
                 variant="text"
               >
                 Discount Rules
@@ -109,7 +109,10 @@ export const DiscountRuleSingle = () => {
                 Edit
               </Button>
             </Box>
-            {data.data && <DiscountRuleDetails discountRule={data.data}/>}
+            {data.data && <DiscountRuleDetails
+              discountRule={data.data}
+              onUpdated={(data) => setData({data:data, isLoading: false})}
+            />}
           </Box>
         </Container>
         {data && <DiscountRuleDialog
