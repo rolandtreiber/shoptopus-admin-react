@@ -11,14 +11,24 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {DeliveryTypeInfo} from "../../components/page-components/delivery-types/delivery-type-info";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {DeliveryTypeDialog} from "../../components/page-components/delivery-types/delivery-type-dialog";
+import {DeliveryRuleDialog} from "../../components/page-components/delivery-types/delivery-rule-dialog";
+import {DialogContext} from "../../contexts/dialog-context";
 
 export const DeliveryTypeSingle = () => {
   const mounted = useMounted();
   const [data, setData] = useState({isLoading: true});
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
-  const {fetchDeliveryType} = useContext(APIContext)
+  const {fetchDeliveryType, deleteDeliveryRule} = useContext(APIContext)
   const {deliveryTypeId} = useParams();
   const {appName} = useContext(SettingsContext)
+  const [openDeliveryRuleEditDialog, setOpenDeliveryRuleEditDialog] = useState(false)
+  const [deliveryRuleData, setDeliveryRuleData] = useState()
+  const {
+    setCallback,
+    setTitle,
+    showGenericDialog,
+    setDescription
+  } = useContext(DialogContext)[1]
 
   const getData = useCallback(async () => {
     setData(() => ({isLoading: true}));
@@ -53,10 +63,31 @@ export const DeliveryTypeSingle = () => {
     gtm.push({event: 'page_view'});
   }, []);
 
+  const doDeleteDeliveryRule = useCallback(async (id) => {
+    try {
+      return await deleteDeliveryRule(deliveryTypeId, id);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+  const handleDeleteDeliveryRule = useCallback(async (id) => {
+    const call = () => doDeleteDeliveryRule(id).then(result => {
+      if (result?.status === 200) {
+        getData()
+      }
+    })
+
+    setCallback({method: call})
+    setTitle('Are you sure?')
+    setDescription('You are about to delete a delivery rule.')
+    showGenericDialog(true)
+  }, [])
+
   return (
     <>
       <Helmet>
-        <title>Voucher Code: List | {appName}</title>
+        <title>Delivery Type | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -78,7 +109,7 @@ export const DeliveryTypeSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon/>}
-                to="/delivery-types"
+                to="/admin/delivery-types"
                 variant="text"
               >
                 Delivery Types
@@ -100,6 +131,15 @@ export const DeliveryTypeSingle = () => {
             </Box>
             {data.data && <DeliveryTypeInfo
               onEdit={() => setOpenInfoDialog(true)}
+              onCreateRule={() => {
+                setDeliveryRuleData(null)
+                setOpenDeliveryRuleEditDialog(true)
+              }}
+              onEditRule={(data) => {
+                setDeliveryRuleData(data)
+                setOpenDeliveryRuleEditDialog(true)
+              }}
+              onDeleteRule={(id) => handleDeleteDeliveryRule(id)}
               data={data.data}
             />}
             {data.isLoading && <ResourceLoading/>}
@@ -107,6 +147,13 @@ export const DeliveryTypeSingle = () => {
           </Box>
         </Container>
       </Box>
+      {data && <DeliveryRuleDialog
+        deliveryTypeId={deliveryTypeId}
+        onClose={() => setOpenDeliveryRuleEditDialog(false)}
+        open={openDeliveryRuleEditDialog}
+        onSuccess={() => getData()}
+        initialValues={deliveryRuleData}
+      />}
       {data.data && <DeliveryTypeDialog
         onClose={() => setOpenInfoDialog(false)}
         open={openInfoDialog}

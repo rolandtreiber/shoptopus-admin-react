@@ -47,11 +47,6 @@ export const Dashboard = () => {
             >
               Welcome
             </Typography>
-            {/*<LocationFinder location={loc}*/}
-            {/*                markers={[]}*/}
-            {/*                updateLocation={(data) => setLoc(data)}*/}
-            {/*                width={'100%'}*/}
-            {/*                height={530}/>*/}
           </Box>
           <Tabs
             allowScrollButtonsMobile

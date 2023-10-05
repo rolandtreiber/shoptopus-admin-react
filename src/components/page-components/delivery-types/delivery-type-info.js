@@ -12,17 +12,23 @@ import {
 import {useLanguage} from "../../../hooks/use-language";
 import Price from "../../common/price";
 import {lightNeutral} from "../../../colors";
+import FullWidthSquareBox from "../../common/full-width-square-box";
+import {useTheme} from "@material-ui/core/styles";
+import {useSettings} from "../../../contexts/settings-context";
 
 export const DeliveryTypeInfo = (props) => {
-  const {onEdit, data, ...other} = props;
+  const {onEdit, onCreateRule, onEditRule, onDeleteRule, data, ...other} = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const {getLang} = useLanguage()
+  const theme = useTheme()
+  const {settings} = useSettings()
+  const maps_api_key = settings && settings.google_maps_api_key
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
   return (
     <Grid container spacing={3}>
-      <Grid container item lg={8}
+      <Grid container item lg={12}
             spacing={3}
             sx={{height: 'fit-content'}}
             xs={12}
@@ -78,7 +84,7 @@ export const DeliveryTypeInfo = (props) => {
         </Grid>
       </Grid>
 
-      <Grid container item lg={4}
+      <Grid container item lg={12}
             spacing={3}
             sx={{ height: 'fit-content' }}
             xs={12}
@@ -96,7 +102,7 @@ export const DeliveryTypeInfo = (props) => {
               action={(
                 <Button
                   color="primary"
-                  onClick={onEdit}
+                  onClick={onCreateRule}
                   variant="text"
                 >
                   Add
@@ -118,8 +124,19 @@ export const DeliveryTypeInfo = (props) => {
                   variant="caption"
                 >There are no rules to show</Typography>
               ) : (
-                <>
-                  {data.rules.map(r => <Paper key={r.id} sx={{padding: 1}} variant={"outlined"}>
+                <Grid container item lg={12}
+                      spacing={3}
+                      sx={{ height: 'fit-content' }}
+                      xs={12}
+                >
+                  {data.rules.map(r =>
+                      <Grid
+                        key={r.id}
+                        item
+                        xs={4}
+                        marginTop={2}
+                      >
+                    <Paper sx={{opacity:r.enabled ? 1 : 0.5, padding: 1}} variant={"outlined"}>
                     <List>
                       <ListItem>
                         <ListItemText sx={{flex: 1}}>Weight</ListItemText>
@@ -130,14 +147,33 @@ export const DeliveryTypeInfo = (props) => {
                         <ListItemText sx={{flex: 2}}>Min: {r.min_distance ? r.min_distance+r+" "+r.distance_unit+"s" : "Any"} - Max: {r.max_distance ? r.max_distance+" "+r.distance_unit+"s" : "Any"}</ListItemText>
                       </ListItem>
                       <ListItem>
+                        {r.lat && r.lon && <FullWidthSquareBox style={{
+                          borderRadius: theme.shape.borderRadius,
+                          backgroundColor: theme.palette.neutral[200],
+                          minWidth: 210
+                        }}>
+                          <Box sx={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
+                            <img width={"100%"}
+                                 src={"https://maps.googleapis.com/maps/api/staticmap?center=" + r.lat + "," + r.lon + "&size=300x300&zoom=12\n" +
+                                   "&key=" + maps_api_key}/>
+                          </Box>
+                        </FullWidthSquareBox>}
+                      </ListItem>
+                      {r.postcodes && <ListItem>
                         <ListItemText sx={{flex: 1}}>Postcodes</ListItemText>
                         <ListItemText sx={{flex: 2}}>
                           {r.postcodes.map(p => <Chip key={p} sx={{margin: "2px"}} variant={"outlined"} color="primary" size={"small"} label={p}/>)}
                         </ListItemText>
+                      </ListItem>}
+                      <ListItem>
+                        <ListItemText sx={{flex: 1}}>
+                          <Button onClick={() => onEditRule(r)}>Edit</Button>
+                          <Button color="error" onClick={() => onDeleteRule(r.id)}>Delete</Button></ListItemText>
                       </ListItem>
                     </List>
-                  </Paper>)}
-                </>
+                  </Paper>
+                      </Grid>)}
+                </Grid>
                 )
               }
             </Box>
