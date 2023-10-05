@@ -133,7 +133,9 @@ export const DeliveryTypeInfo = (props) => {
                       <Grid
                         key={r.id}
                         item
-                        xs={4}
+                        xs={12}
+                        sm={6}
+                        lg={4}
                         marginTop={2}
                       >
                     <Paper sx={{opacity:r.enabled ? 1 : 0.5, padding: 1}} variant={"outlined"}>

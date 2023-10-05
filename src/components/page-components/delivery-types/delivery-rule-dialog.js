@@ -177,7 +177,7 @@ export const DeliveryRuleDialog = (props) => {
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
-          <Grid item xs={2}>
+          <Grid item xs={3} sm={2}>
             <br/>
             <Switch
               checked={formik.values.show_min_weight}
@@ -193,7 +193,7 @@ export const DeliveryRuleDialog = (props) => {
               inputProps={{'aria-label': 'controlled'}}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={9} sm={10}>
             <InputField
               error={Boolean(formik.touched.min_weight && formik.errors.min_weight)}
               fullWidth
@@ -208,7 +208,7 @@ export const DeliveryRuleDialog = (props) => {
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={3} sm={2}>
             <br/>
             <Switch
               checked={formik.values.show_max_weight}
@@ -224,7 +224,7 @@ export const DeliveryRuleDialog = (props) => {
               inputProps={{'aria-label': 'controlled'}}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={9} sm={10}>
             <InputField
               error={Boolean(formik.touched.max_weight && formik.errors.max_weight)}
               fullWidth
@@ -239,7 +239,7 @@ export const DeliveryRuleDialog = (props) => {
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={3} sm={2}>
             <br/>
             <Switch
               checked={formik.values.show_min_distance}
@@ -255,7 +255,7 @@ export const DeliveryRuleDialog = (props) => {
               inputProps={{'aria-label': 'controlled'}}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={9} sm={10}>
             <InputField
               error={Boolean(formik.touched.min_distance && formik.errors.min_distance)}
               fullWidth
@@ -270,7 +270,7 @@ export const DeliveryRuleDialog = (props) => {
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={3} sm={2}>
             <br/>
             <Switch
               checked={formik.values.show_max_distance}
@@ -286,7 +286,7 @@ export const DeliveryRuleDialog = (props) => {
               inputProps={{'aria-label': 'controlled'}}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={9} sm={10}>
             <InputField
               error={Boolean(formik.touched.max_distance && formik.errors.max_distance)}
               fullWidth
@@ -325,7 +325,7 @@ export const DeliveryRuleDialog = (props) => {
             </Box>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={3} sm={2}>
             <br/>
             <Switch
               checked={formik.values.show_postcodes}
@@ -338,7 +338,7 @@ export const DeliveryRuleDialog = (props) => {
               inputProps={{'aria-label': 'controlled'}}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={9} sm={10}>
             <FormControl sx={{mt: 1}} fullWidth variant="outlined">
               <InputLabel htmlFor="outlined-adornment-postcodes">Add postcode</InputLabel>
               <OutlinedInput
