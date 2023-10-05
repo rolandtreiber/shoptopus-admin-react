@@ -34,7 +34,7 @@ export const ProductSingle = () => {
   const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
   const {getLang} = useLanguage()
-  const tabs = [
+  const [tabs, setTabs] = useState([
     {
       href: '/admin/products/'+productId,
       label: 'Info'
@@ -55,7 +55,7 @@ export const ProductSingle = () => {
       href: '/admin/products/'+productId+'/preview',
       label: 'Preview'
     }
-  ];
+  ]);
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
@@ -114,6 +114,15 @@ export const ProductSingle = () => {
       onClick: handleOpenArchiveDialog
     }
   ];
+
+  useEffect(() => {
+    if (productState && productState.data?.virtual === true && tabs.length === 5) {
+      setTabs([...tabs, {
+        href: '/admin/products/'+productId+'/paid-files',
+        label: 'Paid Files'
+      }])
+    }
+  }, [productState])
 
   const renderContent = () => {
     if (productState.isLoading) {

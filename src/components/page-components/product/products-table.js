@@ -38,6 +38,10 @@ const columns = [
     label: 'price'
   },
   {
+    id: 'virtual',
+    label: 'Virtual'
+  },
+  {
     id: 'updated_at',
     label: 'Updated'
   },
@@ -189,6 +193,22 @@ export const ProductsTable = (props) => {
                       }}
                     >
                       <Price>{product.price}</Price>{product.final_price !== product.price && (<>(<Price negative color={darkWarning.main}>{product.price - product.final_price}</Price>)</>)}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      <Typography
+                        color="textSecondary"
+                        sx={{ mt: 1 }}
+                        variant="body2"
+                      >
+                        {product.virtual ? "Yes" : "No"}
+                      </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>

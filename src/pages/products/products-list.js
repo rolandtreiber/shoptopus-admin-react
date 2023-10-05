@@ -54,6 +54,11 @@ const filterProperties = [
     label: 'Original Price',
     name: 'price',
     type: 'number'
+  },
+  {
+    label: 'Virtual',
+    name: 'virtual',
+    type: 'boolean'
   }
 ];
 
