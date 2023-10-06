@@ -11,7 +11,6 @@ import {CustomChartPie as ChartPieIcon} from '../../../icons/custom-chart-pie';
 import {CustomCube as CubeIcon} from '../../../icons/custom-cube';
 import {CustomShoppingCart as ShoppingCartIcon} from '../../../icons/custom-shopping-cart';
 import {CustomUsers as UsersIcon} from '../../../icons/custom-users';
-import {ReceiptTax as ReceiptTaxIcon} from '../../../icons/receipt-tax';
 import {DeliveryVan as DeliveryVan} from '../../../icons/delivery';
 import {Discount as Discount} from "../../../icons/discount";
 import {Payment} from "../../../icons/payment";
@@ -86,11 +85,6 @@ const items = [
         icon: Star,
         title: 'Ratings',
         href: '/admin/ratings',
-    },
-    {
-        icon: ReceiptTaxIcon,
-        title: 'Invoices',
-        href: '/admin/invoices',
     },
     {
         icon: Content,

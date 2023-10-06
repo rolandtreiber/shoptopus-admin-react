@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
@@ -10,6 +10,7 @@ import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
 import gtm from '../../lib/gtm';
+import {SettingsContext} from "../../contexts/settings-context";
 
 export const Invoices = () => {
   const {appName} = useContext(SettingsContext)

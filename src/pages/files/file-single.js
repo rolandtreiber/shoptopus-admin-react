@@ -74,7 +74,7 @@ export const FileContent = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/content/files"
+                to="/admin/content/files"
                 variant="text"
               >
                 Files

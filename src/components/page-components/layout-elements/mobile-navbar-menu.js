@@ -9,7 +9,6 @@ import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import { CustomShoppingCart as ShoppingCartIcon } from '../../../icons/custom-shopping-cart';
 import { CustomUsers as UsersIcon } from '../../../icons/custom-users';
 import { OfficeBuilding as OfficeBuildingIcon } from '../../../icons/office-building';
-import { ReceiptTax as ReceiptTaxIcon } from '../../../icons/receipt-tax';
 import {Dashboard} from "../../../icons/dashboard";
 import {Discount} from "../../../icons/discount";
 import {DeliveryVan} from "../../../icons/delivery";
@@ -84,11 +83,6 @@ const items = [
     icon: Star,
     title: 'Ratings',
     href: '/admin/ratings',
-  },
-  {
-    icon: ReceiptTaxIcon,
-    title: 'Invoices',
-    href: '/admin/invoices',
   },
   {
     icon: Content,

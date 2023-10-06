@@ -74,7 +74,7 @@ export const BannerSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/content/banners"
+                to="/admin/content/banners"
                 variant="text"
               >
                 Banners
