@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from "react";
 import {Box, Button, Card, CardContent, CardHeader, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import {Delete, Edit} from "@mui/icons-material";
+import {Delete, Download, Edit} from "@mui/icons-material";
 import {APIContext} from "../../../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {useMounted} from "../../../hooks/use-mounted";
@@ -42,7 +42,6 @@ const ProductPaidFiles = () => {
       const result = data;
 
       if (mounted.current) {
-        console.log('setting file state')
         setFilesState(() => ({
           isLoading: false,
           data: result
@@ -85,6 +84,33 @@ const ProductPaidFiles = () => {
     showGenericDialog(true)
   }, [productId])
 
+  const doDownloadPaidFile = async (file) => {
+    try {
+      return await downloadPaidFile(productId, file.id);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const handleDownloadPaidFile = async (file) => {
+    doDownloadPaidFile(file).then((response) => {
+      // create file link in browser's memory
+      const contentType = response.headers['content-type'];
+      const href = URL.createObjectURL(new Blob([response.data], {type: contentType}));
+
+      // create "a" HTML element with href to file & click
+      const link = document.createElement('a');
+      link.href = href;
+      link.setAttribute('download', file.original_file_name ? file.original_file_name : file.file_name); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+
+      // clean up "a" element & remove ObjectURL
+      document.body.removeChild(link);
+      URL.revokeObjectURL(href);
+    });
+  }
+
   return (<div>
     <Card variant="outlined" sx={{mb: 2}}>
       <CardHeader title={"Files"}/>
@@ -94,6 +120,10 @@ const ProductPaidFiles = () => {
             <ListItem key={f.id}
                       secondaryAction={
                         <>
+                          <IconButton onClick={() => handleDownloadPaidFile(f)}
+                                      edge="end" aria-label="delete">
+                            <Download/>
+                          </IconButton>
                           <IconButton onClick={() => {
                             setSelectedFileData(f)
                             setFileDialogOpen(true)

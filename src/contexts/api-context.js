@@ -55,6 +55,15 @@ const APIProvider = ({children}) => {
     return await createAxios().get(url + "?" + urlParams + filtersString, config)
   }
 
+  const downloadPaidFile = async (url) => {
+    let config = {
+      headers: makeHeaders(),
+      responseType: 'blob'
+    }
+
+    return await createAxios().get(url, config)
+  }
+
   const postAsMultipartFormData = async (url, params = {}, headers = {}) => {
     let config = {headers: {
       ...headers,
@@ -147,7 +156,7 @@ const APIProvider = ({children}) => {
       savePaidFileForProduct: async (productId, params) => await post(admin_api_url + "product/" + productId + "/paid-content", params, makeHeaders()),
       updatePaidFileForProduct: async (productId, paidContentId, params) => await patch(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
       deletePaidFileFromProduct: async (productId, paidContentId, params) => await del(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
-      downloadPaidFile: async (productId, paidContentId, params) => await get(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId + "/download", params, makeHeaders()),
+      downloadPaidFile: async (productId, paidContentId) => await downloadPaidFile(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId + "/download"),
 
       // Product variants
       fetchProductVariants: async (productId, params) => await get(admin_api_url + "product/" + productId + '/variants', params, makeHeaders()),

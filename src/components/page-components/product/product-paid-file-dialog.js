@@ -19,6 +19,7 @@ import {useNestedValidation} from "../../../hooks/use-nested-validation";
 import {PaidFileUploader} from "../../common/file-upload/paid-file-uploader";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {LoadingButton} from "@material-ui/lab";
 
 export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, onSuccess, ...other}) => {
   const [file, setFile] = useState()
@@ -72,6 +73,7 @@ export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, 
         }
         formData.append("title", JSON.stringify(title))
         formData.append("description", JSON.stringify(description))
+        formData.append("original_file_name", file.fileName)
 
         if (initialValues) {
           isValid && updatePaidFileForProduct(productId, initialValues.id, formData).then(response => {
@@ -83,7 +85,7 @@ export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, 
             setShowErrors(false)
             onSuccess();
             onClose?.();
-          })
+          }).finally(() => setLoading(false))
         } else {
           isValid && savePaidFileForProduct(productId, formData).then(response => {
             toast.success('File Saved');
@@ -94,7 +96,7 @@ export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, 
             setShowErrors(false)
             onSuccess();
             onClose?.();
-          })
+          }).finally(() => setLoading(false))
         }
       } catch (err) {
         console.error(err);
@@ -194,9 +196,9 @@ export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, 
         >
           Cancel
         </Button>
-        <Button
+        <LoadingButton
           color="primary"
-          disabled={formik.isSubmitting}
+          loading={loading}
           onClick={() => {
             setShowErrors(true)
             formik.handleSubmit();
@@ -204,7 +206,7 @@ export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, 
           variant="contained"
         >
           {initialValues ? 'Update' : 'Create'} Paid File Content
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

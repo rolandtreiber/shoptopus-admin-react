@@ -34,28 +34,7 @@ export const ProductSingle = () => {
   const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
   const {getLang} = useLanguage()
-  const [tabs, setTabs] = useState([
-    {
-      href: '/admin/products/'+productId,
-      label: 'Info'
-    },
-    {
-      href: '/admin/products/'+productId+'/variants',
-      label: 'Variants'
-    },
-    {
-      href: '/admin/products/'+productId+'/ratings',
-      label: 'Ratings'
-    },
-    {
-      href: '/admin/products/'+productId+'/insights',
-      label: 'Insights'
-    },
-    {
-      href: '/admin/products/'+productId+'/preview',
-      label: 'Preview'
-    }
-  ]);
+  const [tabs, setTabs] = useState([]);
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
@@ -117,10 +96,51 @@ export const ProductSingle = () => {
 
   useEffect(() => {
     if (productState && productState.data?.virtual === true && tabs.length === 5) {
-      setTabs([...tabs, {
-        href: '/admin/products/'+productId+'/paid-files',
-        label: 'Paid Files'
-      }])
+      setTabs([
+        {
+          href: '/admin/products/'+productId,
+          label: 'Info'
+        },
+        {
+          href: '/admin/products/'+productId+'/ratings',
+          label: 'Ratings'
+        },
+        {
+          href: '/admin/products/'+productId+'/insights',
+          label: 'Insights'
+        },
+        {
+          href: '/admin/products/'+productId+'/preview',
+          label: 'Preview'
+        },
+        {
+          href: '/admin/products/'+productId+'/paid-files',
+          label: 'Paid Files'
+        }
+      ])
+    } else {
+      setTabs([
+        {
+          href: '/admin/products/'+productId,
+          label: 'Info'
+        },
+        {
+          href: '/admin/products/'+productId+'/variants',
+          label: 'Variants'
+        },
+        {
+          href: '/admin/products/'+productId+'/ratings',
+          label: 'Ratings'
+        },
+        {
+          href: '/admin/products/'+productId+'/insights',
+          label: 'Insights'
+        },
+        {
+          href: '/admin/products/'+productId+'/preview',
+          label: 'Preview'
+        }
+      ])
     }
   }, [productState])
 
