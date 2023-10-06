@@ -64,6 +64,7 @@ export const ProductDialog = (props) => {
             formik.values.stock = product.stock
             formik.values.price = product.price
             formik.values.enabled = product.enabled
+            formik.values.virtual = product.virtual
         } else {
             setDescription(null)
             setAttachments([])
@@ -72,6 +73,7 @@ export const ProductDialog = (props) => {
             formik.values.stock = ''
             formik.values.price = ''
             formik.values.enabled = true
+            formik.values.virtual = false
         }
     }, [product])
 
@@ -124,6 +126,7 @@ export const ProductDialog = (props) => {
                         onClose?.();
                     }).finally(() => setLoading(false))
                 } else {
+                    formData.append("virtual", formik.values.virtual)
                     isValid && saveProduct(formData).then(response => {
                         toast.success('ProductSingle created');
                         helpers.setStatus({success: true});
@@ -270,6 +273,21 @@ export const ProductDialog = (props) => {
                         label={formik.values.enabled ? "Enabled" : "Disabled"}
                     />
                 </Grid>
+                {!product && <Grid item xs={12} mt={1}>
+                    <FormControlLabel
+                      control={
+                          <Switch
+                            checked={formik.values.virtual}
+                            onChange={event => {
+                                formik.setFieldValue("virtual", event.currentTarget.checked);
+                            }}
+                            color="primary"
+                            inputProps={{'aria-label': 'controlled'}}
+                          />
+                      }
+                      label={formik.values.virtual ? "Virtual" : "Physical"}
+                    />
+                </Grid>}
                 {formik.errors.submit && (
                     <Grid
                         item
