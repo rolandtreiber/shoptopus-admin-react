@@ -132,7 +132,7 @@ const APIProvider = ({children}) => {
       fetchReportsOverview: async (params) => await post(admin_api_url + "reports/overview", params, makeHeaders()),
       fetchReportsSales: async (params) => await post(admin_api_url + "reports/sales", params, makeHeaders()),
 
-      // ProductsList
+      // Products
       fetchProducts: async (params) => await get(admin_api_url + "products", params, makeHeaders()),
       fetchProduct: async (productId) => await get(admin_api_url + "product/" + productId, {}, makeHeaders()),
       fetchProductInsights: async (productId, salesChartRange) => await get(admin_api_url + "product/" + productId + "/insights", {
@@ -141,6 +141,13 @@ const APIProvider = ({children}) => {
       saveProduct: async (params) => await post(admin_api_url + "product", params, makeHeaders()),
       updateProduct: async (productId, params) => await patch(admin_api_url + "product/" + productId, params, makeHeaders()),
       deleteProduct: async (productId) => await del(admin_api_url + "product/" + productId, {}, makeHeaders()),
+
+      // Paid files for virtual products
+      getPaidFilesForProduct: async (productId) => await get(admin_api_url + "product/" + productId + "/paid-contents", {}, makeHeaders()),
+      savePaidFileForProduct: async (productId, params) => await post(admin_api_url + "product/" + productId + "/paid-content", params, makeHeaders()),
+      updatePaidFileForProduct: async (productId, paidContentId, params) => await patch(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
+      deletePaidFileFromProduct: async (productId, paidContentId, params) => await del(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
+      downloadPaidFile: async (productId, paidContentId, params) => await get(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId + "/download", params, makeHeaders()),
 
       // Product variants
       fetchProductVariants: async (productId, params) => await get(admin_api_url + "product/" + productId + '/variants', params, makeHeaders()),

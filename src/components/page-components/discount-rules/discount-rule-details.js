@@ -45,8 +45,6 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
     removeProductCategoryAssociation,
     addProductCategoryAssociation,
     addProductAssociation,
-    fetchAvailableProducts,
-    fetchAvailableProductCategories
   } = useContext(APIContext)
 
   const doRemoveProductAssociation = useCallback(async (id) => {

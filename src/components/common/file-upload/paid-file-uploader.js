@@ -1,54 +1,25 @@
 import {useEffect, useState} from 'react';
 import {Card, CardContent, Typography} from '@material-ui/core';
-// import {Trash as TrashIcon} from '../../icons/trash';
-import {
-  KeyboardSensor,
-  PointerSensor,
-  useSensor, useSensors,
-} from '@dnd-kit/core';
-import {
-  sortableKeyboardCoordinates,
-} from '@dnd-kit/sortable';
 import {FileDropzone} from "./file-dropzone";
+import {useNestedValidation} from "../../../hooks/use-nested-validation";
 
-export const PaidFileUploader = ({title, data, setData, multiple = true, max = null, types = ['images']}) => {
+export const PaidFileUploader = ({title, data, setData}) => {
   const [showDropZone, setShowDropZone] = useState()
-  const [activeId, setActiveId] = useState(null);
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  const handleDeleteImage = (image) => {
-    if (multiple) {
-      setData((prevfiles) => prevfiles
-        .filter((selectedImage) => selectedImage !== image));
-    } else {
-      setData(null)
-    }
-  };
+  const {setValidation, isValid} = useNestedValidation()
+  const [name, setName] = useState()
+  const [description, setDescription] = useState()
 
   const handleDrop = (newFiles) => {
-    if (multiple) {
-      setData((prevImages) => [...prevImages, ...newFiles.map(f => URL.createObjectURL(f))]);
-    } else {
       setData(() => {
         return {
           fileName: newFiles[0].name,
           objectUrl: URL.createObjectURL(newFiles[0])
         }
       });
-    }
   };
 
   useEffect(() => {
-    if ((multiple === true && max !== null && max <= data.length) || (multiple === false && data)) {
-      // setShowDropZone(false)
-    } else {
-      setShowDropZone(true)
-    }
+    setShowDropZone(true)
   }, [data])
 
   return (
@@ -62,11 +33,10 @@ export const PaidFileUploader = ({title, data, setData, multiple = true, max = n
           >
             {title}
           </Typography>
-              {showDropZone && <FileDropzone
-                onDrop={handleDrop}
-                sx={{height: '100%'}}
-              />}
-          <h1>{JSON.stringify(data)}</h1>
+          {showDropZone && <FileDropzone
+            onDrop={handleDrop}
+            sx={{height: '100%'}}
+          />}
         </CardContent>
       </Card>
     </>
