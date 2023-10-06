@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from "react";
 import {Box, Button, Card, CardContent, CardHeader, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {Delete, Edit} from "@mui/icons-material";
 import {APIContext} from "../../../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {useMounted} from "../../../hooks/use-mounted";
@@ -14,7 +14,6 @@ import {DialogContext} from "../../../contexts/dialog-context";
 const ProductPaidFiles = () => {
   const [file, setFile] = useState()
   const {productId} = useParams();
-  const [isUploading, setIsUploading] = useState(false)
   const mounted = useMounted();
   const [fileDialogOpen, setFileDialogOpen] = useState(false)
   const {
@@ -27,7 +26,7 @@ const ProductPaidFiles = () => {
     data: null
   })
   const {getLang} = useLanguage()
-  const [selectdFileData, setSelectdFileData] = useState()
+  const [selectedFileData, setSelectedFileData] = useState()
   const {
     setCallback,
     setTitle,
@@ -36,7 +35,7 @@ const ProductPaidFiles = () => {
   } = useContext(DialogContext)[1]
 
   const getPaidFiles = useCallback(async () => {
-    setFilesState({ isLoading: true });
+    setFilesState({isLoading: true});
 
     try {
       const {data: {data}} = await getPaidFilesForProduct(productId)
@@ -93,13 +92,21 @@ const ProductPaidFiles = () => {
         {filesState.data ? (<List>
           {filesState.data.map(f => (
             <ListItem key={f.id}
-              secondaryAction={
-                <IconButton onClick={() => {
-                  handleDeletePaidFileContent(f.id)
-                }} edge="end" aria-label="delete">
-                  <DeleteIcon/>
-                </IconButton>
-              }
+                      secondaryAction={
+                        <>
+                          <IconButton onClick={() => {
+                            setSelectedFileData(f)
+                            setFileDialogOpen(true)
+                          }} edge="end" aria-label="delete">
+                            <Edit/>
+                          </IconButton>
+                          <IconButton onClick={() => {
+                            handleDeletePaidFileContent(f.id)
+                          }} edge="end" aria-label="delete">
+                            <Delete/>
+                          </IconButton>
+                        </>
+                      }
             >
               <ListItemText sx={{width: "80%"}}>{getLang(f.title)}</ListItemText>
             </ListItem>
@@ -113,7 +120,10 @@ const ProductPaidFiles = () => {
       </CardContent>
     </Card>
     <Box sx={{width: "100%", textAlign: "right"}}>
-      <Button variant="contained" onClick={() => setFileDialogOpen(true)}>Upload</Button>
+      <Button variant="contained" onClick={() => {
+        setSelectedFileData(null)
+        setFileDialogOpen(true);
+      }}>Upload</Button>
     </Box>
 
     <ProductPaidFileDialog
@@ -121,7 +131,7 @@ const ProductPaidFiles = () => {
       onSuccess={getPaidFiles}
       onClose={() => setFileDialogOpen(false)}
       productId={productId}
-      fileData={selectdFileData}
+      initialValues={selectedFileData}
     />
   </div>)
 }

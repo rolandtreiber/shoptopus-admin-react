@@ -20,7 +20,7 @@ import {PaidFileUploader} from "../../common/file-upload/paid-file-uploader";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuccess, ...other}) => {
+export const ProductPaidFileDialog = ({initialValues, productId, open, onClose, onSuccess, ...other}) => {
   const [file, setFile] = useState()
   const [title, setTitle] = useState()
   const [description, setDescription] = useState()
@@ -30,12 +30,31 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!file) {
-      setValidation({file: false})
+    if (initialValues) {
+      setTitle(initialValues.title)
+      setDescription(initialValues.description)
+      formik.values.title = initialValues.title
+      formik.values.description = initialValues.description
+    } else {
+      setTitle(null)
+      setDescription(null)
+
+      formik.values.title = ""
+      formik.values.description = ""
+    }
+  }, [initialValues])
+
+  useEffect(() => {
+    if (!initialValues ) {
+      if (!file) {
+        setValidation({file: false})
+      } else {
+        setValidation({file: true})
+      }
     } else {
       setValidation({file: true})
     }
-  }, [file])
+  }, [file, initialValues])
 
   const formik = useFormik({
     initialValues: {
@@ -54,8 +73,8 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
         formData.append("title", JSON.stringify(title))
         formData.append("description", JSON.stringify(description))
 
-        if (fileData) {
-          isValid && updatePaidFileForProduct(productId, formData).then(response => {
+        if (initialValues) {
+          isValid && updatePaidFileForProduct(productId, initialValues.id, formData).then(response => {
             toast.success('File Updated');
             helpers.setStatus({success: true});
             helpers.setSubmitting(false);
@@ -96,7 +115,7 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
       {...other}
     >
       <DialogTitle>
-        {fileData ? 'Update' : 'Create'} Paid File Content
+        {initialValues ? 'Update' : 'Create'} Paid File Content
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -105,6 +124,7 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
               width={12}
               title={"Title"}
               field={"title"}
+              value={title}
               onChange={setTitle}
               showErrors={showErrors}
               setValid={(valid) => {
@@ -117,6 +137,7 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
               width={12}
               title={"Description"}
               field={"description"}
+              value={description}
               onChange={setDescription}
               showErrors={showErrors}
               setValid={(valid) => {
@@ -126,7 +147,7 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
           </Grid>
           <Grid item xs={12}>
             <PaidFileUploader data={file} setData={setFile}/>
-            {!validations.file && showErrors && (
+            {!validations.file && !initialValues && showErrors && (
               <Grid
                 item
                 xs={12}
@@ -182,7 +203,7 @@ export const ProductPaidFileDialog = ({productId, fileData, open, onClose, onSuc
           }}
           variant="contained"
         >
-          {fileData ? 'Update' : 'Create'} Paid File Content
+          {initialValues ? 'Update' : 'Create'} Paid File Content
         </Button>
       </DialogActions>
     </Dialog>
