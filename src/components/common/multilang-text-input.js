@@ -5,7 +5,7 @@ import {Grid, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-const MultilangTextInput = ({title, value = null, width, onChange, showErrors = false, rows = null, setValid}) => {
+const MultilangTextInput = ({title, nullable = false, value = null, width, onChange, showErrors = false, rows = null, setValid = () => {}}) => {
     const {availableLanguages} = useContext(SettingsContext)
 
     const getInitialValues = () => {
@@ -34,7 +34,7 @@ const MultilangTextInput = ({title, value = null, width, onChange, showErrors = 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: Yup.object().shape(
-            getValidationSchema()
+            nullable ? {} : getValidationSchema()
         )
     })
 

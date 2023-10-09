@@ -40,7 +40,6 @@ export const DeliveryRuleDialog = (props) => {
       if (!initialValues.max_weight) { formik.values.show_max_weight = false }
       if (!initialValues.min_distance) { formik.values.show_min_distance = false }
       if (!initialValues.max_distance) { formik.values.show_max_distance = false }
-      console.log(initialValues)
       setLoc({
         lat: parseFloat(initialValues.lat),
         lng: parseFloat(initialValues.lon),

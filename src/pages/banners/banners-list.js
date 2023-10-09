@@ -10,7 +10,7 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {BannersTable} from "../../components/page-components/banners/banners-table";
-import {BannerCreateDialog} from "../../components/page-components/banners/banner-create-dialog";
+import {BannerDialog} from "../../components/page-components/banners/banner-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 
 const views = [
@@ -66,7 +66,7 @@ export const BannersList = () => {
         showGenericDialog,
         setDescription
     } = useContext(DialogContext)[1]
-    const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    const [openEditDialog, setOpenEditDialog] = useState(false);
 
     const {
         fetchBanners,
@@ -246,7 +246,7 @@ export const BannersList = () => {
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
                             color="primary"
-                            onClick={() => setOpenCreateDialog(true)}
+                            onClick={() => setOpenEditDialog(true)}
                             size="large"
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
@@ -309,9 +309,9 @@ export const BannersList = () => {
                   </Card>
               </Container>
           </Box>
-          <BannerCreateDialog
-            onClose={() => setOpenCreateDialog(false)}
-            open={openCreateDialog}
+          <BannerDialog
+            onClose={() => setOpenEditDialog(false)}
+            open={openEditDialog}
             onSuccess={() => fetchData().catch(console.error)}
           />
       </>

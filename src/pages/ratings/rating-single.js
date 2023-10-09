@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -7,15 +7,14 @@ import {
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
-import {Plus as PlusIcon} from "../../icons/plus";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
+import {RatingDetails} from "../../components/page-components/ratings/rating-details";
 
 export const RatingSingle = () => {
   const mounted = useMounted();
-  const [openEditDialog, setOpenEditDialog] = useState(false);
   const {appName} = useContext(SettingsContext)
   const [data, setData] = useState({ isLoading: true })
   const {fetchRating} = useContext(APIContext)
@@ -74,7 +73,7 @@ export const RatingSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/ratings"
+                to="/admin/ratings"
                 variant="text"
               >
                 Ratings
@@ -93,18 +92,8 @@ export const RatingSingle = () => {
                 Rating
               </Typography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
-                color="primary"
-                onClick={() => setOpenEditDialog(true)}
-                size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
-                variant="contained"
-              >
-                Edit
-              </Button>
             </Box>
-            {openEditDialog && <Fragment></Fragment>}
-            <div>{JSON.stringify(data)}</div>
+            {data.data && <RatingDetails data={data}/>}
           </Box>
         </Container>
       </Box>

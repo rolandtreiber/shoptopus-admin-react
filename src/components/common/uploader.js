@@ -48,7 +48,7 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
     <Box
       key={image}
       sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <Box
+      {image && <Box
         sx={{alignItems: 'center', borderRadius: 1, display: 'flex', justifyContent: 'center',
           width: '100%', height: '100%', position: 'relative',
           '&::before': {
@@ -70,6 +70,10 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
         <img
           alt=""
           src={image}
+          style={{
+            minWidth: 50,
+            minHeight: 50
+          }}
         />
         <IconButton
           color="primary"
@@ -84,7 +88,7 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
         >
           <TrashIcon/>
         </IconButton>
-      </Box>
+      </Box>}
     </Box>
   )
 

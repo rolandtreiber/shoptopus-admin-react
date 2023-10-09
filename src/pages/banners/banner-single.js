@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -7,11 +7,13 @@ import {
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
-import {Plus as PlusIcon} from "../../icons/plus";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
+import {BannerDetails} from "../../components/page-components/banners/banner-details";
+import {Edit} from "@mui/icons-material";
+import {BannerDialog} from "../../components/page-components/banners/banner-dialog";
 
 export const BannerSingle = () => {
   const mounted = useMounted();
@@ -97,15 +99,20 @@ export const BannerSingle = () => {
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
+                startIcon={<Edit fontSize="small"/>}
                 variant="contained"
               >
                 Edit
               </Button>
             </Box>
-            <div>{JSON.stringify(data)}</div>
-            {openEditDialog && <Fragment/>}
+            {data.data && <BannerDetails data={data.data}/>}
           </Box>
+          {data.data && <BannerDialog
+            onClose={() => setOpenEditDialog(false)}
+            open={openEditDialog}
+            onSuccess={() => fetchData().catch(e => console.log(e.message))}
+            initialValues={data.data}
+          />}
         </Container>
       </Box>
     </>

@@ -5,6 +5,7 @@ import {useCallback, useContext, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {DialogContext} from "../../../contexts/dialog-context";
+import {BannerDialog} from "./banner-dialog";
 
 export const BannerMenu = (props) => {
   const mounted = useMounted();
@@ -12,7 +13,7 @@ export const BannerMenu = (props) => {
   const {fetchBanner, updateBanner, deleteBanner} = useContext(APIContext)
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [productAttributeState, setProductAttributeState] = useState();
+  const [bannerState, setBannerState] = useState();
   const {
     setCallback,
     setTitle,
@@ -67,25 +68,25 @@ export const BannerMenu = (props) => {
     showGenericDialog(true)
   };
 
-  // const getProductAttribute = useCallback(async () => {
-  //   if (id) {
-  //     try {
-  //       const result = await fetchProductAttribute(id)
-  //
-  //       if (mounted.current) {
-  //         setProductAttributeState(result.data.data)
-  //       }
-  //     } catch (e) {
-  //       console.log(e)
-  //     }
-  //   }
-  // }, [fetchProductAttribute])
+  const getBanner = useCallback(async () => {
+    if (id) {
+      try {
+        const result = await fetchBanner(id)
+
+        if (mounted.current) {
+          setBannerState(result.data.data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }, [fetchBanner])
 
   const handleEdit = () => {
     handleClose();
-    // getProductAttribute().then(() => {
-    //   setOpenEditDialog(true)
-    // }).catch(e => console.log(e))
+    getBanner().then(() => {
+      setOpenEditDialog(true)
+    }).catch(e => console.log(e))
   };
 
   return (
@@ -119,12 +120,12 @@ export const BannerMenu = (props) => {
           Delete
         </MenuItem>
       </Menu>
-      {/*{productAttributeState && <ProductAttributeEditDialog*/}
-      {/*  onClose={() => setOpenEditDialog(false)}*/}
-      {/*  open={openEditDialog}*/}
-      {/*  onSuccess={onSuccess}*/}
-      {/*  initialValues={productAttributeState}*/}
-      {/*/>}*/}
+      {bannerState && <BannerDialog
+        onClose={() => setOpenEditDialog(false)}
+        open={openEditDialog}
+        onSuccess={onSuccess}
+        initialValues={bannerState}
+      />}
     </>
   );
 };

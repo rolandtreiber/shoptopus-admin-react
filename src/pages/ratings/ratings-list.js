@@ -1,9 +1,8 @@
-import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider, Typography } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
-import { Plus as PlusIcon } from '../../icons/plus';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
@@ -84,7 +83,6 @@ export const RatingsList = () => {
         showGenericDialog,
         setDescription
     } = useContext(DialogContext)[1]
-    const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
     const {
         fetchRatings,
@@ -265,15 +263,6 @@ export const RatingsList = () => {
                               Ratings
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
-                          <Button
-                            color="primary"
-                            onClick={() => setOpenCreateDialog(true)}
-                            size="large"
-                            startIcon={<PlusIcon fontSize="small" />}
-                            variant="contained"
-                          >
-                              Add
-                          </Button>
                           <ExportButton
                             name={"ratings"}
                             modelsSimple={["Rating"]}
@@ -339,11 +328,6 @@ export const RatingsList = () => {
                   </Card>
               </Container>
           </Box>
-          {openCreateDialog && <Fragment></Fragment>}
-          {/*<ProductCreateDialog*/}
-          {/*  onClose={() => setOpenCreateDialog(false)}*/}
-          {/*  open={openCreateDialog}*/}
-          {/*/>*/}
       </>
     );
 };
