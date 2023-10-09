@@ -16,6 +16,7 @@ import {useContext} from "react";
 import {EmailClientContext} from "../../../contexts/email-client-context";
 import {Mail as MailIcon} from "../../../icons/mail";
 import {NorthEast} from "@material-ui/icons";
+import {ResourceUnavailable} from "../../common/placeholder/resource-unavailable";
 
 export const RatingDetails = (props) => {
   const {data, ...other} = props;
@@ -174,7 +175,7 @@ export const RatingDetails = (props) => {
             />
             <Divider/>
             <Box>
-              <PropertyList>
+              {data.data?.ratable && data.data.ratable[0] !== null ? <PropertyList>
                 <PropertyListItem
                   align={align}
                   label="Entity"
@@ -190,7 +191,7 @@ export const RatingDetails = (props) => {
                   label="ID"
                   value={data.data.ratable[0].id}
                 />
-              </PropertyList>
+              </PropertyList> : <ResourceUnavailable message={"The resource was deleted."}/>}
             </Box>
           </Card>
         </Grid>

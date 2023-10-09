@@ -14,7 +14,7 @@ const ResourceUnavailableRoot = styled('div')(({ theme }) => ({
 }));
 
 export const ResourceUnavailable = (props) => {
-  const { onCreate, ...other } = props;
+  const { onCreate, message, ...other } = props;
 
   return (
     <ResourceUnavailableRoot {...other}>
@@ -24,7 +24,7 @@ export const ResourceUnavailable = (props) => {
         sx={{ mt: 2 }}
         variant="body2"
       >
-        There are not objects here yet.
+        {message ? message : "There are not objects here yet."}
       </Typography>
       {onCreate && (
         <Button
