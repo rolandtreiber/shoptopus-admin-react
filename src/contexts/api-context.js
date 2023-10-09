@@ -55,7 +55,7 @@ const APIProvider = ({children}) => {
     return await createAxios().get(url + "?" + urlParams + filtersString, config)
   }
 
-  const downloadPaidFile = async (url) => {
+  const downloadFile = async (url) => {
     let config = {
       headers: makeHeaders(),
       responseType: 'blob'
@@ -156,7 +156,7 @@ const APIProvider = ({children}) => {
       savePaidFileForProduct: async (productId, params) => await post(admin_api_url + "product/" + productId + "/paid-content", params, makeHeaders()),
       updatePaidFileForProduct: async (productId, paidContentId, params) => await patch(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
       deletePaidFileFromProduct: async (productId, paidContentId, params) => await del(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId, params, makeHeaders()),
-      downloadPaidFile: async (productId, paidContentId) => await downloadPaidFile(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId + "/download"),
+      downloadPaidFile: async (productId, paidContentId) => await downloadFile(admin_api_url + "product/" + productId + "/paid-content/" + paidContentId + "/download"),
 
       // Product variants
       fetchProductVariants: async (productId, params) => await get(admin_api_url + "product/" + productId + '/variants', params, makeHeaders()),
@@ -276,11 +276,11 @@ const APIProvider = ({children}) => {
       getAppMetaInformation: async () => await get(api_url + "meta", {}, makeHeaders()),
       getSharedOptions: async () => await get(api_url + "shared-options", {}, makeHeaders()),
 
-      // FilesList
+      // Files
       fetchFiles: async (params) => await get(admin_api_url + "files", params, makeHeaders()),
       fetchFile: async (fileId) => await get(admin_api_url + "file/" + fileId, {}, makeHeaders()),
       saveFile: async (params) => await post(admin_api_url + "file", params, makeHeaders()),
-      updateFile: async (fileId, params) => await put(admin_api_url + "file/" + fileId, params, makeHeaders()),
+      updateFile: async (fileId, params) => await patch(admin_api_url + "file/" + fileId, params, makeHeaders()),
       deleteFile: async (fileId) => await del(admin_api_url + "file/" + fileId, {}, makeHeaders()),
 
       // Email

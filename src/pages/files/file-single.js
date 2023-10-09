@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -7,22 +7,24 @@ import {
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
-import {Plus as PlusIcon} from "../../icons/plus";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
+import {Edit} from "@mui/icons-material";
+import {FileDialog} from "../../components/page-components/product/file-dialog";
+import {FileDetails} from "../../components/page-components/files/file-details";
 
 export const FileContent = () => {
   const mounted = useMounted();
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const {appName} = useContext(SettingsContext)
-  const [data, setData] = useState({ isLoading: true })
+  const [data, setData] = useState({isLoading: true})
   const {fetchFile} = useContext(APIContext)
   const {fileId} = useParams()
 
   const fetchData = useCallback(async () => {
-    setData(() => ({ isLoading: true }));
+    setData(() => ({isLoading: true}));
 
     try {
       const result = await fetchFile(fileId)
@@ -69,11 +71,11 @@ export const FileContent = () => {
           }}
         >
           <Box sx={{py: 4}}>
-            <Box sx={{ mb: 2 }}>
+            <Box sx={{mb: 2}}>
               <Button
                 color="primary"
                 component={RouterLink}
-                startIcon={<ArrowLeftIcon />}
+                startIcon={<ArrowLeftIcon/>}
                 to="/admin/content/files"
                 variant="text"
               >
@@ -97,14 +99,19 @@ export const FileContent = () => {
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
-                startIcon={<PlusIcon fontSize="small"/>}
+                startIcon={<Edit fontSize="small"/>}
                 variant="contained"
               >
                 Edit
               </Button>
             </Box>
-            <div>{JSON.stringify(data)}</div>
-            {openEditDialog && <Fragment/>}
+            {data.data && <FileDetails data={data}/>}
+            {openEditDialog && data.data && <FileDialog
+              onClose={() => setOpenEditDialog(false)}
+              open={openEditDialog}
+              onSuccess={fetchData}
+              initialValues={data.data}
+            />}
           </Box>
         </Container>
       </Box>

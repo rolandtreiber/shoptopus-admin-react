@@ -287,6 +287,7 @@ export const FilesList = () => {
                         selectedElements={selectedElements}
                         sort={controller.sort}
                         sortBy={controller.sortBy}
+                        onReload={fetchData}
                       />
                       {openCreateDialog && <Fragment/>}
                   </Card>

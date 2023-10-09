@@ -48,6 +48,7 @@ const ProductVariants = Loadable(lazy(() => import('./pages/products/partials/pr
 const ProductRatings = Loadable(lazy(() => import('./pages/products/partials/product-ratings').then((module) => ({default: module.ProductRatings}))));
 const ProductInsights = Loadable(lazy(() => import('./pages/products/partials/product-insights').then((module) => ({default: module.ProductInsights}))));
 const ProductPaidFiles = Loadable(lazy(() => import('./pages/products/partials/product-paid-files').then((module) => ({default: module.default}))));
+const ProductFiles = Loadable(lazy(() => import('./pages/products/partials/product-files').then((module) => ({default: module.default}))));
 const ProductSummary = Loadable(lazy(() => import('./pages/products/partials/product-summary').then((module) => ({default: module.ProductSummary}))));
 
 const AccountGeneral = Loadable(lazy(() => import('./pages/account/account-general').then((module) => ({default: module.AccountGeneral}))));
@@ -336,6 +337,10 @@ const routes = [
               {
                 path: '/admin/products/:productId/inventory',
                 element: <ProductInventory/>
+              },
+              {
+                path: '/admin/products/:productId/files',
+                element: <ProductFiles/>
               },
               {
                 path: '/admin/products/:productId/paid-files',

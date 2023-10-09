@@ -18,9 +18,9 @@ import {Pagination} from '../layout-elements/pagination';
 import {ResourceError} from '../../common/placeholder/resource-error';
 import {ResourceUnavailable} from '../../common/placeholder/resource-unavailable';
 import {Scrollbar} from '../../common/scrollbar';
-import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../../contexts/settings-context";
 import {Status} from "../../common/status";
+import {FileMenu} from "./file-menu";
 
 const columns = [
   {
@@ -46,37 +46,37 @@ const statusVariants = [
   {
     color: 'success.main',
     label: 'Image',
-    value: 0
-  },
-  {
-    color: 'success.main',
-    label: 'Video',
     value: 1
   },
   {
     color: 'success.main',
-    label: 'Audio',
+    label: 'Video',
     value: 2
   },
   {
     color: 'success.main',
-    label: 'Pdf',
+    label: 'Audio',
     value: 3
   },
   {
     color: 'success.main',
-    label: 'Spreadsheet',
+    label: 'Pdf',
     value: 4
   },
   {
     color: 'success.main',
-    label: 'Text Document',
+    label: 'Spreadsheet',
     value: 5
   },
   {
     color: 'success.main',
-    label: 'Other',
+    label: 'Text Document',
     value: 6
+  },
+  {
+    color: 'success.main',
+    label: 'Other',
+    value: 7
   },
 ];
 
@@ -93,7 +93,8 @@ export const FilesTable = (props) => {
     page,
     selectedElements,
     sort,
-    sortBy
+    sortBy,
+    onReload
   } = props;
   const [dataState, setDataState] = useState(data);
 
@@ -198,7 +199,10 @@ export const FilesTable = (props) => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <CustomerMenu/>
+                    <FileMenu
+                      id={d.id}
+                      onSuccess={onReload}
+                    />
                   </TableCell>
                 </TableRow>
               )})}

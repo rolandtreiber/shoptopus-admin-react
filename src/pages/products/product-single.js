@@ -95,7 +95,7 @@ export const ProductSingle = () => {
   ];
 
   useEffect(() => {
-    if (productState && productState.data?.virtual === true && tabs.length === 5) {
+    if (productState && productState.data?.virtual === true) {
       setTabs([
         {
           href: '/admin/products/'+productId,
@@ -112,6 +112,10 @@ export const ProductSingle = () => {
         {
           href: '/admin/products/'+productId+'/preview',
           label: 'Preview'
+        },
+        {
+          href: '/admin/products/'+productId+'/files',
+          label: 'Files'
         },
         {
           href: '/admin/products/'+productId+'/paid-files',
@@ -139,7 +143,11 @@ export const ProductSingle = () => {
         {
           href: '/admin/products/'+productId+'/preview',
           label: 'Preview'
-        }
+        },
+        {
+          href: '/admin/products/'+productId+'/files',
+          label: 'Files'
+        },
       ])
     }
   }, [productState])

@@ -1,5 +1,5 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-import {Box, Button, Card, CardContent, CardHeader, List, ListItem, ListItemText} from "@material-ui/core";
+import {Box, Button, Card, CardHeader, Divider, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete, Download, Edit} from "@mui/icons-material";
 import {APIContext} from "../../../contexts/api-context";
@@ -114,7 +114,8 @@ const ProductPaidFiles = () => {
   return (<div>
     <Card variant="outlined" sx={{mb: 2}}>
       <CardHeader title={"Files"}/>
-      <CardContent>
+      <Divider/>
+      <Box sx={{m:1}}>
         {filesState.data ? (<List>
           {filesState.data.map(f => (
             <ListItem key={f.id}
@@ -138,7 +139,8 @@ const ProductPaidFiles = () => {
                         </>
                       }
             >
-              <ListItemText sx={{width: "80%"}}>{getLang(f.title)}</ListItemText>
+              <ListItemText sx={{width: "40%"}}>{getLang(f.title)}</ListItemText>
+              <ListItemText sx={{width: "40%"}}>{f.original_file_name}</ListItemText>
             </ListItem>
           ))}
         </List>) : (
@@ -147,7 +149,7 @@ const ProductPaidFiles = () => {
           </>
         )}
 
-      </CardContent>
+      </Box>
     </Card>
     <Box sx={{width: "100%", textAlign: "right"}}>
       <Button variant="contained" onClick={() => {

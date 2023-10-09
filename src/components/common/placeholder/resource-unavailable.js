@@ -42,5 +42,6 @@ export const ResourceUnavailable = (props) => {
 };
 
 ResourceUnavailable.propTypes = {
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
+  message: PropTypes.string|null
 };
