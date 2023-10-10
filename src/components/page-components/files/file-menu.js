@@ -6,6 +6,7 @@ import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {DialogContext} from "../../../contexts/dialog-context";
 import {FileDialog} from "../product/file-dialog";
+import {useTranslation} from "react-i18next";
 
 export const FileMenu = (props) => {
   const mounted = useMounted();
@@ -20,6 +21,7 @@ export const FileMenu = (props) => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const { t } = useTranslation();
 
   const getFile = useCallback(async () => {
     if (id) {
@@ -86,10 +88,10 @@ export const FileMenu = (props) => {
         }}
       >
         <MenuItem onClick={handleEdit}>
-          Edit
+          {t("Edit")}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
-          Delete
+          {t("Delete")}
         </MenuItem>
       </Menu>
       {fileState && <FileDialog

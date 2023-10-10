@@ -15,12 +15,14 @@ import {useTheme} from '@material-ui/core/styles';
 import {StatusBadge} from '../../common/status-badge';
 import RangeSelector from "./range-selector";
 import {Star as StarIcon} from "../../../icons/star";
+import {useTranslation} from "react-i18next";
 
 export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRangeChange, stars = false}) => {
   const theme = useTheme();
   const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
   const [chartSeries, setChartSeries] = useState()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (series) {
@@ -88,7 +90,7 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
             {showRangeSelector && <RangeSelector onChange={onRangeChange}/>}
           </>
         )}
-        title={title}
+        title={t(title)}
       />
       <Divider/>
       {series && chartOptions && chartSeries && <CardContent>
@@ -112,14 +114,14 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
               color="textPrimary"
               variant="subtitle2"
             >
-              Total
+              {t("Total")}
             </Typography>
             <Box sx={{flexGrow: 1}}/>
             <Typography
               color="textPrimary"
               variant="subtitle2"
             >
-              {series.reduce((acc, currentValue) => acc + currentValue.data, 0)}
+              {t(series.reduce((acc, currentValue) => acc + currentValue.data, 0))}
             </Typography>
           </ListSubheader>
           <Divider/>
@@ -141,7 +143,7 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
                 {stars ? (
                     <>{getStars(parseInt(item.name))}</>
                 ) : (
-                 <>{item.name}</>
+                 <>{t(item.name)}</>
                 )}
               </Typography>
               <Box sx={{flexGrow: 1}}/>

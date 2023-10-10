@@ -8,10 +8,12 @@ import {format} from "date-fns";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
 import Price from "../../../components/common/price";
 import {useLanguage} from "../../../hooks/use-language";
+import {useTranslation} from "react-i18next";
 
 const CustomerTabOrders = ({data}) => {
   const theme = useTheme()
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   return (<Grid container spacing={2}>
     {data.length > 0 ? data.map(order => (<Grid key={order.id} item xs={12} lg={6}>
@@ -22,7 +24,7 @@ const CustomerTabOrders = ({data}) => {
               borderRadius: theme.shape.borderRadius, backgroundColor: theme.palette.neutral[200], minWidth: 210
             }}>
               <Box sx={{position: "absolute", top: 0, left: 10}}>
-                <p>{statuses[order.status].label}</p>
+                <p>{t(statuses[order.status].label)}</p>
               </Box>
               <Grid container sx={{position: "absolute", bottom: 10, left: 10}}>
                 <Grid item xs={3}>
@@ -53,24 +55,24 @@ const CustomerTabOrders = ({data}) => {
           <Grid item xs={6}>
             <List>
               <ListItemGridKeyValue
-                left={<ListItemText>Placed</ListItemText>}
+                left={<ListItemText>{t("Placed")}</ListItemText>}
                 right={<ListItemText>{format(new Date(order.created_at), 'dd-MMM-yyyy HH:mm')}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Total</ListItemText>}
+                left={<ListItemText>{t("Total")}</ListItemText>}
                 right={<ListItemText>{order.total_price}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Discount</ListItemText>}
+                left={<ListItemText>{t("Discount")}</ListItemText>}
                 right={<ListItemText>{order.total_discount}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Delivery</ListItemText>}
+                left={<ListItemText>{t("Delivery")}</ListItemText>}
                 right={
                   <ListItemText><Price>{order.delivery_cost}</Price> ({getLang(order.delivery_type)}))</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Town</ListItemText>}
+                left={<ListItemText>{t("Town")}</ListItemText>}
                 right={<ListItemText>{order.town}</ListItemText>}
               />
             </List>

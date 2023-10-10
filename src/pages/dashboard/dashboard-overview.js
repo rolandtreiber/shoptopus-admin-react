@@ -128,14 +128,14 @@ export const DashboardOverview = () => {
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={t("Orders Overview")} onRangeChange={setOrdersRange}/>
+            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title="Orders Overview" onRangeChange={setOrdersRange}/>
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={t("Products Overview")} showRangeSelector={false}/>
+            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title="Products Overview" showRangeSelector={false}/>
           </Grid>
         </Grid>
       </Box>

@@ -5,9 +5,11 @@ import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-
 import {useTheme} from "@material-ui/core/styles";
 import PaymentTypes from "../../../data/payment-methods.json";
 import {format} from "date-fns";
+import {useTranslation} from "react-i18next";
 
 const CustomerTabPaymentSources = ({data}) => {
   const theme = useTheme()
+  const { t } = useTranslation();
 
   return (<Grid container spacing={2}>
     {data.length > 0 ? data.map(paymentSource => (<Grid key={data.id} item xs={12} lg={6}>
@@ -25,24 +27,24 @@ const CustomerTabPaymentSources = ({data}) => {
           <Grid item xs={8} sx={{position: "relative", paddingTop: 0}}>
             <List>
               <ListItemGridKeyValue
-                left={<ListItemText>Name</ListItemText>}
+                left={<ListItemText>{t("Name")}</ListItemText>}
                 right={<ListItemText>{paymentSource.name}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Payment method</ListItemText>}
+                left={<ListItemText>{t("Payment method")}</ListItemText>}
                 right={<ListItemText>{PaymentTypes[paymentSource.payment_method_id.toString()].name}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Added</ListItemText>}
+                left={<ListItemText>{t("Added")}</ListItemText>}
                 right={<ListItemText>{format(new Date(paymentSource.added), 'dd-MMM-yyyy HH:mm')}</ListItemText>}
               />
               {paymentSource.payment_method_id === 1 && <>
               <ListItemGridKeyValue
-                left={<ListItemText>Last 4 digits</ListItemText>}
+                left={<ListItemText>{t("Last 4 digits")}</ListItemText>}
                 right={<ListItemText>**** **** **** {paymentSource.last_four}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Expiry</ListItemText>}
+                left={<ListItemText>{t("Expiry")}</ListItemText>}
                 right={<ListItemText>{paymentSource.exp_month}/{paymentSource.exp_year}</ListItemText>}
               /></>}
             </List>
@@ -51,7 +53,7 @@ const CustomerTabPaymentSources = ({data}) => {
       </Card>
     </Grid>)) : (<Grid item xs={12}>
       <Card variant="outlined" style={{padding: 10}}>
-        No payment sources to display
+        {t("No payment sources to display")}
       </Card>
     </Grid>)}
   </Grid>)

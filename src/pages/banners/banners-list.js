@@ -12,6 +12,7 @@ import {getUrlFilters} from "../../utils/apply-filters";
 import {BannersTable} from "../../components/page-components/banners/banners-table";
 import {BannerDialog} from "../../components/page-components/banners/banner-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -67,6 +68,7 @@ export const BannersList = () => {
         setDescription
     } = useContext(DialogContext)[1]
     const [openEditDialog, setOpenEditDialog] = useState(false);
+    const { t } = useTranslation();
 
     const {
         fetchBanners,
@@ -214,7 +216,7 @@ export const BannersList = () => {
     return (
       <>
           <Helmet>
-              <title>Banners | {appName}</title>
+              <title>{t("Banners")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -241,7 +243,7 @@ export const BannersList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Banners
+                              {t("Banners")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
@@ -251,7 +253,7 @@ export const BannersList = () => {
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              Add
+                              {t("Add")}
                           </Button>
                       </Box>
                   </Box>

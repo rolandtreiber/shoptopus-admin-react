@@ -1,7 +1,9 @@
 import {Card, Grid} from "@material-ui/core";
 import AddressCard from "../../../components/page-components/addresses/address-card";
+import {useTranslation} from "react-i18next";
 
 const CustomerTabAddresses = ({data}) => {
+  const { t } = useTranslation();
 
   return (
     <Grid container spacing={2}>
@@ -13,7 +15,7 @@ const CustomerTabAddresses = ({data}) => {
       ) : (
         <Grid item xs={12}>
           <Card variant="outlined" style={{padding: 10}}>
-            No addresses to display
+            {t("No addresses to display")}
           </Card>
         </Grid>
       )}

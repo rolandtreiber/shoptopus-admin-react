@@ -24,6 +24,7 @@ import CustomerTabPaymentSources from "./partials/customer-tab-payment-sources";
 import CustomerTabCart from "./partials/customer-tab-cart";
 import CustomerTabRatings from "./partials/customer-tab-ratings";
 import CustomerTabLog from "./partials/customer-tab-log";
+import {useTranslation} from "react-i18next";
 
 export const CustomerSingle = () => {
   const mounted = useMounted();
@@ -38,6 +39,7 @@ export const CustomerSingle = () => {
     showEmailClient
   } = useContext(EmailClientContext)[1]
   const [value, setValue] = React.useState(0);
+  const { t } = useTranslation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -88,7 +90,7 @@ export const CustomerSingle = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: {customerData.data ? customerData.data.name : 'Loading...'} | {appName}</title>
+        <title>{t("Customer")}: {customerData.data ? customerData.data.name : 'Loading...'} | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -113,7 +115,7 @@ export const CustomerSingle = () => {
                 to="/customers"
                 variant="text"
               >
-                Customers
+                {t("Customers")}
               </Button>
             </Box>
             <Box
@@ -126,23 +128,12 @@ export const CustomerSingle = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Customer{customerData.data && ": " + customerData.data.name}
+                {t("Customer")}{customerData.data && ": " + customerData.data.name}
                 {customerData.data &&
                   <NotesTriggerButton notes={customerData.data.notes} noteableId={customerId} noteableType={"user"}
                                       updatedCallback={{cb: getCustomerData}}/>}
               </Typography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
-                color="primary"
-                onClick={() => getCustomerData().catch(err => console.log(err.message))}
-                size="large"
-                sx={{
-                  marginLeft: 1
-                }}
-                variant="contained"
-              >
-                Reload
-              </Button>
               {customerData.data && <Fragment>
                 <Button
                   color="primary"
@@ -154,7 +145,7 @@ export const CustomerSingle = () => {
                   startIcon={<Email fontSize="small"/>}
                   variant="contained"
                 >
-                  Email
+                  {t("Email")}
                 </Button>
               </Fragment>}
             </Box>
@@ -162,10 +153,10 @@ export const CustomerSingle = () => {
           <Grid container spacing={2}>
             {customerData.data &&
               <Fragment>
-                <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={6}>
                   <CustomerBasicInfo data={customerData.data}/>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6}>
                   <CustomerQuickSummary data={customerData.data}/>
                 </Grid>
                 <Grid item xs={12} style={{paddingBottom: 10}}>
@@ -178,13 +169,13 @@ export const CustomerSingle = () => {
                       }}
                     >
                     <Tabs value={value} onChange={handleChange}>
-                      <Tab label="Orders" {...a11yProps(0)} />
-                      <Tab label="Addresses" {...a11yProps(1)} />
-                      <Tab label="Payments" {...a11yProps(2)} />
-                      <Tab label="Payment Sources" {...a11yProps(3)} />
-                      <Tab label="Cart" {...a11yProps(4)} />
-                      <Tab label="Ratings" {...a11yProps(5)} />
-                      <Tab label="Logs" {...a11yProps(6)} />
+                      <Tab label={t("Orders")} {...a11yProps(0)} />
+                      <Tab label={t("Addresses")} {...a11yProps(1)} />
+                      <Tab label={t("Payments")} {...a11yProps(2)} />
+                      <Tab label={t("Payment Sources")} {...a11yProps(3)} />
+                      <Tab label={t("Cart")} {...a11yProps(4)} />
+                      <Tab label={t("Ratings")} {...a11yProps(5)} />
+                      <Tab label={t("Logs")} {...a11yProps(6)} />
                     </Tabs>
                     </Box>
                     <Divider sx={{marginBottom: 2}}/>

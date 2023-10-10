@@ -18,20 +18,22 @@ import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-
 import {format} from "date-fns";
 import {Link as RouterLink} from "react-router-dom";
 import NoImg from "../../../static/images/no-image.png";
+import {useTranslation} from "react-i18next";
 
 const CustomerTabCart = ({data}) => {
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   return (<Grid container spacing={2}>
       {data.products.length > 0 ? <>
         <Grid item xs={12} lg={6}>
           <List>
             <ListItemGridKeyValue
-              left={<ListItemText>Last Updated</ListItemText>}
+              left={<ListItemText>{t("Last Updated")}</ListItemText>}
               right={<ListItemText>{format(new Date(data.last_updated), 'dd-MMM-yyyy HH:mm')}</ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Products Total</ListItemText>}
+              left={<ListItemText>{t("Products Total")}</ListItemText>}
               right={<ListItemText>{data.products_total}</ListItemText>}
             />
           </List>
@@ -39,11 +41,11 @@ const CustomerTabCart = ({data}) => {
         <Grid item xs={12} lg={6}>
           <List>
             <ListItemGridKeyValue
-              left={<ListItemText>Price Payable</ListItemText>}
+              left={<ListItemText>{t("Price Payable")}</ListItemText>}
               right={<ListItemText><Price>{data.price}</Price></ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Full Price (without discounts)</ListItemText>}
+              left={<ListItemText>{t("Full Price (without discounts)")}</ListItemText>}
               right={<ListItemText><Price>{data.full_price}</Price></ListItemText>}
             />
           </List>
@@ -58,10 +60,10 @@ const CustomerTabCart = ({data}) => {
               <Table sx={{minWidth: 1000}}>
                 <TableHead>
                   <TableRow>
-                    <TableCell padding="normal">Name</TableCell>
-                    <TableCell padding="normal">Quantity</TableCell>
-                    <TableCell padding="normal">Unit price</TableCell>
-                    <TableCell padding="normal">Price</TableCell>
+                    <TableCell padding="normal">{t("Name")}</TableCell>
+                    <TableCell padding="normal">{t("Quantity")}</TableCell>
+                    <TableCell padding="normal">{t("Unit price")}</TableCell>
+                    <TableCell padding="normal">{t("Price")}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -115,7 +117,7 @@ const CustomerTabCart = ({data}) => {
         </Grid>
       </> : (<Grid item xs={12}>
           <Card variant="outlined" style={{padding: 10}}>
-            No products to display
+            {t("No products to display")}
           </Card>
         </Grid>)}
     </Grid>)

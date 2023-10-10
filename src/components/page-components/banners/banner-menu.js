@@ -6,6 +6,7 @@ import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {DialogContext} from "../../../contexts/dialog-context";
 import {BannerDialog} from "./banner-dialog";
+import {useTranslation} from "react-i18next";
 
 export const BannerMenu = (props) => {
   const mounted = useMounted();
@@ -20,6 +21,7 @@ export const BannerMenu = (props) => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const { t } = useTranslation();
 
   const doDelete = useCallback( async (id) => {
     try {
@@ -111,13 +113,13 @@ export const BannerMenu = (props) => {
         }}
       >
         <MenuItem onClick={handleEdit}>
-          Edit
+          {t("Edit")}
         </MenuItem>
         <MenuItem onClick={() => handleStatusChange(enabled)}>
-          {enabled ? 'Disable' : 'Enable'}
+          {enabled ? t('Disable') : t('Enable')}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
-          Delete
+          {t("Delete")}
         </MenuItem>
       </Menu>
       {bannerState && <BannerDialog

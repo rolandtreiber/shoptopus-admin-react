@@ -14,9 +14,11 @@ import ListItemGridKeyValue from "../../common/list-item-grid-key-value";
 import PaymentStatuses from "../../../data/payment-statuses.json";
 import IconButton from "@material-ui/core/IconButton";
 import {useTheme} from "@material-ui/core/styles";
+import {useTranslation} from "react-i18next";
 
 const TransactionCard = ({payment}) => {
   const theme = useTheme()
+  const { t } = useTranslation();
 
   return (
     <Card variant="outlined">
@@ -40,20 +42,20 @@ const TransactionCard = ({payment}) => {
         <Grid item xs={8} sx={{position: "relative", paddingTop: 0}}>
           <List>
             <ListItemGridKeyValue
-              left={<ListItemText>Status</ListItemText>}
+              left={<ListItemText>{t("Status")}</ListItemText>}
               right={<ListItemText>{PaymentStatuses[payment.status].name}</ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Reference</ListItemText>}
+              left={<ListItemText>{t("Reference")}</ListItemText>}
               right={<ListItemText>{payment.payment_ref}</ListItemText>}
             />
             {payment.type === 1 && <>
               <ListItemGridKeyValue
-                left={<ListItemText>Last 4 digits</ListItemText>}
+                left={<ListItemText>{t("Last 4 digits")}</ListItemText>}
                 right={<ListItemText>**** **** **** {payment.last_four}</ListItemText>}
               />
               <ListItemGridKeyValue
-                left={<ListItemText>Expiry</ListItemText>}
+                left={<ListItemText>{t("Expiry")}</ListItemText>}
                 right={<ListItemText>{payment.exp_month}/{payment.exp_year}</ListItemText>}
               />
             </>}

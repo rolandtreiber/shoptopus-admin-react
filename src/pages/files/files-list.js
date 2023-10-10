@@ -11,6 +11,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {FilesTable} from "../../components/page-components/files/files-table";
 import {DialogContext} from "../../contexts/dialog-context";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -71,6 +72,8 @@ export const FilesList = () => {
         view: 'all'
     });
     const {appName} = useContext(SettingsContext)
+    const { t } = useTranslation();
+
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
         selectedElements,
@@ -205,7 +208,7 @@ export const FilesList = () => {
     return (
       <>
           <Helmet>
-              <title>Files | {appName}</title>
+              <title>{t("Files")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -232,7 +235,7 @@ export const FilesList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Files
+                              {t("Files")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
@@ -242,7 +245,7 @@ export const FilesList = () => {
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              Add
+                              {t("Add")}
                           </Button>
                       </Box>
                   </Box>

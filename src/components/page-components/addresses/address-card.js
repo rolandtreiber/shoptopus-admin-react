@@ -6,12 +6,14 @@ import FullWidthSquareBox from "../../../components/common/full-width-square-box
 import IconButton from "@material-ui/core/IconButton";
 import {Map as MapIcon} from "@material-ui/icons";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
+import {useTranslation} from "react-i18next";
 
 const AddressCard = ({address, vertical = false}) => {
   const theme = useTheme()
   const {getLang} = useLanguage()
   const {settings} = useSettings()
   const maps_api_key = settings && settings.google_maps_api_key
+  const { t } = useTranslation();
 
   return (
     <Card variant="outlined">
@@ -33,7 +35,7 @@ const AddressCard = ({address, vertical = false}) => {
           <List>
             <ListItemGridKeyValue
               left={
-                <ListItemText>Name</ListItemText>
+                <ListItemText>{t("Name")}</ListItemText>
               }
               right={
                 <ListItemText>{address.name}</ListItemText>
@@ -41,7 +43,7 @@ const AddressCard = ({address, vertical = false}) => {
             />
             <ListItemGridKeyValue
               left={
-                <ListItemText>Line 1</ListItemText>
+                <ListItemText>{t("Line 1")}</ListItemText>
               }
               right={
                 <ListItemText>{address.address_line_1}</ListItemText>
@@ -49,7 +51,7 @@ const AddressCard = ({address, vertical = false}) => {
             />
             <ListItemGridKeyValue
               left={
-                <ListItemText>Line 2</ListItemText>
+                <ListItemText>{t("Line 2")}</ListItemText>
               }
               right={
                 <ListItemText>{address.address_line_2}</ListItemText>
@@ -57,7 +59,7 @@ const AddressCard = ({address, vertical = false}) => {
             />
             <ListItemGridKeyValue
               left={
-                <ListItemText>Town</ListItemText>
+                <ListItemText>{t("Town")}</ListItemText>
               }
               right={
                 <ListItemText>{address.town}</ListItemText>
@@ -65,7 +67,7 @@ const AddressCard = ({address, vertical = false}) => {
             />
             <ListItemGridKeyValue
               left={
-                <ListItemText>Postcode</ListItemText>
+                <ListItemText>{t("Postcode")}</ListItemText>
               }
               right={
                 <ListItemText>{address.post_code}</ListItemText>
