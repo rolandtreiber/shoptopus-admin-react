@@ -21,6 +21,7 @@ import {Scrollbar} from '../../common/scrollbar';
 import {SettingsContext} from "../../../contexts/settings-context";
 import {Status} from "../../common/status";
 import {BannerMenu} from "./banner-menu";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -81,6 +82,7 @@ export const BannersTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -116,7 +118,7 @@ export const BannersTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => column.nonSortable !== true && onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

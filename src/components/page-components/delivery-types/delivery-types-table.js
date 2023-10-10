@@ -21,6 +21,7 @@ import {SettingsContext} from "../../../contexts/settings-context";
 import Price from "../../common/price";
 import {Status} from "../../common/status";
 import {DeliveryTypeMenu} from "./delivery-type-menu";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -90,6 +91,7 @@ export const DeliveryTypesTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -125,7 +127,7 @@ export const DeliveryTypesTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

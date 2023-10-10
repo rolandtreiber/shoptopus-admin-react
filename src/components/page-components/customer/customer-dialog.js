@@ -60,7 +60,7 @@ export const CustomerDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        {customer ? 'Update CustomerSingle' : 'Create CustomerSingle'}
+        {customer ? 'Update Customer' : 'Create Customer'}
       </DialogTitle>
       <DialogContent>
         <Grid

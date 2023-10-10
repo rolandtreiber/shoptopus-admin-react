@@ -16,6 +16,7 @@ import {ResourceUnavailable} from "../../common/placeholder/resource-unavailable
 import {Pagination} from "../layout-elements/pagination";
 import {format} from "date-fns";
 import {NotificationsContext} from "../../../contexts/notifications-context";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -55,6 +56,7 @@ const NotificationsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {notificationTypes} = useContext(NotificationsContext)[0]
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -76,7 +78,7 @@ const NotificationsTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

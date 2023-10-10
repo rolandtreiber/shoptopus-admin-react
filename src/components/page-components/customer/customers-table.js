@@ -23,6 +23,7 @@ import { ResourceError } from '../../common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../common/scrollbar';
 import { CustomerMenu } from './customer-menu';
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -75,6 +76,7 @@ export const CustomersTable = (props) => {
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !customers?.length);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -110,7 +112,7 @@ export const CustomersTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

@@ -4,6 +4,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@materi
 import { useTheme } from '@material-ui/core/styles';
 import RangeSelector from "./range-selector";
 import Price from "../../common/price";
+import {useTranslation} from "react-i18next";
 
 const data = {
   categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -19,29 +20,30 @@ export const PerformanceIndicators = ({data, onRangeChange, snapshots}) => {
   const theme = useTheme();
   const [chartOptions, setChartOptions] = useState()
   const [stats, setStats] = useState()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (snapshots) {
       setStats([
         {
           content: <Price>{snapshots.pending_orders}</Price>,
-          label: 'Pending OrdersList'
+          label: 'Pending Orders'
         },
         {
           content: <Price>{snapshots.completed_orders}</Price>,
-          label: 'Completed OrdersList'
+          label: 'Completed Orders'
         },
         {
           content: <Price>{snapshots.processing_orders}</Price>,
-          label: 'Processing OrdersList'
+          label: 'Processing Orders'
         },
         {
           content: <Price>{snapshots.in_transit_orders}</Price>,
-          label: 'In Transit OrdersList'
+          label: 'In Transit Orders'
         },
         {
           content: <Price>{snapshots.cancelled_orders}</Price>,
-          label: 'Cancelled OrdersList'
+          label: 'Cancelled Orders'
         }
       ])
     }
@@ -128,7 +130,7 @@ export const PerformanceIndicators = ({data, onRangeChange, snapshots}) => {
         action={(
           <RangeSelector onChange={onRangeChange}/>
         )}
-        title="Key Performance Indicators"
+        title={t("Key Performance Indicators")}
       />
       <Divider />
       <CardContent>
@@ -157,7 +159,7 @@ export const PerformanceIndicators = ({data, onRangeChange, snapshots}) => {
                 color="textSecondary"
                 variant="overline"
               >
-                {item.label}
+                {t(item.label)}
               </Typography>
               <Typography
                 color="textPrimary"

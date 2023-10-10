@@ -12,6 +12,7 @@ import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import Price from "../../components/common/price";
 import {SettingsContext} from "../../contexts/settings-context";
+import {useTranslation} from "react-i18next";
 
 export const DashboardSales = () => {
   const {fetchReportsSales} = useContext(APIContext)
@@ -22,6 +23,7 @@ export const DashboardSales = () => {
   const [categoryId, setCategoryId] = useState()
   const [stats, setStats] = useState()
   const {appName} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const getData = useCallback(async (setLoading = true) => {
     setLoading && setData(() => ({ isLoading: true }));
@@ -135,7 +137,7 @@ export const DashboardSales = () => {
                         color="textSecondary"
                         variant="overline"
                       >
-                        {label}
+                        {t(label)}
                       </Typography>
                       <Typography
                         color="textPrimary"

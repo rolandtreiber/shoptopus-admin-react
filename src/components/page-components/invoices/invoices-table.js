@@ -22,6 +22,7 @@ import { ResourceUnavailable } from '../../common/placeholder/resource-unavailab
 import { Scrollbar } from '../../common/scrollbar';
 import { Status } from '../../common/status';
 import { InvoiceMenu } from './invoice-menu';
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -98,6 +99,7 @@ export const InvoicesTable = (props) => {
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !invoices?.length);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -128,7 +130,7 @@ export const InvoicesTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

@@ -21,6 +21,7 @@ import {ResourceUnavailable} from '../../common/placeholder/resource-unavailable
 import {Scrollbar} from '../../common/scrollbar';
 import {VoucherCodeMenu} from "./voucher-code-menu";
 import {Status} from "../../common/status";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -88,6 +89,7 @@ export const VoucherCodesTable = (props) => {
   const displayLoading = isLoading;
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -123,7 +125,7 @@ export const VoucherCodesTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

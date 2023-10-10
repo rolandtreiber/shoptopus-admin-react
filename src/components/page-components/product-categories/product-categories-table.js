@@ -21,6 +21,7 @@ import {Status} from "../../common/status";
 import {format} from "date-fns";
 import RightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import {ProductCategoryMenu} from "./product-category-menu";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -81,6 +82,7 @@ const ProductCategoriesTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !categories.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const getRow = (rowData, level = 1) => {
     const statusVariant = statusVariants.find((variant) => variant.value
@@ -216,7 +218,7 @@ const ProductCategoriesTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

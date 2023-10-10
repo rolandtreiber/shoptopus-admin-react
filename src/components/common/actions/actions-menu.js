@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { usePopover } from '../../../hooks/use-popover';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
+import {useTranslation} from "react-i18next";
 
 export const ActionsMenu = (props) => {
   const { actions, label, ...other } = props;
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -18,7 +20,7 @@ export const ActionsMenu = (props) => {
         ref={anchorRef}
         {...other}
       >
-        {label}
+        {t(label)}
       </Button>
       <Menu
         anchorEl={anchorRef.current}
@@ -43,7 +45,7 @@ export const ActionsMenu = (props) => {
               handleClose();
             }}
           >
-            {item.label}
+            {t(item.label)}
           </MenuItem>
         ))}
       </Menu>

@@ -20,6 +20,7 @@ import Price from "../../common/price";
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import {useLanguage} from "../../../hooks/use-language";
 import {Status} from "../../common/status";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -79,6 +80,7 @@ export const ProductVariantsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   const getName = (variant) => {
     return variant.attributes.map(attribute => attribute.option && getLang(attribute.option.name)).join(', ')
@@ -104,7 +106,7 @@ export const ProductVariantsTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

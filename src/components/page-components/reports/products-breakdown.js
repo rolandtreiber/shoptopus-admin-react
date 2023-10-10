@@ -4,28 +4,14 @@ import { Box, Card, CardHeader, Divider, Tab, Tabs } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import {useLanguage} from "../../../hooks/use-language";
 import RangeSelector from "./range-selector";
+import {useTranslation} from "react-i18next";
 
 export const ProductsBreakdown = ({data, categories, category, categoryUpdated, onRangeChange}) => {
   const theme = useTheme();
-  const [range, setRange] = useState('Last 7 days');
   const [chartOptions, setChartOptions] = useState()
   const [chartSeries, setChartSeries] = useState()
   const {getLang} = useLanguage()
-
-  const ranges = [
-    {
-      label: 'Last 7 days',
-      onClick: () => { setRange('Last 7 days'); }
-    },
-    {
-      label: 'Last Month',
-      onClick: () => { setRange('Last Month'); }
-    },
-    {
-      label: 'Last Year',
-      onClick: () => { setRange('Last Year'); }
-    }
-  ];
+  const { t } = useTranslation();
 
   const handleTabChange = (event, newValue) => {
     categoryUpdated(newValue)
@@ -119,7 +105,7 @@ export const ProductsBreakdown = ({data, categories, category, categoryUpdated, 
         action={(
           <RangeSelector onChange={onRangeChange}/>
         )}
-        title="ProductsList Breakdown"
+        title={t("Products Breakdown")}
       />
       {data && chartOptions && chartSeries && <>
       <Divider />

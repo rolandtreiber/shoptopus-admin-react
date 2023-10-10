@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Avatar, Box, Link, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
 import {useLanguage} from "../../../hooks/use-language";
 import {Link as RouterLink} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -26,6 +27,7 @@ const columns = [
 
 const OrderProductsTable = ({data}) => {
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   return (
     <Scrollbar>
@@ -34,7 +36,7 @@ const OrderProductsTable = ({data}) => {
           <TableRow>
             {columns.map((column) => (
               <TableCell key={column.id}>
-                {column.label}
+                {t(column.label)}
               </TableCell>
             ))}
           </TableRow>

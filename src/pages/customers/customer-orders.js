@@ -25,6 +25,7 @@ import { Status } from '../../components/common/status';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -74,6 +75,7 @@ const statusVariants = [
 
 export const CustomerOrders = () => {
   const {appName} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const mounted = useMounted();
   const [controller, setController] = useState({
@@ -167,7 +169,7 @@ export const CustomerOrders = () => {
                         disabled={ordersState.isLoading}
                         onClick={(event) => handleSortChange(event, column.id)}
                       >
-                        {column.label}
+                        {t(column.label)}
                       </TableSortLabel>
                     </TableCell>
                   ))}

@@ -26,6 +26,7 @@ import {useContext} from "react";
 import {SettingsContext} from "../../../contexts/settings-context";
 import Price from "../../common/price";
 import {darkWarning} from "../../../colors";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -90,6 +91,7 @@ export const ProductsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !products.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -121,7 +123,7 @@ export const ProductsTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

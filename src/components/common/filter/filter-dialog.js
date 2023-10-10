@@ -14,9 +14,12 @@ import {
 import { useFilters } from '../../../hooks/use-filters';
 import { X as XIcon } from '../../../icons/x';
 import { FilterDialogItem } from './filter-dialog-item';
+import {useTranslation} from "react-i18next";
 
 export const FilterDialog = (props) => {
   const { open, onClose, operators, properties, onApply, onClear, ...other } = props;
+  const { t } = useTranslation();
+
   const {
     addFilter,
     clearFilters,
@@ -109,7 +112,7 @@ export const FilterDialog = (props) => {
           onClick={handleFiltersClear}
           variant="text"
         >
-          Reset
+          {t("Reset")}
         </Button>
         <Button
           color="primary"
@@ -119,7 +122,7 @@ export const FilterDialog = (props) => {
           }}
           variant="contained"
         >
-          Filter
+          {t("Filter")}
         </Button>
       </DialogActions>
     </Dialog>

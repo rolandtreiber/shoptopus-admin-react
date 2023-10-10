@@ -21,6 +21,7 @@ import {CustomerMenu} from '../customer/customer-menu';
 import {SettingsContext} from "../../../contexts/settings-context";
 import Price from "../../common/price";
 import {Status} from "../../common/status";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -98,6 +99,7 @@ export const TransactionsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -133,7 +135,7 @@ export const TransactionsTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

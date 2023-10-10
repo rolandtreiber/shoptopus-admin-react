@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { Card } from '@material-ui/core';
 import { OrderDroppable } from './order-dropable';
 import {APIContext} from "../../../contexts/api-context";
+import {useTranslation} from "react-i18next";
 
 const statusVariants = [
   {
@@ -83,6 +84,7 @@ export const OrdersDnd = (props) => {
   const { error, isLoading, orders, ...other } = props;
   const [columns, setColumns] = useState(null);
   const {updateOrder} = useContext(APIContext)
+  const { t } = useTranslation();
 
   const callUpdateApi = (id, newStatus) => {
     updateOrder(id, {
@@ -100,7 +102,6 @@ export const OrdersDnd = (props) => {
 
     const sourceId = source.droppableId;
     const destinationId = destination.droppableId;
-
 
     if (sourceId === destinationId) {
       const items = reorder(columns[sourceId], source.index, destination.index);
@@ -148,7 +149,7 @@ export const OrdersDnd = (props) => {
             badgeColor={option.badgeColor}
             id={option.value.toString()}
             orders={columns[option.value]}
-            title={option.label}
+            title={t(option.label)}
             key={option.value}
           />
         ))}

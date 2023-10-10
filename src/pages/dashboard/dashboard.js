@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, Container, Divider, Tab, Tabs, Typography } from '@material-ui/core';
 import gtm from '../../lib/gtm';
+import {useTranslation} from "react-i18next";
 
 const tabs = [
   {
@@ -16,11 +17,7 @@ const tabs = [
 
 export const Dashboard = () => {
   const location = useLocation();
-  // const [loc, setLoc] = useState({
-  //   lat: 51.45,
-  //   lng: -2.58,
-  //   radius: 2
-  // })
+  const { t } = useTranslation();
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
@@ -45,7 +42,7 @@ export const Dashboard = () => {
               color="textPrimary"
               variant="h4"
             >
-              Welcome
+              {t("Welcome")}
             </Typography>
           </Box>
           <Tabs
@@ -58,7 +55,7 @@ export const Dashboard = () => {
               <Tab
                 component={RouterLink}
                 key={option.href}
-                label={option.label}
+                label={t(option.label)}
                 to={option.href}
               />
             ))}

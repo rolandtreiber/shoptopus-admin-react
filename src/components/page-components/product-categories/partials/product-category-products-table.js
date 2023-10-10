@@ -2,6 +2,7 @@ import {useLanguage} from "../../../../hooks/use-language";
 import {Scrollbar} from "../../../common/scrollbar";
 import {Avatar, Box, Link, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
 import {Link as RouterLink} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -20,6 +21,7 @@ const columns = [
 ];
 const ProductCategoryProductsTable = ({data}) => {
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   return (
     <Scrollbar>
@@ -28,7 +30,7 @@ const ProductCategoryProductsTable = ({data}) => {
           <TableRow>
             {columns.map((column) => (
               <TableCell key={column.id}>
-                {column.label}
+                {t(column.label)}
               </TableCell>
             ))}
           </TableRow>

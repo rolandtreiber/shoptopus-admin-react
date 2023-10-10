@@ -4,6 +4,7 @@ import {APIContext} from "../../contexts/api-context";
 import axios from "axios";
 import {ChevronDown as ChevronDownIcon} from "../../icons/chevron-down";
 import {usePopover} from "../../hooks/use-popover";
+import {useTranslation} from "react-i18next";
 
 const ExportButton = ({
                         name,
@@ -16,6 +17,7 @@ const ExportButton = ({
   const {accessToken} = useContext(APIContext)
   const app_url = process.env.REACT_APP_URL;
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
+  const { t } = useTranslation();
 
   const getDateString = () => {
     const date = new Date()
@@ -86,21 +88,21 @@ const ExportButton = ({
 
   const menuItems = [
     {
-      name: 'Simple',
+      name: t('Simple'),
       callback: () => initiateExportDownload(name + '-simple', modelsSimple)
     },
   ]
 
   if (showExtended) {
     menuItems.push({
-      name: 'Extended',
+      name: t('Extended'),
       callback: () => initiateExportDownload(name + '-extended', modelsExtended)
     })
   }
 
   if (showTemplate) {
     menuItems.push({
-      name: 'Template',
+      name: t('Template'),
       callback: () => initiateTemplateDownload(name + '-template', modelTemplate)
     })
   }
@@ -119,7 +121,7 @@ const ExportButton = ({
         size="large"
         variant="contained"
       >
-        Export
+        {t("Export")}
       </Button>
       <Menu
         anchorEl={anchorRef.current}

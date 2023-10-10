@@ -21,6 +21,7 @@ import {Status} from "../../common/status";
 import {format} from "date-fns";
 import {ProductAttributeMenu} from "./product-attribute-menu";
 import NoImg from '../../../static/images/no-image.png'
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -78,6 +79,7 @@ const ProductAttributesTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -109,7 +111,7 @@ const ProductAttributesTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

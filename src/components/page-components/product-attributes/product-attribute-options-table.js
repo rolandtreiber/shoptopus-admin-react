@@ -18,6 +18,7 @@ import { Scrollbar } from '../../common/scrollbar';
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import {useLanguage} from "../../../hooks/use-language";
 import {Status} from "../../common/status";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -79,6 +80,7 @@ export const ProductAttributeOptionsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {getLang} = useLanguage()
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -100,7 +102,7 @@ export const ProductAttributeOptionsTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

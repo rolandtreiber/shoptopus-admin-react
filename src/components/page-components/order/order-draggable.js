@@ -10,10 +10,12 @@ import { StatusBadge } from '../../common/status-badge';
 import { OrderMenu } from './order-menu';
 import {useContext} from "react";
 import {SettingsContext} from "../../../contexts/settings-context";
+import {useTranslation} from "react-i18next";
 
 export const OrderDraggable = (props) => {
   const { badgeColor, index, order, ...other } = props;
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Draggable
@@ -63,7 +65,7 @@ export const OrderDraggable = (props) => {
           </Box>
           <PropertyList>
             <PropertyListItem
-              label="Delivery Type"
+              label={t("Delivery Type")}
               align="horizontal"
             >
               <Chip
@@ -73,22 +75,22 @@ export const OrderDraggable = (props) => {
             </PropertyListItem>
             <PropertyListItem
               align="horizontal"
-              label="Location"
+              label={t("Location")}
               value={`${order.town}`}
             />
             <PropertyListItem
               align="horizontal"
-              label="Customer"
+              label={t("Customer")}
               value={`${order.user}`}
             />
             <PropertyListItem
               align="horizontal"
-              label="Price"
+              label={t("Price")}
               value={`${order.total_price}`}
             />
             <PropertyListItem
               align="horizontal"
-              label="Created"
+              label={("Created At")}
               value={format(new Date(order.created_at), 'dd MMM yyyy HH:mm')}
             />
           </PropertyList>

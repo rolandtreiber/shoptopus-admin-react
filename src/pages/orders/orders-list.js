@@ -12,6 +12,7 @@ import {OrdersTable} from "../../components/page-components/order/orders-table";
 import {OrdersDnd} from "../../components/page-components/order/orders-dnd";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
   {
@@ -77,6 +78,7 @@ export const OrdersList = () => {
     view: 'all',
     search: ''
   });
+  const { t } = useTranslation();
   const {appName} = useContext(SettingsContext)
   const [dataState, setDataState] = useState({ isLoading: true });
   const [
@@ -210,7 +212,7 @@ export const OrdersList = () => {
   return (
     <>
       <Helmet>
-        <title>Orders | {appName}</title>
+        <title>{t("Orders")} | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -237,7 +239,7 @@ export const OrdersList = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Orders
+                {t("Orders")}
               </Typography>
               <Box sx={{ flexGrow: 1 }} />
               <ExportButton

@@ -22,6 +22,7 @@ import {SettingsContext} from "../../../contexts/settings-context";
 import { Star as StarIcon } from '../../../icons/star';
 import {Status} from "../../common/status";
 import {format} from "date-fns";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -105,6 +106,7 @@ export const RatingsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const getStars = (rating) => {
     let stars = [];
@@ -148,7 +150,7 @@ export const RatingsTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

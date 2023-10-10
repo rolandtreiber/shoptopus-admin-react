@@ -11,6 +11,7 @@ import {useMounted} from "../../hooks/use-mounted";
 import {PieChartBreakdown} from "../../components/page-components/reports/pie-chart-breakdown";
 import {Timeline} from "../../components/page-components/reports/timeline";
 import {SettingsContext} from "../../contexts/settings-context";
+import {useTranslation} from "react-i18next";
 
 export const DashboardOverview = () => {
   const {fetchReportsOverview} = useContext(APIContext)
@@ -20,6 +21,7 @@ export const DashboardOverview = () => {
   const [ordersRange, setOrdersRange] = useState(1)
   const [stats, setStats] = useState()
   const {appName} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const getData = useCallback(async (setLoading = true) => {
     setLoading && setData(() => ({ isLoading: true }));
@@ -66,30 +68,30 @@ export const DashboardOverview = () => {
         {
           content: data.data.stats.orders,
           icon: ShoppingCartIcon,
-          label: 'Orders',
+          label: t('Orders'),
           linkHref: '/admin/orders',
-          linkLabel: 'Orders'
+          linkLabel: t('Orders')
         },
         {
           content: data.data.stats.products,
           icon: CubeIcon,
-          label: 'Products',
+          label: t('Products'),
           linkHref: '/admin/products',
-          linkLabel: 'Products'
+          linkLabel: t('Products')
         },
         {
           content: data.data.stats.payments,
           icon: CustomCreditCardIcon,
-          label: 'Transactions',
+          label: t('Transactions'),
           linkHref: '/admin/transactions',
-          linkLabel: 'Transactions'
+          linkLabel: t('Transactions')
         },
         {
           content: data.data.stats.customers,
           icon: CustomCreditCardIcon,
-          label: 'Customers',
+          label: t('Customers'),
           linkHref: '/admin/customers',
-          linkLabel: 'Customers'
+          linkLabel: t('Customers')
         }
       ])
     }
@@ -119,21 +121,21 @@ export const DashboardOverview = () => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Timeline title={'User Signups'} data={data.data?.user_signups_over_time} onRangeChange={setSignupsRange} />
+            <Timeline title={t('User Signups')} data={data.data?.user_signups_over_time} onRangeChange={setSignupsRange} />
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={"Orders Overview"} onRangeChange={setOrdersRange}/>
+            <PieChartBreakdown series={data.data?.orders_by_status_pie_chart_data} title={t("Orders Overview")} onRangeChange={setOrdersRange}/>
           </Grid>
           <Grid
             item
             md={6}
             xs={12}
           >
-            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={"Products Overview"} showRangeSelector={false}/>
+            <PieChartBreakdown series={data.data?.products_by_status_pie_chart_data} title={t("Products Overview")} showRangeSelector={false}/>
           </Grid>
         </Grid>
       </Box>

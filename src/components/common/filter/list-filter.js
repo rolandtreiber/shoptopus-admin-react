@@ -21,6 +21,7 @@ import {Query} from './query';
 import {BulkActionsMenu} from "../bulk-actions-menu";
 import {ViewList as ViewListIcon} from "../../../icons/view-list";
 import {ViewGrid as ViewGridIcon} from "../../../icons/view-grid";
+import {useTranslation} from "react-i18next";
 
 const filterOperators = [
   equalOperator,
@@ -55,6 +56,7 @@ export const ListFilter = (props) => {
     bulkMenuItems
   } = props;
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
+  const { t } = useTranslation();
 
   const handleFiltersApply = (newFilters) => {
     const parsedFilters = newFilters.map((filter) => ({
@@ -96,7 +98,7 @@ export const ListFilter = (props) => {
               <Tab
                 disabled={disabled}
                 key={option.label}
-                label={option.label}
+                label={t(option.label)}
                 value={option.value}
               />
             ))}
@@ -189,7 +191,7 @@ export const ListFilter = (props) => {
               sx={{order: 3}}
               variant={filters.length ? 'contained' : 'text'}
             >
-              Filter
+              {t("Filter")}
             </Button>
           </Box>
         </Box>

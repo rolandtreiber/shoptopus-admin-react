@@ -20,6 +20,7 @@ import {Pagination} from "../layout-elements/pagination";
 import {Status} from "../../common/status";
 import {format} from "date-fns";
 import {ProductTagMenu} from "./product-tag-menu";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -80,6 +81,7 @@ const ProductTagsTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -111,7 +113,7 @@ const ProductTagsTable = (props) => {
                     disabled={isLoading}
                     onClick={(event) => onSortChange(event, column.id, column.translatable)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}

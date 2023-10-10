@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { InputBase } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { Search as SearchIcon } from '../../../icons/search';
+import {useTranslation} from "react-i18next";
 
 const QueryRoot = styled('div')((({ theme }) => ({
   alignItems: 'center',
@@ -19,6 +20,7 @@ export const Query = (props) => {
   const [autoFocus, setAutoFocus] = useState(false);
   const inputRef = useRef(null);
   const [tempValue, setTempValue] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTempValue(value);
@@ -84,7 +86,7 @@ export const Query = (props) => {
         onChange={handleChange}
         onFocus={handleFocus}
         onKeyUp={handleKeyup}
-        placeholder="Search..."
+        placeholder={t("Search...")}
         sx={{ flex: 1 }}
         value={tempValue}
       />

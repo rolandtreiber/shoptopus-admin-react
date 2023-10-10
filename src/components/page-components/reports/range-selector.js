@@ -1,8 +1,10 @@
 import {useState} from "react";
 import {ActionsMenu} from "../../common/actions/actions-menu";
+import {useTranslation} from "react-i18next";
 
 const RangeSelector = ({onChange}) => {
   const [range, setRange] = useState('Last 7 days');
+  const { t } = useTranslation();
   const ranges = [
     {
       label: 'Last 7 days',
@@ -30,7 +32,7 @@ const RangeSelector = ({onChange}) => {
   return (
     <ActionsMenu
       actions={ranges}
-      label={range}
+      label={t(range)}
       size="small"
       variant="text"
     />

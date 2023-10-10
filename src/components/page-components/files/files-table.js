@@ -21,6 +21,7 @@ import {Scrollbar} from '../../common/scrollbar';
 import {SettingsContext} from "../../../contexts/settings-context";
 import {Status} from "../../common/status";
 import {FileMenu} from "./file-menu";
+import {useTranslation} from "react-i18next";
 
 const columns = [
   {
@@ -106,6 +107,7 @@ export const FilesTable = (props) => {
   const displayError = Boolean(!isLoading && error);
   const displayUnavailable = Boolean(!isLoading && !error && !data?.length);
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -141,7 +143,7 @@ export const FilesTable = (props) => {
                     hideSortIcon={column.nonSortable === true}
                     onClick={(event) => column.nonSortable !== true && onSortChange(event, column.id)}
                   >
-                    {column.label}
+                    {t(column.label)}
                   </TableSortLabel>
                 </TableCell>
               ))}
