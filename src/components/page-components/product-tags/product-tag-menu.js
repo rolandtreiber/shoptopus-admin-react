@@ -5,6 +5,7 @@ import {useCallback, useContext} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {DialogContext} from "../../../contexts/dialog-context";
+import {useTranslation} from "react-i18next";
 
 export const ProductTagMenu = (props) => {
   const mounted = useMounted();
@@ -17,6 +18,7 @@ export const ProductTagMenu = (props) => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const { t } = useTranslation();
 
   const doDelete = useCallback( async (id) => {
     try {
@@ -85,10 +87,10 @@ export const ProductTagMenu = (props) => {
         }}
       >
         <MenuItem onClick={() => handleStatusChange(enabled)}>
-          {enabled ? 'Disable' : 'Enable'}
+          {enabled ? t('Disable') : t('Enable')}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
-          Delete
+          {t("Delete")}
         </MenuItem>
       </Menu>
     </>

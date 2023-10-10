@@ -12,6 +12,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {ProductAttributeCreateDialog} from "../../components/page-components/product-attributes/product-attribute-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const filterProperties = [
     {
@@ -67,6 +68,7 @@ export const ProductAttributesList = () => {
         showGenericDialog,
         setDescription
     } = useContext(DialogContext)[1]
+    const { t } = useTranslation();
 
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
@@ -229,7 +231,7 @@ export const ProductAttributesList = () => {
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                Product Attributes
+                                {t("Product Attributes")}
                             </Typography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
@@ -239,7 +241,7 @@ export const ProductAttributesList = () => {
                                 startIcon={<PlusIcon fontSize="small" />}
                                 variant="contained"
                             >
-                                Add
+                                {t("Add")}
                             </Button>
                             <ExportButton
                               name={"product-attributes"}

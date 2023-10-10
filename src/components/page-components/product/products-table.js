@@ -36,7 +36,7 @@ const columns = [
   },
   {
     id: 'price',
-    label: 'price'
+    label: 'Price'
   },
   {
     id: 'virtual',
@@ -232,7 +232,7 @@ export const ProductsTable = (props) => {
                   <TableCell>
                     <Status
                       color={statusVariant.color}
-                      label={statusVariant.label}
+                      label={t(statusVariant.label)}
                     />
                   </TableCell>
                   <TableCell align="right">

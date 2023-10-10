@@ -6,6 +6,7 @@ import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {ProductCategoryEditDialog} from "./product-category-edit-dialog";
 import {DialogContext} from "../../../contexts/dialog-context";
+import {useTranslation} from "react-i18next";
 
 export const ProductCategoryMenu = (props) => {
   const mounted = useMounted();
@@ -20,6 +21,7 @@ export const ProductCategoryMenu = (props) => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const { t } = useTranslation();
 
   const getProductCategory = useCallback(async () => {
     if (id) {
@@ -112,13 +114,13 @@ export const ProductCategoryMenu = (props) => {
         }}
       >
         <MenuItem onClick={handleEdit}>
-          Edit
+          {t('Edit')}
         </MenuItem>
         <MenuItem onClick={() => handleStatusChange(enabled)}>
-          {enabled ? 'Disable' : 'Enable'}
+          {enabled ? t('Disable') : t('Enable')}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
-          Delete
+          {t('Delete')}
         </MenuItem>
       </Menu>
       {productCategoryState && <ProductCategoryEditDialog

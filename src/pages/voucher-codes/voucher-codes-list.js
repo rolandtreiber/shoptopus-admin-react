@@ -13,6 +13,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -73,6 +74,7 @@ export const VoucherCodesList = () => {
         sortBy: 'updated_at',
         view: 'all'
     });
+    const { t } = useTranslation();
     const {appName} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
@@ -294,7 +296,7 @@ export const VoucherCodesList = () => {
     return (
         <>
             <Helmet>
-                <title>Voucher Codes | {appName}</title>
+                <title>{t("Voucher Codes")} | {appName}</title>
             </Helmet>
             <Box
                 sx={{
@@ -321,7 +323,7 @@ export const VoucherCodesList = () => {
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                Voucher Codes
+                                {t("Voucher Codes")}
                             </Typography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
@@ -331,7 +333,7 @@ export const VoucherCodesList = () => {
                                 startIcon={<PlusIcon fontSize="small" />}
                                 variant="contained"
                             >
-                                Add
+                                {t("Add")}
                             </Button>
                             <ExportButton
                               name={"voucher-codes"}

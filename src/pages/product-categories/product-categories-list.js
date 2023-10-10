@@ -12,6 +12,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {ProductCategoryCreateDialog} from "../../components/page-components/product-categories/product-category-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const filterProperties = [
     {
@@ -68,6 +69,7 @@ export const ProductCategoriesList = () => {
     } = useContext(DialogContext)[1]
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
     const {language} = useContext(SettingsContext)
+    const { t } = useTranslation();
 
     const {
         fetchProductCategories,
@@ -202,7 +204,7 @@ export const ProductCategoriesList = () => {
     return (
       <>
           <Helmet>
-              <title>Product Categories | {appName}</title>
+              <title>{t('Product Categories')} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -230,7 +232,7 @@ export const ProductCategoriesList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Product Categories
+                              {t('Product Categories')}
                           </Typography>
                           <Box sx={{flexGrow: 1}}/>
                           <Button
@@ -240,7 +242,7 @@ export const ProductCategoriesList = () => {
                             startIcon={<PlusIcon fontSize="small"/>}
                             variant="contained"
                           >
-                              Add
+                              {t('Add')}
                           </Button>
                           <ExportButton
                             name={"product-categories"}

@@ -7,6 +7,7 @@ import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import {ProductDialog} from "./product-dialog";
 import {DialogContext} from "../../../contexts/dialog-context";
+import {useTranslation} from "react-i18next";
 
 export const ProductMenu = (props) => {
   const mounted = useMounted();
@@ -21,6 +22,7 @@ export const ProductMenu = (props) => {
     showGenericDialog,
     setDescription
   } = useContext(DialogContext)[1]
+  const { t } = useTranslation();
 
   const getProduct = useCallback(async () => {
     if (productId) {
@@ -91,13 +93,13 @@ export const ProductMenu = (props) => {
         }}
       >
         <MenuItem onClick={handleEdit}>
-          Edit
+          {t('Edit')}
         </MenuItem>
         <MenuItem onClick={handleArchive}>
-          Archive
+          {t('Archive')}
         </MenuItem>
         <MenuItem onClick={handleDelete}>
-          Delete
+          {t('Delete')}
         </MenuItem>
       </Menu>
       <ProductDialog

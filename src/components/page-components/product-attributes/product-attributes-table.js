@@ -39,7 +39,7 @@ const columns = [
   },
   {
     id: 'enabled',
-    label: 'enabled'
+    label: 'Enabled'
   }
 ];
 
@@ -177,7 +177,7 @@ const ProductAttributesTable = (props) => {
                   <TableCell>
                     <Status
                       color={statusVariant.color}
-                      label={statusVariant.label}
+                      label={t(statusVariant.label)}
                     />
                   </TableCell>
                   <TableCell align="right">

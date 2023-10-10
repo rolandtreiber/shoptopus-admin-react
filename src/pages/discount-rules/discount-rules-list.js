@@ -13,6 +13,7 @@ import {DiscountRulesTable} from "../../components/page-components/discount-rule
 import {DiscountRuleDialog} from "../../components/page-components/discount-rules/discount-rule-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -95,6 +96,7 @@ export const DiscountRulesList = () => {
         bulkExpireDiscountRules,
         bulkStartDiscountRules,
         bulkActivateDiscountRulesForPeriod} = useContext(APIContext)
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (dataState.data) {
@@ -294,7 +296,7 @@ export const DiscountRulesList = () => {
     return (
       <>
           <Helmet>
-              <title>Discount Rules | {appName}</title>
+              <title>{t("Discount Rules")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -321,7 +323,7 @@ export const DiscountRulesList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Discount Rules
+                              {t("Discount Rules")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
@@ -331,7 +333,7 @@ export const DiscountRulesList = () => {
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              Add
+                              {t("Add")}
                           </Button>
                           <ExportButton
                             name={"discount-rules"}

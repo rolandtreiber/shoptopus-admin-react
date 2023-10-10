@@ -35,7 +35,7 @@ const columns = [
   },
   {
     id: 'description',
-    label: 'description',
+    label: 'Description',
     translatable: true
   },
   {
@@ -44,7 +44,7 @@ const columns = [
   },
   {
     id: 'enabled',
-    label: 'enabled'
+    label: 'Enabled'
   }
 ];
 
@@ -172,7 +172,7 @@ const ProductCategoriesTable = (props) => {
           <TableCell>
             <Status
               color={statusVariant.color}
-              label={statusVariant.label}
+              label={t(statusVariant.label)}
             />
           </TableCell>
           <TableCell align="right">

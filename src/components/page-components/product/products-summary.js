@@ -6,6 +6,7 @@ import { XCircle as XCircleIcon } from '../../../icons/x-circle';
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {useCurrency} from "../../../hooks/use-currency";
+import {useTranslation} from "react-i18next";
 
 // NOTE: This should be generated based on products data
 const initialStats = [
@@ -19,7 +20,7 @@ const initialStats = [
     content: '',
     icon: XCircleIcon,
     iconColor: 'warning.main',
-    label: 'OUT OF STOCK ITEMS'
+    label: 'Out of stock Items'
   },
   {
     content: '',
@@ -39,6 +40,7 @@ export const ProductsSummary = () => {
   const {getProductsPageSummary} = useContext(APIContext)
   const [stats, setStats] = useState(initialStats)
   const {getPriceText} = useCurrency()
+  const { t } = useTranslation();
 
   const getSummary = useCallback(async () => {
     const result = await getProductsPageSummary()
@@ -98,7 +100,7 @@ export const ProductsSummary = () => {
                   color="textSecondary"
                   variant="overline"
                 >
-                  {label}
+                  {t(label)}
                 </Typography>
                 <Typography
                   color="textPrimary"

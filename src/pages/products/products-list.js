@@ -14,6 +14,7 @@ import {getUrlFilters} from "../../utils/apply-filters";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
   {
@@ -89,6 +90,7 @@ export const ProductsList = () => {
     setDescription
   } = useContext(DialogContext)[1]
   const {language} = useContext(SettingsContext)
+  const { t } = useTranslation();
 
   const {fetchProducts, bulkDeleteProducts, bulkArchiveProducts} = useContext(APIContext)
 
@@ -256,7 +258,7 @@ export const ProductsList = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Products
+                {t('Products')}
               </Typography>
               <Box sx={{ flexGrow: 1 }} />
               <Button
@@ -266,7 +268,7 @@ export const ProductsList = () => {
                 startIcon={<PlusIcon fontSize="small" />}
                 variant="contained"
               >
-                Add
+                {t('Add')}
               </Button>
               <ExportButton
                 name={"products"}

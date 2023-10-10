@@ -178,7 +178,7 @@ export const VoucherCodesTable = (props) => {
                   <TableCell>
                     <Status
                       color={statusVariant.color}
-                      label={statusVariant.label}
+                      label={t(statusVariant.label)}
                     />
                   </TableCell>
                   <TableCell align="right">

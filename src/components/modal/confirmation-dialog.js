@@ -10,6 +10,7 @@ import {
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import InfoIcon from '@material-ui/icons/Info';
+import {useTranslation} from "react-i18next";
 
 const icons = {
   error: (
@@ -34,6 +35,7 @@ const icons = {
 
 export const ConfirmationDialog = (props) => {
   const { message, onCancel, onConfirm, open, title, variant, ...other } = props;
+  const { t } = useTranslation();
 
   return (
     <Dialog
@@ -58,7 +60,7 @@ export const ConfirmationDialog = (props) => {
           sx={{ ml: 2 }}
           variant="inherit"
         >
-          {title}
+          {t(title)}
         </Typography>
       </DialogTitle>
       <DialogContent>
@@ -66,7 +68,7 @@ export const ConfirmationDialog = (props) => {
           color="textPrimary"
           variant="body1"
         >
-          {message}
+          {t(message)}
         </Typography>
       </DialogContent>
       <DialogActions>
@@ -75,14 +77,14 @@ export const ConfirmationDialog = (props) => {
           onClick={onCancel}
           variant="text"
         >
-          Cancel
+          {t("Cancel")}
         </Button>
         <Button
           color="primary"
           onClick={onConfirm}
           variant="contained"
         >
-          Confirm
+          {t("Confirm")}
         </Button>
       </DialogActions>
     </Dialog>

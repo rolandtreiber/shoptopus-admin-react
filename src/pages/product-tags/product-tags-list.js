@@ -12,6 +12,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {ProductTagCreateDialog} from "../../components/page-components/product-tags/product-tag-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const filterProperties = [
     {
@@ -72,6 +73,7 @@ const ProductTagsList = () => {
         showGenericDialog,
         setDescription
     } = useContext(DialogContext)[1]
+    const { t } = useTranslation();
 
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
@@ -206,7 +208,7 @@ const ProductTagsList = () => {
     return (
         <>
             <Helmet>
-                <title>Product Tags | {appName}</title>
+                <title>{t("Product Tags")} | {appName}</title>
             </Helmet>
             <Box
                 sx={{
@@ -234,7 +236,7 @@ const ProductTagsList = () => {
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                Product Tags
+                                {t("Product Tags")}
                             </Typography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
@@ -244,7 +246,7 @@ const ProductTagsList = () => {
                                 startIcon={<PlusIcon fontSize="small" />}
                                 variant="contained"
                             >
-                                Add
+                                {t("Add")}
                             </Button>
                             <ExportButton
                               name={"product-tags"}
