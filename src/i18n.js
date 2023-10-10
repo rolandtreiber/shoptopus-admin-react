@@ -137,6 +137,7 @@ const resources = {
       "Description": "Beschreibung",
       "Enabled": "Aktiviert",
       "Disabled": "Deaktiviert",
+      "Enable": "Aktivieren",
       "Disable": "Deaktivieren",
       "Are you sure?": "Bist du sicher?",
       "You are about to disable a product category.": "Sie sind dabei, eine Produktkategorie zu deaktivieren.",
@@ -180,7 +181,13 @@ const resources = {
       "You are about to set the selected discount rules active for one month starting now.": "Sie sind dabei, die ausgewählten Rabattregeln für einen Monat ab sofort aktiv zu setzen.",
       "You are about to delete a discount rule.": "Sie sind dabei, eine Rabattregel zu löschen.",
       "You are about to enable a discount rule.": "Sie sind dabei, eine Rabattregel zu aktivieren.",
-      "You are about to disable a discount rule.": "Sie sind dabei, eine Rabattregel zu deaktivieren."
+      "You are about to disable a discount rule.": "Sie sind dabei, eine Rabattregel zu deaktivieren.",
+      "You are about to delete the selected delivery types.": "Sie sind dabei, die ausgewählten Lieferarten zu löschen.",
+      "You are about to set the selected delivery types enabled.": "Sie sind dabei, die ausgewählten Lieferarten zu aktivieren.",
+      "You are about to set the selected delivery types disabled.": "Sie sind dabei, die ausgewählten Lieferarten zu deaktivieren.",
+      "You are about to delete a delivery type.": "Sie sind dabei, eine Lieferart zu löschen.",
+      "You are about to enable a delivery type.": "Sie sind dabei, eine Lieferart zu aktivieren.",
+      "You are about to disable a delivery type.": "Sie sind dabei, eine Lieferart zu deaktivieren."
     }
   },
   fr: {

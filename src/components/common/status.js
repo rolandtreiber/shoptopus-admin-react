@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
 import { StatusBadge } from './status-badge';
+import {useTranslation} from "react-i18next";
 
 export const Status = (props) => {
   const { color, label, ...other } = props;
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -21,7 +23,7 @@ export const Status = (props) => {
         }}
         variant="body2"
       >
-        {label}
+        {t(label)}
       </Typography>
     </Box>
   );

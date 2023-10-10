@@ -172,7 +172,7 @@ const ProductCategoriesTable = (props) => {
           <TableCell>
             <Status
               color={statusVariant.color}
-              label={t(statusVariant.label)}
+              label={statusVariant.label}
             />
           </TableCell>
           <TableCell align="right">

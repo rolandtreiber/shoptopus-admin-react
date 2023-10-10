@@ -13,6 +13,7 @@ import {DeliveryTypesTable} from "../../components/page-components/delivery-type
 import {DeliveryTypeDialog} from "../../components/page-components/delivery-types/delivery-type-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -85,6 +86,7 @@ export const DeliveryTypesList = () => {
             mergeSelectableRows(dataState.data)
         }
     }, [dataState])
+    const { t } = useTranslation();
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
@@ -220,7 +222,7 @@ export const DeliveryTypesList = () => {
     return (
       <>
           <Helmet>
-              <title>Delivery Types | {appName}</title>
+              <title>{t("Delivery Types")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -247,7 +249,7 @@ export const DeliveryTypesList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Delivery Types
+                              {t("Delivery Types")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
@@ -257,7 +259,7 @@ export const DeliveryTypesList = () => {
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              Add
+                              {t("Add")}
                           </Button>
                           <ExportButton
                             name={"delivery-types"}
