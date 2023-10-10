@@ -112,7 +112,7 @@ export const CustomerSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon/>}
-                to="/customers"
+                to="/admin/customers"
                 variant="text"
               >
                 {t("Customers")}

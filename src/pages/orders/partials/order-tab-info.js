@@ -6,8 +6,11 @@ import AddressCard from "../../../components/page-components/addresses/address-c
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
 import Price from "../../../components/common/price";
 import {format} from "date-fns";
+import {useTranslation} from "react-i18next";
 
 const OrderTabInfo = ({data, updated}) => {
+  const { t } = useTranslation();
+
   return (<Grid container spacing={2}>
     {data ? <>
       <Grid item xs={12} lg={7}>
@@ -16,37 +19,37 @@ const OrderTabInfo = ({data, updated}) => {
           <Divider />
           <List>
             <ListItemGridKeyValue
-              left={<ListItemText>ID</ListItemText>}
+              left={<ListItemText>{t("ID")}</ListItemText>}
               right={<ListItemText>{data.id}</ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Total</ListItemText>}
+              left={<ListItemText>{t("Total")}</ListItemText>}
               right={<ListItemText><Price>{data.total_price}</Price></ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Discount</ListItemText>}
+              left={<ListItemText>{t("Discount")}</ListItemText>}
               right={<ListItemText><Price>{data.total_discount}</Price></ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Delivery</ListItemText>}
+              left={<ListItemText>{t("Delivery")}</ListItemText>}
               right={<ListItemText><Price>{data.delivery_cost}</Price></ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Voucher Code</ListItemText>}
+              left={<ListItemText>{t("Voucher Code")}</ListItemText>}
               right={<ListItemText>{data.voucher_code ? data.voucher_code.code : "none"}</ListItemText>}
             />
             <ListItemGridKeyValue
-              left={<ListItemText>Placed At</ListItemText>}
+              left={<ListItemText>{t("Placed At")}</ListItemText>}
               right={<ListItemText>{format(new Date(data.created_at), 'dd-MMM-yyyy HH:mm')}</ListItemText>}
             />
           </List>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title="Customer" />
+          <CardHeader title={t("Customer")} />
           <CustomerCard data={data.user}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title="Payment" />
+          <CardHeader title={t("Payment")} />
           <TransactionCard payment={data.payments[0]}/>
         </Card>
       </Grid>
@@ -55,16 +58,16 @@ const OrderTabInfo = ({data, updated}) => {
           <OrderStatus order={data} updated={updated}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title="Address" />
+          <CardHeader title={t("Address")} />
           <AddressCard vertical={true} address={data.address}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title="Delivery" />
+          <CardHeader title={t("Delivery")} />
         </Card>
       </Grid>
     </> : (<Grid item xs={12}>
       <Card variant="outlined" style={{padding: 10}}>
-        No data to display
+        {t("No data to display")}
       </Card>
     </Grid>)}
   </Grid>)

@@ -9,6 +9,7 @@ import { StatusSelect } from '../../common/status-select';
 import { OrderTimeline } from './order-timeline';
 import {APIContext} from "../../../contexts/api-context";
 import orderStatuses from "../../../data/order-statuses.json";
+import {useTranslation} from "react-i18next";
 
 const statusOptions = orderStatuses;
 
@@ -18,6 +19,7 @@ export const OrderStatus = (props) => {
   const [status, setStatus] = useState(order?.status || '');
   const [newStatus, setNewStatus] = useState(order?.status || '');
   const {updateOrder} = useContext(APIContext)
+  const { t } = useTranslation();
 
   const handleStatusChange = (event) => {
     setNewStatus(event.target.value);
@@ -45,7 +47,7 @@ export const OrderStatus = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader title="Status and History" />
+        <CardHeader title={t("Status and History")} />
         <Divider />
         <CardContent>
           {<StatusSelect
@@ -59,7 +61,7 @@ export const OrderStatus = (props) => {
             sx={{ my: 2 }}
             variant="contained"
           >
-            Save Changes
+            {t("Save Changes")}
           </Button>
           <Typography
             sx={{
@@ -68,41 +70,18 @@ export const OrderStatus = (props) => {
             }}
             variant="caption"
           >
-            {`Updated ${format(new Date(order.updated_at), 'dd/MM/yyyy HH:mm')}`}
+            {`${t("Updated")} ${format(new Date(order.updated_at), 'dd/MM/yyyy HH:mm')}`}
           </Typography>
           <Divider sx={{ my: 2 }} />
           <OrderTimeline status={status} events={order.event_logs} />
         </CardContent>
-        {/*<Divider />*/}
-        {/*<ActionList>*/}
-        {/*  <ActionListItem*/}
-        {/*    icon={CheckCircleIcon}*/}
-        {/*    label="Mark as Paid"*/}
-        {/*    onClick={handleOpenMarkDialog}*/}
-        {/*  />*/}
-        {/*  <ActionListItem*/}
-        {/*    icon={DuplicateIcon}*/}
-        {/*    label="Duplicate OrderSingle"*/}
-        {/*    onClick={handleOpenDuplicateDialog}*/}
-        {/*  />*/}
-        {/*  <ActionListItem*/}
-        {/*    disabled*/}
-        {/*    icon={ReceiptRefundIcon}*/}
-        {/*    label="Request a Refund"*/}
-        {/*  />*/}
-        {/*  <ActionListItem*/}
-        {/*    icon={ArchiveIcon}*/}
-        {/*    label="Archive OrderSingle"*/}
-        {/*    onClick={handleOpenArchiveDialog}*/}
-        {/*  />*/}
-        {/*</ActionList>*/}
       </Card>
       <ConfirmationDialog
-        message="Are you sure you want to update the status of this order?"
+        message={t("Are you sure you want to update the status of this order?")}
         onCancel={handleCloseSaveDialog}
         onConfirm={handleSave}
         open={saveDialogOpen}
-        title="Update Order Status"
+        title={t("Update Order Status")}
         variant="info"
       />
     </>

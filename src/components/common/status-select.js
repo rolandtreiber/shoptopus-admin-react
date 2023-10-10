@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import { MenuItem } from '@material-ui/core';
 import { InputField } from './input-field';
 import { StatusBadge } from './status-badge';
+import {useTranslation} from "react-i18next";
 
 export const StatusSelect = (props) => {
   const { options, ...other } = props;
+  const { t } = useTranslation();
 
   return (
     <InputField
@@ -28,7 +30,7 @@ export const StatusSelect = (props) => {
               mr: 1
             }}
           />
-          {option.label}
+          {t(option.label)}
         </MenuItem>
       ))}
     </InputField>

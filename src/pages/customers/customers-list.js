@@ -12,6 +12,7 @@ import {getUrlFilters} from "../../utils/apply-filters";
 import {SettingsContext} from "../../contexts/settings-context";
 import {EmailClientContext} from "../../contexts/email-client-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
   {
@@ -62,6 +63,8 @@ export const CustomersList = () => {
     view: 'all'
   });
   const [customersState, setCustomersState] = useState({isLoading: true});
+  const { t } = useTranslation();
+
   const [
     selectedElements,
     handleSelect,
@@ -183,7 +186,7 @@ export const CustomersList = () => {
   return (
     <>
       <Helmet>
-        <title>Customer: List | {appName}</title>
+        <title>{t("Customer")}: {t("List")} | {appName}</title>
       </Helmet>
       <Box
         sx={{
@@ -210,7 +213,7 @@ export const CustomersList = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Customers
+                {t("Customers")}
               </Typography>
               <Box sx={{flexGrow: 1}}/>
               <ExportButton

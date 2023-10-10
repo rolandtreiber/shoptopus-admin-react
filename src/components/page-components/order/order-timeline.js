@@ -11,10 +11,11 @@ import {
 import {AccessAlarm, AirportShuttle, Check, Close, CreditCard, Link, Settings} from '@mui/icons-material';
 import {format} from "date-fns";
 import orderStatuses from "../../../data/order-statuses.json"
+import {useTranslation} from "react-i18next";
 
 export const OrderTimeline = (props) => {
   const { status, events, ...other } = props;
-
+  const { t } = useTranslation();
 
   const getOrderStatus = (statusId) => {
     const result = orderStatuses.filter(item => {
@@ -85,12 +86,9 @@ export const OrderTimeline = (props) => {
             <TimelineContent>
               <Typography
                 color={'textPrimary'}
-                // color={(event.value === 'complete' || event.value === 'active')
-                //   ? 'textPrimary'
-                //   : 'textSecondary'}
                 variant="overline"
               >
-                {event.message}
+                {t(event.message)}
               </Typography>
               <Typography
                 sx={{

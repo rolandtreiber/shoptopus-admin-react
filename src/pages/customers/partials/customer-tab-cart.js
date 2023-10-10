@@ -62,7 +62,7 @@ const CustomerTabCart = ({data}) => {
                   <TableRow>
                     <TableCell padding="normal">{t("Name")}</TableCell>
                     <TableCell padding="normal">{t("Quantity")}</TableCell>
-                    <TableCell padding="normal">{t("Unit price")}</TableCell>
+                    <TableCell padding="normal">{t("Unit Price")}</TableCell>
                     <TableCell padding="normal">{t("Price")}</TableCell>
                   </TableRow>
                 </TableHead>

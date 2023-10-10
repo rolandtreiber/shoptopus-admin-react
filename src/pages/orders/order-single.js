@@ -16,6 +16,7 @@ import Panel from "../../components/common/panel";
 import OrderTabInfo from "./partials/order-tab-info";
 import OrderTabItems from "./partials/order-tab-items";
 import OrderTabEmails from "./partials/order-tab-emails";
+import {useTranslation} from "react-i18next";
 
 export const OrderSingle = () => {
   const mounted = useMounted();
@@ -35,6 +36,7 @@ export const OrderSingle = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const { t } = useTranslation();
 
   const a11yProps = (index) => {
     return {
@@ -135,7 +137,7 @@ export const OrderSingle = () => {
   return (
     <>
       <Helmet>
-        <title>Order: {orderState.data ? orderState.data.slug : 'Loading...'} | {appName}</title>
+        <title>{t("Order")}: {orderState.data ? orderState.data.slug : 'Loading...'} | {appName}</title>
       </Helmet>
       {orderState.isLoading ? (
         <Box sx={{py: 4}}>
@@ -166,7 +168,7 @@ export const OrderSingle = () => {
                   to="/orders"
                   variant="text"
                 >
-                  Orders
+                  {t("Orders")}
                 </Button>
               </Box>
               <Box
@@ -185,17 +187,6 @@ export const OrderSingle = () => {
                                         updatedCallback={{cb: getOrder}}/>}
                 </Typography>
                 <Box sx={{flexGrow: 1}}/>
-                <Button
-                  color="primary"
-                  onClick={() => getOrder(false).catch(err => console.log(err.message))}
-                  size="large"
-                  sx={{
-                    marginLeft: 1
-                  }}
-                  variant="contained"
-                >
-                  Reload
-                </Button>
                 {orderState.data && <Fragment>
                   <Button
                     color="primary"
@@ -208,7 +199,7 @@ export const OrderSingle = () => {
                     startIcon={<Email fontSize="small"/>}
                     variant="contained"
                   >
-                    Email
+                    {t("Email")}
                   </Button>
                   <ActionsMenu actions={actions}/>
                 </Fragment>}
@@ -226,9 +217,9 @@ export const OrderSingle = () => {
                       }}
                     >
                       <Tabs value={value} onChange={handleChange}>
-                        <Tab label="Info" {...a11yProps(0)} />
-                        <Tab label="Items" {...a11yProps(1)} />
-                        <Tab label="Emails" {...a11yProps(2)} />
+                        <Tab label={t("Info")} {...a11yProps(0)} />
+                        <Tab label={t("Items")} {...a11yProps(1)} />
+                        <Tab label={t("Emails")} {...a11yProps(2)} />
                       </Tabs>
                     </Box>
                     <Divider sx={{marginBottom: 2}}/>
@@ -243,23 +234,6 @@ export const OrderSingle = () => {
           </Container>
         </Box>
             )}
-      {/*<Box*/}
-      {/*  sx={{*/}
-      {/*    backgroundColor: 'background.default',*/}
-      {/*    flexGrow: 1*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Container*/}
-      {/*    maxWidth="lg"*/}
-      {/*    sx={{*/}
-      {/*      display: 'flex',*/}
-      {/*      flexDirection: 'column',*/}
-      {/*      height: '100%'*/}
-      {/*    }}*/}
-      {/*  >*/}
-      {/*    {renderContent()}*/}
-      {/*  </Container>*/}
-      {/*</Box>*/}
     </>
   );
 };
