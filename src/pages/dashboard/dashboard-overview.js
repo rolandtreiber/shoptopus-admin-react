@@ -68,30 +68,30 @@ export const DashboardOverview = () => {
         {
           content: data.data.stats.orders,
           icon: ShoppingCartIcon,
-          label: t('Orders'),
+          label: 'Orders',
           linkHref: '/admin/orders',
-          linkLabel: t('Orders')
+          linkLabel: 'Orders'
         },
         {
           content: data.data.stats.products,
           icon: CubeIcon,
-          label: t('Products'),
+          label: 'Products',
           linkHref: '/admin/products',
-          linkLabel: t('Products')
+          linkLabel: 'Products'
         },
         {
           content: data.data.stats.payments,
           icon: CustomCreditCardIcon,
-          label: t('Transactions'),
+          label: 'Transactions',
           linkHref: '/admin/transactions',
-          linkLabel: t('Transactions')
+          linkLabel: 'Transactions'
         },
         {
           content: data.data.stats.customers,
           icon: CustomCreditCardIcon,
-          label: t('Customers'),
+          label: 'Customers',
           linkHref: '/admin/customers',
-          linkLabel: t('Customers')
+          linkLabel: 'Customers'
         }
       ])
     }
@@ -114,9 +114,9 @@ export const DashboardOverview = () => {
               <SummaryItem
                 content={item.content}
                 icon={item.icon}
-                label={item.label}
+                label={t(item.label)}
                 linkHref={item.linkHref}
-                linkLabel={item.linkLabel}
+                linkLabel={t(item.linkLabel)}
               />
             </Grid>
           ))}

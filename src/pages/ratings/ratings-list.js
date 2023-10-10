@@ -11,6 +11,7 @@ import {getUrlFilters} from "../../utils/apply-filters";
 import {RatingsTable} from "../../components/page-components/ratings/ratings-table";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -90,11 +91,14 @@ export const RatingsList = () => {
         bulkUpdateRatingsVerifiedStatus
     } = useContext(APIContext)
 
+    const { t } = useTranslation();
+
     useEffect(() => {
         if (dataState.data) {
             mergeSelectableRows(dataState.data)
         }
     }, [dataState])
+
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
@@ -233,7 +237,7 @@ export const RatingsList = () => {
     return (
       <>
           <Helmet>
-              <title>Ratings | {appName}</title>
+              <title>{t("Ratings")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -260,7 +264,7 @@ export const RatingsList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Ratings
+                              {t("Ratings")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <ExportButton

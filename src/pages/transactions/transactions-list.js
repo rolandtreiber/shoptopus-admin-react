@@ -11,6 +11,7 @@ import {getUrlFilters} from "../../utils/apply-filters";
 import {TransactionsTable} from "../../components/page-components/transactions/transactions-table";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
+import {useTranslation} from "react-i18next";
 
 const views = [
     {
@@ -50,6 +51,8 @@ export const TransactionsList = () => {
         sortBy: 'updated_at',
         view: 'all'
     });
+    const { t } = useTranslation();
+
     const {appName} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
     const [
@@ -182,7 +185,7 @@ export const TransactionsList = () => {
     return (
       <>
           <Helmet>
-              <title>Transactions | {appName}</title>
+              <title>{t("Transactions")} | {appName}</title>
           </Helmet>
           <Box
             sx={{
@@ -209,7 +212,7 @@ export const TransactionsList = () => {
                             color="textPrimary"
                             variant="h4"
                           >
-                              Transactions
+                              {t("Transactions")}
                           </Typography>
                           <Box sx={{ flexGrow: 1 }} />
                           <ExportButton
@@ -254,7 +257,7 @@ export const TransactionsList = () => {
                                 callback: () => handleBulkStatusUpdate(2)
                             },
                             {
-                                name: 'Mark as in rejected',
+                                name: 'Mark as rejected',
                                 callback: () => handleBulkStatusUpdate(3)
                             }
                         ]}

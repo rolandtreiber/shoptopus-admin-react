@@ -27,7 +27,7 @@ export const BulkActionsMenu = (props) => {
           }
         }}
       >
-        Bulk Actions
+        {t("Bulk Actions")}
       </Button>
       <Menu
         anchorEl={anchorRef.current}
