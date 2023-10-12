@@ -274,7 +274,12 @@ const resources = {
       "Order status was updated to In Transit": "Bestellstatus wurde auf 'In Transit' aktualisiert",
       "Order status was updated to Completed": "Bestellstatus wurde auf 'Abgeschlossen' aktualisiert",
       "Order status was updated to On Hold": "Bestellstatus wurde auf 'In Wartestellung' aktualisiert",
-      "Order status was updated to Cancelled": "Bestellstatus wurde auf 'Abgebrochen' aktualisiert"
+      "Order status was updated to Cancelled": "Bestellstatus wurde auf 'Abgebrochen' aktualisiert",
+      "The email(s) have been sent successfully": "Die E-Mail(s) wurden erfolgreich versendet",
+      "You are about to send one or more emails.": "Sie sind im Begriff, eine oder mehrere E-Mails zu senden.\n",
+      "One of the addresses is invalid. Please correct.": "Eine der Adressen ist ungültig. Bitte korrigieren.",
+      "Compose Email": "E-Mail verfassen",
+      "Attachments": "Anhänge",
     }
   },
   fr: {

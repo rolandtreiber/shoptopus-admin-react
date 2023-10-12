@@ -16,8 +16,10 @@ import {
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
 import {SortableItem} from './sortable-item';
+import {useTranslation} from "react-i18next";
 
 export const Uploader = ({title, data, setData, multiple = true, max = null, types = ['images']}) => {
+  const { t } = useTranslation();
   const [showDropZone, setShowDropZone] = useState()
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(
@@ -157,7 +159,7 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
             sx={{mb: 1.25}}
             variant="subtitle2"
           >
-            {title}
+            {t(title)}
           </Typography>
           {multiple === true ? (
             <DndContext

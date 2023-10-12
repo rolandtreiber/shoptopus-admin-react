@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Dialog,
   DialogActions,
-  DialogContent, DialogTitle, Grid, Table, TableBody, TableCell, TableRow, TextField
+  DialogContent, Grid, Table, TableBody, TableCell, TableRow, TextField
 } from '@material-ui/core';
 import {Delete, Send} from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
@@ -23,6 +23,7 @@ import {getFileFromBlob} from "../utils/file-operations";
 import {SettingsContext} from "./settings-context";
 import '../static/css/wysiwyg.css';
 import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
+import {DialogTitleTranslated} from "../components/common/dialog-title-translated";
 
 export const EmailClientContext = createContext();
 
@@ -35,7 +36,7 @@ export const EmailClientProvider = ({children}) => {
   const [addresses, setAddresses] = useState([])
   const [address, setAddress] = useState('')
   const [subject, setSubject] = useState()
-  const setTitle = useState()[1]
+  const [setTitle] = useState("Compose Email")
   const [body, setBody] = useState('<p></p>')
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [modalVisibility, setModalVisibility] = useState(false)
@@ -128,7 +129,7 @@ export const EmailClientProvider = ({children}) => {
 
     const result = await sendEmail(formData).finally(() => setWorking(false))
     if (await result.message === 'success') {
-      toast.success("The email(s) have been sent successfully")
+      toast.success(t("The email(s) have been sent successfully"))
       setEditorState(EditorState.createEmpty())
       setSubject('')
       setAddresses([])
@@ -143,7 +144,7 @@ export const EmailClientProvider = ({children}) => {
     } else {
       addresses.forEach(a => {
         if (a.indexOf('@') === -1 || a.indexOf('.') === -1 || a.length < 5) {
-          e.addresses = 'One of the addresses is invalid. Please correct.'
+          e.addresses = t('One of the addresses is invalid. Please correct.')
         }
       })
     }
@@ -187,9 +188,7 @@ export const EmailClientProvider = ({children}) => {
         onClose={() => setModalVisibility(false)}
         open={modalVisibility}
       >
-        <DialogTitle>
-          {'Compose Email'}
-        </DialogTitle>
+        <DialogTitleTranslated title={'Compose Email'}/>
         <DialogContent>
           <Grid
             container
