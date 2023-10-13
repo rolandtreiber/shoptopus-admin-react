@@ -356,6 +356,19 @@ const APIProvider = ({children}) => {
       updateNote: async (id, note) => await patch(admin_api_url + "note/"+id, {note : note}, makeHeaders()),
       deleteNote: async (id) => await del(admin_api_url + "note/"+id, {}, makeHeaders()),
 
+      // Roles and Permissions
+      fetchRoles: async () => await get(admin_api_url + "roles", {}, makeHeaders()),
+      fetchPermissions: async () => await get(admin_api_url + "permissions", {}, makeHeaders()),
+      fetchPermissionsForRole: async (roleId) => await get(admin_api_url + "roles/"+roleId+"/permissions", {}, makeHeaders()),
+      fetchUsersForRole: async (roleId) => await get(admin_api_url + "roles/"+roleId+"/users", {}, makeHeaders()),
+      saveRole: async (params) => await post(admin_api_url + "roles", params, makeHeaders()),
+      updateRole: async (roleId, params) => await patch(admin_api_url + "roles/"+roleId, params, makeHeaders()),
+      deleteRole: async (roleId) => await post(admin_api_url + "roles/"+roleId, {}, makeHeaders()),
+      assignPermissionToRole: async (roleId, permissionId) => await patch(admin_api_url + "roles/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
+      removePermissionFromRole: async (roleId, permissionId) => await del(admin_api_url + "roles/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
+      assignRoleToUser: async (roleId, userId) => await patch(admin_api_url + "roles/"+roleId+"/users/"+userId, {}, makeHeaders()),
+      removeRoleFromUser: async (roleId, userId) => await del(admin_api_url + "roles/"+roleId+"/users/"+userId, {}, makeHeaders()),
+
       accessToken,
       setAccessToken,
     }),
