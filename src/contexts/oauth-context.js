@@ -69,42 +69,32 @@ export const AuthContext = createContext({
 export const AuthProvider = (props) => {
   const {children} = props;
   const [state, dispatch] = useReducer(reducer, initialState);
+  const {user} = state;
   const {callLoginApi, callMeApi, setAccessToken, callPasswordRecoveryApi, callPasswordResetApi} = useContext(APIContext)
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        const accessToken = window.localStorage.getItem('accessToken');
+  const initialize = async () => {
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
 
-        if (accessToken) {
-          dispatch({
-            type: 'SET_ACCESS_TOKEN',
-            payload: {
-              accessToken
-            }
-          });
+      if (accessToken) {
+        dispatch({
+          type: 'SET_ACCESS_TOKEN',
+          payload: {
+            accessToken
+          }
+        });
 
-          setAccessToken(accessToken)
-          const user = await callMeApi(accessToken);
+        setAccessToken(accessToken)
+        const user = await callMeApi(accessToken);
 
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: true,
-              user: user.data.data
-            }
-          });
-        } else {
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: false,
-              user: null
-            }
-          });
-        }
-      } catch (err) {
-        console.error(err);
+        dispatch({
+          type: 'INITIALIZE',
+          payload: {
+            isAuthenticated: true,
+            user: user.data.data
+          }
+        });
+      } else {
         dispatch({
           type: 'INITIALIZE',
           payload: {
@@ -113,8 +103,19 @@ export const AuthProvider = (props) => {
           }
         });
       }
-    };
+    } catch (err) {
+      console.error(err);
+      dispatch({
+        type: 'INITIALIZE',
+        payload: {
+          isAuthenticated: false,
+          user: null
+        }
+      });
+    }
+  };
 
+  useEffect(() => {
     initialize();
   }, []);
 
@@ -165,6 +166,10 @@ export const AuthProvider = (props) => {
     return await callPasswordResetApi(payload)
   };
 
+  const hasPermissionTo = (perm) => {
+    return state.user?.permissions?.indexOf(perm) !== -1
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -174,7 +179,11 @@ export const AuthProvider = (props) => {
         logout,
         register,
         passwordRecovery,
-        passwordReset
+        passwordReset,
+        initialize,
+        user: user,
+        permissions: user?.permissions,
+        can: hasPermissionTo
       }}
     >
       {children}

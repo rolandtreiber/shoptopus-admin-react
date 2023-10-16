@@ -87,6 +87,11 @@ const FileContent = Loadable(lazy(() => import('./pages/files/file-single').then
 const Reports = Loadable(lazy(() => import('./pages/reports/reports').then((module) => ({default: module.Reports}))));
 const Notifications = Loadable(lazy(() => import('./pages/notifications/notifications').then((module) => ({default: module.Notifications}))));
 
+const RolesAndPermissions = Loadable(lazy(() => import('./pages/roles-and-permissions/roles-and-permissions').then((module) => ({default: module.RolesAndPermissions}))));
+const RoleTab = Loadable(lazy(() => import('./pages/roles-and-permissions/role-tab').then((module) => ({default: module.RoleTab}))));
+const RolesAndPermissionsGeneralInformationTab = Loadable(lazy(() => import('./pages/roles-and-permissions/roles-and-permissions-general-information-tab').then((module) => ({default: module.RolesAndPermissionsGeneralInformationTab}))));
+const SystemUsersList = Loadable(lazy(() => import('./pages/system-users/system-users-list').then((module) => ({default: module.SystemUsersList}))));
+
 const routes = [
   {
     path: '/',
@@ -414,6 +419,24 @@ const routes = [
             ]
           }
         ]
+      },
+      {
+        path: '/admin/roles-and-permissions',
+        element: <RolesAndPermissions/>,
+        children: [
+          {
+            path: '/admin/roles-and-permissions',
+            element: <RolesAndPermissionsGeneralInformationTab/>
+          },
+          {
+            path: '/admin/roles-and-permissions/:role',
+            element: <RoleTab/>
+          },
+        ]
+      },
+      {
+        path: '/admin/system-users',
+        element: <SystemUsersList/>,
       },
       {
         path: '/admin/import',

@@ -5,6 +5,8 @@ import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mat
 import { ChevronRight as ChevronRightIcon } from '../../../icons/chevron-right';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
 import { ExternalLink as ExternalLinkIcon } from '../../../icons/external-link';
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 export const MobileNavbarMenuItem = (props) => {
   const {
@@ -20,7 +22,8 @@ export const MobileNavbarMenuItem = (props) => {
     title
   } = props;
   const { t } = useTranslation();
-
+  const {can} = useContext(AuthContext)
+  
   // Branch
   if (items) {
     return (
@@ -89,7 +92,7 @@ export const MobileNavbarMenuItem = (props) => {
             {items.map((item) => {
               const isActive = activeHref === item.href;
 
-              return (
+              return (item.permission === undefined || can(item.permission)) && (
                 <ListItemButton
                   component={RouterLink}
                   divider

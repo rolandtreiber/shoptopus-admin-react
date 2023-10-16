@@ -5,6 +5,7 @@ export const DialogContext = createContext();
 
 export const DialogProvider = ({children}) => {
   const [callback, setCallback] = useState({method: null})
+  const [onCancelCallback, setOnCancelCallback] = useState({method: null})
   const [genericDialogVisibility, showGenericDialog] = useState(false)
   const [title, setTitle] = useState('Are you sure?')
   const [description, setDescription] = useState('Are you sure?')
@@ -13,12 +14,15 @@ export const DialogProvider = ({children}) => {
     <DialogContext.Provider
       value={[
           {callback},
-          {setCallback, showGenericDialog, setTitle, setDescription}
+          {setCallback, showGenericDialog, setTitle, setDescription, setOnCancelCallback}
         ]}
     >
       <ConfirmationDialog
         message={description}
-        onCancel={() => showGenericDialog(false)}
+        onCancel={() => {
+          onCancelCallback.method && onCancelCallback.method()
+          showGenericDialog(false)
+        }}
         onConfirm={() => {
           callback.method()
           showGenericDialog(false)

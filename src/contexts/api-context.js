@@ -359,13 +359,13 @@ const APIProvider = ({children}) => {
       // Roles and Permissions
       fetchRoles: async () => await get(admin_api_url + "roles", {}, makeHeaders()),
       fetchPermissions: async () => await get(admin_api_url + "permissions", {}, makeHeaders()),
-      fetchPermissionsForRole: async (roleId) => await get(admin_api_url + "roles/"+roleId+"/permissions", {}, makeHeaders()),
+      fetchPermissionsForRole: async (roleId) => await get(admin_api_url + "role/"+roleId+"/permissions", {}, makeHeaders()),
       fetchUsersForRole: async (roleId) => await get(admin_api_url + "roles/"+roleId+"/users", {}, makeHeaders()),
-      saveRole: async (params) => await post(admin_api_url + "roles", params, makeHeaders()),
-      updateRole: async (roleId, params) => await patch(admin_api_url + "roles/"+roleId, params, makeHeaders()),
+      saveRole: async (params) => await post(admin_api_url + "role", params, makeHeaders()),
+      updateRole: async (roleId, params) => await patch(admin_api_url + "role/"+roleId, params, makeHeaders()),
       deleteRole: async (roleId) => await post(admin_api_url + "roles/"+roleId, {}, makeHeaders()),
-      assignPermissionToRole: async (roleId, permissionId) => await patch(admin_api_url + "roles/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
-      removePermissionFromRole: async (roleId, permissionId) => await del(admin_api_url + "roles/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
+      assignPermissionToRole: async (roleId, permissionId) => await post(admin_api_url + "role/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
+      removePermissionFromRole: async (roleId, permissionId) => await del(admin_api_url + "role/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
       assignRoleToUser: async (roleId, userId) => await patch(admin_api_url + "roles/"+roleId+"/users/"+userId, {}, makeHeaders()),
       removeRoleFromUser: async (roleId, userId) => await del(admin_api_url + "roles/"+roleId+"/users/"+userId, {}, makeHeaders()),
 

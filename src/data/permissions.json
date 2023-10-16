@@ -1,0 +1,317 @@
+{
+  "users.can.invite": {
+    "display_name": "Can Invite System Users"
+  },
+  "users.can.update": {
+    "display_name": "Can Update System Users"
+  },
+  "users.can.see": {
+    "display_name": "Can View System Users"
+  },
+  "users.can.list": {
+    "display_name": "Can List System Users"
+  },
+  "users.can.delete": {
+    "display_name": "Can Delete System Users"
+  },
+  "products.can.see": {
+    "display_name": "Can View Products"
+  },
+  "products.can.list": {
+    "display_name": "Can List Products"
+  },
+  "products.can.create": {
+    "display_name": "Can Create Products"
+  },
+  "products.can.delete": {
+    "display_name": "Can Delete Products"
+  },
+  "products.can.update": {
+    "display_name": "Can Update Products"
+  },
+  "product.variants.can.see": {
+    "display_name": "Can View Product Variants"
+  },
+  "product.variants.can.list": {
+    "display_name": "Can List Product Variants"
+  },
+  "product.variants.can.create": {
+    "display_name": "Can Create Product Variants"
+  },
+  "product.variants.can.delete": {
+    "display_name": "Can Delete Product Variants"
+  },
+  "product.variants.can.update": {
+    "display_name": "Can Update Product Variants"
+  },
+  "product.categories.can.see": {
+    "display_name": "Can See Product Categories"
+  },
+  "product.categories.can.list": {
+    "display_name": "Can List Product Categories"
+  },
+  "product.categories.can.create": {
+    "display_name": "Can Create Product Categories"
+  },
+  "product.categories.can.delete": {
+    "display_name": "Can Delete Product Categories"
+  },
+  "product.categories.can.update": {
+    "display_name": "Can Update Product Categories"
+  },
+  "product.attributes.can.see": {
+    "display_name": "Can See Product Attributes"
+  },
+  "product.attributes.can.list": {
+    "display_name": "Can List Product Attributes"
+  },
+  "product.attributes.can.create": {
+    "display_name": "Can Create Product Attributes"
+  },
+  "product.attributes.can.delete": {
+    "display_name": "Can Delete Product Attributes"
+  },
+  "product.attributes.can.update": {
+    "display_name": "Can Update Product Attributes"
+  },
+  "product.attribute.options.can.see": {
+    "display_name": "Can See Product Attribute Options"
+  },
+  "product.attribute.options.can.list": {
+    "display_name": "Can List Product Attribute Options"
+  },
+  "product.attribute.options.can.create": {
+    "display_name": "Can Create Product Attribute Options"
+  },
+  "product.attribute.options.can.delete": {
+    "display_name": "Can Delete Product Attribute Options"
+  },
+  "product.attribute.options.can.update": {
+    "display_name": "Can Update Product Attribute Options"
+  },
+  "product.tags.can.see": {
+    "display_name": "Can See Product Tags"
+  },
+  "product.tags.can.list": {
+    "display_name": "Can List Product Tags"
+  },
+  "product.tags.can.create": {
+    "display_name": "Can Create Product Tags"
+  },
+  "product.tags.can.delete": {
+    "display_name": "Can Delete Product Tags"
+  },
+  "product.tags.can.update": {
+    "display_name": "Can Update Product Tags"
+  },
+  "orders.can.see": {
+    "display_name": "Can See Orders"
+  },
+  "orders.can.list": {
+    "display_name": "Can List Orders"
+  },
+  "orders.can.create": {
+    "display_name": "Can Create Orders"
+  },
+  "orders.can.delete": {
+    "display_name": "Can Delete Orders"
+  },
+  "orders.can.update": {
+    "display_name": "Can Update Orders"
+  },
+  "discount.rules.can.see": {
+    "display_name": "Can See Discount Rules"
+  },
+  "discount.rules.can.list": {
+    "display_name": "Can List Discount Rules"
+  },
+  "discount.rules.can.create": {
+    "display_name": "Can Create Discount Rules"
+  },
+  "discount.rules.can.delete": {
+    "display_name": "Can Delete Discount Rules"
+  },
+  "discount.rules.can.update": {
+    "display_name": "Can Update Discount Rules"
+  },
+  "voucher.codes.can.see": {
+    "display_name": "Can See Voucher Codes"
+  },
+  "voucher.codes.can.list": {
+    "display_name": "Can List Voucher Codes"
+  },
+  "voucher.codes.can.create": {
+    "display_name": "Can Create Voucher Codes"
+  },
+  "voucher.codes.can.delete": {
+    "display_name": "Can Delete Voucher Codes"
+  },
+  "voucher.codes.can.update": {
+    "display_name": "Can Update Voucher Codes"
+  },
+  "delivery.types.can.see": {
+    "display_name": "Can See Delivery Types"
+  },
+  "delivery.types.can.list": {
+    "display_name": "Can List Delivery Types"
+  },
+  "delivery.types.can.create": {
+    "display_name": "Can Create Delivery Types"
+  },
+  "delivery.types.can.delete": {
+    "display_name": "Can Delete Delivery Types"
+  },
+  "delivery.types.can.update": {
+    "display_name": "Can Update Delivery Types"
+  },
+  "delivery.rules.can.see": {
+    "display_name": "Can See Delivery Rules"
+  },
+  "delivery.rules.can.list": {
+    "display_name": "Can List Delivery Rules"
+  },
+  "delivery.rules.can.create": {
+    "display_name": "Can Create Delivery Rules"
+  },
+  "delivery.rules.can.delete": {
+    "display_name": "Can Delete Delivery Rules"
+  },
+  "delivery.rules.can.update": {
+    "display_name": "Can Update Delivery Rules"
+  },
+  "customers.can.see": {
+    "display_name": "Can See Customers"
+  },
+  "customers.can.list": {
+    "display_name": "Can List Customers"
+  },
+  "customers.can.create": {
+    "display_name": "Can Create Customers"
+  },
+  "customers.can.delete": {
+    "display_name": "Can Delete Customers"
+  },
+  "customers.can.update": {
+    "display_name": "Can Update Customers"
+  },
+  "payments.can.see": {
+    "display_name": "Can See Payments"
+  },
+  "payments.can.list": {
+    "display_name": "Can List Payments"
+  },
+  "payments.can.create": {
+    "display_name": "Can Create Payments"
+  },
+  "payments.can.delete": {
+    "display_name": "Can Delete Payments"
+  },
+  "payments.can.update": {
+    "display_name": "Can Update Payments"
+  },
+  "notes.can.see": {
+    "display_name": "Can See Notes"
+  },
+  "notes.can.list": {
+    "display_name": "Can List Notes"
+  },
+  "notes.can.create": {
+    "display_name": "Can Create Notes"
+  },
+  "notes.can.delete": {
+    "display_name": "Can Delete Notes"
+  },
+  "notes.can.update": {
+    "display_name": "Can Update Notes"
+  },
+  "ratings.can.see": {
+    "display_name": "Can See Ratings"
+  },
+  "ratings.can.list": {
+    "display_name": "Can List Ratings"
+  },
+  "ratings.can.create": {
+    "display_name": "Can Create Ratings"
+  },
+  "ratings.can.delete": {
+    "display_name": "Can Delete Ratings"
+  },
+  "ratings.can.update": {
+    "display_name": "Can Update Ratings"
+  },
+  "banners.can.see": {
+    "display_name": "Can See Banners"
+  },
+  "banners.can.list": {
+    "display_name": "Can List Banners"
+  },
+  "banners.can.create": {
+    "display_name": "Can Create Banners"
+  },
+  "banners.can.delete": {
+    "display_name": "Can Delete Banners"
+  },
+  "banners.can.update": {
+    "display_name": "Can Update Banners"
+  },
+  "files.can.see": {
+    "display_name": "Can See Files"
+  },
+  "files.can.list": {
+    "display_name": "Can List Files"
+  },
+  "files.can.create": {
+    "display_name": "Can Create Files"
+  },
+  "files.can.delete": {
+    "display_name": "Can Delete Files"
+  },
+  "files.can.update": {
+    "display_name": "Can Update Files"
+  },
+  "paid.files.can.see": {
+    "display_name": "Paid Can See Files"
+  },
+  "paid.files.can.list": {
+    "display_name": "Can List Paid Files"
+  },
+  "paid.files.can.create": {
+    "display_name": "Can Create Paid Files"
+  },
+  "paid.files.can.delete": {
+    "display_name": "Can Delete Paid Files"
+  },
+  "paid.files.can.update": {
+    "display_name": "Can Update Paid Files"
+  },
+  "reports.can.see": {
+    "display_name": "Can See Reports"
+  },
+  "reports.can.list": {
+    "display_name": "Can List Reports"
+  },
+  "reports.can.create": {
+    "display_name": "Can Create Reports"
+  },
+  "reports.can.delete": {
+    "display_name": "Can Delete Reports"
+  },
+  "reports.can.update": {
+    "display_name": "Can Update Reports"
+  },
+  "emails.can.see": {
+    "display_name": "Can See Emails"
+  },
+  "emails.can.list": {
+    "display_name": "Can List Emails"
+  },
+  "export.can.create": {
+    "display_name": "Can Create Export"
+  },
+  "can.import.mass.records": {
+    "display_name": "Can Mass Import Records"
+  },
+  "auditables.can.view": {
+    "display_name": "Can View Auditables"
+  }
+}

@@ -5,6 +5,8 @@ import { Button, Collapse, List, Typography } from '@material-ui/core';
 import { ChevronRight as ChevronRightIcon } from '../../../icons/chevron-right';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
 import { ExternalLink as ExternalLinkIcon } from '../../../icons/external-link';
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 export const DektopSidebarMenuItem = (props) => {
   const {
@@ -20,6 +22,7 @@ export const DektopSidebarMenuItem = (props) => {
     title
   } = props;
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   // Branch
   if (items) {
@@ -78,7 +81,7 @@ export const DektopSidebarMenuItem = (props) => {
             {items.map((item) => {
               const isActive = activeHref === item.href;
 
-              return (
+              return (item.permission === undefined || can(item.permission)) && (
                 <li key={item.href}>
                   <Button
                     component={RouterLink}

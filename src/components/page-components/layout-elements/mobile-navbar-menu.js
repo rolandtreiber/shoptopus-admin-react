@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {Fragment, useContext, useEffect, useState} from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer, List } from '@material-ui/core';
@@ -8,14 +8,14 @@ import { CustomChartPie as ChartPieIcon } from '../../../icons/custom-chart-pie'
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import { CustomShoppingCart as ShoppingCartIcon } from '../../../icons/custom-shopping-cart';
 import { CustomUsers as UsersIcon } from '../../../icons/custom-users';
-import { OfficeBuilding as OfficeBuildingIcon } from '../../../icons/office-building';
 import {Dashboard} from "../../../icons/dashboard";
 import {Discount} from "../../../icons/discount";
 import {DeliveryVan} from "../../../icons/delivery";
 import {Payment} from "../../../icons/payment";
 import {Star} from "../../../icons/star";
 import {Content} from "../../../icons/content";
-import {ImportContacts} from "@material-ui/icons";
+import {ImportContacts, LockOpen, Person} from "@material-ui/icons";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 const items = [
   {
@@ -27,11 +27,13 @@ const items = [
     icon: UsersIcon,
     title: 'Customers',
     href: '/admin/customers',
+    permission: 'customers.can.list'
   },
   {
     icon: CubeIcon,
     title: 'Orders',
     href: '/admin/orders',
+    permission: 'orders.can.list'
   },
   {
     icon: ShoppingCartIcon,
@@ -39,19 +41,23 @@ const items = [
     items: [
       {
         href: '/admin/products',
-        title: 'List'
+        title: 'List',
+        permission: 'products.can.list'
       },
       {
         href: '/admin/product-categories',
-        title: 'Categories'
+        title: 'Categories',
+        permission: 'product.categories.can.list'
       },
       {
         href: '/admin/product-attributes',
-        title: 'Attributes'
+        title: 'Attributes',
+        permission: 'product.attributes.can.list'
       },
       {
         href: '/admin/product-tags',
-        title: 'Tags'
+        title: 'Tags',
+        permission: 'product.tags.can.list'
       }
     ]
   },
@@ -61,28 +67,33 @@ const items = [
     items: [
       {
         href: '/admin/discount/voucher-codes',
-        title: 'Voucher Codes'
+        title: 'Voucher Codes',
+        permission: 'voucher.codes.can.list'
       },
       {
         href: '/admin/discount/rules',
-        title: 'Discount Rules'
+        title: 'Discount Rules',
+        permission: 'discount.rules.can.list'
       }
     ]
   },
   {
     icon: DeliveryVan,
     title: 'Delivery Types',
-    href: '/admin/delivery-types'
+    href: '/admin/delivery-types',
+    permission: 'delivery.types.can.list'
   },
   {
     icon: Payment,
     title: 'Transactions',
     href: '/admin/transactions',
+    permission: 'payments.can.list'
   },
   {
     icon: Star,
     title: 'Ratings',
     href: '/admin/ratings',
+    permission: 'ratings.can.list'
   },
   {
     icon: Content,
@@ -90,11 +101,13 @@ const items = [
     items: [
       {
         href: '/admin/content/banners',
-        title: 'Banners'
+        title: 'Banners',
+        permission: 'banners.can.list'
       },
       {
         href: '/admin/content/files',
-        title: 'Files'
+        title: 'Files',
+        permission: 'files.can.list'
       }
     ]
   },
@@ -113,33 +126,29 @@ const items = [
     ]
   },
   {
-    icon: OfficeBuildingIcon,
-    title: 'Organization',
-    items: [
-      {
-        href: '/admin/organization',
-        title: 'General Settings'
-      },
-      {
-        href: '/admin/organization/team',
-        title: 'Team'
-      },
-      {
-        href: '/admin/organization/billing',
-        title: 'Billing'
-      }
-    ]
+    icon: Person,
+    title: 'System Users',
+    href: '/admin/system-users',
+    permission: 'users.can.list'
+  },
+  {
+    icon: LockOpen,
+    title: 'Roles and Permissions',
+    href: '/admin/roles-and-permissions',
+    permission: 'users.can.update'
   },
   {
     icon: ImportContacts,
     title: 'Import Data',
     href: '/admin/import',
+    permission: 'can.import.mass.records'
   },
   {
     icon: ChartPieIcon,
     title: 'Reports',
-    href: '/admin/reports'
-  }
+    href: '/admin/reports',
+    permission: 'reports.can.list'
+  },
 ];
 
 export const MobileNavbarMenu = (props) => {
@@ -148,6 +157,7 @@ export const MobileNavbarMenu = (props) => {
   const [openedItem, setOpenedItem] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
   const [activeHref, setActiveHref] = useState('');
+  const {can} = useContext(AuthContext)
 
   const handleOpenItem = (item) => {
     if (openedItem === item) {
@@ -207,7 +217,8 @@ export const MobileNavbarMenu = (props) => {
     >
       <List>
         {(items.map((item) => (
-          <MobileNavbarMenuItem
+          <Fragment key={item.title}>
+            {(item.permission === undefined || can(item.permission)) && <MobileNavbarMenuItem
             active={activeItem?.title === item.title}
             activeHref={activeHref}
             key={item.title}
@@ -215,7 +226,7 @@ export const MobileNavbarMenu = (props) => {
             onOpenItem={() => handleOpenItem(item)}
             open={openedItem?.title === item.title}
             {...item}
-          />
+            />}</Fragment>
         )))}
       </List>
     </Drawer>

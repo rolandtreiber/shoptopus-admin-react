@@ -1,13 +1,15 @@
-import {createContext, useCallback, useEffect, useState} from "react";
+import {createContext, useCallback, useContext, useEffect, useState} from "react";
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
-import {ArrowCircleDown, Block, PersonAddAlt, ShoppingCart} from "@material-ui/icons";
+import {ArrowCircleDown, Block, LockOpen, PersonAddAlt, ShoppingCart} from "@material-ui/icons";
+import {AuthContext} from "./oauth-context";
 
 export const NotificationsContext = createContext();
 
 export const NotificationsProvider = (props) => {
   const [notifications, setNotifications] = useState([])
   const [unreadCount, setUnreadCount] = useState(0)
+  const {initialize} = useContext(AuthContext)
   const notificationTypes = {
     "new-order": {
       "title": "New order placed",
@@ -28,6 +30,11 @@ export const NotificationsProvider = (props) => {
       "title": "New user signup",
       "icon": PersonAddAlt,
       "iconColor": '#08ff00'
+    },
+    "role-updated": {
+      "title": "You role was updated",
+      "icon": LockOpen,
+      "iconColor": '#08c27d'
     }
   }
 
@@ -51,6 +58,9 @@ export const NotificationsProvider = (props) => {
       iconColor: notificationTypes[rawNotification.type].iconColor
     }, ...notifications];
     setNotifications(newNotifications)
+    if (rawNotification.type === "role-updated") {
+      initialize()
+    }
     toast.success(rawNotification.message);
   }, [notifications])
 

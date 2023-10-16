@@ -24,18 +24,8 @@ import {OfficeBuilding as OfficeBuildingIcon} from '../../../icons/office-buildi
 import {User as UserIcon} from '../../../icons/user';
 import {lightNeutral} from '../../../colors';
 import roles from '../../../data/roles.json'
-
-const languageOptions = {
-  en: {
-    label: 'English'
-  },
-  de: {
-    label: 'German'
-  },
-  es: {
-    label: 'Spanish'
-  }
-};
+import {useContext, useEffect, useState} from "react";
+import {SettingsContext} from "../../../contexts/settings-context";
 
 export const AccountPopover = (props) => {
   const {
@@ -53,6 +43,18 @@ export const AccountPopover = (props) => {
   const navigate = useNavigate();
   const {logout, user} = useAuth();
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
+  const {availableLanguages} = useContext(SettingsContext)
+  const [languageOptions, setLanguageOptions] = useState({en: {
+      label: 'English'
+    }})
+
+  useEffect(() => {
+    let languages = {}
+    Object.keys(availableLanguages).map(key => languages[key] = {
+      ...availableLanguages[key],
+    })
+    setLanguageOptions(languages)
+  }, [availableLanguages])
 
   const handleOrganizationChange = (event) => {
     onOrganizationChange?.(event.target.value);
