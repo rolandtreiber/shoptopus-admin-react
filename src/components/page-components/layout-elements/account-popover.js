@@ -23,9 +23,9 @@ import {Logout as LogoutIcon} from '../../../icons/logout';
 import {OfficeBuilding as OfficeBuildingIcon} from '../../../icons/office-building';
 import {User as UserIcon} from '../../../icons/user';
 import {lightNeutral} from '../../../colors';
-import roles from '../../../data/roles.json'
 import {useContext, useEffect, useState} from "react";
 import {SettingsContext} from "../../../contexts/settings-context";
+import {snakeToCapitalised} from "../../../utils/string-operations";
 
 export const AccountPopover = (props) => {
   const {
@@ -78,7 +78,7 @@ export const AccountPopover = (props) => {
   const userRoles = () => {
     let ur = '';
     user.roles?.map(r => {
-      ur = ur + roles[r].name + ', '
+      ur = ur + snakeToCapitalised(r) + ', '
     })
     return ur.substr(0, ur.length-2)
   }

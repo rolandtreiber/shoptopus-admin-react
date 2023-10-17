@@ -3,7 +3,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
 import {APIContext} from "../../contexts/api-context";
 import {useTranslation} from "react-i18next";
-import {Box, Button, Container, Divider, Tab, Tabs, Typography} from "@material-ui/core";
+import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs, Typography} from "@material-ui/core";
 import {Outlet, Link as RouterLink, useLocation} from "react-router-dom";
 import {snakeToCapitalised} from "../../utils/string-operations";
 import {Helmet} from "react-helmet-async";
@@ -35,14 +35,14 @@ export const RolesAndPermissions = () => {
       label: 'General'
     },
   ]);
-
+  
   const getRoles = useCallback(async () => {
     setRolesState(() => ({isLoading: true, data: null}));
-
+    
     try {
       const {data: {data}} = await fetchRoles()
       const result = data;
-
+      
       if (mounted.current) {
         setRolesState(() => ({
           isLoading: false,
@@ -51,7 +51,7 @@ export const RolesAndPermissions = () => {
       }
     } catch (err) {
       console.error(err);
-
+      
       if (mounted.current) {
         setRolesState(() => ({
           isLoading: false,
@@ -60,15 +60,15 @@ export const RolesAndPermissions = () => {
       }
     }
   }, []);
-
-
+  
+  
   const getPermissions = useCallback(async () => {
     setPermissionsState(() => ({isLoading: true, data: null}));
-
+    
     try {
       const {data: {data}} = await fetchPermissions()
       const result = data;
-
+      
       if (mounted.current) {
         setPermissionsState(() => ({
           isLoading: false,
@@ -77,7 +77,7 @@ export const RolesAndPermissions = () => {
       }
     } catch (err) {
       console.error(err);
-
+      
       if (mounted.current) {
         setPermissionsState(() => ({
           isLoading: false,
@@ -86,7 +86,7 @@ export const RolesAndPermissions = () => {
       }
     }
   }, []);
-
+  
   const handleSaveRole = useCallback(async (name) => {
     if (selectedRoleId) {
       updateRole(selectedRoleId, {
@@ -102,12 +102,12 @@ export const RolesAndPermissions = () => {
       })
     }
   }, [selectedRoleId])
-
+  
   useEffect(() => {
     getRoles().catch(console.error);
     getPermissions().catch(console.error);
   }, []);
-
+  
   useEffect(() => {
     if (rolesState.data) {
       setTabs([
@@ -122,31 +122,34 @@ export const RolesAndPermissions = () => {
           }
         })
       ])
-
+      
     }
   }, [rolesState])
-
+  
   useEffect(() => {
     const value = tabs.findIndex((tab) => tab.href === location.pathname)
     setTabValue(value !== -1 ? value : 0)
   }, [tabs, location]);
-
+  
   useEffect(() => {
     if (tabValue !== 0 && tabValue !== -1) {
-      const role = rolesState.data[tabValue-1]
+      const role = rolesState.data[tabValue - 1]
       if (role.id) {
         setRoleId(role.id)
-        console.log(role.id)
       }
     }
   }, [tabValue])
-
+  
   const editRoleName = (id) => {
     setSelectedRoleId(id)
     setSelectedRoleName(snakeToCapitalised(rolesState.data?.find(r => r.id === id)?.name))
     setShowRoleDialog(true)
   }
-
+  
+  const reloadTabs = () => {
+    getRoles().catch(console.error);
+  }
+  
   return (
     <>
       <Helmet>
@@ -166,51 +169,64 @@ export const RolesAndPermissions = () => {
             height: '100%'
           }}
         >
-          <Box sx={{ py: 4 }}>
-            <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex'
-              }}
-            >
-              <Typography
-                color="textPrimary"
-                variant="h4"
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Box sx={{py: 4}}>
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    display: 'flex'
+                  }}
+                >
+                  <Typography
+                    color="textPrimary"
+                    variant="h4"
+                  >
+                    {t("Roles And Permissions")}
+                  </Typography>
+                  <Box sx={{flexGrow: 1}}/>
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      setSelectedRoleId(null)
+                      setShowRoleDialog(true)
+                    }}
+                    size="large"
+                    startIcon={<PlusIcon fontSize="small"/>}
+                    variant="contained"
+                  >
+                    {t('Add Role')}
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              
+              {rolesState.isLoading === false ? <Tabs
+                allowScrollButtonsMobile
+                sx={{mt: 4}}
+                value={tabValue}
+                variant="scrollable"
               >
-                {t("Roles And Permissions")}
-              </Typography>
-              <Box sx={{ flexGrow: 1 }} />
-              <Button
-                color="primary"
-                onClick={() => {
-                  setSelectedRoleId(null)
-                  setShowRoleDialog(true)
-                }}
-                size="large"
-                startIcon={<PlusIcon fontSize="small" />}
-                variant="contained"
-              >
-                {t('Add Role')}
-              </Button>
-            </Box>
-          </Box>
-            {rolesState.isLoading === false && <Tabs
-              allowScrollButtonsMobile
-              sx={{mt: 4}}
-              value={tabValue}
-              variant="scrollable"
-            >
-              {tabs.map((option) => (
-                <Tab
-                  component={RouterLink}
-                  key={option.href}
-                  label={option.label}
-                  to={option.href}
-                />
-              ))}
-            </Tabs>}
-            <Divider/>
-          <Outlet context={[roleId, permissionsState, editRoleName]}/>
+                {tabs.map((option) => (
+                  <Tab
+                    component={RouterLink}
+                    key={option.href}
+                    label={option.label}
+                    to={option.href}
+                  />
+                ))}
+              </Tabs> : <>
+                <Skeleton animation="wave"/>
+                <Skeleton animation="wave"/>
+              </>
+              }
+              <Divider sx={{marginBottom: 2}}/>
+            </Grid>
+            <Grid item xs={12}>
+              <Outlet context={[roleId, permissionsState, editRoleName, reloadTabs]}/>
+            </Grid>
+          </Grid>
         </Container>
         <RoleDialog
           open={showRoleDialog}
