@@ -347,9 +347,9 @@ const APIProvider = ({children}) => {
       processImportFile: async (params) => await post(app_url + "io/import", params, makeHeaders()),
 
       // Notifications
-      getLatestNotifications: async () => await get(app_url + "api/notifications/latest", {}, makeHeaders()),
-      fetchNotifications: async (params) => await get(app_url + "api/notifications", params, makeHeaders()),
-      clearNotifications: async () => await patch(app_url + "api/notifications/clear", {}, makeHeaders()),
+      getLatestNotifications: async () => await get(api_url + "notifications/latest", {}, makeHeaders()),
+      fetchNotifications: async (params) => await get(api_url + "notifications", params, makeHeaders()),
+      clearNotifications: async () => await patch(api_url + "notifications/clear", {}, makeHeaders()),
 
       // Notifications
       createNote: async (params) => await post(admin_api_url + "note", params, makeHeaders()),
