@@ -68,6 +68,11 @@ export const ProductCategoryInfo = (props) => {
                 />
                 <PropertyListItem
                   align={align}
+                  label="Slug"
+                  value={data.slug}
+                />
+                <PropertyListItem
+                  align={align}
                   label="Enabled"
                   value={data.enabled ? "Yes" : "No"}
                 />
