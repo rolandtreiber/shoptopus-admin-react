@@ -166,17 +166,17 @@ export const ProductDialog = (props) => {
                     <Grid item xs={12} md={6}>
                         <InputLabel>Attributes</InputLabel>
                         <AttributeTreeSelect selection={attributes} setSelection={setAttributes}
-                                             attributes={sharedOptions.attributes}/>
+                                             attributes={sharedOptions?.attributes}/>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <InputLabel>Categories</InputLabel>
                         <CategoryTreeSelect selection={categories} setSelection={setCategories}
-                                            categories={sharedOptions.categories}/>
+                                            categories={sharedOptions?.categories}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} mt={2}>
                     <InputLabel>Tags</InputLabel>
-                    <TagPicker tags={sharedOptions.tags} selection={tags} setSelection={setTags}/>
+                    <TagPicker tags={sharedOptions?.tags} selection={tags} setSelection={setTags}/>
                 </Grid>
                 <Grid container spacing={2} mt={1}>
                     <MultilangTextInput

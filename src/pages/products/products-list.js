@@ -15,6 +15,7 @@ import {ListFilter} from "../../components/common/filter/list-filter";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {AuthContext} from "../../contexts/oauth-context";
 
 const views = [
   {
@@ -91,7 +92,8 @@ export const ProductsList = () => {
   } = useContext(DialogContext)[1]
   const {language} = useContext(SettingsContext)
   const { t } = useTranslation();
-
+  const {can} = useContext(AuthContext)
+  
   const {fetchProducts, bulkDeleteProducts, bulkArchiveProducts} = useContext(APIContext)
 
   useEffect(() => {
@@ -265,6 +267,7 @@ export const ProductsList = () => {
                 color="primary"
                 onClick={() => setOpenCreateDialog(true)}
                 size="large"
+                disabled={!can("products.can.create")}
                 startIcon={<PlusIcon fontSize="small" />}
                 variant="contained"
               >
@@ -307,8 +310,9 @@ export const ProductsList = () => {
                 },
                 {
                   name: 'Delete selected',
-                  callback: handleBulkDelete
-                }
+                  callback: handleBulkDelete,
+                  disabled: !can("products.can.delete")
+              }
               ]}
             />
             <Divider />

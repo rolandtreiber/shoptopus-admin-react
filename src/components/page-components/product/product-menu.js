@@ -8,6 +8,7 @@ import {useMounted} from "../../../hooks/use-mounted";
 import {ProductDialog} from "./product-dialog";
 import {DialogContext} from "../../../contexts/dialog-context";
 import {useTranslation} from "react-i18next";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 export const ProductMenu = (props) => {
   const mounted = useMounted();
@@ -23,7 +24,8 @@ export const ProductMenu = (props) => {
     setDescription
   } = useContext(DialogContext)[1]
   const { t } = useTranslation();
-
+  const {can} = useContext(AuthContext)
+  
   const getProduct = useCallback(async () => {
     if (productId) {
       try {
@@ -98,7 +100,7 @@ export const ProductMenu = (props) => {
         <MenuItem onClick={handleArchive}>
           {t('Archive')}
         </MenuItem>
-        <MenuItem onClick={handleDelete}>
+        <MenuItem onClick={handleDelete} disabled={!can("products.can.delete")}>
           {t('Delete')}
         </MenuItem>
       </Menu>

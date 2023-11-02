@@ -44,7 +44,7 @@ export const BulkActionsMenu = (props) => {
       >
         {
           menuItems && menuItems.map(menuItem => (
-            <MenuItem key={menuItem.name} onClick={() => {
+            <MenuItem disabled={menuItem.disabled === true} key={menuItem.name} onClick={() => {
               menuItem.callback()
               handleClose()
             }}>
