@@ -20,6 +20,7 @@ import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/exclamation-outlined';
 import {APIContext} from "../../contexts/api-context";
 import {useLanguage} from "../../hooks/use-language";
+import {AuthContext} from "../../contexts/oauth-context";
 
 export const ProductSingle = () => {
   const mounted = useMounted();
@@ -35,6 +36,7 @@ export const ProductSingle = () => {
   const {productId} = useParams();
   const {getLang} = useLanguage()
   const [tabs, setTabs] = useState([]);
+  const {can} = useContext(AuthContext)
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
@@ -130,7 +132,8 @@ export const ProductSingle = () => {
         },
         {
           href: '/admin/products/'+productId+'/variants',
-          label: 'Variants'
+          label: 'Variants',
+          disabled: !can('product.variants.can.list')
         },
         {
           href: '/admin/products/'+productId+'/ratings',
@@ -229,6 +232,7 @@ export const ProductSingle = () => {
           >
             {tabs.map((option) => (
               <Tab
+                disabled={option.disabled === true}
                 component={RouterLink}
                 key={option.href}
                 label={option.label}

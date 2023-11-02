@@ -5,6 +5,7 @@ import axios from "axios";
 import {ChevronDown as ChevronDownIcon} from "../../icons/chevron-down";
 import {usePopover} from "../../hooks/use-popover";
 import {useTranslation} from "react-i18next";
+import {AuthContext} from "../../contexts/oauth-context";
 
 const ExportButton = ({
                         name,
@@ -18,6 +19,7 @@ const ExportButton = ({
   const app_url = process.env.REACT_APP_URL;
   const [anchorRef, open, handleOpen, handleClose] = usePopover();
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   const getDateString = () => {
     const date = new Date()
@@ -114,10 +116,10 @@ const ExportButton = ({
         sx={{
           marginLeft: '5px'
         }}
+        disabled={!can('export.can.create')}
         ref={anchorRef}
         startIcon={<ChevronDownIcon/>}
         onClick={handleOpen}
-        // onClick={() => initiateExportDownload(name, models)}
         size="large"
         variant="contained"
       >

@@ -27,6 +27,7 @@ import {SettingsContext} from "../../../contexts/settings-context";
 import Price from "../../common/price";
 import {darkWarning} from "../../../colors";
 import {useTranslation} from "react-i18next";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 const columns = [
   {
@@ -92,7 +93,8 @@ export const ProductsTable = (props) => {
   const displayUnavailable = Boolean(!isLoading && !error && !products.length);
   const {language} = useContext(SettingsContext)
   const { t } = useTranslation();
-
+  const {can} = useContext(AuthContext)
+  
   return (
     <Box
       sx={{
@@ -166,7 +168,7 @@ export const ProductsTable = (props) => {
                         variant="rounded"
                       />
                       <Box sx={{ ml: 2 }}>
-                        <Link
+                        {can('products.can.see') ? <Link
                           color="inherit"
                           component={RouterLink}
                           sx={{ display: 'block' }}
@@ -175,7 +177,7 @@ export const ProductsTable = (props) => {
                           variant="subtitle2"
                         >
                           {product.name[language]}
-                        </Link>
+                        </Link> : product.name[language]}
                         <Typography
                           color="textSecondary"
                           sx={{ mt: 1 }}

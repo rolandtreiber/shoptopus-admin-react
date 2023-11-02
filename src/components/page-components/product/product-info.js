@@ -5,13 +5,16 @@ import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
 import {useLanguage} from "../../../hooks/use-language";
 import {useRetailPrice} from "../../../hooks/use-retail-price";
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/oauth-context";
 
 export const ProductInfo = (props) => {
   const { onEdit, product, ...other } = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const {getLang} = useLanguage()
   const {getRetailPriceText} = useRetailPrice()
-
+  const {can} = useContext(AuthContext)
+  
   const align = mdDown ? 'vertical' : 'horizontal';
 
   return (
@@ -24,6 +27,7 @@ export const ProductInfo = (props) => {
         action={(
           <Button
             color="primary"
+            disabled={!can('products.can.update')}
             onClick={onEdit}
             variant="text"
           >
