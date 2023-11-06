@@ -51,6 +51,7 @@ export const LanguagePopover = (props) => {
         onClick={handleOpen}
         ref={anchorRef}
         {...other}
+        id={"selected-language-button-desktop"}
       >
         <Box
           sx={{
@@ -75,6 +76,7 @@ export const LanguagePopover = (props) => {
           vertical: 'bottom'
         }}
         keepMounted
+        id={"language-selector-popover-desktop"}
         onClose={handleClose}
         open={open}
         PaperProps={{
