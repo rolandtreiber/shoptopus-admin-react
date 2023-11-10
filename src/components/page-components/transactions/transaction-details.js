@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Card,
-  CardHeader,
   Divider,
   Grid,
   List, ListItem, ListItemText
@@ -13,6 +12,7 @@ import {format} from "date-fns";
 import { Visibility} from "@material-ui/icons";
 import {Link as RouterLink} from "react-router-dom";
 import Price from "../../common/price";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const TransactionDetails = ({transaction}) => {
 
@@ -32,7 +32,7 @@ const TransactionDetails = ({transaction}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 title="Details"
               />
               <Divider />
@@ -70,7 +70,7 @@ const TransactionDetails = ({transaction}) => {
               variant="outlined"
               sx={{marginTop: 2}}
             >
-              <CardHeader
+              <TrCardHeader
                 title="Source"
               />
               <Divider />
@@ -108,7 +108,7 @@ const TransactionDetails = ({transaction}) => {
               variant="outlined"
               sx={{marginTop: 2}}
             >
-              <CardHeader
+              <TrCardHeader
                 action={
                   <Button
                     color="primary"
@@ -163,7 +163,7 @@ const TransactionDetails = ({transaction}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 title="Paid for"
               />
               <Divider />

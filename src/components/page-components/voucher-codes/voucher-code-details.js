@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Card,
-  CardHeader,
   Chip,
   Divider,
   Grid,
@@ -19,6 +18,7 @@ import {lightNeutral} from "../../../colors";
 import {ExpandMore, Visibility} from "@material-ui/icons";
 import {PropertyList} from "../../common/property-list/property-list";
 import {Link as RouterLink} from "react-router-dom";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const VoucherCodeDetails = ({voucherCode, onEdit}) => {
 
@@ -38,7 +38,7 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 action={(
                   <Button
                     color="primary"
@@ -90,7 +90,7 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 title="Orders"
               />
               <Divider />

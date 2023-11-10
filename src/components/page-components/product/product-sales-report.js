@@ -1,6 +1,7 @@
 import Chart from 'react-apexcharts';
-import { Box, Card, CardHeader, Divider } from '@material-ui/core';
+import { Box, Card, Divider } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const data = {
   categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -86,7 +87,7 @@ export const ProductSalesReport = (props) => {
       variant="outlined"
       {...props}
     >
-      <CardHeader title="Dashboard Sales" />
+      <TrCardHeader title="Dashboard Sales" />
       <Divider />
       <Box sx={{ px: 1 }}>
         <Chart

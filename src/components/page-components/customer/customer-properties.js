@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import numeral from 'numeral';
-import { Card, CardHeader, Divider } from '@material-ui/core';
+import { Card, Divider } from '@material-ui/core';
 import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const CustomerProperties = (props) => {
   const { customer, ...other } = props;
@@ -13,7 +14,7 @@ export const CustomerProperties = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader title="CustomerSingle Properties" />
+      <TrCardHeader title="CustomerSingle Properties" />
       <Divider />
       <PropertyList>
         <PropertyListItem

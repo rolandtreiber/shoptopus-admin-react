@@ -1,5 +1,5 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-import {Box, Button, Card, CardHeader, Divider, Link, List, ListItem, ListItemText} from "@material-ui/core";
+import {Box, Button, Card, Divider, Link, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete, Download, Edit} from "@mui/icons-material";
 import {APIContext} from "../../../contexts/api-context";
@@ -10,6 +10,7 @@ import {ResourceUnavailable} from "../../../components/common/placeholder/resour
 import {ResourceLoading} from "../../../components/common/placeholder/resource-loading";
 import {DialogContext} from "../../../contexts/dialog-context";
 import {FileDialog} from "../../../components/page-components/product/file-dialog";
+import TrCardHeader from "../../../components/translated/TrCardHeader";
 
 const ProductFiles = () => {
   const {productId} = useParams();
@@ -89,7 +90,7 @@ const ProductFiles = () => {
 
   return (<div>
     <Card variant="outlined" sx={{mb: 2}}>
-      <CardHeader title={"Files"}/>
+      <TrCardHeader title={"Files"}/>
       <Divider/>
       <Box sx={{m:1}}>
         {filesState.data ? (<>

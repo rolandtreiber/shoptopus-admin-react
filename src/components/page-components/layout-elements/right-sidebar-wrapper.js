@@ -1,11 +1,12 @@
-import {Box, Card, CardContent, CardHeader, Divider} from "@material-ui/core";
+import {Box, Card, CardContent, Divider} from "@material-ui/core";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const RightSidebarWrapper = ({styles, title, children}) => (
     <Card
       variant="outlined"
       {...styles}
     >
-      <CardHeader
+      <TrCardHeader
         title={title}
         variant="outlined"
       />

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { formatDistanceToNow, subMinutes } from 'date-fns';
-import { Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
+import { Card, CardContent, Divider, Typography } from '@material-ui/core';
 import {
   Timeline,
   TimelineConnector,
@@ -8,6 +8,7 @@ import {
   TimelineDot,
   TimelineItem
 } from '@material-ui/lab';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const items = [
   {
@@ -54,7 +55,7 @@ const getLabel = (item) => {
 
 export const InvoicePaymentHistory = () => (
   <Card variant="outlined">
-    <CardHeader title="Payment History" />
+    <TrCardHeader title="Payment History" />
     <Divider />
     <CardContent>
       <Timeline

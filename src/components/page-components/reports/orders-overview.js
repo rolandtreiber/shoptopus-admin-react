@@ -4,7 +4,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   Divider,
   List,
   ListItem,
@@ -14,6 +13,7 @@ import {
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../../common/actions/actions-menu';
 import { StatusBadge } from '../../common/status-badge';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 
 export const OrdersOverview = (props) => {
@@ -70,7 +70,7 @@ export const OrdersOverview = (props) => {
       variant="outlined"
       {...props}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <ActionsMenu
             actions={ranges}
@@ -79,7 +79,7 @@ export const OrdersOverview = (props) => {
             variant="text"
           />
         )}
-        title="OrdersList Overview"
+        title="Orders Overview"
       />
       <Divider />
       { series && chartOptions && chartSeries && <CardContent>

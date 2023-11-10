@@ -1,11 +1,12 @@
 import {useContext, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
-import { Card, CardContent, CardHeader, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider } from '@material-ui/core';
 import { StatusSelect } from '../../common/status-select';
 import statusOptions from '../../../data/product-statuses.json'
 import {APIContext} from "../../../contexts/api-context";
 import {LoadingButton} from "@material-ui/lab";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductStatus = (props) => {
   const { onSuccess, product, ...other } = props;
@@ -38,7 +39,7 @@ export const ProductStatus = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader
+        <TrCardHeader
           title="Product Status"
           variant="outlined"
         />

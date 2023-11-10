@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import {
   Box,
-  Card, CardHeader,
+  Card,
   Divider, Grid, Link,
   useMediaQuery,
 } from '@material-ui/core';
 import {useLanguage} from "../../../hooks/use-language";
 import {PropertyListItem} from "../../common/property-list/property-list-item";
 import {PropertyList} from "../../common/property-list/property-list";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const FileDetails = (props) => {
   const {data, ...other} = props;
@@ -32,7 +33,7 @@ export const FileDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Details"
             />
             <Divider/>
@@ -67,7 +68,7 @@ export const FileDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Related Entity"
             />
             <Divider/>

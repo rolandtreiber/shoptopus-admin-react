@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Button, Card, CardContent, CardHeader, Divider, MenuItem } from '@material-ui/core';
+import { Button, Card, CardContent, Divider, MenuItem } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
 import { Cash as CashIcon } from '../../../icons/cash';
 import { Download as DownloadIcon } from '../../../icons/download';
@@ -16,6 +16,7 @@ import { ActionListItem } from '../../common/actions/action-list-item';
 import { ConfirmationDialog } from '../../modal/confirmation-dialog';
 import { InputField } from '../../common/input-field';
 import { InvoicePDF } from './invoice-pdf';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const notificationOptions = [
   {
@@ -66,7 +67,7 @@ export const InvoiceSendNotification = (props) => {
         variant="outlined"
         {...props}
       >
-        <CardHeader title="Send Notification" />
+        <TrCardHeader title="Send Notification" />
         <Divider />
         <CardContent>
           <InputField

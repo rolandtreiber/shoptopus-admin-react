@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import {
   Button,
   Card,
-  CardHeader,
   Divider,
   Paper,
   useMediaQuery
@@ -11,6 +10,7 @@ import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
 import {useLanguage} from "../../../hooks/use-language";
 import styled from "@emotion/styled";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductAttributeInfo = (props) => {
   const { onEdit, data, ...other } = props;
@@ -37,7 +37,7 @@ export const ProductAttributeInfo = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <Button
             color="primary"

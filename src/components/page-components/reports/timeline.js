@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
-import { Card, CardContent, CardHeader, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import RangeSelector from "./range-selector";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const stats = [
   {
@@ -116,7 +117,7 @@ export const Timeline = ({data, title, onRangeChange}) => {
     <Card
       variant="outlined"
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <RangeSelector onChange={onRangeChange}/>
         )}

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import {
   Button,
   Card,
-  CardHeader,
   Divider,
   Paper,
   useMediaQuery
@@ -11,6 +10,7 @@ import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
 import {useLanguage} from "../../../hooks/use-language";
 import styled from "@emotion/styled";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const Product = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -38,7 +38,7 @@ export const ProductTagInfo = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <Button
             color="primary"

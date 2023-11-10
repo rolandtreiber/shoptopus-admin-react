@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Card,
-  CardHeader,
   Chip,
   Divider,
   Grid,
@@ -27,6 +26,7 @@ import {usePopover} from "../../../hooks/use-popover";
 import {APIContext} from "../../../contexts/api-context";
 import DiscountRuleProductAssociationDialog from "./discount-rule-product-association-dialog";
 import DiscountRuleProductCategoryAssociationDialog from "./discount-rule-product-category-association-dialog";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const DiscountRuleDetails = ({discountRule, onUpdated}) => {
   const {language} = useContext(SettingsContext)
@@ -142,7 +142,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 action={(
                   <Button
                     color="primary"
@@ -186,7 +186,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
             <Card
               variant="outlined"
             >
-              <CardHeader
+              <TrCardHeader
                 title="Associations"
               />
               <Divider/>

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import {Button, Card, CardHeader, Divider, Grid} from '@material-ui/core';
+import {Button, Card, Divider, Grid} from '@material-ui/core';
 import {PropertyList} from '../../common/property-list/property-list';
 import {PropertyListItem} from '../../common/property-list/property-list-item';
 import Price from "../../common/price";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 // const Pending =     0;
 // const Settled =     1;
@@ -64,7 +65,7 @@ export const OrderPayment = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <Button
             color="primary"

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {
   Box,
   Button,
-  Card, CardHeader,
+  Card,
   Chip,
   Divider, Grid,
   List, ListItem, ListItemText,
@@ -15,6 +15,7 @@ import {lightNeutral} from "../../../colors";
 import FullWidthSquareBox from "../../common/full-width-square-box";
 import {useTheme} from "@material-ui/core/styles";
 import {useSettings} from "../../../contexts/settings-context";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const DeliveryTypeInfo = (props) => {
   const {onEdit, onCreateRule, onEditRule, onDeleteRule, data, ...other} = props;
@@ -42,7 +43,7 @@ export const DeliveryTypeInfo = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               action={(
                 <Button
                   color="primary"
@@ -97,7 +98,7 @@ export const DeliveryTypeInfo = (props) => {
           <Card
             variant="outlined"
           >
-            <CardHeader
+            <TrCardHeader
               title="Rules"
               action={(
                 <Button

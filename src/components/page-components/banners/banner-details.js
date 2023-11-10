@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {
   Box,
-  Card, CardHeader,
+  Card,
   Divider, Grid,
   useMediaQuery,
 } from '@material-ui/core';
@@ -11,6 +11,7 @@ import {useSettings} from "../../../contexts/settings-context";
 import {PropertyListItem} from "../../common/property-list/property-list-item";
 import {PropertyList} from "../../common/property-list/property-list";
 import NoImg from "../../../static/images/no-image.png";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const BannerDetails = (props) => {
   const {data, ...other} = props;
@@ -37,7 +38,7 @@ export const BannerDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Details"
             />
             <Divider/>

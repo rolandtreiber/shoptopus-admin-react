@@ -1,6 +1,7 @@
 import Chart from 'react-apexcharts';
-import { Box, Card, CardHeader, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Card, Divider, Grid, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const series = [
   {
@@ -67,7 +68,7 @@ export const ProductReturnRate = (props) => {
       sx={{ height: '100%' }}
       {...props}
     >
-      <CardHeader title="Return Rate" />
+      <TrCardHeader title="Return Rate" />
       <Divider />
       <Grid
         alignItems="center"

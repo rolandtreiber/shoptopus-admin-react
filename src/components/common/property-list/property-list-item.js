@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { Box, ListItem, ListItemText, Typography } from '@material-ui/core';
+import {useTranslation} from "react-i18next";
 
 export const PropertyListItem = (props) => {
   const { align, children, component, value, label, ...other } = props;
+  const { t } = useTranslation();
 
   return (
     <ListItem
@@ -22,7 +24,7 @@ export const PropertyListItem = (props) => {
             sx={{ minWidth: align === 'vertical' ? 'inherit' : 180 }}
             variant="subtitle2"
           >
-            {label}
+            {t(label)}
           </Typography>
         )}
         secondary={(

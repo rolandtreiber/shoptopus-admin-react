@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { Card, CardHeader, Divider } from '@material-ui/core';
+import { Card, Divider } from '@material-ui/core';
 import { OrderSummary } from './order-summary';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const OrderLineItems = (props) => {
   const { order, ...other } = props;
@@ -10,7 +11,7 @@ export const OrderLineItems = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader title="Line Items" />
+      <TrCardHeader title="Line Items" />
       <Divider />
       <OrderSummary order={order} />
     </Card>

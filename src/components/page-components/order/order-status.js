@@ -2,7 +2,7 @@ import {useCallback, useContext, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, Divider, Typography } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../modal/confirmation-dialog';
 import { StatusSelect } from '../../common/status-select';
@@ -10,6 +10,7 @@ import { OrderTimeline } from './order-timeline';
 import {APIContext} from "../../../contexts/api-context";
 import orderStatuses from "../../../data/order-statuses.json";
 import {useTranslation} from "react-i18next";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const statusOptions = orderStatuses;
 
@@ -47,7 +48,7 @@ export const OrderStatus = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader title={t("Status and History")} />
+        <TrCardHeader title={"Status and History"} />
         <Divider />
         <CardContent>
           {<StatusSelect

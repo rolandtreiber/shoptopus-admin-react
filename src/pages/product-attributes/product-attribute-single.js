@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, CardContent, CardHeader, Container, Divider, Grid, Typography} from '@material-ui/core';
+import {Box, Button, Card, CardContent, Container, Divider, Grid, Typography} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import {useMounted} from '../../hooks/use-mounted';
@@ -18,6 +18,7 @@ import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {Pencil as PencilIcon} from "../../icons/pencil";
 import ProductAttributeOptionProductsTree
   from "../../components/page-components/product-attributes/partials/product-attribute-option-products-tree";
+import TrCardHeader from "../../components/translated/TrCardHeader";
 
 export const ProductAttributeSingle = () => {
   const mounted = useMounted();
@@ -199,7 +200,7 @@ export const ProductAttributeSingle = () => {
                       mb: 2
                     }}
                   >
-                    <CardHeader
+                    <TrCardHeader
                       title="Products"
                     />
                     <Divider/>

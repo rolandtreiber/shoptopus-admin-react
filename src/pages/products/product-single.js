@@ -21,6 +21,7 @@ import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/excl
 import {APIContext} from "../../contexts/api-context";
 import {useLanguage} from "../../hooks/use-language";
 import {AuthContext} from "../../contexts/oauth-context";
+import {useTranslation} from "react-i18next";
 
 export const ProductSingle = () => {
   const mounted = useMounted();
@@ -37,6 +38,7 @@ export const ProductSingle = () => {
   const {getLang} = useLanguage()
   const [tabs, setTabs] = useState([]);
   const {can} = useContext(AuthContext)
+  const { t } = useTranslation();
 
   const getProduct = useCallback(async () => {
     setProductState(() => ({ isLoading: true }));
@@ -235,7 +237,7 @@ export const ProductSingle = () => {
                 disabled={option.disabled === true}
                 component={RouterLink}
                 key={option.href}
-                label={option.label}
+                label={t(option.label)}
                 to={option.href}
               />
             ))}

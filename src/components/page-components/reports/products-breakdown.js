@@ -1,17 +1,16 @@
 import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
-import { Box, Card, CardHeader, Divider, Tab, Tabs } from '@material-ui/core';
+import { Box, Card, Divider, Tab, Tabs } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import {useLanguage} from "../../../hooks/use-language";
 import RangeSelector from "./range-selector";
-import {useTranslation} from "react-i18next";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductsBreakdown = ({data, categories, category, categoryUpdated, onRangeChange}) => {
   const theme = useTheme();
   const [chartOptions, setChartOptions] = useState()
   const [chartSeries, setChartSeries] = useState()
   const {getLang} = useLanguage()
-  const { t } = useTranslation();
 
   const handleTabChange = (event, newValue) => {
     categoryUpdated(newValue)
@@ -101,11 +100,11 @@ export const ProductsBreakdown = ({data, categories, category, categoryUpdated, 
       variant="outlined"
       sx={{ height: '100%' }}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <RangeSelector onChange={onRangeChange}/>
         )}
-        title={t("Products Breakdown")}
+        title={"Products Breakdown"}
       />
       {data && chartOptions && chartSeries && <>
       <Divider />

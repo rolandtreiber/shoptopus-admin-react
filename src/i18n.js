@@ -384,7 +384,20 @@ const resources = {
       "Can List Emails": "Kann E-Mails auflisten",
       "Can Create Export": "Kann Export erstellen",
       "Can Mass Import Records": "Kann Massenimport von Datensätzen durchführen",
-      "Can View Auditables": "Kann Auditfähige anzeigen"
+      "Can View Auditables": "Kann Auditfähige anzeigen",
+      "Variants": "Varianten",
+      "General Information": "Allgemeine Informationen",
+      "SKU": "Bestandseinheit (SKU)",
+      "Slug": "Schnecke",
+      "System ID": "System-ID",
+      "Current Stock": "Aktueller Bestand",
+      "Total Sold": "Insgesamt verkauft",
+      "Product Details": "Produktdetails",
+      "Display Name": "Anzeigename",
+      "Short Description": "Kurzbeschreibung",
+      "Product Status": "Produktstatus",
+      "Save": "Speichern",
+      "Product Images": "Produktbilder"
     }
   },
   fr: {

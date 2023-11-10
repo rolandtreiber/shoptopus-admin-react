@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {
   Box,
-  Card, CardHeader,
+  Card,
   Divider, Grid, IconButton, Link, Typography,
   useMediaQuery,
 } from '@material-ui/core';
@@ -17,6 +17,7 @@ import {EmailClientContext} from "../../../contexts/email-client-context";
 import {Mail as MailIcon} from "../../../icons/mail";
 import {NorthEast} from "@material-ui/icons";
 import {ResourceUnavailable} from "../../common/placeholder/resource-unavailable";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const RatingDetails = (props) => {
   const {data, ...other} = props;
@@ -65,7 +66,7 @@ export const RatingDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Details"
             />
             <Divider/>
@@ -104,7 +105,7 @@ export const RatingDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Customer"
               action={
                 <Link href={'/admin/customers/' + data.data.user.id} target={"_blank"}>
@@ -170,7 +171,7 @@ export const RatingDetails = (props) => {
             variant="outlined"
             {...other}
           >
-            <CardHeader
+            <TrCardHeader
               title="Rated"
             />
             <Divider/>

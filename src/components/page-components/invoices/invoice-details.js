@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import { Card, CardHeader, Divider, Grid } from '@material-ui/core';
+import { Card, Divider, Grid } from '@material-ui/core';
 import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const InvoiceDetails = (props) => {
   const { invoice } = props;
 
   return (
     <Card variant="outlined">
-      <CardHeader title="Invoice Details" />
+      <TrCardHeader title="Invoice Details" />
       <Divider />
       <Grid container>
         <Grid

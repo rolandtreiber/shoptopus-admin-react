@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Button,
   Card,
-  CardHeader,
   Divider,
 } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
@@ -15,6 +14,7 @@ import {getUrlFilters} from "../../../utils/apply-filters";
 import {useMounted} from "../../../hooks/use-mounted";
 import {ProductAttributeOptionsTable} from "./product-attribute-options-table"
 import {ProductAttributeOptionDialog} from "./product-attribute-option-dialog";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductAttributeOptions = (props) => {
   const { productAttributeType, options: optionsProp, productId, productAttributeId, selectedOption, setSelectedOption, ...other } = props;
@@ -125,7 +125,7 @@ export const ProductAttributeOptions = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader
+        <TrCardHeader
           action={(
             <Button
               color="primary"

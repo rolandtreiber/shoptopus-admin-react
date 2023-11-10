@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
-import { Avatar, Box, Button, Card, CardHeader, Divider, IconButton } from '@material-ui/core';
+import { Avatar, Box, Button, Card, Divider, IconButton } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
 import { ExternalLink as ExternalLinkIcon } from '../../../icons/external-link';
 import { Eye as EyeIcon } from '../../../icons/eye';
@@ -10,6 +10,7 @@ import { ActionListItem } from '../../common/actions/action-list-item';
 import { ConfirmationDialog } from '../../modal/confirmation-dialog';
 import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const CustomerInfo = (props) => {
   const { customer, onEdit, ...other } = props;
@@ -30,7 +31,7 @@ export const CustomerInfo = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader
+        <TrCardHeader
           action={(
             <Button
               color="primary"

@@ -2,7 +2,6 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Button,
   Card,
-  CardHeader,
   Divider,
 } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
@@ -15,6 +14,7 @@ import {getUrlFilters} from "../../../utils/apply-filters";
 import {useMounted} from "../../../hooks/use-mounted";
 import {ProductVariantsTable} from "../../../components/page-components/product-variant/product-variants-table";
 import {useOutletContext, useParams} from "react-router-dom";
+import TrCardHeader from "../../../components/translated/TrCardHeader";
 
 export const ProductVariants = (props) => {
   const { ...other } = props;
@@ -126,7 +126,7 @@ export const ProductVariants = (props) => {
         variant="outlined"
         {...other}
       >
-        <CardHeader
+        <TrCardHeader
           action={(
             <Button
               color="primary"

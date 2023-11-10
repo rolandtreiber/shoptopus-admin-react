@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import {Button, Card, CardHeader, Chip, Divider, useMediaQuery} from '@material-ui/core';
+import {Button, Card, Chip, Divider, useMediaQuery} from '@material-ui/core';
 import { PropertyList } from '../../common/property-list/property-list';
 import { PropertyListItem } from '../../common/property-list/property-list-item';
 import {useLanguage} from "../../../hooks/use-language";
 import {useRetailPrice} from "../../../hooks/use-retail-price";
 import {useContext} from "react";
 import {AuthContext} from "../../../contexts/oauth-context";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductInfo = (props) => {
   const { onEdit, product, ...other } = props;
@@ -23,7 +24,7 @@ export const ProductInfo = (props) => {
       variant="outlined"
       {...other}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <Button
             color="primary"
@@ -34,7 +35,7 @@ export const ProductInfo = (props) => {
             Edit
           </Button>
         )}
-        title="General Information"
+        title={"General Information"}
       />
       <Divider />
       <PropertyList>
@@ -77,7 +78,7 @@ export const ProductInfo = (props) => {
             variant="outlined"
             {...other}
         >
-          <CardHeader
+          <TrCardHeader
               title="Product Details"
           />
           <Divider />

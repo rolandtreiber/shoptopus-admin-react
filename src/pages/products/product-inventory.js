@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Card,
-  CardHeader,
   Divider,
   InputBase,
   Skeleton,
@@ -28,6 +27,7 @@ import { useMounted } from '../../hooks/use-mounted';
 import { CustomCube as CubeIcon } from '../../icons/custom-cube';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
+import TrCardHeader from "../../components/translated/TrCardHeader";
 
 const VariantTableRow = (props) => {
   const {appName} = useContext(SettingsContext)
@@ -208,7 +208,7 @@ export const ProductInventory = () => {
           }}
           variant="outlined"
         >
-          <CardHeader title="Inventory Management" />
+          <TrCardHeader title="Inventory Management" />
           <Divider />
           <Scrollbar>
             <Table sx={{ minWidth: 900 }}>

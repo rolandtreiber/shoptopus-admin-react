@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {
   Card, CardContent,
-  CardHeader, Divider,
+  Divider,
   Grid,
   Paper, Typography,
   useMediaQuery
@@ -13,6 +13,7 @@ import styled from "@emotion/styled";
 import NoImg from "../../../static/images/no-image.png";
 import ProductCategoryTreeItem from "./partials/product-category-tree-item";
 import ProductCategoryProductsTable from "./partials/product-category-products-table";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const ProductCategoryInfo = (props) => {
   const {onEdit, data, ...other} = props;
@@ -51,7 +52,7 @@ export const ProductCategoryInfo = (props) => {
               variant="outlined"
               {...other}
             >
-              <CardHeader
+              <TrCardHeader
                 title="General Information"
               />
               <Divider/>
@@ -85,7 +86,7 @@ export const ProductCategoryInfo = (props) => {
                 mt: 2
               }}
             >
-              <CardHeader
+              <TrCardHeader
                 title="Products"
               />
               <Divider/>
@@ -116,7 +117,7 @@ export const ProductCategoryInfo = (props) => {
               variant="outlined"
               {...other}
             >
-              <CardHeader
+              <TrCardHeader
                 title="Images"
               />
               <CardContent>
@@ -166,7 +167,7 @@ export const ProductCategoryInfo = (props) => {
               }}
               {...other}
             >
-              <CardHeader
+              <TrCardHeader
                 title="Tree starting from this category"
               />
               <CardContent>

@@ -1,11 +1,10 @@
-import {Card, CardContent, CardHeader, Divider, Typography} from "@material-ui/core";
-import {useTranslation} from "react-i18next";
+import {Card, CardContent, Divider, Typography} from "@material-ui/core";
+import TrCardHeader from "../../components/translated/TrCardHeader";
 
 export const RolesAndPermissionsGeneralInformationTab = () => {
-  const {t} = useTranslation();
 
   return (<Card variant="outlined" sx={{mt: 2}}>
-    <CardHeader title={t("General Information")}/>
+    <TrCardHeader title={"General Information"}/>
     <Divider/>
     <CardContent>
       <Typography

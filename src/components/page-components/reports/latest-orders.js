@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Card, CardHeader, Divider } from '@material-ui/core';
+import { Button, Card, Divider } from '@material-ui/core';
 import { OrderPreviewItem } from '../order/order-preview-item';
 import { OrderPreviewList } from '../order/order-preview-list';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const LatestOrders = (props) => {
   const { orders } = props;
@@ -12,7 +13,7 @@ export const LatestOrders = (props) => {
       variant="outlined"
       {...props}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <Button
             color="primary"
@@ -23,7 +24,7 @@ export const LatestOrders = (props) => {
             Go to orders
           </Button>
         )}
-        title="Latest OrdersList"
+        title="Latest Orders"
       />
       <Divider />
       <OrderPreviewList>

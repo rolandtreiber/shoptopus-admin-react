@@ -1,10 +1,11 @@
 import {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
-import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import RangeSelector from "./range-selector";
 import Price from "../../common/price";
 import {useTranslation} from "react-i18next";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const data = {
   categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -126,7 +127,7 @@ export const PerformanceIndicators = ({data, onRangeChange, snapshots}) => {
     <Card
       variant="outlined"
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <RangeSelector onChange={onRangeChange}/>
         )}

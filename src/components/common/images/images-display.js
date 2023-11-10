@@ -1,7 +1,8 @@
-import {Box, Card, CardContent, CardHeader, Divider} from "@material-ui/core";
+import {Box, Card, CardContent, Divider} from "@material-ui/core";
 import NoImg from '../../../static/images/no-image.png'
 import Lightbox from "react-awesome-lightbox";
 import {useState} from "react";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const ImagesDisplay = ({styles, images, coverPhoto}) => {
     const [ showLightbox, setShowLightbox ] = useState(false)
@@ -20,7 +21,7 @@ const ImagesDisplay = ({styles, images, coverPhoto}) => {
       variant="outlined"
       {...styles}
     >
-      <CardHeader
+      <TrCardHeader
         title="Product Images"
         variant="outlined"
       />

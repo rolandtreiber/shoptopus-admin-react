@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import {
   Box,
   Card,
-  CardHeader,
   Divider,
   FormControlLabel,
   List,
@@ -17,6 +16,7 @@ import {
 } from '@material-ui/core';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
+import TrCardHeader from "../../components/translated/TrCardHeader";
 
 const notifications = [
   {
@@ -65,7 +65,7 @@ export const AccountNotifications = () => {
         <title>Account: Notifications | {appName}</title>
       </Helmet>
       <Card variant="outlined">
-        <CardHeader
+        <TrCardHeader
           subheader="Manage your alert notifications"
           title="Email Notifications"
         />

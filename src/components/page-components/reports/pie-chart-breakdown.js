@@ -4,7 +4,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   Divider,
   List,
   ListItem,
@@ -16,6 +15,7 @@ import {StatusBadge} from '../../common/status-badge';
 import RangeSelector from "./range-selector";
 import {Star as StarIcon} from "../../../icons/star";
 import {useTranslation} from "react-i18next";
+import TrCardHeader from "../../translated/TrCardHeader";
 
 export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRangeChange, stars = false}) => {
   const theme = useTheme();
@@ -50,28 +50,7 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
 
     }
   }, [series])
-
-  const ranges = [
-    {
-      label: 'Last 7 days',
-      onClick: () => {
-        setRange('Last 7 days');
-      }
-    },
-    {
-      label: 'Last Month',
-      onClick: () => {
-        setRange('Last Month');
-      }
-    },
-    {
-      label: 'Last Year',
-      onClick: () => {
-        setRange('Last Year');
-      }
-    }
-  ];
-
+  
   const getStars = (rating) => {
     let stars = [];
     for (let i = 0; i < rating; i++) {
@@ -84,13 +63,13 @@ export const PieChartBreakdown = ({series, title, showRangeSelector = true, onRa
     <Card
       variant="outlined"
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <>
             {showRangeSelector && <RangeSelector onChange={onRangeChange}/>}
           </>
         )}
-        title={t(title)}
+        title={title}
       />
       <Divider/>
       {series && chartOptions && chartSeries && <CardContent>

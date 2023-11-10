@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Chart from 'react-apexcharts';
-import { Box, Card, CardContent, CardHeader, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { ActionsMenu } from '../../common/actions/actions-menu';
+import TrCardHeader from "../../translated/TrCardHeader";
 
 const stats = [
   {
@@ -143,7 +144,7 @@ export const Bills = (props) => {
       variant="outlined"
       {...props}
     >
-      <CardHeader
+      <TrCardHeader
         action={(
           <ActionsMenu
             actions={ranges}

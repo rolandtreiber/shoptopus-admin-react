@@ -1,4 +1,4 @@
-import {Card, CardHeader, Divider, Grid, List, ListItemText} from "@material-ui/core";
+import {Card, Divider, Grid, List, ListItemText} from "@material-ui/core";
 import {OrderStatus} from "../../../components/page-components/order/order-status";
 import TransactionCard from "../../../components/page-components/transactions/transaction-card";
 import CustomerCard from "../../../components/page-components/customer/customer-card";
@@ -7,6 +7,7 @@ import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-
 import Price from "../../../components/common/price";
 import {format} from "date-fns";
 import {useTranslation} from "react-i18next";
+import TrCardHeader from "../../../components/translated/TrCardHeader";
 
 const OrderTabInfo = ({data, updated}) => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const OrderTabInfo = ({data, updated}) => {
     {data ? <>
       <Grid item xs={12} lg={7}>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title="General" />
+          <TrCardHeader title="General" />
           <Divider />
           <List>
             <ListItemGridKeyValue
@@ -45,11 +46,11 @@ const OrderTabInfo = ({data, updated}) => {
           </List>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title={t("Customer")} />
+          <TrCardHeader title={t("Customer")} />
           <CustomerCard data={data.user}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title={t("Payment")} />
+          <TrCardHeader title={t("Payment")} />
           <TransactionCard payment={data.payments[0]}/>
         </Card>
       </Grid>
@@ -58,11 +59,11 @@ const OrderTabInfo = ({data, updated}) => {
           <OrderStatus order={data} updated={updated}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title={t("Address")} />
+          <TrCardHeader title={t("Address")} />
           <AddressCard vertical={true} address={data.address}/>
         </Card>
         <Card variant="outlined" style={{padding: 10, marginBottom: 10}}>
-          <CardHeader title={t("Delivery")} />
+          <TrCardHeader title={t("Delivery")} />
         </Card>
       </Grid>
     </> : (<Grid item xs={12}>
