@@ -3,7 +3,7 @@ import useSocket from "../../../../hooks/use-socket";
 import {useAuth} from "../../../../hooks/use-auth";
 import {NotificationsContext} from "../../../../contexts/notifications-context";
 
-const notifications = () => {
+const Notifications = () => {
   const {accessToken, user} = useAuth()
   const socket = useSocket(accessToken)
   const [{notifications}, {addSocketNotificationToList}] = useContext(NotificationsContext)
@@ -24,4 +24,4 @@ const notifications = () => {
   )
 }
 
-export default notifications
+export default Notifications

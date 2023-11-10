@@ -250,7 +250,7 @@ export const ProductSingle = () => {
           onCancel={handleCloseDiscontinueDialog}
           onConfirm={handleDiscontinueProduct}
           open={discontinueDialogOpen}
-          title="Discontinue ProductSingle"
+          title="Discontinue Product"
           variant="error"
         />
         <ConfirmationDialog
@@ -258,7 +258,7 @@ export const ProductSingle = () => {
           onCancel={handleCloseArchiveDialog}
           onConfirm={handleArchiveProduct}
           open={archiveOpen}
-          title="Archive ProductSingle"
+          title="Archive Product"
           variant="error"
         />
       </>
