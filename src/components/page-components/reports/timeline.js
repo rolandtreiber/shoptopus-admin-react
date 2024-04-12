@@ -5,25 +5,6 @@ import { useTheme } from '@material-ui/core/styles';
 import RangeSelector from "./range-selector";
 import TrCardHeader from "../../translated/TrCardHeader";
 
-const stats = [
-  {
-    content: '$191.02',
-    label: 'Draft'
-  },
-  {
-    content: '$320.50',
-    label: 'Awaiting delivery'
-  },
-  {
-    content: '$3,800.00',
-    label: 'Due'
-  },
-  {
-    content: '$3,500.00',
-    label: 'Overdue'
-  }
-];
-
 export const Timeline = ({data, title, onRangeChange}) => {
   const theme = useTheme();
   const [chartOptions, setChartOptions] = useState()

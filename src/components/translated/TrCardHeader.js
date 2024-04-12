@@ -5,7 +5,7 @@ const TrCardHeader = (props) => {
   const { t } = useTranslation();
   
   return <CardHeader
-    action={props.actions}
+    action={props.action}
     title={t(props.title)}
   />
 }
