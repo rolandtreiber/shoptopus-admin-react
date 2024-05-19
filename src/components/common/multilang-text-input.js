@@ -26,7 +26,7 @@ const MultilangTextInput = ({title, nullable = false, value = null, width, onCha
     const getValidationSchema = () => {
         let schema = {}
         Object.keys(availableLanguages).forEach(lang => {
-            schema[lang] = Yup.string().max(255).required(title+' ('+availableLanguages[lang].label+') is required')
+            schema[lang] = Yup.string().max(500).required(title+' ('+availableLanguages[lang].label+') is required')
         })
         return schema
     }

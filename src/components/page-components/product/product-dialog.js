@@ -118,7 +118,7 @@ export const ProductDialog = (props) => {
                 tags.map(tag => formData.append('product_tags[]', tag))
                 if (product) {
                     isValid && updateProduct(product.id, formData).then(response => {
-                        toast.success('ProductSingle updated');
+                        toast.success('Product updated');
                         helpers.setStatus({success: true});
                         helpers.setSubmitting(false);
                         helpers.resetForm();
