@@ -142,7 +142,7 @@ const ProductCategoriesTable = (props) => {
                   ml: 1.75
                 }}
                 variant="body2"
-              >({rowData.children.length} sub {rowData.children.length === 1 ? 'category' : 'categories'})</Typography>)}
+              >({rowData.children.length} sub {rowData.children.length === 1 ? t('category') : t('categories')})</Typography>)}
             </Box>
           </TableCell>
           <TableCell>

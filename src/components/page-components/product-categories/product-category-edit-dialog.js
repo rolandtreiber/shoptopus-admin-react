@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {useFormik} from 'formik';
+import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -32,6 +33,7 @@ export const ProductCategoryEditDialog = (props) => {
   const [menuImage, setMenuImage] = useState(null)
   const [headerImage, setHeaderImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
@@ -120,7 +122,7 @@ export const ProductCategoryEditDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Update Product Category
+        {t('Update Product Category')}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -192,7 +194,7 @@ export const ProductCategoryEditDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.enabled ? "Enabled" : "Disabled"}
+              label={formik.values.enabled ? t("Enabled") : t("Disabled")}
             />
 
           </Grid>
@@ -214,7 +216,7 @@ export const ProductCategoryEditDialog = (props) => {
           onClick={onClose}
           variant="text"
         >
-          Cancel
+          {t('Cancel')}
         </Button>
         <Button
           color="primary"
@@ -225,7 +227,7 @@ export const ProductCategoryEditDialog = (props) => {
           }}
           variant="contained"
         >
-          Update Product Category
+          {t('Update Product Category')}
         </Button>
       </DialogActions>
     </Dialog>

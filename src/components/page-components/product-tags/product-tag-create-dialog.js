@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {useFormik} from 'formik';
+import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -26,6 +27,7 @@ export const ProductTagCreateDialog = (props) => {
   const [showErrors, setShowErrors] = useState(false)
   const [badge, setBadge] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -76,7 +78,7 @@ export const ProductTagCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Tag
+        {t('Create Product Tag')}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -115,7 +117,7 @@ export const ProductTagCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={formik.values.enabled === true ? "Enabled" : "Disabled"}
+              label={formik.values.enabled === true ? t("Enabled") : t("Disabled")}
             />
           </Grid>
           <Grid item xs={6}>
@@ -130,7 +132,7 @@ export const ProductTagCreateDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={"Display Badge"}
+              label={t("Display Badge")}
             />
           </Grid>
           {formik.errors.submit && (
@@ -150,7 +152,7 @@ export const ProductTagCreateDialog = (props) => {
           onClick={onClose}
           variant="text"
         >
-          Cancel
+          {t('Cancel')}
         </Button>
         <Button
           color="primary"
@@ -161,7 +163,7 @@ export const ProductTagCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Tag
+          {t('Create Product Tag')}
         </Button>
       </DialogActions>
     </Dialog>

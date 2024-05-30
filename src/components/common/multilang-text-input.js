@@ -1,4 +1,5 @@
 import {useContext, useEffect, useState} from 'react'
+import {useTranslation} from "react-i18next";
 import {SettingsContext} from "../../contexts/settings-context";
 import {InputField} from "./input-field";
 import {Grid, TextField} from "@material-ui/core";
@@ -7,6 +8,7 @@ import * as Yup from "yup";
 
 const MultilangTextInput = ({title, nullable = false, value = null, width, onChange, showErrors = false, rows = null, setValid = () => {}}) => {
     const {availableLanguages} = useContext(SettingsContext)
+    const { t } = useTranslation();
 
     const getInitialValues = () => {
         let initialValues = {}
@@ -64,7 +66,7 @@ const MultilangTextInput = ({title, nullable = false, value = null, width, onCha
                 error={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang]))}
                 fullWidth
                 helperText={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang])) && formik.errors[lang]}
-                label={title+' ('+availableLanguages[lang].label+')'}
+                label={t(title)+' ('+availableLanguages[lang].label+')'}
                 name={lang}
                 onBlur={formik.handleBlur}
                 onChange={e => {
@@ -79,7 +81,7 @@ const MultilangTextInput = ({title, nullable = false, value = null, width, onCha
                 multiline={true}
                 maxRows={rows}
                 helperText={Boolean((formik.touched[lang] && formik.errors[lang]) && (showErrors && formik.errors[lang])) && formik.errors[lang]}
-                label={title+' ('+availableLanguages[lang].label+')'}
+                label={t(title)+' ('+availableLanguages[lang].label+')'}
                 name={lang}
                 onBlur={formik.handleBlur}
                 onChange={e => {

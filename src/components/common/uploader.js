@@ -22,6 +22,7 @@ export const Uploader = ({title, data, setData, multiple = true, max = null, typ
   const { t } = useTranslation();
   const [showDropZone, setShowDropZone] = useState()
   const [activeId, setActiveId] = useState(null);
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {

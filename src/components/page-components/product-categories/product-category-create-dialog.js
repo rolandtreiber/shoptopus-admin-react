@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {useFormik} from 'formik';
+import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -32,6 +33,7 @@ export const ProductCategoryCreateDialog = (props) => {
   const [menuImage, setMenuImage] = useState(null)
   const [headerImage, setHeaderImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCategoriesSelectData().catch(console.error)
@@ -117,7 +119,7 @@ export const ProductCategoryCreateDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Create Product Category
+        {t('Create Product Category')}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -219,7 +221,7 @@ export const ProductCategoryCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          Create Product Category
+          {t('Create Product Category')}
         </Button>
       </DialogActions>
     </Dialog>

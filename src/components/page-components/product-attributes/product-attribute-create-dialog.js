@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {useFormik} from 'formik';
+import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -40,6 +41,7 @@ export const ProductAttributeCreateDialog = (props) => {
   const [showErrors, setShowErrors] = useState(false)
   const [image, setImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -60,7 +62,6 @@ export const ProductAttributeCreateDialog = (props) => {
         formData.append("enabled", formik.values.enabled)
         formData.append("parent_id", formik.values.parentId)
         formData.append("type", formik.values.type)
-console.log(formik.values.type)
         isValid && saveProductAttribute(formData).then(response => {
           toast.success('ProductSingle Attribute Created');
           helpers.setStatus({success: true});
@@ -90,7 +91,7 @@ console.log(formik.values.type)
       {...other}
     >
       <DialogTitle>
-        Create Product Attribute
+        {t('Create Product Attribute')}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -173,7 +174,7 @@ console.log(formik.values.type)
           }}
           variant="contained"
         >
-          Create Product Attribute
+          {t('Create Product Attribute')}
         </Button>
       </DialogActions>
     </Dialog>

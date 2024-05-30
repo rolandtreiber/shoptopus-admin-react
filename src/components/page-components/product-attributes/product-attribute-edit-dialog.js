@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {useFormik} from 'formik';
+import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -26,6 +27,7 @@ export const ProductAttributeEditDialog = (props) => {
   const [image, setImage] = useState(null)
   const {setValidation, isValid} = useNestedValidation()
   const [saving, setSaving] = useState(false)
+  const { t } = useTranslation();
 
   const types = [
     {
@@ -100,7 +102,7 @@ export const ProductAttributeEditDialog = (props) => {
       {...other}
     >
       <DialogTitle>
-        Update Product Attribute
+        {t('Update Product Attribute')}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} mt={1}>
@@ -184,7 +186,7 @@ export const ProductAttributeEditDialog = (props) => {
           }}
           variant="contained"
         >
-          Update Product Attribute
+          {t('Update Product Attribute')}
         </Button>
       </DialogActions>
     </Dialog>
