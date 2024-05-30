@@ -19,7 +19,18 @@ import {getFileFromBlob} from "../../../utils/file-operations";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
 
 const types = [
-  'Text', 'Image', 'Color'
+  {
+    text: 'Text',
+    value: 1
+  },
+  {
+    text: 'Image',
+    value: 2
+  },
+  {
+    text: 'Color',
+    value: 3
+  },
 ];
 
 export const ProductAttributeCreateDialog = (props) => {
@@ -35,7 +46,7 @@ export const ProductAttributeCreateDialog = (props) => {
       parentId: '',
       submit: 'null',
       enabled: true,
-      type: 0
+      type: 1
     },
     validationSchema: Yup.object().shape({}),
     onSubmit: async (values, helpers) => {
@@ -49,7 +60,7 @@ export const ProductAttributeCreateDialog = (props) => {
         formData.append("enabled", formik.values.enabled)
         formData.append("parent_id", formik.values.parentId)
         formData.append("type", formik.values.type)
-
+console.log(formik.values.type)
         isValid && saveProductAttribute(formData).then(response => {
           toast.success('ProductSingle Attribute Created');
           helpers.setStatus({success: true});
@@ -110,9 +121,9 @@ export const ProductAttributeCreateDialog = (props) => {
                 native: true,
               }}
             >
-              {types.map((option, index) => (
-                <option key={option} value={index}>
-                  {option}
+              {types.map((option) => (
+                <option key={option.text} value={option.value}>
+                  {option.text}
                 </option>
               ))}
             </TextField>
