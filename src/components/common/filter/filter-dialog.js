@@ -5,16 +5,15 @@ import {
   Chip,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogTitle,
+  DialogContent, DialogTitle,
   Divider,
-  IconButton,
-  Typography
+  IconButton
 } from '@material-ui/core';
 import { useFilters } from '../../../hooks/use-filters';
 import { X as XIcon } from '../../../icons/x';
 import { FilterDialogItem } from './filter-dialog-item';
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../translated/translated-typography";
 
 export const FilterDialog = (props) => {
   const { open, onClose, operators, properties, onApply, onClear, ...other } = props;
@@ -55,12 +54,12 @@ export const FilterDialog = (props) => {
           display: 'flex'
         }}
       >
-        <Typography
+        <TrTypography
           color="textPrimary"
           variant="inherit"
         >
           Filter
-        </Typography>
+        </TrTypography>
         <IconButton
           onClick={onClose}
           size="small"

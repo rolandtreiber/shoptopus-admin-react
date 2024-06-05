@@ -1,5 +1,5 @@
 import {createContext, useState} from "react";
-import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
+import {ConfirmationDialog} from "../components/common/modal/confirmation-dialog";
 
 export const DialogContext = createContext();
 

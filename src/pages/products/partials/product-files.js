@@ -9,8 +9,8 @@ import {useLanguage} from "../../../hooks/use-language";
 import {ResourceUnavailable} from "../../../components/common/placeholder/resource-unavailable";
 import {ResourceLoading} from "../../../components/common/placeholder/resource-loading";
 import {DialogContext} from "../../../contexts/dialog-context";
-import {FileDialog} from "../../../components/page-components/product/file-dialog";
-import TrCardHeader from "../../../components/translated/TrCardHeader";
+import {FileDialog} from "../components/file-dialog";
+import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 const ProductFiles = () => {
   const {productId} = useParams();

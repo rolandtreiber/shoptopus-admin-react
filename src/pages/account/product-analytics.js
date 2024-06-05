@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Card, CardContent, Grid, Typography } from '@material-ui/core';
-import { ProductChannel } from '../../components/page-components/product/product-channel';
-import { ProductReturnRate } from '../../components/page-components/product/product-return-rate';
-import { ProductReviews } from '../../components/page-components/product/product-reviews';
-import { ProductSalesReport } from '../../components/page-components/product/product-sales-report';
+import { Box, Card, CardContent, Grid } from '@material-ui/core';
+import { ProductChannel } from '../products/components/product-channel';
+import { ProductReturnRate } from '../products/components/product-return-rate';
+import { ProductReviews } from '../products/components/product-reviews';
+import { ProductSalesReport } from '../products/components/product-sales-report';
 import gtm from '../../lib/gtm';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const ProductAnalytics = () => {
   const {appName} = useContext(SettingsContext)
@@ -39,12 +40,12 @@ export const ProductAnalytics = () => {
               item
               xs={12}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h6"
               >
                 All time
-              </Typography>
+              </TrTypography>
             </Grid>
             <Grid
               item
@@ -52,18 +53,18 @@ export const ProductAnalytics = () => {
             >
               <Card variant="outlined">
                 <CardContent>
-                  <Typography
+                  <TrTypography
                     color="textSecondary"
                     variant="subtitle2"
                   >
                     Monthly Recurring Revenue
-                  </Typography>
-                  <Typography
+                  </TrTypography>
+                  <TrTypography
                     color="textPrimary"
                     variant="h4"
                   >
                     € 3,200.00
-                  </Typography>
+                  </TrTypography>
                 </CardContent>
               </Card>
             </Grid>
@@ -73,18 +74,18 @@ export const ProductAnalytics = () => {
             >
               <Card variant="outlined">
                 <CardContent>
-                  <Typography
+                  <TrTypography
                     color="textSecondary"
                     variant="subtitle2"
                   >
                     Order count for this product
-                  </Typography>
-                  <Typography
+                  </TrTypography>
+                  <TrTypography
                     color="textPrimary"
                     variant="h4"
                   >
                     356
-                  </Typography>
+                  </TrTypography>
                 </CardContent>
               </Card>
             </Grid>
@@ -107,12 +108,12 @@ export const ProductAnalytics = () => {
               item
               xs={12}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h6"
               >
                 Last 30 days
-              </Typography>
+              </TrTypography>
             </Grid>
             <Grid
               item

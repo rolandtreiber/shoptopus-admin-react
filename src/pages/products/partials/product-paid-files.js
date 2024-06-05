@@ -8,9 +8,9 @@ import {useMounted} from "../../../hooks/use-mounted";
 import {useLanguage} from "../../../hooks/use-language";
 import {ResourceUnavailable} from "../../../components/common/placeholder/resource-unavailable";
 import {ResourceLoading} from "../../../components/common/placeholder/resource-loading";
-import {ProductPaidFileDialog} from "../../../components/page-components/product/product-paid-file-dialog";
+import {ProductPaidFileDialog} from "../components/product-paid-file-dialog";
 import {DialogContext} from "../../../contexts/dialog-context";
-import TrCardHeader from "../../../components/translated/TrCardHeader";
+import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 const ProductPaidFiles = () => {
   const [file, setFile] = useState()

@@ -1,7 +1,8 @@
 import {useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
-import {Box, Card, Container, Typography} from '@material-ui/core';
+import {Box, Card, Container} from '@material-ui/core';
 import {SettingsContext} from "../../contexts/settings-context";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const Reports = () => {
   const {appName} = useContext(SettingsContext)
@@ -32,12 +33,12 @@ export const Reports = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Reports
-              </Typography>
+              </TrTypography>
               <Box sx={{ flexGrow: 1 }} />
             </Box>
           </Box>

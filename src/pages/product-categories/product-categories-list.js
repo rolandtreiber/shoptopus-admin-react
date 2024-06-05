@@ -4,15 +4,16 @@ import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../../contexts/settings-context";
-import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
-import ProductCategoriesTable from "../../components/page-components/product-categories/product-categories-table";
+import {Box, Button, Card, Container, Divider} from "@material-ui/core";
+import ProductCategoriesTable from "./components/product-categories-table";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {Plus as PlusIcon} from "../../icons/plus";
 import {ListFilter} from "../../components/common/filter/list-filter";
-import {ProductCategoryCreateDialog} from "../../components/page-components/product-categories/product-category-create-dialog";
+import {ProductCategoryCreateDialog} from "./components/product-category-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const filterProperties = [
     {
@@ -228,12 +229,12 @@ export const ProductCategoriesList = () => {
                             display: 'flex'
                         }}
                       >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
-                              {t('Product Categories')}
-                          </Typography>
+                              Product Categories
+                          </TrTypography>
                           <Box sx={{flexGrow: 1}}/>
                           <Button
                             color="primary"

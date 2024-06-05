@@ -1,4 +1,4 @@
-import OrderProductsTable from "../../../components/page-components/order/order-products-table";
+import OrderProductsTable from "../components/order-products-table";
 
 const OrderTabItems = ({data}) => {
   return (

@@ -2,8 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
@@ -12,8 +11,9 @@ import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
 import {Edit} from "@mui/icons-material";
-import {FileDialog} from "../../components/page-components/product/file-dialog";
-import {FileDetails} from "../../components/page-components/files/file-details";
+import {FileDialog} from "../products/components/file-dialog";
+import {FileDetails} from "./components/file-details";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const FileContent = () => {
   const mounted = useMounted();
@@ -88,12 +88,12 @@ export const FileContent = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 File
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

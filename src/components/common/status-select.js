@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { MenuItem } from '@material-ui/core';
-import { InputField } from './input-field';
+import { InputField } from './input-fields/input-field';
 import { StatusBadge } from './status-badge';
 import {useTranslation} from "react-i18next";
 

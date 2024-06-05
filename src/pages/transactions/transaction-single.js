@@ -2,8 +2,7 @@ import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
@@ -12,9 +11,10 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import TransactionDetails from "../../components/page-components/transactions/transaction-details";
+import TransactionDetails from "./components/transaction-details";
 import {ResourceLoading} from "../../components/common/placeholder/resource-loading";
 import {ResourceError} from "../../components/common/placeholder/resource-error";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const TransactionSingle = () => {
   const mounted = useMounted();
@@ -89,12 +89,12 @@ export const TransactionSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Transaction
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

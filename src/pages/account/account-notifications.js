@@ -11,12 +11,12 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  Switch,
-  Typography
+  Switch
 } from '@material-ui/core';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
-import TrCardHeader from "../../components/translated/TrCardHeader";
+import TrCardHeader from "../../components/common/translated/translated-card-header";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const notifications = [
   {
@@ -101,19 +101,19 @@ export const AccountNotifications = () => {
         }}
       >
         <Box>
-          <Typography
+          <TrTypography
             color="textPrimary"
             sx={{ mb: 1 }}
             variant="h6"
           >
             Unsubscribe Notifications
-          </Typography>
-          <Typography
+          </TrTypography>
+          <TrTypography
             color="textSecondary"
             variant="body2"
           >
             Keep in mind that security notifications cannot be turned off
-          </Typography>
+          </TrTypography>
         </Box>
         <Box sx={{ flexGrow: 1 }} />
         <FormControlLabel

@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Button, Card, Container, Divider } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
@@ -9,11 +9,12 @@ import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
-import {DeliveryTypesTable} from "../../components/page-components/delivery-types/delivery-types-table";
-import {DeliveryTypeDialog} from "../../components/page-components/delivery-types/delivery-type-dialog";
+import {DeliveryTypesTable} from "./components/delivery-types-table";
+import {DeliveryTypeDialog} from "./components/delivery-type-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const views = [
     {
@@ -245,12 +246,12 @@ export const DeliveryTypesList = () => {
                             display: 'flex'
                         }}
                       >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
-                              {t("Delivery Types")}
-                          </Typography>
+                              Delivery Types
+                          </TrTypography>
                           <Box sx={{ flexGrow: 1 }} />
                           <Button
                             color="primary"

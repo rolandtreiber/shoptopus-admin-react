@@ -1,17 +1,18 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Container, Typography} from '@material-ui/core';
+import {Box, Button, Container} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
-import {ProductCategoryInfo} from "../../components/page-components/product-categories/product-category-info";
-import {ProductCategoryEditDialog} from "../../components/page-components/product-categories/product-category-edit-dialog";
+import {ProductCategoryInfo} from "./components/product-category-info";
+import {ProductCategoryEditDialog} from "./components/product-category-edit-dialog";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {Pencil as PencilIcon} from "../../icons/pencil";
 import {SettingsContext} from "../../contexts/settings-context";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const ProductCategorySingle = () => {
   const {appName} = useContext(SettingsContext)
@@ -98,12 +99,12 @@ export const ProductCategorySingle = () => {
                   marginBottom: 2
                 }}
               >
-                <Typography
+                <TrTypography
                   color="textPrimary"
                   variant="h4"
                 >
                   Product Category
-                </Typography>
+                </TrTypography>
                 <Box sx={{flexGrow: 1}}/>
                 <Button
                   color="primary"

@@ -5,7 +5,7 @@ import { AppBar, Box, Card, CardContent, Container, Grid, Toolbar } from '@mater
 import { Logo } from '../../components/common/logo';
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import gtm from '../../lib/gtm';
-import {LoginOAuth} from "../../components/auth/login-oauth";
+import {LoginOAuth} from "./login-oauth";
 
 export const Login = () => {
   const { settings } = useSettings();

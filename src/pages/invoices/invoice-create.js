@@ -20,11 +20,12 @@ import {
   InputAdornment,
   Typography
 } from '@material-ui/core';
-import { DateField } from '../../components/common/date-field';
-import { InputField } from '../../components/common/input-field';
+import { DateField } from '../../components/common/input-fields/date-field';
+import { InputField } from '../../components/common/input-fields/input-field';
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
 import { Plus as PlusIcon } from '../../icons/plus';
 import { Trash as TrashIcon } from '../../icons/trash';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const InvoiceCreate = () => {
   const {appName} = useContext(SettingsContext)
@@ -125,12 +126,12 @@ export const InvoiceCreate = () => {
                 Invoices
               </Button>
             </Box>
-            <Typography
+            <TrTypography
               color="textPrimary"
               variant="h4"
             >
               Create Invoice
-            </Typography>
+            </TrTypography>
           </Box>
           <Card variant="outlined">
             <form onSubmit={formik.handleSubmit}>
@@ -369,13 +370,13 @@ export const InvoiceCreate = () => {
                       Add Item
                     </Button>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Typography
+                    <TrTypography
                       color="textSecondary"
                       sx={{ mr: 1 }}
                       variant="subtitle2"
                     >
                       Total
-                    </Typography>
+                    </TrTypography>
                     <Typography
                       color="textPrimary"
                       variant="h6"

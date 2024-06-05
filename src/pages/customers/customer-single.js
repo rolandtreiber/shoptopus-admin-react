@@ -13,7 +13,7 @@ import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
 import {Email} from "@material-ui/icons";
 import {EmailClientContext} from "../../contexts/email-client-context";
-import NotesTriggerButton from "../../components/notes/notes-trigger-button";
+import NotesTriggerButton from "../../components/common-page-components/notes/notes-trigger-button";
 import CustomerBasicInfo from "./partials/customer-basic-info";
 import CustomerQuickSummary from "./partials/customer-quick-summary";
 import Panel from "../../components/common/panel";

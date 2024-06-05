@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { StatusBadge } from './status-badge';
-import {useTranslation} from "react-i18next";
+import {TrTypography} from "./translated/translated-typography";
 
 export const Status = (props) => {
   const { color, label, ...other } = props;
-  const { t } = useTranslation();
 
   return (
     <Box
@@ -16,15 +15,15 @@ export const Status = (props) => {
       {...other}
     >
       <StatusBadge color={color} />
-      <Typography
+      <TrTypography
         sx={{
           color,
           ml: 1.75
         }}
         variant="body2"
       >
-        {t(label)}
-      </Typography>
+        {label}
+      </TrTypography>
     </Box>
   );
 };

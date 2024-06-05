@@ -8,7 +8,7 @@ import {useMounted} from '../../hooks/use-mounted';
 import {ArrowLeft as ArrowLeftIcon} from '../../icons/arrow-left';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
-import NotesTriggerButton from "../../components/notes/notes-trigger-button";
+import NotesTriggerButton from "../../components/common-page-components/notes/notes-trigger-button";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Email} from "@material-ui/icons";
 import {EmailClientContext} from "../../contexts/email-client-context";
@@ -165,7 +165,7 @@ export const OrderSingle = () => {
                   color="primary"
                   component={RouterLink}
                   startIcon={<ArrowLeftIcon/>}
-                  to="/orders"
+                  to="/admin/orders"
                   variant="text"
                 >
                   {t("Orders")}

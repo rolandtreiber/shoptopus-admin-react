@@ -2,8 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
@@ -12,8 +11,9 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import VoucherCodeDetails from "../../components/page-components/voucher-codes/voucher-code-details";
-import {VoucherCodeDialog} from "../../components/page-components/voucher-codes/voucher-code-dialog";
+import VoucherCodeDetails from "../../components/common-page-components/voucher-codes/voucher-code-details";
+import {VoucherCodeDialog} from "../../components/common-page-components/voucher-codes/voucher-code-dialog";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const VoucherCodeSingle = () => {
   const mounted = useMounted();
@@ -80,7 +80,7 @@ export const VoucherCodeSingle = () => {
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/discount/voucher-codes"
+                to="/admin/discount/voucher-codes"
                 variant="text"
               >
                 Voucher Codes
@@ -92,12 +92,12 @@ export const VoucherCodeSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Voucher Code
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

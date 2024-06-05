@@ -27,7 +27,7 @@ import { useMounted } from '../../hooks/use-mounted';
 import { CustomCube as CubeIcon } from '../../icons/custom-cube';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
-import TrCardHeader from "../../components/translated/TrCardHeader";
+import TrCardHeader from "../../components/common/translated/translated-card-header";
 
 const VariantTableRow = (props) => {
   const {appName} = useContext(SettingsContext)

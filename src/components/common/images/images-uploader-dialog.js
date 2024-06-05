@@ -7,12 +7,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   IconButton,
   Typography
 } from '@material-ui/core';
 import { Trash as TrashIcon } from '../../../icons/trash';
 import { ImageDropzone } from './image-dropzone';
+import {TrDialogTitle} from "../translated/translated-dialog-title";
+import {TrTypography} from "../translated/translated-typography";
 
 export const ImagesUploaderDialog = (props) => {
   const { onCancel, onSaveImages, open, selectedImages: selectedImagesProp, ...other } = props;
@@ -57,17 +58,17 @@ export const ImagesUploaderDialog = (props) => {
       }}
       {...other}
     >
-      <DialogTitle>
+      <TrDialogTitle>
         Select image
-      </DialogTitle>
+      </TrDialogTitle>
       <DialogContent>
-        <Typography
+        <TrTypography
           color="textSecondary"
           sx={{ mb: 3 }}
           variant="body2"
         >
           You can only choose images as variant media
-        </Typography>
+        </TrTypography>
         <Box
           sx={{
             display: 'grid',

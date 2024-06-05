@@ -2,8 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
   Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
@@ -12,8 +11,9 @@ import {Pencil as PencilIcon} from "../../icons/pencil";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import DiscountRuleDetails from "../../components/page-components/discount-rules/discount-rule-details";
-import {DiscountRuleDialog} from "../../components/page-components/discount-rules/discount-rule-dialog";
+import DiscountRuleDetails from "./components/discount-rule-details";
+import {DiscountRuleDialog} from "./components/discount-rule-dialog";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const DiscountRuleSingle = () => {
   const mounted = useMounted();
@@ -92,12 +92,12 @@ export const DiscountRuleSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Discount Rule
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

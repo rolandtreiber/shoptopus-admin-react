@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Container,
-  Typography
 } from '@material-ui/core';
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
@@ -11,9 +10,10 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import {BannerDetails} from "../../components/page-components/banners/banner-details";
+import {BannerDetails} from "./components/banner-details";
 import {Edit} from "@mui/icons-material";
-import {BannerDialog} from "../../components/page-components/banners/banner-dialog";
+import {BannerDialog} from "./components/banner-dialog";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const BannerSingle = () => {
   const mounted = useMounted();
@@ -88,12 +88,12 @@ export const BannerSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Banner
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

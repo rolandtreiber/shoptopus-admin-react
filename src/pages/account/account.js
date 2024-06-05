@@ -1,5 +1,6 @@
 import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
-import { Box, Container, Divider, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Container, Divider, Tab, Tabs } from '@material-ui/core';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const tabs = [
   {
@@ -37,12 +38,12 @@ export const Account = () => {
               display: 'flex'
             }}
           >
-            <Typography
+            <TrTypography
               color="textPrimary"
               variant="h4"
             >
               Account Settings
-            </Typography>
+            </TrTypography>
           </Box>
           <Tabs
             allowScrollButtonsMobile

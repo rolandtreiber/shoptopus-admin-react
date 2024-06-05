@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Box, ListItem, ListItemText, Typography } from '@material-ui/core';
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../translated/translated-typography";
 
 export const PropertyListItem = (props) => {
   const { align, children, component, value, label, ...other } = props;
@@ -19,13 +20,13 @@ export const PropertyListItem = (props) => {
       <ListItemText
         disableTypography
         primary={(
-          <Typography
+          <TrTypography
             color="textPrimary"
             sx={{ minWidth: align === 'vertical' ? 'inherit' : 180 }}
             variant="subtitle2"
           >
-            {t(label)}
-          </Typography>
+            {label}
+          </TrTypography>
         )}
         secondary={(
           <Box

@@ -3,16 +3,17 @@ import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
 import {Helmet} from "react-helmet-async";
-import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
+import {Box, Button, Card, Container, Divider} from "@material-ui/core";
 import {Plus as PlusIcon} from "../../icons/plus";
-import ProductTagsTable from "../../components/page-components/product-tags/product-tags-table";
+import ProductTagsTable from "./components/product-tags-table";
 import {SettingsContext} from "../../contexts/settings-context";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {ListFilter} from "../../components/common/filter/list-filter";
-import {ProductTagCreateDialog} from "../../components/page-components/product-tags/product-tag-create-dialog";
+import {ProductTagCreateDialog} from "./components/product-tag-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const filterProperties = [
     {
@@ -232,12 +233,12 @@ const ProductTagsList = () => {
                                 display: 'flex'
                             }}
                         >
-                            <Typography
+                            <TrTypography
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                {t("Product Tags")}
-                            </Typography>
+                                Product Tags
+                            </TrTypography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
                                 color="primary"

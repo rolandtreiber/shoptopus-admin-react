@@ -2,17 +2,18 @@ import {useCallback, useContext, useEffect, useState} from 'react'
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
-import {Box, Button, Card, Container, Divider, Typography} from "@material-ui/core";
+import {Box, Button, Card, Container, Divider} from "@material-ui/core";
 import {Plus as PlusIcon} from "../../icons/plus";
-import ProductAttributesTable from "../../components/page-components/product-attributes/product-attributes-table";
+import ProductAttributesTable from "./components/product-attributes-table";
 import {SettingsContext} from "../../contexts/settings-context";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {Helmet} from "react-helmet-async";
 import {ListFilter} from "../../components/common/filter/list-filter";
-import {ProductAttributeCreateDialog} from "../../components/page-components/product-attributes/product-attribute-create-dialog";
+import {ProductAttributeCreateDialog} from "./components/product-attribute-create-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const filterProperties = [
     {
@@ -227,12 +228,12 @@ export const ProductAttributesList = () => {
                                 display: 'flex'
                             }}
                         >
-                            <Typography
+                            <TrTypography
                                 color="textPrimary"
                                 variant="h4"
                             >
-                                {t("Product Attributes")}
-                            </Typography>
+                                Product Attributes
+                            </TrTypography>
                             <Box sx={{ flexGrow: 1 }} />
                             <Button
                                 color="primary"

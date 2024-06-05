@@ -12,15 +12,15 @@ import {
   Container,
   FormHelperText,
   Grid,
-  Toolbar,
-  Typography
+  Toolbar
 } from '@material-ui/core';
-import {InputField} from '../../components/common/input-field';
+import {InputField} from '../../components/common/input-fields/input-field';
 import {Logo} from '../../components/common/logo';
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import {useAuth} from '../../hooks/use-auth';
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const PasswordRecovery = () => {
   const mounted = useMounted();
@@ -127,12 +127,12 @@ export const PasswordRecovery = () => {
                               mb: 3
                             }}
                           >
-                            <Typography
+                            <TrTypography
                               color="textPrimary"
                               variant="h4"
                             >
                               Forgot password
-                            </Typography>
+                            </TrTypography>
                             <Box sx={{flexGrow: 1}}/>
                             <Button
                               color="primary"
@@ -148,13 +148,13 @@ export const PasswordRecovery = () => {
                           item
                           xs={12}
                         >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="body1"
                           >
                             Enter the email address you used when you
                             joined and we’ll send you instructions to reset your password.
-                          </Typography>
+                          </TrTypography>
                         </Grid>
                         <Grid
                           item
@@ -208,24 +208,24 @@ export const PasswordRecovery = () => {
                           item
                           xs={12}
                         >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
                             Check your email
-                          </Typography>
+                          </TrTypography>
                         </Grid>
                         <Grid
                           item
                           xs={12}
                         >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="body1"
                           >
                             If the email you entered is in our system, we sent you an email with the instructions for
                             resetting your password. Check your inbox.
-                          </Typography>
+                          </TrTypography>
                         </Grid>
                         <Grid
                           item

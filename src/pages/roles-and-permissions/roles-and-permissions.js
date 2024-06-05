@@ -3,12 +3,13 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
 import {APIContext} from "../../contexts/api-context";
 import {useTranslation} from "react-i18next";
-import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs, Typography} from "@material-ui/core";
+import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs} from "@material-ui/core";
 import {Outlet, Link as RouterLink, useLocation} from "react-router-dom";
 import {snakeToCapitalised} from "../../utils/string-operations";
 import {Helmet} from "react-helmet-async";
 import {Plus as PlusIcon} from "../../icons/plus";
-import RoleDialog from "../../components/page-components/roles-and-permissions/role-dialog";
+import RoleDialog from "./components/role-dialog";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const RolesAndPermissions = () => {
   const mounted = useMounted();
@@ -178,12 +179,12 @@ export const RolesAndPermissions = () => {
                     display: 'flex'
                   }}
                 >
-                  <Typography
+                  <TrTypography
                     color="textPrimary"
                     variant="h4"
                   >
-                    {t("Roles And Permissions")}
-                  </Typography>
+                    Roles And Permissions
+                  </TrTypography>
                   <Box sx={{flexGrow: 1}}/>
                   <Button
                     color="primary"

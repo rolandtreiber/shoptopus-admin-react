@@ -1,5 +1,5 @@
 import {Card, Grid} from "@material-ui/core";
-import TransactionCard from "../../../components/page-components/transactions/transaction-card";
+import TransactionCard from "../../transactions/components/transaction-card";
 import {useTranslation} from "react-i18next";
 
 const CustomerTabPayments = ({data}) => {

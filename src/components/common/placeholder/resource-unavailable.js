@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { Plus as PlusIcon } from '../../../icons/plus';
 import { QuestionMarkOutlined as QuestionMarkIcon } from '../../../icons/question-mark-outlined';
+import {TrTypography} from "../translated/translated-typography";
 
 const ResourceUnavailableRoot = styled('div')(({ theme }) => ({
   alignItems: 'center',
@@ -19,13 +20,13 @@ export const ResourceUnavailable = (props) => {
   return (
     <ResourceUnavailableRoot {...other}>
       <QuestionMarkIcon sx={{ color: 'text.secondary' }} />
-      <Typography
+      <TrTypography
         color="textSecondary"
         sx={{ mt: 2 }}
         variant="body2"
       >
         {message ? message : "There are not objects here yet."}
-      </Typography>
+      </TrTypography>
       {onCreate && (
         <Button
           color="primary"

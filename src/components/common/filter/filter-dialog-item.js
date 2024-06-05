@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { Button, Grid, MenuItem, Typography } from '@material-ui/core';
+import { Button, Grid, MenuItem } from '@material-ui/core';
 import { Plus as PlusIcon } from '../../../icons/plus';
-import { DateField } from '../date-field';
-import { InputField } from '../input-field';
+import { DateField } from '../input-fields/date-field';
+import { InputField } from '../input-fields/input-field';
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../translated/translated-typography";
 
 export const FilterDialogItem = (props) => {
   const {
@@ -21,13 +22,13 @@ export const FilterDialogItem = (props) => {
 
   return (
     <div>
-      <Typography
+      <TrTypography
         color="textSecondary"
         sx={{ mb: 1 }}
         variant="caption"
       >
-        {t("Where")}
-      </Typography>
+        Where
+      </TrTypography>
       <Grid
         container
         spacing={2}

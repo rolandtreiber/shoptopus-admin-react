@@ -1,9 +1,9 @@
 import {useContext, useEffect} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box } from '@material-ui/core';
-import { AccountDetails } from '../../components/page-components/account/account-details';
-import { AccountChangePassword } from '../../components/page-components/account/account-change-password';
-import { Account2FA } from '../../components/page-components/account/account-2fa';
+import { AccountDetails } from './components/account-details';
+import { AccountChangePassword } from './components/account-change-password';
+import { Account2FA } from './components/account-2fa';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
 

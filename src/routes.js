@@ -1,8 +1,8 @@
 import {Suspense, lazy} from 'react';
-import {AuthGuard} from './components/guards/auth-guard';
-import {GuestGuard} from './components/guards/guest-guard';
+import {AuthGuard} from './components/common/guards/auth-guard';
+import {GuestGuard} from './components/common/guards/guest-guard';
 import {CustomerSingle} from './pages/customers/customer-single';
-import {LoadingScreen} from './components/page-components/layout-elements/loading-screen';
+import {LoadingScreen} from './components/common-page-components/layout-elements/loading-screen';
 import {Account} from './pages/account/account';
 import {DashboardLayout} from './pages/dashboard/dashboard-layout';
 import {ProductSingle} from './pages/products/product-single';

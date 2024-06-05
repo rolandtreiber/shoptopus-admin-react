@@ -2,7 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Button, Card, List, Skeleton } from '@material-ui/core';
 import { customerApi } from '../../api/customer';
-import { CustomerActivityItem } from '../../components/page-components/customer/customer-activity-item';
+import { CustomerActivityItem } from './components/customer-activity-item';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../components/common/placeholder/resource-unavailable';
 import { useMounted } from '../../hooks/use-mounted';

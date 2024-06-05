@@ -4,6 +4,7 @@ import { useDialog } from '../../../hooks/use-dialog';
 import { ImagesUploaderDialog } from './images-uploader-dialog';
 import { Upload as UploadIcon } from '../../../icons/upload';
 import { Trash as TrashIcon } from '../../../icons/trash';
+import {TrTypography} from "../translated/translated-typography";
 
 export const ImagesUploader = () => {
   const [uploadDialogOpen, handleOpenUploadDialog, handleCloseUploadDialog] = useDialog();
@@ -26,13 +27,13 @@ export const ImagesUploader = () => {
     <>
       <Card variant="outlined">
         <CardContent>
-          <Typography
+          <TrTypography
             color="textPrimary"
             sx={{ mb: 1.25 }}
             variant="subtitle2"
           >
             Image
-          </Typography>
+          </TrTypography>
           <Box
             sx={{
               display: 'grid',
@@ -87,13 +88,13 @@ export const ImagesUploader = () => {
               >
                 Upload
               </Button>
-              <Typography
+              <TrTypography
                 align="center"
                 sx={{ color: 'text.secondary' }}
                 variant="caption"
               >
                 Select images
-              </Typography>
+              </TrTypography>
             </Box>
             {selectedImages.map((image) => (
               <Box

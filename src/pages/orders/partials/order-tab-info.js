@@ -1,13 +1,13 @@
 import {Card, Divider, Grid, List, ListItemText} from "@material-ui/core";
-import {OrderStatus} from "../../../components/page-components/order/order-status";
-import TransactionCard from "../../../components/page-components/transactions/transaction-card";
-import CustomerCard from "../../../components/page-components/customer/customer-card";
-import AddressCard from "../../../components/page-components/addresses/address-card";
+import {OrderStatus} from "../components/order-status";
+import TransactionCard from "../../transactions/components/transaction-card";
+import CustomerCard from "../../customers/components/customer-card";
+import AddressCard from "../../../components/common-page-components/addresses/address-card";
 import ListItemGridKeyValue from "../../../components/common/list-item-grid-key-value";
 import Price from "../../../components/common/price";
 import {format} from "date-fns";
 import {useTranslation} from "react-i18next";
-import TrCardHeader from "../../../components/translated/TrCardHeader";
+import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 const OrderTabInfo = ({data, updated}) => {
   const { t } = useTranslation();

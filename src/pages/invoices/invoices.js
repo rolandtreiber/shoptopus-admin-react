@@ -1,16 +1,17 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Button, Card, Container, Divider } from '@material-ui/core';
 import { invoiceApi } from '../../api/invoice';
-import { InvoicesFilter } from '../../components/page-components/invoices/invoices-filter';
-import { InvoicesStats } from '../../components/page-components/invoices/invoices-stats';
-import { InvoicesTable } from '../../components/page-components/invoices/invoices-table';
+import { InvoicesFilter } from './components/invoices-filter';
+import { InvoicesStats } from './components/invoices-stats';
+import { InvoicesTable } from './components/invoices-table';
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
 import gtm from '../../lib/gtm';
 import {SettingsContext} from "../../contexts/settings-context";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const Invoices = () => {
   const {appName} = useContext(SettingsContext)
@@ -151,12 +152,12 @@ export const Invoices = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Invoices
-              </Typography>
+              </TrTypography>
               <Box sx={{ flexGrow: 1 }} />
               <Button
                 color="primary"

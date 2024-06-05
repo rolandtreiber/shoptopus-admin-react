@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
-import { Avatar, Box, Button, Typography } from '@material-ui/core';
+import { Avatar, Box, Button } from '@material-ui/core';
 import { Upload as UploadIcon } from '../../../icons/upload';
+import {TrTypography} from "../translated/translated-typography";
 
 export const FileDropzone = (props) => {
   const { accept, maxFiles, maxSize, minSize, onDrop, sx } = props;
@@ -58,13 +59,13 @@ export const FileDropzone = (props) => {
       >
         Upload
       </Button>
-      <Typography
+      <TrTypography
         align="center"
         sx={{ color: 'text.secondary' }}
         variant="caption"
       >
         {props.multiple === true ? 'Select files' : 'Select file'}
-      </Typography>
+      </TrTypography>
     </Box>
   );
 };

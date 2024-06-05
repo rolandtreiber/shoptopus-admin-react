@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Container, Typography} from '@material-ui/core';
+import {Box, Button, Container} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import {useMounted} from '../../hooks/use-mounted';
@@ -8,11 +8,12 @@ import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {SettingsContext} from "../../contexts/settings-context";
-import {DeliveryTypeInfo} from "../../components/page-components/delivery-types/delivery-type-info";
+import {DeliveryTypeInfo} from "./components/delivery-type-info";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
-import {DeliveryTypeDialog} from "../../components/page-components/delivery-types/delivery-type-dialog";
-import {DeliveryRuleDialog} from "../../components/page-components/delivery-types/delivery-rule-dialog";
+import {DeliveryTypeDialog} from "./components/delivery-type-dialog";
+import {DeliveryRuleDialog} from "./components/delivery-rule-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const DeliveryTypeSingle = () => {
   const mounted = useMounted();
@@ -121,12 +122,12 @@ export const DeliveryTypeSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Delivery Type
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
             </Box>
             {data.data && <DeliveryTypeInfo

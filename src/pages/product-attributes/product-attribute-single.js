@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, CardContent, Container, Divider, Grid, Typography} from '@material-ui/core';
+import {Box, Button, Card, CardContent, Container, Divider, Grid} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import {useMounted} from '../../hooks/use-mounted';
@@ -8,17 +8,18 @@ import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {SettingsContext} from "../../contexts/settings-context";
-import {ProductAttributeInfo} from "../../components/page-components/product-attributes/product-attribute-info";
+import {ProductAttributeInfo} from "./components/product-attribute-info";
 import {
   ProductAttributeEditDialog
-} from "../../components/page-components/product-attributes/product-attribute-edit-dialog";
-import RightSidebarWrapper from "../../components/page-components/layout-elements/right-sidebar-wrapper";
-import {ProductAttributeOptions} from "../../components/page-components/product-attributes/product-attribute-options";
+} from "./components/product-attribute-edit-dialog";
+import RightSidebarWrapper from "../../components/common-page-components/layout-elements/right-sidebar-wrapper";
+import {ProductAttributeOptions} from "./components/product-attribute-options";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {Pencil as PencilIcon} from "../../icons/pencil";
 import ProductAttributeOptionProductsTree
-  from "../../components/page-components/product-attributes/partials/product-attribute-option-products-tree";
-import TrCardHeader from "../../components/translated/TrCardHeader";
+  from "./partials/product-attribute-option-products-tree";
+import TrCardHeader from "../../components/common/translated/translated-card-header";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const ProductAttributeSingle = () => {
   const mounted = useMounted();
@@ -132,12 +133,12 @@ export const ProductAttributeSingle = () => {
                 marginBottom: 2
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Product Attribute
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <Button
                 color="primary"

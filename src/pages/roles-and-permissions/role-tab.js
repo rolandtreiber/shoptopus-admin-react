@@ -25,8 +25,8 @@ import {CustomUsers} from "../../icons/custom-users";
 import IconButton from "@material-ui/core/IconButton";
 import {Minus} from "../../icons/minus";
 import RoleUserAssociationDialog
-  from "../../components/page-components/roles-and-permissions/role-user-association-dialog";
-import TrCardHeader from "../../components/translated/TrCardHeader";
+  from "./components/role-user-association-dialog";
+import TrCardHeader from "../../components/common/translated/translated-card-header";
 
 export const RoleTab = () => {
   const mounted = useMounted();
@@ -206,7 +206,7 @@ export const RoleTab = () => {
           <Grid item xs={12} md={8}>
             <Card variant="outlined" sx={{mt: 2}}>
               <TrCardHeader title={"Permissions"}
-                          action={(
+                                    action={(
                             <>
                               {roleUsersState.isLoading === false && roleUsersState.data.length === 0 && <Button
                                 disabled={rolePermissionsState.isLoading}
@@ -256,7 +256,7 @@ export const RoleTab = () => {
           <Grid item xs={12} md={4}>
             <Card variant="outlined" sx={{mt: 2}}>
               <TrCardHeader title={"Users"}
-                          action={<Button
+                                    action={<Button
                             disabled={rolePermissionsState.isLoading}
                             color="primary"
                             onClick={() => {

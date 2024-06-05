@@ -12,7 +12,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { ActionsMenu } from '../../components/common/actions/actions-menu';
-import { ConfirmationDialog } from '../../components/modal/confirmation-dialog';
+import { ConfirmationDialog } from '../../components/common/modal/confirmation-dialog';
 // import { Status } from '../../components/common/status';
 import { useDialog } from '../../hooks/use-dialog';
 import { useMounted } from '../../hooks/use-mounted';

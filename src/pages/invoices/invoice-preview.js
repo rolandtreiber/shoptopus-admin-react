@@ -4,13 +4,14 @@ import { Helmet } from 'react-helmet-async';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Box, Button, Container, Skeleton, Typography } from '@material-ui/core';
 import { invoiceApi } from '../../api/invoice';
-import { InvoicePdfPreview } from '../../components/page-components/invoices/invoice-pdf-preview';
-import { InvoicePDF } from '../../components/page-components/invoices/invoice-pdf';
+import { InvoicePdfPreview } from './components/invoice-pdf-preview';
+import { InvoicePDF } from './components/invoice-pdf';
 import { useMounted } from '../../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
 import { Download as DownloadIcon } from '../../icons/download';
 import { ExclamationOutlined as ExclamationOutlinedIcon } from '../../icons/exclamation-outlined';
 import gtm from '../../lib/gtm';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const InvoicePreview = () => {
   const {appName} = useContext(SettingsContext)
@@ -105,12 +106,12 @@ export const InvoicePreview = () => {
               display: 'flex'
             }}
           >
-            <Typography
+            <TrTypography
               color="textPrimary"
               variant="h4"
             >
               Invoice Preview
-            </Typography>
+            </TrTypography>
             <Box sx={{ flexGrow: 1 }} />
             <PDFDownloadLink
               document={<InvoicePDF invoice={invoiceState.data} />}

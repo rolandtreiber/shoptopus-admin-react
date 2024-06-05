@@ -5,16 +5,16 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useDialog } from '../../../hooks/use-dialog';
-import { ConfirmationDialog } from '../../../components/modal/confirmation-dialog';
+import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../../components/common/scrollbar';
-import { ProductVariantDialog } from '../../../components/page-components/product-variant/product-variant-dialog';
+import { ProductVariantDialog } from '../product-variants/product-variant-dialog';
 import {APIContext} from "../../../contexts/api-context";
 import {getUrlFilters} from "../../../utils/apply-filters";
 import {useMounted} from "../../../hooks/use-mounted";
-import {ProductVariantsTable} from "../../../components/page-components/product-variant/product-variants-table";
+import {ProductVariantsTable} from "../product-variants/product-variants-table";
 import {useOutletContext, useParams} from "react-router-dom";
-import TrCardHeader from "../../../components/translated/TrCardHeader";
+import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 export const ProductVariants = (props) => {
   const { ...other } = props;

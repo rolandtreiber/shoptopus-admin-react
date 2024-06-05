@@ -1,14 +1,14 @@
 import {useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
-import { ProductInfo } from '../../../components/page-components/product/product-info';
+import { ProductInfo } from '../components/product-info';
 import { ResourceError } from '../../../components/common/placeholder/resource-error';
 import { ResourceLoading } from '../../../components/common/placeholder/resource-loading';
 import gtm from '../../../lib/gtm';
 import ImagesDisplay from "../../../components/common/images/images-display";
-import {ProductDialog} from "../../../components/page-components/product/product-dialog";
+import {ProductDialog} from "../components/product-dialog";
 import { useOutletContext } from "react-router-dom";
-import {ProductStatus} from "../../../components/page-components/product/product-status";
+import {ProductStatus} from "../components/product-status";
 import {SettingsContext} from "../../../contexts/settings-context";
 
 export const ProductSummary = () => {
