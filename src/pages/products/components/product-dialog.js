@@ -22,8 +22,8 @@ import {SettingsContext} from "../../../contexts/settings-context";
 import CategoryTreeSelect from "../../../components/common/category-tree-select";
 import AttributeTreeSelect from "../../../components/common/attribute-tree-select";
 import TagPicker from "../../../components/common/tag-picker";
-import {LoadingButton} from "@material-ui/lab";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
+import TrLoadingButton from "../../../components/common/translated/translated-loading-button";
 
 export const ProductDialog = (props) => {
     const {open, onClose, onSuccess, product, ...other} = props;
@@ -308,7 +308,7 @@ export const ProductDialog = (props) => {
                 >
                     Cancel
                 </Button>
-                <LoadingButton
+                <TrLoadingButton
                     color="primary"
                     loading={loading}
                     onClick={() => {
@@ -318,7 +318,7 @@ export const ProductDialog = (props) => {
                     variant="contained"
                 >
                     {product ? 'Update Product' : 'Create Product'}
-                </LoadingButton>
+                </TrLoadingButton>
             </DialogActions>
         </Dialog>
     );

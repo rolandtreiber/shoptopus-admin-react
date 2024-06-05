@@ -21,11 +21,12 @@ import {Uploader} from "../../../components/common/file-upload/uploader";
 import {getFileFromBlob} from "../../../utils/file-operations";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
+import TrLoadingButton from "../../../components/common/translated/translated-loading-button";
 
 export const ProductCategoryCreateDialog = (props) => {
   const {open, onClose, onSuccess, ...other} = props;
   const {fetchProductCategoriesSelectData, saveProductCategory} = useContext(APIContext)
-  const [categoriesSelectData, setCategoriesSelectData] = useState()
+  const [categoriesSelectData, setCategoriesSelectData] = useState({isLoading: true})
   const [name, setName] = useState()
   const [description, setDescription] = useState()
   const [showErrors, setShowErrors] = useState(false)
@@ -213,8 +214,9 @@ export const ProductCategoryCreateDialog = (props) => {
         >
           Cancel
         </Button>
-        <Button
+        <TrLoadingButton
           color="primary"
+          loading={categoriesSelectData.isLoading}
           disabled={formik.isSubmitting}
           onClick={() => {
             setShowErrors(true)
@@ -222,8 +224,8 @@ export const ProductCategoryCreateDialog = (props) => {
           }}
           variant="contained"
         >
-          {t('Create Product Category')}
-        </Button>
+          Create Product Category
+        </TrLoadingButton>
       </DialogActions>
     </Dialog>
   );
