@@ -1,5 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import { EmojiSadOutlined as EmojiSadIcon } from '../../icons/emoji-sad-outlined';
 import {TrTypography} from "../../components/common/translated/translated-typography";
 
@@ -31,7 +32,7 @@ export const NotFound = () => (
       >
         The page requested does not exist.
       </TrTypography>
-      <Button
+      <TrButton
         color="primary"
         component={RouterLink}
         sx={{ mt: 2 }}
@@ -39,7 +40,7 @@ export const NotFound = () => (
         variant="text"
       >
         Take me home
-      </Button>
+      </TrButton>
     </Container>
   </Box>
 );

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import {
   Box,
-  Button,
   Card,
   Chip,
   Divider, Grid,
@@ -9,6 +8,7 @@ import {
   Paper,
   useMediaQuery
 } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import {useLanguage} from "../../../hooks/use-language";
 import Price from "../../../components/common/price";
 import {lightNeutral} from "../../../colors";
@@ -46,13 +46,13 @@ export const DeliveryTypeInfo = (props) => {
           >
             <TrCardHeader
               action={(
-                <Button
+                <TrButton
                   color="primary"
                   onClick={onEdit}
                   variant="text"
                 >
                   Edit
-                </Button>
+                </TrButton>
               )}
               title="Details"
             />
@@ -102,13 +102,13 @@ export const DeliveryTypeInfo = (props) => {
             <TrCardHeader
               title="Rules"
               action={(
-                <Button
+                <TrButton
                   color="primary"
                   onClick={onCreateRule}
                   variant="text"
                 >
                   Add
-                </Button>
+                </TrButton>
               )}
             />
             <Divider />
@@ -171,8 +171,8 @@ export const DeliveryTypeInfo = (props) => {
                       </ListItem>}
                       <ListItem>
                         <ListItemText sx={{flex: 1}}>
-                          <Button onClick={() => onEditRule(r)}>Edit</Button>
-                          <Button color="error" onClick={() => onDeleteRule(r.id)}>Delete</Button></ListItemText>
+                          <TrButton onClick={() => onEditRule(r)}>Edit</TrButton>
+                          <TrButton color="error" onClick={() => onDeleteRule(r.id)}>Delete</TrButton></ListItemText>
                       </ListItem>
                     </List>
                   </Paper>

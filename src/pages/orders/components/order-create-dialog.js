@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,6 +10,7 @@ import {
   Grid
 } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
 
 export const OrderCreateDialog = (props) => {
@@ -96,21 +96,21 @@ export const OrderCreateDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => { formik.handleSubmit(); }}
           variant="contained"
           disabled={formik.isSubmitting}
         >
           Create Order
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

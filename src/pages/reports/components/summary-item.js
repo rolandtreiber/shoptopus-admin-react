@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
-import { Avatar, Box, Button, Card, CardActions, Divider, Typography } from '@material-ui/core';
+import { Avatar, Box, Card, CardActions, Divider, Typography } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { ArrowRight as ArrowRightIcon } from '../../../icons/arrow-right';
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
@@ -60,7 +61,7 @@ export const SummaryItem = (props) => {
           py: 1
         }}
       >
-        <Button
+        <TrButton
           color="primary"
           component={RouterLink}
           endIcon={<ArrowRightIcon fontSize="small" />}
@@ -69,7 +70,7 @@ export const SummaryItem = (props) => {
           variant="text"
         >
           {linkLabel}
-        </Button>
+        </TrButton>
       </CardActions>
     </Card>
   );

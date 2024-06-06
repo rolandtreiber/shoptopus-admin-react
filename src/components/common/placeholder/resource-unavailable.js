@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { Plus as PlusIcon } from '../../../icons/plus';
 import { QuestionMarkOutlined as QuestionMarkIcon } from '../../../icons/question-mark-outlined';
+import TrButton from "../translated/translated-button";
 import {TrTypography} from "../translated/translated-typography";
 
 const ResourceUnavailableRoot = styled('div')(({ theme }) => ({
@@ -28,7 +28,7 @@ export const ResourceUnavailable = (props) => {
         {message ? message : "There are not objects here yet."}
       </TrTypography>
       {onCreate && (
-        <Button
+        <TrButton
           color="primary"
           onClick={onCreate}
           startIcon={<PlusIcon fontSize="small" />}
@@ -36,7 +36,7 @@ export const ResourceUnavailable = (props) => {
           variant="contained"
         >
           Create Object
-        </Button>
+        </TrButton>
       )}
     </ResourceUnavailableRoot>
   );

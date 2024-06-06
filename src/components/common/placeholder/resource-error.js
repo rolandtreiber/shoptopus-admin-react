@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { ExclamationOutlined as ExclamationIcon } from '../../../icons/exclamation-outlined';
 import { Refresh as RefreshIcon } from '../../../icons/refresh';
+import TrButton from "../translated/translated-button";
 import {TrTypography} from "../translated/translated-typography";
 
 const ResourceErrorRoot = styled('div')(({ theme }) => ({
@@ -28,7 +28,7 @@ export const ResourceError = (props) => {
         {error || 'Error loading data, please try again.'}
       </TrTypography>
       {onReload && (
-        <Button
+        <TrButton
           color="primary"
           onClick={onReload}
           startIcon={<RefreshIcon fontSize="small" />}
@@ -36,7 +36,7 @@ export const ResourceError = (props) => {
           variant="text"
         >
           Reload Data
-        </Button>
+        </TrButton>
       )}
     </ResourceErrorRoot>
   );

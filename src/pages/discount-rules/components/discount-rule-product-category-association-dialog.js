@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog, DialogActions,
   DialogContent,
   FormControl,
@@ -7,6 +6,7 @@ import {
 } from "@material-ui/core";
 import {InputField} from "../../../components/common/input-fields/input-field";
 import {useCallback, useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {useLanguage} from "../../../hooks/use-language";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
@@ -99,14 +99,14 @@ const DiscountRuleProductCategoryAssociationDialog = ({discountRuleId, open, onC
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={selectedProductId === null}
           onClick={() => {
@@ -115,7 +115,7 @@ const DiscountRuleProductCategoryAssociationDialog = ({discountRuleId, open, onC
           variant="contained"
         >
           Add Product Category
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

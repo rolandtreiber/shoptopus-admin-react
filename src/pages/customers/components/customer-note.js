@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Avatar, Box, Button, Card, Typography } from '@material-ui/core';
+import { Avatar, Box, Card, Typography } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 
 export const CustomerNote = (props) => {
   const {
@@ -59,14 +60,14 @@ export const CustomerNote = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           {deletable && (
-            <Button
+            <TrButton
               color="primary"
               onClick={() => onDelete?.(id)}
               size="small"
               variant="text"
             >
               Delete
-            </Button>
+            </TrButton>
           )}
         </Box>
       </Box>

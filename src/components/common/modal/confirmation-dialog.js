@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent, DialogTitle,
@@ -9,6 +8,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import InfoIcon from '@material-ui/icons/Info';
 import {useTranslation} from "react-i18next";
+import TrButton from "../translated/translated-button";
 import {TrTypography} from "../translated/translated-typography";
 
 const icons = {
@@ -71,20 +71,20 @@ export const ConfirmationDialog = (props) => {
         </TrTypography>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onCancel}
           variant="text"
         >
-          {t("Cancel")}
-        </Button>
-        <Button
+          Cancel
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={onConfirm}
           variant="contained"
         >
-          {t("Confirm")}
-        </Button>
+          Confirm
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

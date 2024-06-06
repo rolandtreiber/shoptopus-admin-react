@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Box, Button, Divider, Tab, Tabs, ToggleButton, ToggleButtonGroup} from '@material-ui/core';
+import {Box, Divider, Tab, Tabs, ToggleButton, ToggleButtonGroup} from '@material-ui/core';
 import {Adjustments as AdjustmentsIcon} from '../../../icons/adjustments';
 import {
   containsOperator,
@@ -16,6 +16,7 @@ import {
   notEqualOperator,
   startsWithOperator
 } from '../../../utils/filter-operators';
+import TrButton from "../translated/translated-button";
 import {FilterDialog} from './filter-dialog';
 import {Query} from './query';
 import {BulkActionsMenu} from "../bulk-actions-menu";
@@ -182,7 +183,7 @@ export const ListFilter = (props) => {
                 />
               </ToggleButton>
             </ToggleButtonGroup>)}
-            <Button
+            <TrButton
               color="primary"
               disabled={disabled}
               onClick={() => setOpenFilterDialog(true)}
@@ -191,8 +192,8 @@ export const ListFilter = (props) => {
               sx={{order: 3}}
               variant={filters.length ? 'contained' : 'text'}
             >
-              {t("Filter")}
-            </Button>
+              Filter
+            </TrButton>
           </Box>
         </Box>
       </div>

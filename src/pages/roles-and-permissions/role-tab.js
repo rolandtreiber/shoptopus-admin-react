@@ -1,11 +1,12 @@
 import {useNavigate, useOutletContext} from "react-router-dom";
 import {useCallback, useContext, useEffect, useState} from "react";
+import TrButton from "../../components/common/translated/translated-button";
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {useTranslation} from "react-i18next";
 import {
   Avatar,
-  Box, Button,
+  Box,
   Card,
   CardContent,
   CircularProgress,
@@ -208,7 +209,7 @@ export const RoleTab = () => {
               <TrCardHeader title={"Permissions"}
                                     action={(
                             <>
-                              {roleUsersState.isLoading === false && roleUsersState.data.length === 0 && <Button
+                              {roleUsersState.isLoading === false && roleUsersState.data.length === 0 && <TrButton
                                 disabled={rolePermissionsState.isLoading}
                                 color="error"
                                 onClick={() => {
@@ -219,9 +220,9 @@ export const RoleTab = () => {
                                 variant="contained"
                                 sx={{marginRight: 2}}
                               >
-                                {t('Delete Role')}
-                              </Button>}
-                              <Button
+                                Delete Role
+                              </TrButton>}
+                              <TrButton
                                 disabled={rolePermissionsState.isLoading}
                                 color="primary"
                                 onClick={() => {
@@ -231,8 +232,8 @@ export const RoleTab = () => {
                                 startIcon={<Edit fontSize="small"/>}
                                 variant="contained"
                               >
-                                {t('Edit Role')}
-                              </Button>
+                                Edit Role
+                              </TrButton>
                             </>
                           )}
               />
@@ -256,7 +257,7 @@ export const RoleTab = () => {
           <Grid item xs={12} md={4}>
             <Card variant="outlined" sx={{mt: 2}}>
               <TrCardHeader title={"Users"}
-                                    action={<Button
+                                    action={<TrButton
                             disabled={rolePermissionsState.isLoading}
                             color="primary"
                             onClick={() => {
@@ -266,8 +267,8 @@ export const RoleTab = () => {
                             startIcon={<Plus fontSize="small"/>}
                             variant="contained"
                           >
-                            {t('Add')}
-                          </Button>}
+                            Add
+                          </TrButton>}
               />
               <CardContent>
                 {roleUsersState.isLoading ? (

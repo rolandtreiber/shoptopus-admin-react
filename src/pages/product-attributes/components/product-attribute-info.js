@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import {
-  Button,
   Card,
   Divider,
   Paper,
@@ -8,6 +7,7 @@ import {
 } from '@material-ui/core';
 import { PropertyList } from '../../../components/common/property-list/property-list';
 import { PropertyListItem } from '../../../components/common/property-list/property-list-item';
+import TrButton from "../../../components/common/translated/translated-button";
 import {useLanguage} from "../../../hooks/use-language";
 import styled from "@emotion/styled";
 import TrCardHeader from "../../../components/common/translated/translated-card-header";
@@ -39,13 +39,13 @@ export const ProductAttributeInfo = (props) => {
     >
       <TrCardHeader
         action={(
-          <Button
+          <TrButton
             color="primary"
             onClick={onEdit}
             variant="text"
           >
             Edit
-          </Button>
+          </TrButton>
         )}
         title="General Information"
       />

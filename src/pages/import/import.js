@@ -2,8 +2,9 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
 import {
   Alert,
-  Box, Button,
-  Container, Paper,
+  Box,
+  Container,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -11,6 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import TrButton from "../../components/common/translated/translated-button";
 import {SettingsContext} from "../../contexts/settings-context";
 import {useDropzone} from 'react-dropzone';
 import {APIContext} from "../../contexts/api-context";
@@ -182,7 +184,7 @@ export const Import = () => {
       >
         {validationResult?.status === "success" ? (
           <Alert severity="success">{validationResult?.message}{'  '}
-            {validatedData.length > 0 && <Button onClick={onProcessImport} variant={"contained"}>Import</Button>}
+            {validatedData.length > 0 && <TrButton onClick={onProcessImport} variant={"contained"}>Import</TrButton>}
           </Alert>
         ) : (
           <>

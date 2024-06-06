@@ -1,11 +1,11 @@
 import {
-  Button,
   Dialog, DialogActions,
   DialogContent,
   FormControl,
   Grid, InputLabel, MenuItem, Select,
 } from "@material-ui/core";
 import {useCallback, useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
 
@@ -81,14 +81,14 @@ const RoleUserAssociationDialog = ({roleId, open, onClose, onSelected, ...other}
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={selectedUserId === null}
           onClick={() => {
@@ -97,7 +97,7 @@ const RoleUserAssociationDialog = ({roleId, open, onClose, onSelected, ...other}
           variant="contained"
         >
           Add User
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

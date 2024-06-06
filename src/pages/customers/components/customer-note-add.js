@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, Divider, IconButton, InputBase } from '@material-ui/core';
+import { Box, Card, Divider, IconButton, InputBase } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
 import { Eye as EyeIcon } from '../../../icons/eye';
 import { PaperClip as PaperClipIcon } from '../../../icons/paper-clip';
@@ -71,14 +72,14 @@ export const CustomerNoteAdd = (props) => {
           <ChevronDownIcon fontSize="small" />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
-        <Button
+        <TrButton
           color="primary"
           disabled={content.length === 0 || submitDisabled}
           onClick={handleSend}
           variant="contained"
         >
           Send
-        </Button>
+        </TrButton>
       </Box>
     </Card>
   );

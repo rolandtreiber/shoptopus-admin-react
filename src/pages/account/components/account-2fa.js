@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
-import { Button, Card, CardContent, Grid } from '@material-ui/core';
+import { Card, CardContent, Grid } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
 export const Account2FA = () => {
@@ -37,14 +38,14 @@ export const Account2FA = () => {
             md={7}
             xs={12}
           >
-            <Button
+            <TrButton
               color="primary"
               onClick={handleActivate}
               size="large"
               variant="outlined"
             >
               Activate
-            </Button>
+            </TrButton>
           </Grid>
         </Grid>
       </CardContent>

@@ -1,8 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider } from '@material-ui/core';
+import { Box, Card, Container, Divider } from '@material-ui/core';
 import { invoiceApi } from '../../api/invoice';
+import TrButton from "../../components/common/translated/translated-button";
 import { InvoicesFilter } from './components/invoices-filter';
 import { InvoicesStats } from './components/invoices-stats';
 import { InvoicesTable } from './components/invoices-table';
@@ -159,7 +160,7 @@ export const Invoices = () => {
                 Invoices
               </TrTypography>
               <Box sx={{ flexGrow: 1 }} />
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 size="large"
@@ -168,7 +169,7 @@ export const Invoices = () => {
                 variant="contained"
               >
                 Add
-              </Button>
+              </TrButton>
             </Box>
           </Box>
           <InvoicesStats />

@@ -3,7 +3,6 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,6 +11,7 @@ import {
   Grid, Switch,
 } from '@material-ui/core';
 import {useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import MultilangTextInput from "../../../components/common/input-fields/multilang-text-input";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
@@ -156,14 +156,14 @@ export const DeliveryTypeDialog = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -173,7 +173,7 @@ export const DeliveryTypeDialog = (props) => {
           variant="contained"
         >
           {initialValues ? 'Update Delivery Type' : 'Create Delivery Type'}
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

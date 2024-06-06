@@ -5,7 +5,6 @@ import numeral from 'numeral';
 import {
   Avatar,
   Box,
-  Button,
   Card,
   Divider,
   InputBase,
@@ -23,6 +22,7 @@ import { productApi } from '../../api/product';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../components/common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../components/common/scrollbar';
+import TrButton from "../../components/common/translated/translated-button";
 import { useMounted } from '../../hooks/use-mounted';
 import { CustomCube as CubeIcon } from '../../icons/custom-cube';
 import gtm from '../../lib/gtm';
@@ -113,7 +113,7 @@ const VariantTableRow = (props) => {
             type="number"
             value={quantity}
           />
-          <Button
+          <TrButton
             color="primary"
             disabled={Number.isNaN(parsedQuantity)
             || parsedQuantity < 0
@@ -122,7 +122,7 @@ const VariantTableRow = (props) => {
             variant="contained"
           >
             Save
-          </Button>
+          </TrButton>
         </Box>
       </TableCell>
     </TableRow>

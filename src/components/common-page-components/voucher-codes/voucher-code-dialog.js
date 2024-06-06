@@ -3,7 +3,6 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -18,6 +17,7 @@ import {DateTimePicker} from "@material-ui/lab";
 import {useContext, useEffect} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {format} from "date-fns";
+import TrButton from "../../common/translated/translated-button";
 import {TrDialogTitle} from "../../common/translated/translated-dialog-title";
 
 export const VoucherCodeDialog = (props) => {
@@ -186,14 +186,14 @@ export const VoucherCodeDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -202,7 +202,7 @@ export const VoucherCodeDialog = (props) => {
           variant="contained"
         >
           {initialValues ? 'Update Voucher Code' : 'Create Voucher Code'}
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

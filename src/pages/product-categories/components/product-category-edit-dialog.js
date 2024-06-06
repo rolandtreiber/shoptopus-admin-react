@@ -4,7 +4,6 @@ import {useTranslation} from "react-i18next";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,6 +12,7 @@ import {
   Grid, Switch, TextField,
 } from '@material-ui/core';
 import {useCallback, useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import MultilangTextInput from "../../../components/common/input-fields/multilang-text-input";
 import {useMounted} from "../../../hooks/use-mounted";
@@ -212,14 +212,14 @@ export const ProductCategoryEditDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
-          {t('Cancel')}
-        </Button>
-        <Button
+          Cancel
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -228,8 +228,8 @@ export const ProductCategoryEditDialog = (props) => {
           }}
           variant="contained"
         >
-          {t('Update Product Category')}
-        </Button>
+          Update Product Category
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

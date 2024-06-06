@@ -1,9 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {
-  Button,
   Card,
   Divider,
 } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
@@ -128,13 +128,13 @@ export const ProductVariants = (props) => {
       >
         <TrCardHeader
           action={(
-            <Button
+            <TrButton
               color="primary"
               onClick={handleCreateVariant}
               variant="text"
             >
               Add
-            </Button>
+            </TrButton>
           )}
           title="Variants"
         />

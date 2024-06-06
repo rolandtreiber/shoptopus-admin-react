@@ -1,9 +1,10 @@
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from "../../hooks/use-mounted";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
 import {APIContext} from "../../contexts/api-context";
 import {useTranslation} from "react-i18next";
-import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs} from "@material-ui/core";
+import {Box, Container, Divider, Grid, Skeleton, Tab, Tabs} from "@material-ui/core";
 import {Outlet, Link as RouterLink, useLocation} from "react-router-dom";
 import {snakeToCapitalised} from "../../utils/string-operations";
 import {Helmet} from "react-helmet-async";
@@ -186,7 +187,7 @@ export const RolesAndPermissions = () => {
                     Roles And Permissions
                   </TrTypography>
                   <Box sx={{flexGrow: 1}}/>
-                  <Button
+                  <TrButton
                     color="primary"
                     onClick={() => {
                       setSelectedRoleId(null)
@@ -196,8 +197,8 @@ export const RolesAndPermissions = () => {
                     startIcon={<PlusIcon fontSize="small"/>}
                     variant="contained"
                   >
-                    {t('Add Role')}
-                  </Button>
+                    Add Role
+                  </TrButton>
                 </Box>
               </Box>
             </Grid>

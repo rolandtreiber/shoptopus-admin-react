@@ -2,7 +2,8 @@ import {useCallback, useContext, useState} from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import { Button, Card, CardContent, Divider, Typography } from '@material-ui/core';
+import { Card, CardContent, Divider, Typography } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { StatusSelect } from '../../../components/common/status-select';
@@ -56,14 +57,14 @@ export const OrderStatus = (props) => {
             options={statusOptions}
             value={newStatus}
           />}
-          <Button
+          <TrButton
             color="primary"
             onClick={handleOpenSaveMarkDialog}
             sx={{ my: 2 }}
             variant="contained"
           >
-            {t("Save Changes")}
-          </Button>
+            Save Changes
+          </TrButton>
           <Typography
             sx={{
               color: 'text.secondary',

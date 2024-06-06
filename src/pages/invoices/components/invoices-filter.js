@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
+import { Box, Divider, Tab, Tabs } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { Adjustments as AdjustmentsIcon } from '../../../icons/adjustments';
 import {
   containsOperator,
@@ -160,7 +161,7 @@ export const InvoicesFilter = (props) => {
             }}
             value={query}
           />
-          <Button
+          <TrButton
             color="primary"
             disabled={disabled}
             onClick={() => setOpenFilterDialog(true)}
@@ -170,7 +171,7 @@ export const InvoicesFilter = (props) => {
             variant={filters.length ? 'contained' : 'text'}
           >
             Filter
-          </Button>
+          </TrButton>
         </Box>
       </div>
       <FilterDialog

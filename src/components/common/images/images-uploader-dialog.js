@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Button,
   Checkbox,
   Dialog,
   DialogActions,
@@ -11,6 +10,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { Trash as TrashIcon } from '../../../icons/trash';
+import TrButton from "../translated/translated-button";
 import { ImageDropzone } from './image-dropzone';
 import {TrDialogTitle} from "../translated/translated-dialog-title";
 import {TrTypography} from "../translated/translated-typography";
@@ -170,20 +170,20 @@ export const ImagesUploaderDialog = (props) => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onCancel}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => onSaveImages(selectedImages)}
           variant="contained"
         >
           Add selected
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

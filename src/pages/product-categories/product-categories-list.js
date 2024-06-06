@@ -1,10 +1,11 @@
 import {useCallback, useContext, useEffect, useState} from 'react'
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../../contexts/settings-context";
-import {Box, Button, Card, Container, Divider} from "@material-ui/core";
+import {Box, Card, Container, Divider} from "@material-ui/core";
 import ProductCategoriesTable from "./components/product-categories-table";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {Plus as PlusIcon} from "../../icons/plus";
@@ -236,15 +237,15 @@ export const ProductCategoriesList = () => {
                               Product Categories
                           </TrTypography>
                           <Box sx={{flexGrow: 1}}/>
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => setOpenCreateDialog(true)}
                             size="large"
                             startIcon={<PlusIcon fontSize="small"/>}
                             variant="contained"
                           >
-                              {t('Add')}
-                          </Button>
+                              Add
+                          </TrButton>
                           <ExportButton
                             name={"product-categories"}
                             modelsSimple={["ProductCategory"]}

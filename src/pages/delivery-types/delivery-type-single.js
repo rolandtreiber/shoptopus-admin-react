@@ -1,8 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Container} from '@material-ui/core';
+import {Box, Container} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
@@ -106,7 +107,7 @@ export const DeliveryTypeSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{mb: 2}}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon/>}
@@ -114,7 +115,7 @@ export const DeliveryTypeSingle = () => {
                 variant="text"
               >
                 Delivery Types
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{

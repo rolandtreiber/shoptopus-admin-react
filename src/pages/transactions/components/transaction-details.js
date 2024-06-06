@@ -1,11 +1,11 @@
 import {
   Box,
-  Button,
   Card,
   Divider,
   Grid,
   List, ListItem, ListItemText
 } from "@material-ui/core";
+import TrButton from "../../../components/common/translated/translated-button";
 import transactionTypes from "../../../data/transaction-types.json"
 import paymentMethods from "../../../data/payment-methods.json"
 import {format} from "date-fns";
@@ -110,7 +110,7 @@ const TransactionDetails = ({transaction}) => {
             >
               <TrCardHeader
                 action={
-                  <Button
+                  <TrButton
                     color="primary"
                     component={RouterLink}
                     to={"/admin/customers/"+transaction.user.id}
@@ -121,7 +121,7 @@ const TransactionDetails = ({transaction}) => {
                     }}
                   >
                     View
-                  </Button>
+                  </TrButton>
                 }
                 title="User"
               />
@@ -199,7 +199,7 @@ const TransactionDetails = ({transaction}) => {
                       <ListItemText sx={{flex: 2}}><Price>{transaction.payable.total_price}</Price></ListItemText>
                     </ListItem>
                     <ListItem>
-                      <Button
+                      <TrButton
                         color="primary"
                         component={RouterLink}
                         startIcon={<Visibility />}
@@ -208,7 +208,7 @@ const TransactionDetails = ({transaction}) => {
                         size={"small"}
                       >
                         View
-                      </Button>
+                      </TrButton>
                     </ListItem>
                   </List>
                 </>}
@@ -234,7 +234,7 @@ const TransactionDetails = ({transaction}) => {
                 {/*                      backgroundColor: orderStatuses.find(s => s.value === o.status).color*/}
                 {/*                    }}*/}
                 {/*              />*/}
-                {/*              <Button*/}
+                {/*              <TrButton*/}
                 {/*                color="primary"*/}
                 {/*                component={RouterLink}*/}
                 {/*                startIcon={<Visibility />}*/}
@@ -246,7 +246,7 @@ const TransactionDetails = ({transaction}) => {
                 {/*                }}*/}
                 {/*              >*/}
                 {/*                View*/}
-                {/*              </Button>*/}
+                {/*              </TrButton>*/}
 
                 {/*            </ListItem>*/}
                 {/*            <ListItem>*/}

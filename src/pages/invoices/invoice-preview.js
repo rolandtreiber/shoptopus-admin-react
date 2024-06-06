@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Box, Button, Container, Skeleton, Typography } from '@material-ui/core';
+import { Box, Container, Skeleton, Typography } from '@material-ui/core';
 import { invoiceApi } from '../../api/invoice';
+import TrButton from "../../components/common/translated/translated-button";
 import { InvoicePdfPreview } from './components/invoice-pdf-preview';
 import { InvoicePDF } from './components/invoice-pdf';
 import { useMounted } from '../../hooks/use-mounted';
@@ -90,7 +91,7 @@ export const InvoicePreview = () => {
       <>
         <Box sx={{ py: 4 }}>
           <Box sx={{ mb: 2 }}>
-            <Button
+            <TrButton
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
@@ -98,7 +99,7 @@ export const InvoicePreview = () => {
               variant="text"
             >
               Invoices
-            </Button>
+            </TrButton>
           </Box>
           <Box
             sx={{
@@ -118,14 +119,14 @@ export const InvoicePreview = () => {
               fileName="invoice"
               style={{ textDecoration: 'none' }}
             >
-              <Button
+              <TrButton
                 color="primary"
                 startIcon={<DownloadIcon />}
                 size="large"
                 variant="contained"
               >
                 Download
-              </Button>
+              </TrButton>
             </PDFDownloadLink>
           </Box>
         </Box>

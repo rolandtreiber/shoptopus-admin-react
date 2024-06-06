@@ -1,7 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, List, Skeleton } from '@material-ui/core';
+import { Box, Card, List, Skeleton } from '@material-ui/core';
 import { customerApi } from '../../api/customer';
+import TrButton from "../../components/common/translated/translated-button";
 import { CustomerActivityItem } from './components/customer-activity-item';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../components/common/placeholder/resource-unavailable';
@@ -106,14 +107,14 @@ export const CustomerActivity = () => {
               p: 2
             }}
           >
-            <Button
+            <TrButton
               color="primary"
               disabled={disableLoadMore}
               endIcon={<ChevronDownIcon />}
               variant="text"
             >
               Load more
-            </Button>
+            </TrButton>
           </Box>
         </Card>
       </Box>

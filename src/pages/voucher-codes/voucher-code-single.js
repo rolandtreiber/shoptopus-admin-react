@@ -1,9 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
   Container
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {Pencil as PencilIcon} from "../../icons/pencil";
@@ -76,7 +76,7 @@ export const VoucherCodeSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
@@ -84,7 +84,7 @@ export const VoucherCodeSingle = () => {
                 variant="text"
               >
                 Voucher Codes
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -99,7 +99,7 @@ export const VoucherCodeSingle = () => {
                 Voucher Code
               </TrTypography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
+              <TrButton
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
@@ -107,7 +107,7 @@ export const VoucherCodeSingle = () => {
                 variant="contained"
               >
                 Edit
-              </Button>
+              </TrButton>
             </Box>
             {data.data && <VoucherCodeDetails onEdit={() => setOpenEditDialog(true)} voucherCode={data.data}/>}
           </Box>

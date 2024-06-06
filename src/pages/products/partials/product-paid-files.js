@@ -1,7 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-import {Box, Button, Card, Divider, List, ListItem, ListItemText} from "@material-ui/core";
+import {Box, Card, Divider, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete, Download, Edit} from "@mui/icons-material";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {useMounted} from "../../../hooks/use-mounted";
@@ -153,10 +154,10 @@ const ProductPaidFiles = () => {
       </Box>
     </Card>
     <Box sx={{width: "100%", textAlign: "right"}}>
-      <Button variant="contained" onClick={() => {
+      <TrButton variant="contained" onClick={() => {
         setSelectedFileData(null)
         setFileDialogOpen(true);
-      }}>Upload</Button>
+      }}>Upload</TrButton>
     </Box>
 
     <ProductPaidFileDialog

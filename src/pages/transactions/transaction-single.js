@@ -1,9 +1,9 @@
 import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
   Container
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {Plus as PlusIcon} from "../../icons/plus";
@@ -73,7 +73,7 @@ export const TransactionSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
@@ -81,7 +81,7 @@ export const TransactionSingle = () => {
                 variant="text"
               >
                 Transactions
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -96,7 +96,7 @@ export const TransactionSingle = () => {
                 Transaction
               </TrTypography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
+              <TrButton
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
@@ -104,7 +104,7 @@ export const TransactionSingle = () => {
                 variant="contained"
               >
                 Partial refund
-              </Button>
+              </TrButton>
             </Box>
             {openEditDialog && <Fragment></Fragment>}
             {data.data && <TransactionDetails transaction={data.data}/>}

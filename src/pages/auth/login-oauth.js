@@ -1,8 +1,9 @@
 import { Link as BrowserLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, FormHelperText, Grid } from '@material-ui/core';
+import { Box, FormHelperText, Grid } from '@material-ui/core';
 import { InputField } from '../../components/common/input-fields/input-field';
+import TrButton from "../../components/common/translated/translated-button";
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 import {TrTypography} from "../../components/common/translated/translated-typography";
@@ -104,7 +105,7 @@ export const LoginOAuth = () => {
           item
           xs={12}
         >
-          <Button
+          <TrButton
             color="primary"
             disabled={formik.isSubmitting}
             fullWidth
@@ -113,20 +114,20 @@ export const LoginOAuth = () => {
             variant="contained"
           >
             Log In
-          </Button>
+          </TrButton>
         </Grid>
         <Grid
           item
           xs={12}
         >
-          <Button
+          <TrButton
             color="primary"
             component={BrowserLink}
             to="/password-recovery"
             variant="text"
           >
             Forgot password
-          </Button>
+          </TrButton>
         </Grid>
       </Grid>
     </form>

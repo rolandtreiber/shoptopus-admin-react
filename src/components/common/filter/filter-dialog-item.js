@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { Button, Grid, MenuItem } from '@material-ui/core';
+import { Grid, MenuItem } from '@material-ui/core';
 import { Plus as PlusIcon } from '../../../icons/plus';
 import { DateField } from '../input-fields/date-field';
 import { InputField } from '../input-fields/input-field';
 import {useTranslation} from "react-i18next";
+import TrButton from "../translated/translated-button";
 import {TrTypography} from "../translated/translated-typography";
 
 export const FilterDialogItem = (props) => {
@@ -104,7 +105,7 @@ export const FilterDialogItem = (props) => {
             </Grid>
           ))}
       </Grid>
-      <Button
+      <TrButton
         color="primary"
         onClick={() => onAddFilter(index + 1)}
         size="small"
@@ -112,16 +113,16 @@ export const FilterDialogItem = (props) => {
         sx={{ mr: 2 }}
         variant="text"
       >
-        {t("Add Filter")}
-      </Button>
-      <Button
+        Add Filter
+      </TrButton>
+      <TrButton
         onClick={() => onRemoveFilter(index)}
         size="small"
         sx={{ color: 'text.secondary' }}
         variant="text"
       >
-        {t("Remove")}
-      </Button>
+        Remove
+      </TrButton>
     </div>
   );
 };

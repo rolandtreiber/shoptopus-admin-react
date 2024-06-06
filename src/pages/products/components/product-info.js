@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import {Button, Card, Chip, Divider, useMediaQuery} from '@material-ui/core';
+import {Card, Chip, Divider, useMediaQuery} from '@material-ui/core';
 import { PropertyList } from '../../../components/common/property-list/property-list';
 import { PropertyListItem } from '../../../components/common/property-list/property-list-item';
+import TrButton from "../../../components/common/translated/translated-button";
 import {useLanguage} from "../../../hooks/use-language";
 import {useRetailPrice} from "../../../hooks/use-retail-price";
 import {useContext} from "react";
@@ -26,14 +27,14 @@ export const ProductInfo = (props) => {
     >
       <TrCardHeader
         action={(
-          <Button
+          <TrButton
             color="primary"
             disabled={!can('products.can.update')}
             onClick={onEdit}
             variant="text"
           >
             Edit
-          </Button>
+          </TrButton>
         )}
         title={"General Information"}
       />

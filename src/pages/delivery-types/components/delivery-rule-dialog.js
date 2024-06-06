@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
   Box,
-  Button, Chip,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import {InputField} from '../../../components/common/input-fields/input-field';
 import {useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
 import LocationFinder from "../../../components/common/maps/locationfinder";
@@ -409,14 +410,14 @@ export const DeliveryRuleDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -426,7 +427,7 @@ export const DeliveryRuleDialog = (props) => {
           variant="contained"
         >
           {initialValues ? 'Update Delivery Rule' : 'Create Delivery Rule'}
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

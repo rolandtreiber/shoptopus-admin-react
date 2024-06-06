@@ -4,7 +4,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Card,
   Chip,
   Divider,
@@ -12,6 +11,7 @@ import {
   List, ListItem, ListItemText, Typography
 } from "@material-ui/core";
 import {PropertyListItem} from "../../../components/common/property-list/property-list-item";
+import TrButton from "../../../components/common/translated/translated-button";
 import productStatuses from "../../../data/product-statuses.json"
 import {format} from "date-fns";
 import {lightNeutral} from "../../../colors";
@@ -145,13 +145,13 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
             >
               <TrCardHeader
                 action={(
-                  <Button
+                  <TrButton
                     color="primary"
                     onClick={() => console.log('edit')}
                     variant="text"
                   >
                     Edit
-                  </Button>
+                  </TrButton>
                 )}
                 title="Details"
               />
@@ -202,7 +202,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                 variant="h5"
               >Product Categories
               </TrTypography>
-              <Button
+              <TrButton
                 color="primary"
                 startIcon={<Add/>}
                 variant="contained"
@@ -214,7 +214,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                 }}
               >
                 Add
-              </Button>
+              </TrButton>
               <Box
                 sx={{
                   px: 3,
@@ -244,7 +244,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                          <Button
+                          <TrButton
                             color="error"
                             startIcon={<Trash/>}
                             variant="contained"
@@ -255,7 +255,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                             }}
                           >
                             Remove
-                          </Button>
+                          </TrButton>
                           <List>
                             {c.header_image && <ListItem>
                               <img style={{"width": "100%"}} src={c.header_image}/>
@@ -266,7 +266,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                               </Typography>
                             </ListItem>
                             <ListItem>
-                              <Button
+                              <TrButton
                                 color="primary"
                                 component={RouterLink}
                                 startIcon={<Visibility/>}
@@ -278,7 +278,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                                 }}
                               >
                                 View
-                              </Button>
+                              </TrButton>
                             </ListItem>
                           </List>
                         </AccordionDetails>
@@ -299,7 +299,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                 variant="h5"
               >Products
               </TrTypography>
-              <Button
+              <TrButton
                 color="primary"
                 startIcon={<Add/>}
                 variant="contained"
@@ -311,7 +311,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                 }}
               >
                 Add
-              </Button>
+              </TrButton>
               <Box
                 sx={{
                   px: 3,
@@ -341,7 +341,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                          <Button
+                          <TrButton
                             color="error"
                             startIcon={<Trash/>}
                             variant="contained"
@@ -352,7 +352,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                             }}
                           >
                             Remove
-                          </Button>
+                          </TrButton>
                           <PropertyList>
                             {p.cover_photo_url && <ListItem>
                               <img style={{"width": "100%"}} src={p.cover_photo_url}/>
@@ -362,7 +362,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                                     sx={{
                                       backgroundColor: productStatuses.find(s => s.value === p.status).color
                                     }}/>
-                              <Button
+                              <TrButton
                                 color="primary"
                                 component={RouterLink}
                                 startIcon={<Visibility/>}
@@ -374,7 +374,7 @@ const DiscountRuleDetails = ({discountRule, onUpdated}) => {
                                 }}
                               >
                                 View
-                              </Button>
+                              </TrButton>
                             </ListItem>
                             <ListItem>
                               <ListItemText>Stock</ListItemText>

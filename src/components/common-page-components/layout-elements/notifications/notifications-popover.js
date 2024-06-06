@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Button,
   IconButton,
   List,
   ListItem,
@@ -15,6 +14,7 @@ import {NotificationsContext} from "../../../../contexts/notifications-context";
 import {Visibility} from "@material-ui/icons";
 import {Link as RouterLink} from "react-router-dom";
 import {APIContext} from "../../../../contexts/api-context";
+import TrButton from "../../../common/translated/translated-button";
 import {TrTypography} from "../../../common/translated/translated-typography";
 
 export const NotificationsPopover = (props) => {
@@ -73,7 +73,7 @@ export const NotificationsPopover = (props) => {
               p: 2
             }}
           >
-            <Button
+            <TrButton
               color="primary"
               component={RouterLink}
               size="large"
@@ -84,7 +84,7 @@ export const NotificationsPopover = (props) => {
               to={'/admin/notifications'}
             >
               See All
-            </Button>
+            </TrButton>
           </ListItem>
           {notifications.map((notification, index) => {
             const { title, content, createdAt, icon: Icon, iconColor } = notification;

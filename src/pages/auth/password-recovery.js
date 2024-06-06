@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import {
   AppBar,
   Box,
-  Button,
   Card,
   CardContent,
   Container,
@@ -16,6 +15,7 @@ import {
 } from '@material-ui/core';
 import {InputField} from '../../components/common/input-fields/input-field';
 import {Logo} from '../../components/common/logo';
+import TrButton from "../../components/common/translated/translated-button";
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import {useAuth} from '../../hooks/use-auth';
 import {useMounted} from '../../hooks/use-mounted';
@@ -134,14 +134,14 @@ export const PasswordRecovery = () => {
                               Forgot password
                             </TrTypography>
                             <Box sx={{flexGrow: 1}}/>
-                            <Button
+                            <TrButton
                               color="primary"
                               component={RouterLink}
                               to="/login"
                               variant="text"
                             >
                               Sign in
-                            </Button>
+                            </TrButton>
                           </Box>
                         </Grid>
                         <Grid
@@ -187,7 +187,7 @@ export const PasswordRecovery = () => {
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             disabled={formik.isSubmitting}
                             fullWidth
@@ -196,7 +196,7 @@ export const PasswordRecovery = () => {
                             variant="contained"
                           >
                             Send Verification Email
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </form> : <>
@@ -231,7 +231,7 @@ export const PasswordRecovery = () => {
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => {
                               navigate('/login', {
@@ -243,7 +243,7 @@ export const PasswordRecovery = () => {
                             variant="text"
                           >
                             Login
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </>}

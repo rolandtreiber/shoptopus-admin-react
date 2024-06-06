@@ -1,8 +1,9 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
-import { Button, Card, CardContent, FormHelperText, Grid } from '@material-ui/core';
+import { Card, CardContent, FormHelperText, Grid } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
 export const AccountChangePassword = (props) => {
@@ -110,14 +111,14 @@ export const AccountChangePassword = (props) => {
                   item
                   xs={12}
                 >
-                  <Button
+                  <TrButton
                     color="primary"
                     size="large"
                     type="submit"
                     variant="contained"
                   >
                     Change password
-                  </Button>
+                  </TrButton>
                 </Grid>
               </Grid>
             </form>

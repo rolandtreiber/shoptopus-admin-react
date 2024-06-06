@@ -1,7 +1,6 @@
 import {createContext, createRef, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {
   Alert,
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -16,6 +15,7 @@ import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
 import Autocomplete from '@material-ui/core/Autocomplete';
 import {Uploader} from "../components/common/file-upload/uploader";
+import TrButton from "../components/common/translated/translated-button";
 import {NotificationsContext} from "./notifications-context";
 import {APIContext} from "./api-context";
 import {useMounted} from "../hooks/use-mounted";
@@ -272,21 +272,21 @@ export const EmailClientProvider = ({children}) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button
+          <TrButton
             color="primary"
             onClick={() => setModalVisibility(false)}
             variant="outlined"
           >
             Cancel
-          </Button>
-          <Button
+          </TrButton>
+          <TrButton
             disabled={working}
             color="primary"
             onClick={() => validate(() => setConfirmationDialogVisibility(true))}
             variant="contained"
             startIcon={working ? <CircularProgress size={12}/> : <Send/>}>
             Send
-          </Button>
+          </TrButton>
         </DialogActions>
       </Dialog>
       {children}

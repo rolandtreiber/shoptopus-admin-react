@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
   FormHelperText,
@@ -12,6 +11,7 @@ import {
   MenuItem
 } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
 const companySizeOptions = ['1-10', '11-30', '31-50', '50+'];
@@ -103,24 +103,24 @@ export const AccountDetails = (props) => {
                       sx={{ pb: 1 }}
                     >
                       <Grid item>
-                        <Button
+                        <TrButton
                           color="primary"
                           size="small"
                           type="button"
                           variant="outlined"
                         >
                           Upload new picture
-                        </Button>
+                        </TrButton>
                       </Grid>
                       <Grid item>
-                        <Button
+                        <TrButton
                           color="primary"
                           size="small"
                           type="button"
                           variant="text"
                         >
                           Delete
-                        </Button>
+                        </TrButton>
                       </Grid>
                     </Grid>
                     <TrTypography
@@ -237,14 +237,14 @@ export const AccountDetails = (props) => {
                     item
                     xs={12}
                   >
-                    <Button
+                    <TrButton
                       color="primary"
                       size="large"
                       type="submit"
                       variant="contained"
                     >
                       Save settings
-                    </Button>
+                    </TrButton>
                   </Grid>
                 </Grid>
               </div>

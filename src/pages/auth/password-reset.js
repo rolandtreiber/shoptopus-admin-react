@@ -7,7 +7,6 @@ import {
   Alert,
   AppBar,
   Box,
-  Button,
   Card,
   CardContent,
   Container,
@@ -17,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { InputField } from '../../components/common/input-fields/input-field';
 import { Logo } from '../../components/common/logo';
+import TrButton from "../../components/common/translated/translated-button";
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
@@ -142,14 +142,14 @@ export const PasswordReset = () => {
                           Reset Password
                         </TrTypography>
                         <Box sx={{ flexGrow: 1 }} />
-                        <Button
+                        <TrButton
                           color="primary"
                           component={RouterLink}
                           to="/login"
                           variant="text"
                         >
                           Sign in
-                        </Button>
+                        </TrButton>
                       </Box>
                       <Grid
                         container
@@ -205,7 +205,7 @@ export const PasswordReset = () => {
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             disabled={formik.isSubmitting}
                             fullWidth
@@ -214,7 +214,7 @@ export const PasswordReset = () => {
                             variant="contained"
                           >
                             Reset password
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </form>}
@@ -248,7 +248,7 @@ export const PasswordReset = () => {
                             item
                             xs={12}
                           >
-                            <Button
+                            <TrButton
                               color="primary"
                               onClick={() => {
                                 navigate('/login')
@@ -256,7 +256,7 @@ export const PasswordReset = () => {
                               variant="text"
                             >
                               Login
-                            </Button>
+                            </TrButton>
                           </Grid>
                         </Grid>)}
                     {submitted && <>
@@ -290,7 +290,7 @@ export const PasswordReset = () => {
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => {
                               navigate('/login', {
@@ -302,7 +302,7 @@ export const PasswordReset = () => {
                             variant="text"
                           >
                             Login
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </>}

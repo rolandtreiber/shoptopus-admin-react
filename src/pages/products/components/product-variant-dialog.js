@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
   Box,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,6 +14,7 @@ import {
   MenuItem,
   Typography
 } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { Trash as TrashIcon } from '../../../icons/trash';
 import { InputField } from '../../../components/common/input-fields/input-field';
 import { ImageDropzone } from '../../../components/common/images/image-dropzone';
@@ -254,20 +254,20 @@ export const ProductVariantDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => { formik.handleSubmit(); }}
           variant="contained"
         >
           {mode === 'update' ? 'Update Variant' : 'Add Variant'}
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

@@ -3,7 +3,6 @@ import {Outlet, Link as RouterLink, useLocation, useParams} from 'react-router-d
 import toast from 'react-hot-toast';
 import {
   Box,
-  Button,
   Container,
   Divider,
   Skeleton,
@@ -13,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { ActionsMenu } from '../../components/common/actions/actions-menu';
 import { ConfirmationDialog } from '../../components/common/modal/confirmation-dialog';
-// import { Status } from '../../components/common/status';
+import TrButton from "../../components/common/translated/translated-button";
 import { useDialog } from '../../hooks/use-dialog';
 import { useMounted } from '../../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
@@ -201,7 +200,7 @@ export const ProductSingle = () => {
       <>
         <Box sx={{ py: 4 }}>
           <Box sx={{ mb: 2 }}>
-            <Button
+            <TrButton
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
@@ -209,7 +208,7 @@ export const ProductSingle = () => {
               variant="text"
             >
               Products
-            </Button>
+            </TrButton>
           </Box>
           <Box
             sx={{

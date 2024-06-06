@@ -3,7 +3,6 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,6 +15,7 @@ import {
 import {InputField} from '../../../components/common/input-fields/input-field';
 import {DateTimePicker} from "@material-ui/lab";
 import {useContext, useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {format} from "date-fns";
 import MultilangTextInput from "../../../components/common/input-fields/multilang-text-input";
@@ -205,14 +205,14 @@ export const DiscountRuleDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -222,7 +222,7 @@ export const DiscountRuleDialog = (props) => {
           variant="contained"
         >
           {initialValues ? 'Update Discount Rule' : 'Create Discount Rule'}
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

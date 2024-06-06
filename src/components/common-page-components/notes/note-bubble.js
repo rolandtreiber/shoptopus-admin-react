@@ -1,10 +1,11 @@
 import {useState} from "react";
 import {styled} from "@material-ui/core/styles";
 import RichTextEditor from "../../common/rich-text-editor/rich-text-editor";
-import {Button, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import {ConfirmationDialog} from "../../common/modal/confirmation-dialog";
 import {format} from "date-fns";
 import {useAuth} from "../../../hooks/use-auth";
+import TrButton from "../../common/translated/translated-button";
 
 const BubbleContainer = styled('div')(({ theme }) => ({
   alignItems: 'left',
@@ -80,27 +81,27 @@ const NoteBubble = ({note, handleUpdateNote, handleDeleteNote}) => {
         />
         {editable ? (<RichTextEditor initialContent={initialContent} setContent={setContent}/>) : (<Typography dangerouslySetInnerHTML={{__html: note.note}} variant="body2" gutterBottom/>)}
         {canEdit() && <div>
-          {editable && <Button
+          {editable && <TrButton
             color="primary"
             onClick={() => setEditable(false)}
             variant="text"
           >
             Cancel
-          </Button>}
-          <Button
+          </TrButton>}
+          <TrButton
             color="primary"
             onClick={handleEditButtonClicked}
             variant="text"
           >
             {editable ? "Done" : "Edit"}
-          </Button>
-          {!editable && (<Button
+          </TrButton>
+          {!editable && (<TrButton
             color="primary"
             onClick={() => setDeleteNoteConfirmationDialogVisibility(true)}
             variant="text"
           >
             Delete
-          </Button>)}
+          </TrButton>)}
         </div>}
       </Bubble>
       <InfoBox>

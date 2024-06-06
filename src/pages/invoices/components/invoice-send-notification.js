@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Button, Card, CardContent, Divider, MenuItem } from '@material-ui/core';
+import { Card, CardContent, Divider, MenuItem } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { useDialog } from '../../../hooks/use-dialog';
 import { Cash as CashIcon } from '../../../icons/cash';
 import { Download as DownloadIcon } from '../../../icons/download';
@@ -85,7 +86,7 @@ export const InvoiceSendNotification = (props) => {
               </MenuItem>
             ))}
           </InputField>
-          <Button
+          <TrButton
             color="primary"
             onClick={handleSendNotification}
             startIcon={<MailIcon />}
@@ -93,7 +94,7 @@ export const InvoiceSendNotification = (props) => {
             variant="outlined"
           >
             Send Email
-          </Button>
+          </TrButton>
         </CardContent>
         <Divider />
         <ActionList>

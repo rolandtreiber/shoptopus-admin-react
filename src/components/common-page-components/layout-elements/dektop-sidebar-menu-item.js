@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Button, Collapse, List } from '@material-ui/core';
+import {Button, Collapse, List} from '@material-ui/core';
 import { ChevronRight as ChevronRightIcon } from '../../../icons/chevron-right';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
 import { ExternalLink as ExternalLinkIcon } from '../../../icons/external-link';

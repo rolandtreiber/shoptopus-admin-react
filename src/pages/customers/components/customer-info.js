@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
-import { Avatar, Box, Button, Card, Divider, IconButton } from '@material-ui/core';
+import { Avatar, Box, Card, Divider, IconButton } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ExternalLink as ExternalLinkIcon } from '../../../icons/external-link';
 import { Eye as EyeIcon } from '../../../icons/eye';
@@ -33,13 +34,13 @@ export const CustomerInfo = (props) => {
       >
         <TrCardHeader
           action={(
-            <Button
+            <TrButton
               color="primary"
               onClick={onEdit}
               variant="text"
             >
               Edit
-            </Button>
+            </TrButton>
           )}
           title="Contact Info"
         />

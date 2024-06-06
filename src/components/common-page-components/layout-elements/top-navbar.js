@@ -3,11 +3,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { AppBar, Box, Button, Divider, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, Box, Divider, IconButton, Toolbar } from '@material-ui/core';
 import { ChevronDown as ChevronDownIcon } from '../../../icons/chevron-down';
 import { useSettings} from '../../../contexts/settings-context';
 import { Moon as MoonIcon } from '../../../icons/moon';
 import { Sun as SunIcon } from '../../../icons/sun';
+import TrButton from "../../common/translated/translated-button";
 import { AccountPopover } from './account-popover';
 import { OrganizationPopover } from './organization-popover';
 import { Logo } from '../../common/logo';
@@ -123,7 +124,7 @@ export const TopNavbar = () => {
           onClose={() => setOpenMenu(false)}
           open={mdDown && openMenu}
         />
-        <Button
+        <TrButton
           endIcon={(
             <ChevronDownIcon
               fontSize="small"
@@ -145,7 +146,7 @@ export const TopNavbar = () => {
           variant="text"
         >
           Menu
-        </Button>
+        </TrButton>
         <Box sx={{ flexGrow: 1 }} />
         <LanguagePopover
           language={i18n.language}

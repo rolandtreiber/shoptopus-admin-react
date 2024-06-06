@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,6 +11,7 @@ import {
   MenuItem
 } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
 
 const paymentStatusOptions = [
@@ -190,20 +190,20 @@ export const OrderPaymentDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => { formik.handleSubmit(); }}
           variant="contained"
         >
           Save Changes
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

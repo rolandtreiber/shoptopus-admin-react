@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Button, Card, Divider, Grid} from '@material-ui/core';
+import {Card, Divider, Grid} from '@material-ui/core';
 import {PropertyList} from '../../../components/common/property-list/property-list';
 import {PropertyListItem} from '../../../components/common/property-list/property-list-item';
 import Price from "../../../components/common/price";
@@ -67,13 +67,13 @@ export const OrderPayment = (props) => {
     >
       <TrCardHeader
         action={(
-          <Button
+          <TrButton
             color="primary"
             onClick={onEdit}
             variant="text"
           >
             Edit
-          </Button>
+          </TrButton>
         )}
         title="Payment Details"
       />

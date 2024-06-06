@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Button,
   Divider,
   Tab,
   Tabs,
@@ -220,7 +219,7 @@ export const OrdersFilter = (props) => {
                 />
               </ToggleButton>
             </ToggleButtonGroup>
-            <Button
+            <TrButton
               color="primary"
               disabled={disabled}
               onClick={() => setOpenFilterDialog(true)}
@@ -230,7 +229,7 @@ export const OrdersFilter = (props) => {
               variant={filters.length ? 'contained' : 'text'}
             >
               Filter
-            </Button>
+            </TrButton>
           </Box>
         </Box>
       </div>

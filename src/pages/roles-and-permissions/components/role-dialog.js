@@ -1,11 +1,11 @@
 import {
-  Button,
   Dialog, DialogActions,
   DialogContent,
   Grid,
 } from "@material-ui/core";
 import {InputField} from "../../../components/common/input-fields/input-field";
 import {useEffect, useState} from "react";
+import TrButton from "../../../components/common/translated/translated-button";
 import {TrDialogTitle} from "../../../components/common/translated/translated-dialog-title";
 
 const RoleDialog = ({roleId = null, setSelectedRoleId, roleName = "", open, onClose, onSubmitted, ...other}) => {
@@ -54,14 +54,14 @@ const RoleDialog = ({roleId = null, setSelectedRoleId, roleName = "", open, onCl
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={name.length < 2}
           onClick={() => {
@@ -69,8 +69,8 @@ const RoleDialog = ({roleId = null, setSelectedRoleId, roleName = "", open, onCl
           }}
           variant="contained"
         >
-          {roleId ? "Update" : "Add"} Role
-        </Button>
+          {roleId ? "Update Role" : "Add Role"}
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

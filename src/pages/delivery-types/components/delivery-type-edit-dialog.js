@@ -131,14 +131,14 @@ export const DeliveryTypeEditDialog = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onClose}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           disabled={formik.isSubmitting}
           onClick={() => {
@@ -148,7 +148,7 @@ export const DeliveryTypeEditDialog = (props) => {
           variant="contained"
         >
           Update Delivery Type
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

@@ -1,8 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, CardContent, Container, Divider, Grid} from '@material-ui/core';
+import {Box, Card, CardContent, Container, Divider, Grid} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
@@ -86,7 +87,7 @@ export const ProductTagSingle = () => {
 
             <Box sx={{py: 4}}>
               <Box sx={{mb: 2}}>
-                <Button
+                <TrButton
                   color="primary"
                   component={RouterLink}
                   startIcon={<ArrowLeftIcon/>}
@@ -94,7 +95,7 @@ export const ProductTagSingle = () => {
                   variant="text"
                 >
                   Product Tags
-                </Button>
+                </TrButton>
               </Box>
               <Box
                 sx={{
@@ -110,7 +111,7 @@ export const ProductTagSingle = () => {
                   Product Tag
                 </TrTypography>
                 <Box sx={{flexGrow: 1}}/>
-                <Button
+                <TrButton
                   color="primary"
                   onClick={() => setOpenInfoDialog(true)}
                   size="large"
@@ -118,7 +119,7 @@ export const ProductTagSingle = () => {
                   variant="contained"
                 >
                   Edit
-                </Button>
+                </TrButton>
               </Box>
 
               <Grid container spacing={3}>

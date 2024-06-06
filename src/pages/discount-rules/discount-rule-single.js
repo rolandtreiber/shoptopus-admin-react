@@ -1,9 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
   Container
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../../contexts/settings-context";
@@ -76,7 +76,7 @@ export const DiscountRuleSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
@@ -84,7 +84,7 @@ export const DiscountRuleSingle = () => {
                 variant="text"
               >
                 Discount Rules
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -99,7 +99,7 @@ export const DiscountRuleSingle = () => {
                 Discount Rule
               </TrTypography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
+              <TrButton
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
@@ -107,7 +107,7 @@ export const DiscountRuleSingle = () => {
                 variant="contained"
               >
                 Edit
-              </Button>
+              </TrButton>
             </Box>
             {data.data && <DiscountRuleDetails
               discountRule={data.data}

@@ -1,10 +1,10 @@
 import React, {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
   Container, Divider, Grid, Tab, Tabs,
   Typography
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {SettingsContext} from "../../contexts/settings-context";
@@ -108,15 +108,15 @@ export const CustomerSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{mb: 2}}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon/>}
                 to="/admin/customers"
                 variant="text"
               >
-                {t("Customers")}
-              </Button>
+                Customers
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -135,7 +135,7 @@ export const CustomerSingle = () => {
               </Typography>
               <Box sx={{flexGrow: 1}}/>
               {customerData.data && <Fragment>
-                <Button
+                <TrButton
                   color="primary"
                   onClick={() => setupEmailClient(customerData.data)}
                   size="large"
@@ -145,8 +145,8 @@ export const CustomerSingle = () => {
                   startIcon={<Email fontSize="small"/>}
                   variant="contained"
                 >
-                  {t("Email")}
-                </Button>
+                  Email
+                </TrButton>
               </Fragment>}
             </Box>
           </Box>

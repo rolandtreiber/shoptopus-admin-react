@@ -1,10 +1,10 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Card,
   Divider,
 } from '@material-ui/core';
+import TrButton from "../../../components/common/translated/translated-button";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
@@ -127,13 +127,13 @@ export const ProductAttributeOptions = (props) => {
       >
         <TrCardHeader
           action={(
-            <Button
+            <TrButton
               color="primary"
               onClick={handleCreateOption}
               variant="text"
             >
               Add
-            </Button>
+            </TrButton>
           )}
           title="Attribute Options"
         />

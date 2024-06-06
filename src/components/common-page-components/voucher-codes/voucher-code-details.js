@@ -3,7 +3,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Card, CardHeader,
   Chip,
   Divider,
@@ -18,6 +17,7 @@ import {lightNeutral} from "../../../colors";
 import {ExpandMore, Visibility} from "@material-ui/icons";
 import {PropertyList} from "../../common/property-list/property-list";
 import {Link as RouterLink} from "react-router-dom";
+import TrButton from "../../common/translated/translated-button";
 import TrCardHeader from "../../common/translated/translated-card-header";
 import {TrTypography} from "../../common/translated/translated-typography";
 import {useTranslation} from "react-i18next";
@@ -43,13 +43,13 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
             >
               <CardHeader
                 action={(
-                  <Button
+                  <TrButton
                     color="primary"
                     onClick={onEdit}
                     variant="text"
                   >
                     Edit
-                  </Button>
+                  </TrButton>
                 )}
                 title="Details"
               />
@@ -125,7 +125,7 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
                                   backgroundColor: orderStatuses.find(s => s.value === o.status).color
                                 }}
                           />
-                          <Button
+                          <TrButton
                             color="primary"
                             component={RouterLink}
                             startIcon={<Visibility />}
@@ -137,7 +137,7 @@ const VoucherCodeDetails = ({voucherCode, onEdit}) => {
                             }}
                           >
                             View
-                          </Button>
+                          </TrButton>
 
                         </ListItem>
                         <ListItem>

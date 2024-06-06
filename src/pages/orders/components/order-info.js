@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Button, Card, CardHeader, Divider, Grid } from '@material-ui/core';
+import { Avatar, Box, Card, Divider, Grid } from '@material-ui/core';
 import { PropertyList } from '../../../components/common/property-list/property-list';
 import { PropertyListItem } from '../../../components/common/property-list/property-list-item';
 import TrCardHeader from "../../../components/common/translated/translated-card-header";
@@ -53,13 +53,13 @@ export const OrderInfo = (props) => {
     >
       <TrCardHeader
         action={(
-          <Button
+          <TrButton
             color="primary"
             onClick={onEdit}
             variant="text"
           >
             Edit
-          </Button>
+          </TrButton>
         )}
         title="OrderSingle Info"
       />
