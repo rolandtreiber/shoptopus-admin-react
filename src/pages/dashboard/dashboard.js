@@ -1,8 +1,9 @@
 import {useEffect} from 'react';
 import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
-import { Box, Container, Divider, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Container, Divider, Tab, Tabs } from '@material-ui/core';
 import gtm from '../../lib/gtm';
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const tabs = [
   {
@@ -38,12 +39,12 @@ export const Dashboard = () => {
               display: 'flex'
             }}
           >
-            <Typography
+            <TrTypography
               color="textPrimary"
               variant="h4"
             >
-              {t("Welcome")}
-            </Typography>
+              Welcome
+            </TrTypography>
           </Box>
           <Tabs
             allowScrollButtonsMobile

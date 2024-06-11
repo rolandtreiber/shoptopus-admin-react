@@ -1,10 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {Pencil as PencilIcon} from "../../icons/pencil";
@@ -12,8 +11,9 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import VoucherCodeDetails from "../../components/page-components/voucher-codes/voucher-code-details";
-import {VoucherCodeDialog} from "../../components/page-components/voucher-codes/voucher-code-dialog";
+import VoucherCodeDetails from "../../components/common-page-components/voucher-codes/voucher-code-details";
+import {VoucherCodeDialog} from "../../components/common-page-components/voucher-codes/voucher-code-dialog";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const VoucherCodeSingle = () => {
   const mounted = useMounted();
@@ -76,15 +76,15 @@ export const VoucherCodeSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
-                to="/discount/voucher-codes"
+                to="/admin/discount/voucher-codes"
                 variant="text"
               >
                 Voucher Codes
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -92,14 +92,14 @@ export const VoucherCodeSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Voucher Code
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
+              <TrButton
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
@@ -107,7 +107,7 @@ export const VoucherCodeSingle = () => {
                 variant="contained"
               >
                 Edit
-              </Button>
+              </TrButton>
             </Box>
             {data.data && <VoucherCodeDetails onEdit={() => setOpenEditDialog(true)} voucherCode={data.data}/>}
           </Box>

@@ -1,8 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
-import {CustomerDialog} from '../../components/page-components/customer/customer-dialog';
-import {CustomersTable} from '../../components/page-components/customer/customers-table';
+import {Box, Card, Container, Divider} from '@material-ui/core';
+import {CustomerDialog} from './components/customer-dialog';
+import {CustomersTable} from './components/customers-table';
 import {useMounted} from '../../hooks/use-mounted';
 import {useSelection} from '../../hooks/use-selection';
 import gtm from '../../lib/gtm';
@@ -13,6 +13,7 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {EmailClientContext} from "../../contexts/email-client-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const views = [
   {
@@ -209,12 +210,12 @@ export const CustomersList = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
-                {t("Customers")}
-              </Typography>
+                Customers
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <ExportButton
                 name={"customers"}

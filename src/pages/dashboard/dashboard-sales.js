@@ -1,8 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Grid, Typography } from '@material-ui/core';
-import { PerformanceIndicators } from '../../components/page-components/reports/performance-indicators';
-import { ProductsBreakdown } from '../../components/page-components/reports/products-breakdown';
+import { PerformanceIndicators } from '../reports/components/performance-indicators';
+import { ProductsBreakdown } from '../reports/components/products-breakdown';
 import { Ban as BanIcon } from '../../icons/ban';
 import { Cash as CashIcon } from '../../icons/cash';
 import { ShoppingBag as ShoppingBagIcon } from '../../icons/shopping-bag';
@@ -13,6 +13,7 @@ import {useMounted} from "../../hooks/use-mounted";
 import Price from "../../components/common/price";
 import {SettingsContext} from "../../contexts/settings-context";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const DashboardSales = () => {
   const {fetchReportsSales} = useContext(APIContext)
@@ -133,12 +134,12 @@ export const DashboardSales = () => {
                   >
                     <Icon sx={{ color: iconColor || 'text.secondary' }} />
                     <Box sx={{ ml: 2 }}>
-                      <Typography
+                      <TrTypography
                         color="textSecondary"
                         variant="overline"
                       >
-                        {t(label)}
-                      </Typography>
+                        {label}
+                      </TrTypography>
                       <Typography
                         color="textPrimary"
                         variant="h6"

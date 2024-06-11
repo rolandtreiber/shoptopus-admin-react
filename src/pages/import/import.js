@@ -2,21 +2,23 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
 import {
   Alert,
-  Box, Button,
-  Container, Paper,
+  Box,
+  Container,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography
 } from "@material-ui/core";
+import TrButton from "../../components/common/translated/translated-button";
 import {SettingsContext} from "../../contexts/settings-context";
 import {useDropzone} from 'react-dropzone';
 import {APIContext} from "../../contexts/api-context";
 import {getFileFromBlob} from "../../utils/file-operations";
 import {Check, NotInterested} from "@material-ui/icons";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const acceptedMimeTypes = [
   'application/vnd.ms-excel',
@@ -132,12 +134,12 @@ export const Import = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Import Data
-              </Typography>
+              </TrTypography>
             </Box>
           </Box>
 
@@ -182,7 +184,7 @@ export const Import = () => {
       >
         {validationResult?.status === "success" ? (
           <Alert severity="success">{validationResult?.message}{'  '}
-            {validatedData.length > 0 && <Button onClick={onProcessImport} variant={"contained"}>Import</Button>}
+            {validatedData.length > 0 && <TrButton onClick={onProcessImport} variant={"contained"}>Import</TrButton>}
           </Alert>
         ) : (
           <>

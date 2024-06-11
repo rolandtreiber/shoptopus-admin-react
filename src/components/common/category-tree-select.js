@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
-import {Box, Button} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import {TreeItem, TreeView} from "@material-ui/lab";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {useLanguage} from "../../hooks/use-language";
+import TrButton from "./translated/translated-button";
 import TreeItemContent from "./tree-item-content";
 
 const CategoryTreeSelect = ({categories, selection = [], setSelection}) => {
@@ -82,12 +83,12 @@ const CategoryTreeSelect = ({categories, selection = [], setSelection}) => {
   return (
     <Box mb={1} sx={{maxHeight: 270, flexGrow: 1, overflowY: 'auto'}}>
       <Box sx={{mb: 1}}>
-        <Button onClick={handleExpandClick}>
+        <TrButton onClick={handleExpandClick}>
           {expanded.length === 0 ? 'Expand all' : 'Collapse all'}
-        </Button>
-        <Button onClick={handleSelectClick}>
+        </TrButton>
+        <TrButton onClick={handleSelectClick}>
           {selected.length === 0 ? 'Select all' : 'Unselect all'}
-        </Button>
+        </TrButton>
       </Box>
       <TreeView
         aria-label="controlled"

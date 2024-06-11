@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import {Button, Menu, MenuItem} from '@material-ui/core';
 import { usePopover } from '../../hooks/use-popover';
 import { ChevronDown as ChevronDownIcon } from '../../icons/chevron-down';
 import {useTranslation} from "react-i18next";

@@ -2,13 +2,14 @@ import React, {Fragment, useCallback, useContext, useEffect, useState} from 'rea
 import {Link as RouterLink, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import {Box, Button, Container, Divider, Grid, Skeleton, Tab, Tabs, Typography} from '@material-ui/core';
+import {Box, Container, Divider, Grid, Skeleton, Tab, Tabs, Typography} from '@material-ui/core';
 import {ActionsMenu} from '../../components/common/actions/actions-menu';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {ArrowLeft as ArrowLeftIcon} from '../../icons/arrow-left';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
-import NotesTriggerButton from "../../components/notes/notes-trigger-button";
+import NotesTriggerButton from "../../components/common-page-components/notes/notes-trigger-button";
 import {SettingsContext} from "../../contexts/settings-context";
 import {Email} from "@material-ui/icons";
 import {EmailClientContext} from "../../contexts/email-client-context";
@@ -161,15 +162,15 @@ export const OrderSingle = () => {
           >
             <Box sx={{py: 4}}>
               <Box sx={{mb: 2}}>
-                <Button
+                <TrButton
                   color="primary"
                   component={RouterLink}
                   startIcon={<ArrowLeftIcon/>}
-                  to="/orders"
+                  to="/admin/orders"
                   variant="text"
                 >
-                  {t("Orders")}
-                </Button>
+                  Orders
+                </TrButton>
               </Box>
               <Box
                 sx={{
@@ -188,7 +189,7 @@ export const OrderSingle = () => {
                 </Typography>
                 <Box sx={{flexGrow: 1}}/>
                 {orderState.data && <Fragment>
-                  <Button
+                  <TrButton
                     color="primary"
                     onClick={() => setupEmailClient(orderState.data.user)}
                     size="large"
@@ -199,8 +200,8 @@ export const OrderSingle = () => {
                     startIcon={<Email fontSize="small"/>}
                     variant="contained"
                   >
-                    {t("Email")}
-                  </Button>
+                    Email
+                  </TrButton>
                   <ActionsMenu actions={actions}/>
                 </Fragment>}
               </Box>

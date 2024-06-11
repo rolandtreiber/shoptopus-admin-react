@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
-import { Avatar, Box, Button, Typography } from '@material-ui/core';
+import { Avatar, Box} from '@material-ui/core';
+import {useTranslation} from "react-i18next";
 import { Upload as UploadIcon } from '../../../icons/upload';
+import TrButton from "../translated/translated-button";
+import {TrTypography} from "../translated/translated-typography";
 
 export const ImageDropzone = (props) => {
   const { accept, maxFiles, maxSize, minSize, onDrop, sx } = props;
+  const { t } = useTranslation();
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: accept ? accept : ['image/png', 'image/jpg', 'image/jpeg'],
     maxFiles,
@@ -52,19 +56,19 @@ export const ImageDropzone = (props) => {
       >
         <UploadIcon />
       </Avatar>
-      <Button
+      <TrButton
         color="primary"
         variant="text"
       >
         Upload
-      </Button>
-      <Typography
+      </TrButton>
+      <TrTypography
         align="center"
         sx={{ color: 'text.secondary' }}
         variant="caption"
       >
-        {props.multiple === true ? 'Select images' : 'Select image'}
-      </Typography>
+        {props.multiple === true ? "Select images" : "Select image"}
+      </TrTypography>
     </Box>
   );
 };

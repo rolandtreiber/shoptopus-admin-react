@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Button,
   Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   IconButton,
   Typography
 } from '@material-ui/core';
 import { Trash as TrashIcon } from '../../../icons/trash';
+import TrButton from "../translated/translated-button";
 import { ImageDropzone } from './image-dropzone';
+import {TrDialogTitle} from "../translated/translated-dialog-title";
+import {TrTypography} from "../translated/translated-typography";
 
 export const ImagesUploaderDialog = (props) => {
   const { onCancel, onSaveImages, open, selectedImages: selectedImagesProp, ...other } = props;
@@ -57,17 +58,17 @@ export const ImagesUploaderDialog = (props) => {
       }}
       {...other}
     >
-      <DialogTitle>
+      <TrDialogTitle>
         Select image
-      </DialogTitle>
+      </TrDialogTitle>
       <DialogContent>
-        <Typography
+        <TrTypography
           color="textSecondary"
           sx={{ mb: 3 }}
           variant="body2"
         >
           You can only choose images as variant media
-        </Typography>
+        </TrTypography>
         <Box
           sx={{
             display: 'grid',
@@ -169,20 +170,20 @@ export const ImagesUploaderDialog = (props) => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="primary"
           onClick={onCancel}
           variant="text"
         >
           Cancel
-        </Button>
-        <Button
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => onSaveImages(selectedImages)}
           variant="contained"
         >
           Add selected
-        </Button>
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

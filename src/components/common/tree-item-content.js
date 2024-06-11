@@ -1,7 +1,7 @@
 import React from "react";
 import {useTreeItem} from "@material-ui/lab";
 import clsx from "clsx";
-import {Typography} from "@material-ui/core";
+import {TrTypography} from "./translated/translated-typography";
 
 const TreeItemContent = React.forwardRef(function CustomContent(props, ref) {
   const {
@@ -39,7 +39,7 @@ const TreeItemContent = React.forwardRef(function CustomContent(props, ref) {
       <span onClick={handleExpansion} className={classes.iconContainer}>
         {icon}
       </span>
-      <Typography
+      <TrTypography
         onClick={(e) => {
           handleSelection(e)
         }}
@@ -47,7 +47,7 @@ const TreeItemContent = React.forwardRef(function CustomContent(props, ref) {
         className={classes.label}
       >
         {label}
-      </Typography>
+      </TrTypography>
     </div>
   );
 });

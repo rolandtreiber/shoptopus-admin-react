@@ -1,6 +1,7 @@
 import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
@@ -9,9 +10,10 @@ import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
-import {FilesTable} from "../../components/page-components/files/files-table";
+import {FilesTable} from "./components/files-table";
 import {DialogContext} from "../../contexts/dialog-context";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const views = [
     {
@@ -231,22 +233,22 @@ export const FilesList = () => {
                             display: 'flex'
                         }}
                       >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
-                              {t("Files")}
-                          </Typography>
+                              Files
+                          </TrTypography>
                           <Box sx={{ flexGrow: 1 }} />
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => setOpenCreateDialog(true)}
                             size="large"
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              {t("Add")}
-                          </Button>
+                              Add
+                          </TrButton>
                       </Box>
                   </Box>
                   <Card

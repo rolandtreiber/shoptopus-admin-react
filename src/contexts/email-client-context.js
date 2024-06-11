@@ -1,7 +1,6 @@
 import {createContext, createRef, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {
   Alert,
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -15,15 +14,16 @@ import {ContentState, EditorState, convertToRaw} from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
 import Autocomplete from '@material-ui/core/Autocomplete';
-import {Uploader} from "../components/common/uploader";
+import {Uploader} from "../components/common/file-upload/uploader";
+import TrButton from "../components/common/translated/translated-button";
 import {NotificationsContext} from "./notifications-context";
 import {APIContext} from "./api-context";
 import {useMounted} from "../hooks/use-mounted";
 import {getFileFromBlob} from "../utils/file-operations";
 import {SettingsContext} from "./settings-context";
 import '../static/css/wysiwyg.css';
-import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
-import {DialogTitleTranslated} from "../components/common/dialog-title-translated";
+import {ConfirmationDialog} from "../components/common/modal/confirmation-dialog";
+import {TrDialogTitle} from "../components/common/translated/translated-dialog-title";
 
 export const EmailClientContext = createContext();
 
@@ -188,7 +188,7 @@ export const EmailClientProvider = ({children}) => {
         onClose={() => setModalVisibility(false)}
         open={modalVisibility}
       >
-        <DialogTitleTranslated title={'Compose Email'}/>
+        <TrDialogTitle title={'Compose Email'}/>
         <DialogContent>
           <Grid
             container
@@ -272,21 +272,21 @@ export const EmailClientProvider = ({children}) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button
+          <TrButton
             color="primary"
             onClick={() => setModalVisibility(false)}
             variant="outlined"
           >
             Cancel
-          </Button>
-          <Button
+          </TrButton>
+          <TrButton
             disabled={working}
             color="primary"
             onClick={() => validate(() => setConfirmationDialogVisibility(true))}
             variant="contained"
             startIcon={working ? <CircularProgress size={12}/> : <Send/>}>
             Send
-          </Button>
+          </TrButton>
         </DialogActions>
       </Dialog>
       {children}

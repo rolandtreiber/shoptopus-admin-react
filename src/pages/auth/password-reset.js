@@ -7,21 +7,21 @@ import {
   Alert,
   AppBar,
   Box,
-  Button,
   Card,
   CardContent,
   Container,
   FormHelperText,
   Grid,
-  Toolbar,
-  Typography
+  Toolbar
 } from '@material-ui/core';
-import { InputField } from '../../components/common/input-field';
+import { InputField } from '../../components/common/input-fields/input-field';
 import { Logo } from '../../components/common/logo';
+import TrButton from "../../components/common/translated/translated-button";
 import {SettingsContext, useSettings} from '../../contexts/settings-context';
 import { useAuth } from '../../hooks/use-auth';
 import { useMounted } from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const PasswordReset = () => {
   const mounted = useMounted();
@@ -135,21 +135,21 @@ export const PasswordReset = () => {
                           mb: 3
                         }}
                       >
-                        <Typography
+                        <TrTypography
                           color="textPrimary"
                           variant="h4"
                         >
                           Reset Password
-                        </Typography>
+                        </TrTypography>
                         <Box sx={{ flexGrow: 1 }} />
-                        <Button
+                        <TrButton
                           color="primary"
                           component={RouterLink}
                           to="/login"
                           variant="text"
                         >
                           Sign in
-                        </Button>
+                        </TrButton>
                       </Box>
                       <Grid
                         container
@@ -205,7 +205,7 @@ export const PasswordReset = () => {
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             disabled={formik.isSubmitting}
                             fullWidth
@@ -214,7 +214,7 @@ export const PasswordReset = () => {
                             variant="contained"
                           >
                             Reset password
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </form>}
@@ -226,29 +226,29 @@ export const PasswordReset = () => {
                             item
                             xs={12}
                           >
-                            <Typography
+                            <TrTypography
                               color="textPrimary"
                               variant="h4"
                             >
                               Invalid url
-                            </Typography>
+                            </TrTypography>
                           </Grid>
                           <Grid
                             item
                             xs={12}
                           >
-                            <Typography
+                            <TrTypography
                               color="textPrimary"
                               variant="body1"
                             >
                               One or more of the required url parameters is missing. Please click on the link in the password recovery email to access this page.
-                            </Typography>
+                            </TrTypography>
                           </Grid>
                           <Grid
                             item
                             xs={12}
                           >
-                            <Button
+                            <TrButton
                               color="primary"
                               onClick={() => {
                                 navigate('/login')
@@ -256,7 +256,7 @@ export const PasswordReset = () => {
                               variant="text"
                             >
                               Login
-                            </Button>
+                            </TrButton>
                           </Grid>
                         </Grid>)}
                     {submitted && <>
@@ -268,29 +268,29 @@ export const PasswordReset = () => {
                           item
                           xs={12}
                         >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
                             Your password was updated successfully
-                          </Typography>
+                          </TrTypography>
                         </Grid>
                         <Grid
                           item
                           xs={12}
                         >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="body1"
                           >
                             You can now sign in with your new password.
-                          </Typography>
+                          </TrTypography>
                         </Grid>
                         <Grid
                           item
                           xs={12}
                         >
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => {
                               navigate('/login', {
@@ -302,7 +302,7 @@ export const PasswordReset = () => {
                             variant="text"
                           >
                             Login
-                          </Button>
+                          </TrButton>
                         </Grid>
                       </Grid>
                     </>}

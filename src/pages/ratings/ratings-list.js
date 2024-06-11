@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider } from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import gtm from '../../lib/gtm';
@@ -8,10 +8,11 @@ import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
-import {RatingsTable} from "../../components/page-components/ratings/ratings-table";
+import {RatingsTable} from "./components/ratings-table";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const views = [
     {
@@ -260,12 +261,12 @@ export const RatingsList = () => {
                             display: 'flex'
                         }}
                       >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
-                              {t("Ratings")}
-                          </Typography>
+                              Ratings
+                          </TrTypography>
                           <Box sx={{ flexGrow: 1 }} />
                           <ExportButton
                             name={"ratings"}

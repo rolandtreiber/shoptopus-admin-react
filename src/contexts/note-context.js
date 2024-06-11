@@ -1,21 +1,22 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle, Grid, Table, TableBody, TableCell, TableRow
+  Grid, Table, TableBody, TableCell, TableRow
 } from '@material-ui/core';
 import {Send} from "@material-ui/icons";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import TrButton from "../components/common/translated/translated-button";
 import {NotificationsContext} from "./notifications-context";
 import {APIContext} from "./api-context";
 import {useMounted} from "../hooks/use-mounted";
 import '../static/css/wysiwyg.css';
-import NoteBubble from "../components/notes/note-bubble";
+import NoteBubble from "../components/common-page-components/notes/note-bubble";
 import RichTextEditor from "../components/common/rich-text-editor/rich-text-editor";
-import {ConfirmationDialog} from "../components/modal/confirmation-dialog";
+import {ConfirmationDialog} from "../components/common/modal/confirmation-dialog";
+import {TrDialogTitle} from "../components/common/translated/translated-dialog-title";
 
 export const NoteContext = createContext();
 
@@ -128,9 +129,9 @@ export const NoteProvider = ({children}) => {
         onClose={() => setModalVisibility(false)}
         open={modalVisibility}
       >
-        <DialogTitle>
+        <TrDialogTitle>
           Notes
-        </DialogTitle>
+        </TrDialogTitle>
         <DialogContent>
           <Grid
             container
@@ -163,7 +164,7 @@ export const NoteProvider = ({children}) => {
               </TableRow>
               <TableRow>
                 <TableCell align={"right"}>
-                  <Button
+                  <TrButton
                     color="primary"
                     onClick={() => setModalVisibility(false)}
                     variant="outlined"
@@ -172,15 +173,15 @@ export const NoteProvider = ({children}) => {
                     }}
                   >
                     Cancel
-                  </Button>
-                  <Button
+                  </TrButton>
+                  <TrButton
                     disabled={working}
                     color="primary"
                     onClick={() => validate(() => setConfirmationDialogVisibility(true))}
                     variant="contained"
                     startIcon={working ? <CircularProgress size={12}/> : <Send/>}>
                     Save
-                  </Button>
+                  </TrButton>
                 </TableCell>
               </TableRow>
             </TableBody>

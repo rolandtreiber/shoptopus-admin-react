@@ -1,16 +1,17 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-import {Box, Button, Card, Divider, List, ListItem, ListItemText} from "@material-ui/core";
+import {Box, Card, Divider, List, ListItem, ListItemText} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete, Download, Edit} from "@mui/icons-material";
+import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
 import {useParams} from "react-router-dom";
 import {useMounted} from "../../../hooks/use-mounted";
 import {useLanguage} from "../../../hooks/use-language";
 import {ResourceUnavailable} from "../../../components/common/placeholder/resource-unavailable";
 import {ResourceLoading} from "../../../components/common/placeholder/resource-loading";
-import {ProductPaidFileDialog} from "../../../components/page-components/product/product-paid-file-dialog";
+import {ProductPaidFileDialog} from "../components/product-paid-file-dialog";
 import {DialogContext} from "../../../contexts/dialog-context";
-import TrCardHeader from "../../../components/translated/TrCardHeader";
+import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 const ProductPaidFiles = () => {
   const [file, setFile] = useState()
@@ -153,10 +154,10 @@ const ProductPaidFiles = () => {
       </Box>
     </Card>
     <Box sx={{width: "100%", textAlign: "right"}}>
-      <Button variant="contained" onClick={() => {
+      <TrButton variant="contained" onClick={() => {
         setSelectedFileData(null)
         setFileDialogOpen(true);
-      }}>Upload</Button>
+      }}>Upload</TrButton>
     </Box>
 
     <ProductPaidFileDialog

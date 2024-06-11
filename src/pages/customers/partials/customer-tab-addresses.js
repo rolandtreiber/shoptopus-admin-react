@@ -1,5 +1,5 @@
 import {Card, Grid} from "@material-ui/core";
-import AddressCard from "../../../components/page-components/addresses/address-card";
+import AddressCard from "../../../components/common-page-components/addresses/address-card";
 import {useTranslation} from "react-i18next";
 
 const CustomerTabAddresses = ({data}) => {

@@ -17,7 +17,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { customerApi } from '../../api/customer';
-import { CustomerOrderMenu } from '../../components/page-components/customer/customer-order-menu';
+import { CustomerOrderMenu } from './components/customer-order-menu';
 import { ResourceError } from '../../components/common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../components/common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../components/common/scrollbar';

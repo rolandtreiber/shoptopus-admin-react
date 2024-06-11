@@ -1,4 +1,4 @@
-import CustomerCard from "../../../components/page-components/customer/customer-card";
+import CustomerCard from "../components/customer-card";
 
 const CustomerBasicInfo = ({data}) => {
   return (

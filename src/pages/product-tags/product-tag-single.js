@@ -1,20 +1,22 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Box, Button, Card, CardContent, Container, Divider, Grid, Typography} from '@material-ui/core';
+import {Box, Card, CardContent, Container, Divider, Grid} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {SettingsContext} from "../../contexts/settings-context";
-import {ProductTagEditDialog} from "../../components/page-components/product-tags/product-tag-edit-dialog";
-import {ProductTagInfo} from "../../components/page-components/product-tags/product-tag-info";
+import {ProductTagEditDialog} from "./components/product-tag-edit-dialog";
+import {ProductTagInfo} from "./components/product-tag-info";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {Pencil as PencilIcon} from "../../icons/pencil";
 import ProductTagProductListItem
-  from "../../components/page-components/product-tags/partials/product-tag-product-list-item";
-import TrCardHeader from "../../components/translated/TrCardHeader";
+  from "./partials/product-tag-product-list-item";
+import TrCardHeader from "../../components/common/translated/translated-card-header";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const ProductTagSingle = () => {
   const mounted = useMounted();
@@ -85,7 +87,7 @@ export const ProductTagSingle = () => {
 
             <Box sx={{py: 4}}>
               <Box sx={{mb: 2}}>
-                <Button
+                <TrButton
                   color="primary"
                   component={RouterLink}
                   startIcon={<ArrowLeftIcon/>}
@@ -93,7 +95,7 @@ export const ProductTagSingle = () => {
                   variant="text"
                 >
                   Product Tags
-                </Button>
+                </TrButton>
               </Box>
               <Box
                 sx={{
@@ -102,14 +104,14 @@ export const ProductTagSingle = () => {
                   marginBottom: 2
                 }}
               >
-                <Typography
+                <TrTypography
                   color="textPrimary"
                   variant="h4"
                 >
                   Product Tag
-                </Typography>
+                </TrTypography>
                 <Box sx={{flexGrow: 1}}/>
-                <Button
+                <TrButton
                   color="primary"
                   onClick={() => setOpenInfoDialog(true)}
                   size="large"
@@ -117,7 +119,7 @@ export const ProductTagSingle = () => {
                   variant="contained"
                 >
                   Edit
-                </Button>
+                </TrButton>
               </Box>
 
               <Grid container spacing={3}>

@@ -1,10 +1,9 @@
 import {Fragment, useCallback, useContext, useEffect, useState} from 'react';
 import {
   Box,
-  Button,
-  Container,
-  Typography
+  Container
 } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import {useMounted} from '../../hooks/use-mounted';
 import {Helmet} from "react-helmet-async";
 import {Plus as PlusIcon} from "../../icons/plus";
@@ -12,9 +11,10 @@ import {SettingsContext} from "../../contexts/settings-context";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import {ArrowLeft as ArrowLeftIcon} from "../../icons/arrow-left";
 import {APIContext} from "../../contexts/api-context";
-import TransactionDetails from "../../components/page-components/transactions/transaction-details";
+import TransactionDetails from "./components/transaction-details";
 import {ResourceLoading} from "../../components/common/placeholder/resource-loading";
 import {ResourceError} from "../../components/common/placeholder/resource-error";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const TransactionSingle = () => {
   const mounted = useMounted();
@@ -73,7 +73,7 @@ export const TransactionSingle = () => {
         >
           <Box sx={{py: 4}}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
@@ -81,7 +81,7 @@ export const TransactionSingle = () => {
                 variant="text"
               >
                 Transactions
-              </Button>
+              </TrButton>
             </Box>
             <Box
               sx={{
@@ -89,14 +89,14 @@ export const TransactionSingle = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Transaction
-              </Typography>
+              </TrTypography>
               <Box sx={{flexGrow: 1}}/>
-              <Button
+              <TrButton
                 color="primary"
                 onClick={() => setOpenEditDialog(true)}
                 size="large"
@@ -104,7 +104,7 @@ export const TransactionSingle = () => {
                 variant="contained"
               >
                 Partial refund
-              </Button>
+              </TrButton>
             </Box>
             {openEditDialog && <Fragment></Fragment>}
             {data.data && <TransactionDetails transaction={data.data}/>}

@@ -1,14 +1,15 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import {Box, Card, Container, Divider, Typography} from '@material-ui/core';
+import {Box, Card, Container, Divider} from '@material-ui/core';
 import { useMounted } from '../../hooks/use-mounted';
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {useSelection} from "../../hooks/use-selection";
 import {getUrlFilters} from "../../utils/apply-filters";
 import {APIContext} from "../../contexts/api-context";
-import NotificationsTable from "../../components/page-components/notifications/notifications-table";
+import NotificationsTable from "../../components/common-page-components/notifications/notifications-table";
 import {NotificationsContext} from "../../contexts/notifications-context";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const filterProperties = [
   {
@@ -147,12 +148,12 @@ export const Notifications = () => {
                 display: 'flex'
               }}
             >
-              <Typography
+              <TrTypography
                 color="textPrimary"
                 variant="h4"
               >
                 Notifications
-              </Typography>
+              </TrTypography>
               <Box sx={{ flexGrow: 1 }} />
             </Box>
           </Box>

@@ -1,6 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Card, Container, Divider, Typography } from '@material-ui/core';
+import { Box, Card, Container, Divider } from '@material-ui/core';
+import TrButton from "../../components/common/translated/translated-button";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
@@ -9,11 +10,12 @@ import {APIContext} from "../../contexts/api-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {ListFilter} from "../../components/common/filter/list-filter";
 import {getUrlFilters} from "../../utils/apply-filters";
-import {DiscountRulesTable} from "../../components/page-components/discount-rules/discount-rules-table";
-import {DiscountRuleDialog} from "../../components/page-components/discount-rules/discount-rule-dialog";
+import {DiscountRulesTable} from "./components/discount-rules-table";
+import {DiscountRuleDialog} from "./components/discount-rule-dialog";
 import {DialogContext} from "../../contexts/dialog-context";
 import ExportButton from "../../components/common/export-button";
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const views = [
     {
@@ -319,22 +321,22 @@ export const DiscountRulesList = () => {
                             display: 'flex'
                         }}
                       >
-                          <Typography
+                          <TrTypography
                             color="textPrimary"
                             variant="h4"
                           >
-                              {t("Discount Rules")}
-                          </Typography>
+                              Discount Rules
+                          </TrTypography>
                           <Box sx={{ flexGrow: 1 }} />
-                          <Button
+                          <TrButton
                             color="primary"
                             onClick={() => setOpenCreateDialog(true)}
                             size="large"
                             startIcon={<PlusIcon fontSize="small" />}
                             variant="contained"
                           >
-                              {t("Add")}
-                          </Button>
+                              Add
+                          </TrButton>
                           <ExportButton
                             name={"discount-rules"}
                             modelsSimple={["DiscountRule"]}

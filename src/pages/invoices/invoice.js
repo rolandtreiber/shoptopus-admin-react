@@ -1,13 +1,14 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Container, Grid, Skeleton, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Skeleton, Typography } from '@material-ui/core';
 import { invoiceApi } from '../../api/invoice';
-import { InvoiceDetails } from '../../components/page-components/invoices/invoice-details';
-import { InvoiceLineItems } from '../../components/page-components/invoices/invoice-line-items';
-import { InvoicePayment } from '../../components/page-components/invoices/invoice-payment';
-import { InvoicePaymentHistory } from '../../components/page-components/invoices/invoice-payment-history';
-import { InvoiceSendNotification } from '../../components/page-components/invoices/invoice-send-notification';
+import TrButton from "../../components/common/translated/translated-button";
+import { InvoiceDetails } from './components/invoice-details';
+import { InvoiceLineItems } from './components/invoice-line-items';
+import { InvoicePayment } from './components/invoice-payment';
+import { InvoicePaymentHistory } from './components/invoice-payment-history';
+import { InvoiceSendNotification } from './components/invoice-send-notification';
 import { Status } from '../../components/common/status';
 import { useMounted } from '../../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
@@ -93,7 +94,7 @@ export const Invoice = () => {
       <>
         <Box sx={{ py: 4 }}>
           <Box sx={{ mb: 2 }}>
-            <Button
+            <TrButton
               color="primary"
               component={RouterLink}
               startIcon={<ArrowLeftIcon />}
@@ -101,7 +102,7 @@ export const Invoice = () => {
               variant="text"
             >
               Invoices
-            </Button>
+            </TrButton>
           </Box>
           <Box
             sx={{
@@ -117,7 +118,7 @@ export const Invoice = () => {
               {invoiceState.data.id}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            <Button
+            <TrButton
               color="primary"
               component={RouterLink}
               size="large"
@@ -126,7 +127,7 @@ export const Invoice = () => {
               variant="contained"
             >
               Preview
-            </Button>
+            </TrButton>
           </Box>
           <Box sx={{ mt: 2 }}>
             <Status

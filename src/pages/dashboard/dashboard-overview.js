@@ -1,15 +1,15 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Grid } from '@material-ui/core';
-import { SummaryItem } from '../../components/page-components/reports/summary-item';
+import { SummaryItem } from '../reports/components/summary-item';
 import { Cube as CubeIcon } from '../../icons/cube';
 import { ShoppingCart as ShoppingCartIcon } from '../../icons/shopping-cart';
 import { CustomCreditCard as CustomCreditCardIcon } from '../../icons/custom-credit-card';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
-import {PieChartBreakdown} from "../../components/page-components/reports/pie-chart-breakdown";
-import {Timeline} from "../../components/page-components/reports/timeline";
+import {PieChartBreakdown} from "../reports/components/pie-chart-breakdown";
+import {Timeline} from "../reports/components/timeline";
 import {SettingsContext} from "../../contexts/settings-context";
 import {useTranslation} from "react-i18next";
 

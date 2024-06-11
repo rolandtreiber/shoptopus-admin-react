@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { useMediaQuery } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { Footer } from '../../components/page-components/layout-elements/footer';
-import { TopNavbar } from '../../components/page-components/layout-elements/top-navbar';
-import { DesktopSidebarMenu } from '../../components/page-components/layout-elements/desktop-sidebar-menu';
+import { Footer } from '../../components/common-page-components/layout-elements/footer';
+import { TopNavbar } from '../../components/common-page-components/layout-elements/top-navbar';
+import { DesktopSidebarMenu } from '../../components/common-page-components/layout-elements/desktop-sidebar-menu';
 import { useSettings } from '../../contexts/settings-context';
-import Notifications from "../../components/page-components/layout-elements/notifications/notifications";
+import Notifications from "../../components/common-page-components/layout-elements/notifications/notifications";
 import {useContext, useEffect} from "react";
 import {APIContext} from "../../contexts/api-context";
 import {useAuth} from "../../hooks/use-auth";

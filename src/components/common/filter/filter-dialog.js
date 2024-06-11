@@ -1,20 +1,19 @@
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Chip,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogTitle,
+  DialogContent, DialogTitle,
   Divider,
-  IconButton,
-  Typography
+  IconButton
 } from '@material-ui/core';
 import { useFilters } from '../../../hooks/use-filters';
 import { X as XIcon } from '../../../icons/x';
+import TrButton from "../translated/translated-button";
 import { FilterDialogItem } from './filter-dialog-item';
 import {useTranslation} from "react-i18next";
+import {TrTypography} from "../translated/translated-typography";
 
 export const FilterDialog = (props) => {
   const { open, onClose, operators, properties, onApply, onClear, ...other } = props;
@@ -55,12 +54,12 @@ export const FilterDialog = (props) => {
           display: 'flex'
         }}
       >
-        <Typography
+        <TrTypography
           color="textPrimary"
           variant="inherit"
         >
           Filter
-        </Typography>
+        </TrTypography>
         <IconButton
           onClick={onClose}
           size="small"
@@ -107,14 +106,14 @@ export const FilterDialog = (props) => {
         ))}
       </DialogContent>
       <DialogActions>
-        <Button
+        <TrButton
           color="error"
           onClick={handleFiltersClear}
           variant="text"
         >
-          {t("Reset")}
-        </Button>
-        <Button
+          Reset
+        </TrButton>
+        <TrButton
           color="primary"
           onClick={() => {
             onApply?.(filters);
@@ -122,8 +121,8 @@ export const FilterDialog = (props) => {
           }}
           variant="contained"
         >
-          {t("Filter")}
-        </Button>
+          Filter
+        </TrButton>
       </DialogActions>
     </Dialog>
   );

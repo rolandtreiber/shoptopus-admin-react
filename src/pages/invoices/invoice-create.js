@@ -7,7 +7,6 @@ import numeral from 'numeral';
 import toast from 'react-hot-toast';
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -20,11 +19,13 @@ import {
   InputAdornment,
   Typography
 } from '@material-ui/core';
-import { DateField } from '../../components/common/date-field';
-import { InputField } from '../../components/common/input-field';
+import { DateField } from '../../components/common/input-fields/date-field';
+import { InputField } from '../../components/common/input-fields/input-field';
+import TrButton from "../../components/common/translated/translated-button";
 import { ArrowLeft as ArrowLeftIcon } from '../../icons/arrow-left';
 import { Plus as PlusIcon } from '../../icons/plus';
 import { Trash as TrashIcon } from '../../icons/trash';
+import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const InvoiceCreate = () => {
   const {appName} = useContext(SettingsContext)
@@ -115,7 +116,7 @@ export const InvoiceCreate = () => {
         <Container maxWidth="lg">
           <Box sx={{ py: 4 }}>
             <Box sx={{ mb: 2 }}>
-              <Button
+              <TrButton
                 color="primary"
                 component={RouterLink}
                 startIcon={<ArrowLeftIcon />}
@@ -123,14 +124,14 @@ export const InvoiceCreate = () => {
                 variant="text"
               >
                 Invoices
-              </Button>
+              </TrButton>
             </Box>
-            <Typography
+            <TrTypography
               color="textPrimary"
               variant="h4"
             >
               Create Invoice
-            </Typography>
+            </TrTypography>
           </Box>
           <Card variant="outlined">
             <form onSubmit={formik.handleSubmit}>
@@ -360,22 +361,22 @@ export const InvoiceCreate = () => {
                       display: 'flex'
                     }}
                   >
-                    <Button
+                    <TrButton
                       color="primary"
                       onClick={handleAddItem}
                       startIcon={<PlusIcon fontSize="small" />}
                       variant="text"
                     >
                       Add Item
-                    </Button>
+                    </TrButton>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Typography
+                    <TrTypography
                       color="textSecondary"
                       sx={{ mr: 1 }}
                       variant="subtitle2"
                     >
                       Total
-                    </Typography>
+                    </TrTypography>
                     <Typography
                       color="textPrimary"
                       variant="h6"
@@ -425,13 +426,13 @@ export const InvoiceCreate = () => {
                 </Grid>
               </CardContent>
               <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button
+                <TrButton
                   color="primary"
                   type="submit"
                   variant="contained"
                 >
                   Create Invoice
-                </Button>
+                </TrButton>
               </CardActions>
             </form>
           </Card>

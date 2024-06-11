@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
-import {Card, CardContent, Typography} from '@material-ui/core';
+import {Card, CardContent} from '@material-ui/core';
 import {FileDropzone} from "./file-dropzone";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
+import {TrTypography} from "../translated/translated-typography";
 
 export const PaidFileUploader = ({title, data, setData}) => {
   const [showDropZone, setShowDropZone] = useState()
@@ -26,13 +27,13 @@ export const PaidFileUploader = ({title, data, setData}) => {
     <>
       <Card variant="outlined">
         <CardContent>
-          <Typography
+          <TrTypography
             color="textPrimary"
             sx={{mb: 1.25}}
             variant="subtitle2"
           >
             {title}
-          </Typography>
+          </TrTypography>
           {showDropZone && <FileDropzone
             onDrop={handleDrop}
             sx={{height: '100%'}}
