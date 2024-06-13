@@ -1,5 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react'
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
@@ -48,6 +50,7 @@ export const ProductCategoriesList = () => {
     const [categories, setCategories] = useState({isLoading: true})
     const mounted = useMounted();
     const {appName} = useContext(SettingsContext)
+    const {can} = useContext(AuthContext)
     const [controller, setController] = useState({
         filters: [],
         page: 0,
@@ -203,7 +206,7 @@ export const ProductCategoriesList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('product.categories.can.list') ? (
       <>
           <Helmet>
               <title>{t('Product Categories')} | {appName}</title>
@@ -318,5 +321,5 @@ export const ProductCategoriesList = () => {
             onSuccess={() => getCategories().catch(console.error)}
           />
       </>
-    )
+    ) : (<MissingPermission/>)
 }

@@ -170,6 +170,10 @@ export const AuthProvider = (props) => {
     return state.user?.permissions?.indexOf(perm) !== -1
   }
 
+  const hasRole = (perm) => {
+    return state.user?.roles?.indexOf(perm) !== -1
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -183,7 +187,8 @@ export const AuthProvider = (props) => {
         initialize,
         user: user,
         permissions: user?.permissions,
-        can: hasPermissionTo
+        can: hasPermissionTo,
+        is: hasRole
       }}
     >
       {children}

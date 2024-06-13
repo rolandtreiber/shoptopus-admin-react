@@ -1,6 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Container, Divider } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
+import {AuthContext} from "../../contexts/oauth-context";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import gtm from '../../lib/gtm';
@@ -93,6 +95,7 @@ export const RatingsList = () => {
     } = useContext(APIContext)
 
     const { t } = useTranslation();
+    const {can} = useContext(AuthContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -235,7 +238,7 @@ export const RatingsList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('ratings.can.list') ? (
       <>
           <Helmet>
               <title>{t("Ratings")} | {appName}</title>
@@ -334,5 +337,5 @@ export const RatingsList = () => {
               </Container>
           </Box>
       </>
-    );
+    ) : (<MissingPermission/>);
 };

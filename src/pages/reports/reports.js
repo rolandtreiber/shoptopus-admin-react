@@ -1,13 +1,16 @@
 import {useContext} from 'react';
 import { Helmet } from 'react-helmet-async';
 import {Box, Card, Container} from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
+import {AuthContext} from "../../contexts/oauth-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {TrTypography} from "../../components/common/translated/translated-typography";
 
 export const Reports = () => {
   const {appName} = useContext(SettingsContext)
+  const {can} = useContext(AuthContext)
 
-  return (
+  return can('reports.can.see') ? (
     <>
       <Helmet>
         <title>Reports | {appName}</title>
@@ -54,5 +57,5 @@ export const Reports = () => {
         </Container>
       </Box>
     </>
-  );
+  ) : (<MissingPermission/>);
 };
