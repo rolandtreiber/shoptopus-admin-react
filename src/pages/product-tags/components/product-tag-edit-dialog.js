@@ -58,7 +58,7 @@ export const ProductTagEditDialog = (props) => {
         formData.append("display_badge", formik.values.display_badge)
 
         isValid && updateProductTag(initialValues.id, formData).then(response => {
-          toast.success('ProductSingle Tag Updated');
+          toast.success('Product Tag Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();
@@ -144,7 +144,7 @@ export const ProductTagEditDialog = (props) => {
                   inputProps={{'aria-label': 'controlled'}}
                 />
               }
-              label={t("Display Badge on ProductSingle Image")}
+              label={t("Display Badge on Product Image")}
             />
           </Grid>
           {formik.errors.submit && (

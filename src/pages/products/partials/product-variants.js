@@ -4,6 +4,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import TrButton from "../../../components/common/translated/translated-button";
+import {AuthContext} from "../../../contexts/oauth-context";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
@@ -13,12 +14,11 @@ import {APIContext} from "../../../contexts/api-context";
 import {getUrlFilters} from "../../../utils/apply-filters";
 import {useMounted} from "../../../hooks/use-mounted";
 import {ProductVariantsTable} from "../product-variants/product-variants-table";
-import {useOutletContext, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TrCardHeader from "../../../components/common/translated/translated-card-header";
 
 export const ProductVariants = (props) => {
   const { ...other } = props;
-  const [productState] = useOutletContext()
   const {productId} = useParams();
   const mounted = useMounted();
   const [variantDialogOpen, handleOpenVariantDialog, handleCloseVariantDialog] = useDialog();
@@ -36,6 +36,7 @@ export const ProductVariants = (props) => {
     sortBy: 'updated_at',
     view: 'all'
   });
+  const {can} = useContext(AuthContext)
 
   const getProductVariants = useCallback(async () => {
     setVariants(() => ({ isLoading: true }));
@@ -129,6 +130,7 @@ export const ProductVariants = (props) => {
         <TrCardHeader
           action={(
             <TrButton
+              disabled={!can('product.variants.can.create')}
               color="primary"
               onClick={handleCreateVariant}
               variant="text"

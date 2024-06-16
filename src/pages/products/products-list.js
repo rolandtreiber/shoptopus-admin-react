@@ -285,7 +285,7 @@ export const ProductsList = () => {
               />
             </Box>
           </Box>
-          <ProductsSummary />
+          {can('reports.can.see') && <ProductsSummary />}
           <Card
             variant="outlined"
             sx={{
@@ -309,7 +309,8 @@ export const ProductsList = () => {
               bulkMenuItems={[
                 {
                   name: 'Archive selected',
-                  callback: handleBulkArchive
+                  callback: handleBulkArchive,
+                  disabled: !can("products.can.update")
                 },
                 {
                   name: 'Delete selected',
