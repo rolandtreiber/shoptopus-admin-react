@@ -240,6 +240,7 @@ export const ProductAttributesList = () => {
                             </TrTypography>
                             <Box sx={{ flexGrow: 1 }} />
                             <TrButton
+                                disabled={!can('product.attributes.can.create')}
                                 color="primary"
                                 onClick={() => setOpenCreateDialog(true)}
                                 size="large"
@@ -280,15 +281,18 @@ export const ProductAttributesList = () => {
                             bulkMenuItems={[
                                 {
                                     name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(1)
+                                    callback: () => handleBulkAvailabilityUpdate(1),
+                                    disabled: !can('product.attributes.can.update')
                                 },
                                 {
                                     name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(0)
+                                    callback: () => handleBulkAvailabilityUpdate(0),
+                                    disabled: !can('product.attributes.can.update')
                                 },
                                 {
                                     name: 'Delete',
-                                    callback: () => handleBulkDelete()
+                                    callback: () => handleBulkDelete(),
+                                    disabled: !can('product.attributes.can.delete')
                                 }
                             ]}
                         />

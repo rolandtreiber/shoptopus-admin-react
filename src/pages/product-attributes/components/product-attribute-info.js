@@ -5,9 +5,11 @@ import {
   Paper,
   useMediaQuery
 } from '@material-ui/core';
+import {useContext} from "react";
 import { PropertyList } from '../../../components/common/property-list/property-list';
 import { PropertyListItem } from '../../../components/common/property-list/property-list-item';
 import TrButton from "../../../components/common/translated/translated-button";
+import {AuthContext} from "../../../contexts/oauth-context";
 import {useLanguage} from "../../../hooks/use-language";
 import styled from "@emotion/styled";
 import TrCardHeader from "../../../components/common/translated/translated-card-header";
@@ -16,6 +18,7 @@ export const ProductAttributeInfo = (props) => {
   const { onEdit, data, ...other } = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const {getLang} = useLanguage()
+  const {can} = useContext(AuthContext)
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
@@ -40,6 +43,7 @@ export const ProductAttributeInfo = (props) => {
       <TrCardHeader
         action={(
           <TrButton
+            disabled={!can('product.attributes.can.update')}
             color="primary"
             onClick={onEdit}
             variant="text"

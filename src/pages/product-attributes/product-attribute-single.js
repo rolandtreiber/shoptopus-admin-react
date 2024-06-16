@@ -4,6 +4,7 @@ import {Box, Card, CardContent, Container, Divider, Grid} from '@material-ui/cor
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
@@ -31,6 +32,7 @@ export const ProductAttributeSingle = () => {
   const {appName} = useContext(SettingsContext)
   const [selectedAttributeOption, setSelectedAttributeOption] = useState()
   const [attributeOptionData, setAttributeOptionData] = useState({isLoading: true})
+  const {can} = useContext(AuthContext)
 
   const getAttributeOptionData = useCallback(async () => {
     setAttributeOptionData(() => ({isLoading: true}));
@@ -142,6 +144,7 @@ export const ProductAttributeSingle = () => {
               </TrTypography>
               <Box sx={{flexGrow: 1}}/>
               <TrButton
+                disabled={!can('product.attributes.can.update')}
                 color="primary"
                 onClick={() => setOpenInfoDialog(true)}
                 size="large"
@@ -174,12 +177,12 @@ export const ProductAttributeSingle = () => {
                     data={data.data}
                   />
                 </Grid>
-                <Grid
+                {can('product.attribute.options.can.list') && <Grid
                   item
                   xs={12}
                 >
                   <ProductAttributeOptions productAttributeType={data.data?.type} productAttributeId={productAttributeId} selectedOption={selectedAttributeOption} setSelectedOption={setSelectedAttributeOption} options={data.data.options} productId={data.data.id}/>
-                </Grid>
+                </Grid>}
               </Grid>
               <Grid container item lg={4}
                     spacing={3}
@@ -196,7 +199,7 @@ export const ProductAttributeSingle = () => {
                   item
                   xs={12}
                 >
-                  <Card
+                  {can('product.attribute.options.can.list') && can('products.can.list') && <Card
                     variant="outlined"
                     sx={{
                       mb: 2
@@ -223,7 +226,7 @@ export const ProductAttributeSingle = () => {
                         </Card>
                     }
                     </CardContent>
-                  </Card>
+                  </Card>}
 
 
                   {data.data?.image &&

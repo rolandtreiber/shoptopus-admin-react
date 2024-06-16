@@ -1,4 +1,5 @@
 import {useContext} from 'react'
+import {AuthContext} from "../../../contexts/oauth-context";
 import {SettingsContext} from "../../../contexts/settings-context";
 import {
   Avatar,
@@ -80,6 +81,7 @@ const ProductAttributesTable = (props) => {
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {language} = useContext(SettingsContext)
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   return (
     <Box
@@ -154,7 +156,7 @@ const ProductAttributesTable = (props) => {
                         display: 'flex'
                       }}
                     >
-                      <Link
+                      {can('product.attributes.can.see') ? <Link
                         color="inherit"
                         component={RouterLink}
                         sx={{display: 'block'}}
@@ -163,7 +165,7 @@ const ProductAttributesTable = (props) => {
                         variant="subtitle2"
                       >
                         {attribute.name[language]}
-                      </Link>
+                      </Link> : attribute.name[language]}
                     </Box>
                   </TableCell>
                   <TableCell>
