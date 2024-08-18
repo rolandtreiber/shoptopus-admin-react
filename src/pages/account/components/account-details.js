@@ -8,34 +8,24 @@ import {
   CardContent,
   FormHelperText,
   Grid,
-  MenuItem
 } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
 import TrButton from "../../../components/common/translated/translated-button";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
-const companySizeOptions = ['1-10', '11-30', '31-50', '50+'];
-
 export const AccountDetails = (props) => {
   const formik = useFormik({
     initialValues: {
-      companyName: 'ACME Corp LLC.',
-      companySize: '1-10',
-      email: 'chen.simmons@acmecorp.com',
-      fullName: 'Chen Simmons',
-      jobTitle: 'Operation',
+      email: '',
+      firstName: '',
+      lastName: '',
+      title: 'Mr',
       submit: null
     },
     validationSchema: Yup.object().shape({
-      companyName: Yup.string().max(255).required('Company name is required'),
-      companySize: Yup
-        .string()
-        .max(255)
-        .oneOf(companySizeOptions)
-        .required('Company size is required'),
       email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-      fullName: Yup.string().max(255).required('Full Name is required'),
-      jobTitle: Yup.string().max(255).required('Job name is required')
+      firstName: Yup.string().max(255).required('First Name is required'),
+      lastName: Yup.string().max(255).required('Last Name is required'),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -137,17 +127,32 @@ export const AccountDetails = (props) => {
                 >
                   <Grid
                     item
-                    xs={12}
+                    xs={6}
                   >
                     <InputField
-                      error={Boolean(formik.touched.fullName && formik.errors.fullName)}
+                      error={Boolean(formik.touched.firstName && formik.errors.firstName)}
                       fullWidth
-                      helperText={formik.touched.fullName && formik.errors.fullName}
-                      label="Full Name"
-                      name="fullName"
+                      helperText={formik.touched.firstName && formik.errors.first}
+                      label="First Name"
+                      name="firstName"
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
-                      value={formik.values.fullName}
+                      value={formik.values.firstName}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={6}
+                  >
+                    <InputField
+                      error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                      fullWidth
+                      helperText={formik.touched.lastName && formik.errors.first}
+                      label="Last Name"
+                      name="lastName"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      value={formik.values.lastName}
                     />
                   </Grid>
                   <Grid
@@ -166,63 +171,32 @@ export const AccountDetails = (props) => {
                       value={formik.values.email}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                  >
-                    <InputField
-                      error={Boolean(formik.touched.jobTitle && formik.errors.jobTitle)}
-                      fullWidth
-                      helperText={formik.touched.jobTitle && formik.errors.jobTitle}
-                      label="Job title"
-                      name="jobTitle"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.jobTitle}
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                  >
-                    <InputField
-                      error={Boolean(formik.touched.companyName
-                        && formik.errors.companyName)}
-                      fullWidth
-                      helperText={formik.touched.companyName && formik.errors.companyName}
-                      label="Company name"
-                      name="companyName"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.companyName}
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                  >
-                    <InputField
-                      error={Boolean(formik.touched.companySize
-                        && formik.errors.companySize)}
-                      fullWidth
-                      helperText={formik.touched.companySize && formik.errors.companySize}
-                      label="Company size"
-                      name="companySize"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      select
-                      value={formik.values.companySize}
-                    >
-                      {companySizeOptions.map((companySizeOption) => (
-                        <MenuItem
-                          key={companySizeOption}
-                          value={companySizeOption}
-                        >
-                          {companySizeOption}
-                        </MenuItem>
-                      ))}
-                    </InputField>
-                  </Grid>
+                  {/*<Grid*/}
+                  {/*  item*/}
+                  {/*  xs={12}*/}
+                  {/*>*/}
+                  {/*  <InputField*/}
+                  {/*    error={Boolean(formik.touched.companySize*/}
+                  {/*      && formik.errors.companySize)}*/}
+                  {/*    fullWidth*/}
+                  {/*    helperText={formik.touched.companySize && formik.errors.companySize}*/}
+                  {/*    label="Company size"*/}
+                  {/*    name="companySize"*/}
+                  {/*    onBlur={formik.handleBlur}*/}
+                  {/*    onChange={formik.handleChange}*/}
+                  {/*    select*/}
+                  {/*    value={formik.values.companySize}*/}
+                  {/*  >*/}
+                  {/*    {companySizeOptions.map((companySizeOption) => (*/}
+                  {/*      <MenuItem*/}
+                  {/*        key={companySizeOption}*/}
+                  {/*        value={companySizeOption}*/}
+                  {/*      >*/}
+                  {/*        {companySizeOption}*/}
+                  {/*      </MenuItem>*/}
+                  {/*    ))}*/}
+                  {/*  </InputField>*/}
+                  {/*</Grid>*/}
                   {formik.errors.submit && (
                     <Grid
                       item

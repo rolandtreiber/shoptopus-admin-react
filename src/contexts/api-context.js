@@ -136,6 +136,10 @@ const APIProvider = ({children}) => {
       callMeApi: async (token) => await post(api_url + "auth/me", {}, makeHeaders({
         accessToken: token
       })),
+      fetchAuthenticatedUserAccountDetails: async (token) => await get(api_url + "user/account", {}, makeHeaders({
+        accessToken: token
+      })),
+      updateAuthenticatedUserDetails: async (params) => await post(api_url + "user/account", params, makeHeaders({})),
 
       // Reports
       fetchReportsOverview: async (params) => await post(admin_api_url + "reports/overview", params, makeHeaders()),
