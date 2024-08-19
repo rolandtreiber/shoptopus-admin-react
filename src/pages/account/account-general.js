@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box } from '@material-ui/core';
+import {Box, Skeleton} from '@material-ui/core';
 import {APIContext} from "../../contexts/api-context";
 import {useMounted} from "../../hooks/use-mounted";
 import { AccountDetails } from './components/account-details';
@@ -31,7 +31,7 @@ export const AccountGeneral = () => {
       if (mounted.current) {
         setUserDetails(() => ({
           isLoading: false,
-          data: result.data[0],
+          data: result.data.data[0],
         }));
       }
     } catch (err) {
@@ -56,7 +56,11 @@ export const AccountGeneral = () => {
         <title>Account: General | {appName}</title>
       </Helmet>
       <Box sx={{ backgroundColor: 'background.default' }}>
-        <AccountDetails accountDetails={userDetails} />
+        {userDetails?.data ? <AccountDetails accountDetails={userDetails?.data} /> : <Box sx={{p: 2}}>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
+          <Skeleton height={42}/>
+        </Box>}
         <AccountChangePassword sx={{ my: 3 }} />
         <Account2FA />
       </Box>

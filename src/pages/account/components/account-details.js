@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import {useContext} from "react";
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import {
@@ -7,19 +8,23 @@ import {
   Card,
   CardContent,
   FormHelperText,
-  Grid,
+  Grid, MenuItem,
 } from '@material-ui/core';
 import { InputField } from '../../../components/common/input-fields/input-field';
 import TrButton from "../../../components/common/translated/translated-button";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
+import {SettingsContext} from "../../../contexts/settings-context";
 
 export const AccountDetails = (props) => {
+  const {accountDetails} = props
+  const {availableUserPrefixes} = useContext(SettingsContext)
+
   const formik = useFormik({
     initialValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      title: 'Mr',
+      email: accountDetails.email,
+      firstName: accountDetails.first_name,
+      lastName: accountDetails.last_name,
+      title: accountDetails.title,
       submit: null
     },
     validationSchema: Yup.object().shape({
@@ -29,7 +34,7 @@ export const AccountDetails = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        toast.success('Settings saved');
+        toast.success('Settings saved_');
         helpers.resetForm();
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
@@ -79,7 +84,7 @@ export const AccountDetails = (props) => {
                   }}
                 >
                   <Avatar
-                    src="/static/user-chen_simmons.png"
+                    src={accountDetails.avatar.url}
                     sx={{
                       height: 64,
                       mr: 2,
@@ -127,7 +132,43 @@ export const AccountDetails = (props) => {
                 >
                   <Grid
                     item
-                    xs={6}
+                    xs={2}
+                  >
+                    <InputField
+                      error={Boolean(formik.touched.title
+                        && formik.errors.title)}
+                      fullWidth
+                      helperText={formik.touched.title && formik.errors.title}
+                      label="Title"
+                      name="title"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      select
+                      value={formik.values.title}
+                    >
+                      {availableUserPrefixes.map((prefix) => (
+                        <MenuItem
+                          key={prefix}
+                          value={prefix}
+                        >
+                          {prefix}
+                        </MenuItem>
+                      ))}
+                    </InputField>
+                  </Grid>
+                  {formik.errors.submit && (
+                    <Grid
+                      item
+                      xs={12}
+                    >
+                      <FormHelperText error>
+                        {formik.errors.submit}
+                      </FormHelperText>
+                    </Grid>
+                  )}
+                  <Grid
+                    item
+                    xs={5}
                   >
                     <InputField
                       error={Boolean(formik.touched.firstName && formik.errors.firstName)}
@@ -142,7 +183,7 @@ export const AccountDetails = (props) => {
                   </Grid>
                   <Grid
                     item
-                    xs={6}
+                    xs={5}
                   >
                     <InputField
                       error={Boolean(formik.touched.lastName && formik.errors.lastName)}
@@ -171,42 +212,6 @@ export const AccountDetails = (props) => {
                       value={formik.values.email}
                     />
                   </Grid>
-                  {/*<Grid*/}
-                  {/*  item*/}
-                  {/*  xs={12}*/}
-                  {/*>*/}
-                  {/*  <InputField*/}
-                  {/*    error={Boolean(formik.touched.companySize*/}
-                  {/*      && formik.errors.companySize)}*/}
-                  {/*    fullWidth*/}
-                  {/*    helperText={formik.touched.companySize && formik.errors.companySize}*/}
-                  {/*    label="Company size"*/}
-                  {/*    name="companySize"*/}
-                  {/*    onBlur={formik.handleBlur}*/}
-                  {/*    onChange={formik.handleChange}*/}
-                  {/*    select*/}
-                  {/*    value={formik.values.companySize}*/}
-                  {/*  >*/}
-                  {/*    {companySizeOptions.map((companySizeOption) => (*/}
-                  {/*      <MenuItem*/}
-                  {/*        key={companySizeOption}*/}
-                  {/*        value={companySizeOption}*/}
-                  {/*      >*/}
-                  {/*        {companySizeOption}*/}
-                  {/*      </MenuItem>*/}
-                  {/*    ))}*/}
-                  {/*  </InputField>*/}
-                  {/*</Grid>*/}
-                  {formik.errors.submit && (
-                    <Grid
-                      item
-                      xs={12}
-                    >
-                      <FormHelperText error>
-                        {formik.errors.submit}
-                      </FormHelperText>
-                    </Grid>
-                  )}
                   <Grid
                     item
                     xs={12}

@@ -18,7 +18,15 @@ const initialSettings = {
     symbol: "£"
   },
   app_name: 'Shoptopus',
-  google_maps_api_key: null
+  google_maps_api_key: null,
+  available_user_prefixes: [
+    "MR",
+    "MRs",
+    "Miss",
+    "DR",
+    "Jr",
+    "Sr"
+  ]
 };
 
 export const restoreSettings = () => {
@@ -45,7 +53,15 @@ export const restoreSettings = () => {
           side: "left",
           symbol: "£"
         },
-        app_name: 'Shoptopus'
+        app_name: 'Shoptopus',
+        available_user_prefixes: [
+          "MR",
+          "MRs",
+          "Miss",
+          "DR",
+          "Jr",
+          "Sr"
+        ]
       };
     }
   } catch (err) {
@@ -131,7 +147,8 @@ export const SettingsProvider = (props) => {
         sharedOptions: settings.shared_options,
         appName: settings.app_name,
         currency: settings.currency,
-        theme: settings.theme
+        theme: settings.theme,
+        availableUserPrefixes: settings.available_user_prefixes
       }}
     >
       {children}
