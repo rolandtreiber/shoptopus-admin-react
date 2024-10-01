@@ -1,9 +1,11 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Container, Divider } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import { VoucherCodeDialog } from '../../components/common-page-components/voucher-codes/voucher-code-dialog';
 import { VoucherCodesTable } from '../../components/common-page-components/voucher-codes/voucher-codes-table';
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
@@ -99,6 +101,8 @@ export const VoucherCodesList = () => {
         bulkExpireVoucherCodes,
         bulkStartVoucherCodes,
         bulkActivateVoucherCodesForPeriod} = useContext(APIContext)
+
+    const {can} = useContext(AuthContext)
 
     useEffect(() => {
         if (dataState.data) {
@@ -295,7 +299,7 @@ export const VoucherCodesList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('voucher.codes.can.list') ? (
         <>
             <Helmet>
                 <title>{t("Voucher Codes")} | {appName}</title>
@@ -418,5 +422,5 @@ export const VoucherCodesList = () => {
                 onSuccess={() => fetchData().catch(console.error)}
             />
         </>
-    );
+    ) : (<MissingPermission/>);
 };

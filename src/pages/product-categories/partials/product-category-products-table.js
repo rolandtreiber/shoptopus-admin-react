@@ -1,3 +1,5 @@
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/oauth-context";
 import {useLanguage} from "../../../hooks/use-language";
 import {Scrollbar} from "../../../components/common/scrollbar";
 import {Avatar, Box, Link, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
@@ -22,6 +24,7 @@ const columns = [
 const ProductCategoryProductsTable = ({data}) => {
   const {getLang} = useLanguage()
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   return (
     <Scrollbar>
@@ -55,7 +58,7 @@ const ProductCategoryProductsTable = ({data}) => {
                     variant="rounded"
                   />
                   <Box sx={{ ml: 2 }}>
-                    <Link
+                    {can('products.can.see') ? <Link
                       color="inherit"
                       component={RouterLink}
                       sx={{ display: 'block' }}
@@ -64,7 +67,7 @@ const ProductCategoryProductsTable = ({data}) => {
                       variant="subtitle2"
                     >
                       {getLang(p.name)}
-                    </Link>
+                    </Link> : getLang(p.name)}
                   </Box>
                 </Box>
               </TableCell>

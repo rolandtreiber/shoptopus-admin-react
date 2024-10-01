@@ -64,7 +64,7 @@ export const ProductAttributeCreateDialog = (props) => {
         formData.append("parent_id", formik.values.parentId)
         formData.append("type", formik.values.type)
         isValid && saveProductAttribute(formData).then(response => {
-          toast.success('ProductSingle Attribute Created');
+          toast.success('Product Attribute Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();

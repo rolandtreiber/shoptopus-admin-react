@@ -51,7 +51,7 @@ export const ProductTagCreateDialog = (props) => {
         formData.append("display_badge", formik.values.display_badge)
 
         isValid && saveProductTag(formData).then(response => {
-          toast.success('ProductSingle Tag Created');
+          toast.success('Product Tag Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();

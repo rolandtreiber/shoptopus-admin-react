@@ -1,8 +1,10 @@
-import {useEffect} from 'react';
+import {useContext, useEffect} from 'react';
+import {useTranslation} from "react-i18next";
 import { Outlet, Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, Container, Divider, Tab, Tabs } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
+import {AuthContext} from "../../contexts/oauth-context";
 import gtm from '../../lib/gtm';
-import {useTranslation} from "react-i18next";
 import {TrTypography} from "../../components/common/translated/translated-typography";
 
 const tabs = [
@@ -18,13 +20,14 @@ const tabs = [
 
 export const Dashboard = () => {
   const location = useLocation();
+  const {can} = useContext(AuthContext)
   const { t } = useTranslation();
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
 
-  return (
+  return can('reports.can.see') ? (
     <Box
       sx={{
         backgroundColor: 'background.default',
@@ -66,5 +69,5 @@ export const Dashboard = () => {
         <Outlet />
       </Container>
     </Box>
-  );
+  ) : (<MissingPermission/>);
 };

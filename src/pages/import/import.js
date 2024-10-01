@@ -12,7 +12,9 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {SettingsContext} from "../../contexts/settings-context";
 import {useDropzone} from 'react-dropzone';
 import {APIContext} from "../../contexts/api-context";
@@ -38,6 +40,7 @@ export const Import = () => {
   const [validationResult, setValidationResult] = useState()
   const [columnNames, setColumnNames] = useState([])
   const [validatedData, setValidatedData] = useState([])
+  const {can} = useContext(AuthContext)
 
   const handleDrop = useCallback((files) => {
     setFile(URL.createObjectURL(files[0]))
@@ -108,7 +111,7 @@ export const Import = () => {
     onDrop: handleDrop
   });
 
-  return (
+  return can('can.import.mass.records') ? (
     <>
       <Helmet>
         <title>Import Data | {appName}</title>
@@ -230,5 +233,5 @@ export const Import = () => {
         )}
       </Box>
     </>
-  )
+  ) : (<MissingPermission/>)
 }

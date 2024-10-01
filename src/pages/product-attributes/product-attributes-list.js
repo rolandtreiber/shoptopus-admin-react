@@ -1,5 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react'
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {useSelection} from "../../hooks/use-selection";
 import {APIContext} from "../../contexts/api-context";
@@ -47,6 +49,7 @@ const views = [
 export const ProductAttributesList = () => {
     const [attributes, setAttributes] = useState({isLoading: true})
     const mounted = useMounted();
+    const {can} = useContext(AuthContext)
     const [controller, setController] = useState({
         filters: [],
         page: 0,
@@ -202,7 +205,7 @@ export const ProductAttributesList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('product.attributes.can.list') ? (
         <>
             <Helmet>
                 <title>Product Attributes | {appName}</title>
@@ -237,6 +240,7 @@ export const ProductAttributesList = () => {
                             </TrTypography>
                             <Box sx={{ flexGrow: 1 }} />
                             <TrButton
+                                disabled={!can('product.attributes.can.create')}
                                 color="primary"
                                 onClick={() => setOpenCreateDialog(true)}
                                 size="large"
@@ -277,15 +281,18 @@ export const ProductAttributesList = () => {
                             bulkMenuItems={[
                                 {
                                     name: 'Enable',
-                                    callback: () => handleBulkAvailabilityUpdate(1)
+                                    callback: () => handleBulkAvailabilityUpdate(1),
+                                    disabled: !can('product.attributes.can.update')
                                 },
                                 {
                                     name: 'Disable',
-                                    callback: () => handleBulkAvailabilityUpdate(0)
+                                    callback: () => handleBulkAvailabilityUpdate(0),
+                                    disabled: !can('product.attributes.can.update')
                                 },
                                 {
                                     name: 'Delete',
-                                    callback: () => handleBulkDelete()
+                                    callback: () => handleBulkDelete(),
+                                    disabled: !can('product.attributes.can.delete')
                                 }
                             ]}
                         />
@@ -316,5 +323,5 @@ export const ProductAttributesList = () => {
               onSuccess={() => getAttributes().catch(console.error)}
             />
         </>
-    )
+    ) : (<MissingPermission/>)
 }

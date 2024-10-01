@@ -101,7 +101,7 @@ export const ProductVariantDialog = (props) => {
 
         if (variant) {
           isValid && updateProductVariant(productId, variant.id, formData).then(response => {
-            toast.success('ProductSingle variant updated');
+            toast.success('Product variant updated');
             helpers.setStatus({success: true});
             helpers.setSubmitting(false);
             helpers.resetForm();
@@ -110,7 +110,7 @@ export const ProductVariantDialog = (props) => {
           })
         } else {
           isValid && saveProductVariant(productId, formData).then(response => {
-            toast.success('ProductSingle variant created');
+            toast.success('Product variant created');
             helpers.setStatus({success: true});
             helpers.setSubmitting(false);
             helpers.resetForm();
@@ -150,6 +150,7 @@ export const ProductVariantDialog = (props) => {
         </Grid>
         <Grid container spacing={2} mt={1}>
           <MultilangTextInput
+            nullable={true}
             value={description}
             width={12}
             title={"Description"}

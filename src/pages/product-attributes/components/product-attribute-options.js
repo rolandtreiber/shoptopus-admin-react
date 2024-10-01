@@ -5,6 +5,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import TrButton from "../../../components/common/translated/translated-button";
+import {AuthContext} from "../../../contexts/oauth-context";
 import { useDialog } from '../../../hooks/use-dialog';
 import { ConfirmationDialog } from '../../../components/common/modal/confirmation-dialog';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
@@ -23,6 +24,7 @@ export const ProductAttributeOptions = (props) => {
   const [deleteDialogOpen, handleOpenDeleteDialog, handleCloseDeleteDialog] = useDialog();
   const [options, setOptions] = useState(optionsProp);
   const {deleteProductAttributeOption, fetchProductAttributeOptions} = useContext(APIContext)
+  const {can} = useContext(AuthContext)
   const [controller, setController] = useState({
     filters: [],
     page: 0,
@@ -128,6 +130,7 @@ export const ProductAttributeOptions = (props) => {
         <TrCardHeader
           action={(
             <TrButton
+              disabled={!can('product.attribute.options.can.create')}
               color="primary"
               onClick={handleCreateOption}
               variant="text"
@@ -147,7 +150,9 @@ export const ProductAttributeOptions = (props) => {
             page={controller.page + 1}
             pagesCount={options.paginationMeta ? options.paginationMeta.last_page : null}
             onPageChange={handlePageChange}
-            onRowClicked={setSelectedOption}
+            onRowClicked={(selectedOption) => {
+              can('product.attribute.options.can.see') && can('products.can.list') && setSelectedOption(selectedOption)
+            }}
             selected={selectedOption}
           />
 

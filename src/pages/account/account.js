@@ -4,11 +4,11 @@ import {TrTypography} from "../../components/common/translated/translated-typogr
 
 const tabs = [
   {
-    href: '/dashboard/account',
+    href: '/admin/account',
     label: 'General'
   },
   {
-    href: '/dashboard/account/notifications',
+    href: '/admin/account/notifications',
     label: 'Notifications'
   }
 ];

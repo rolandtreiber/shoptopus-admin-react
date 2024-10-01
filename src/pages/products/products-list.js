@@ -1,6 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Container, Divider } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
 import { ProductDialog } from './components/product-dialog';
 import { ProductsSummary } from './components/products-summary';
@@ -232,7 +233,7 @@ export const ProductsList = () => {
     showGenericDialog(true)
   };
 
-  return (
+  return can('products.can.list') ? (
     <>
       <Helmet>
         <title>Product: List | {appName}</title>
@@ -284,7 +285,7 @@ export const ProductsList = () => {
               />
             </Box>
           </Box>
-          <ProductsSummary />
+          {can('reports.can.see') && <ProductsSummary />}
           <Card
             variant="outlined"
             sx={{
@@ -308,7 +309,8 @@ export const ProductsList = () => {
               bulkMenuItems={[
                 {
                   name: 'Archive selected',
-                  callback: handleBulkArchive
+                  callback: handleBulkArchive,
+                  disabled: !can("products.can.update")
                 },
                 {
                   name: 'Delete selected',
@@ -343,5 +345,5 @@ export const ProductsList = () => {
         onSuccess={() => getProducts().catch(console.error)}
       />
     </>
-  );
+  ) : (<MissingPermission/>);
 };

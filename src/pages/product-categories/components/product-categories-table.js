@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import {AuthContext} from "../../../contexts/oauth-context";
 import {SettingsContext} from "../../../contexts/settings-context";
 import {
   Avatar,
@@ -83,6 +84,7 @@ const ProductCategoriesTable = (props) => {
   const displayUnavailable = Boolean(!isLoading && !error && !categories.length);
   const {language} = useContext(SettingsContext)
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   const getRow = (rowData, level = 1) => {
     const statusVariant = statusVariants.find((variant) => variant.value
@@ -126,7 +128,7 @@ const ProductCategoriesTable = (props) => {
                 <RightIcon fontSize={"0.8em"}/>
               </Box>
               }
-              <Link
+              {can('product.categories.can.see') ? (<Link
                 color="inherit"
                 component={RouterLink}
                 sx={{display: 'block'}}
@@ -135,7 +137,7 @@ const ProductCategoriesTable = (props) => {
                 variant="subtitle2"
               >
                 {rowData.name[language]}
-              </Link>
+              </Link>) : rowData.name[language]}
               {rowData.children.length > 0 && (<Typography
                 sx={{
                   color: 'success.main',

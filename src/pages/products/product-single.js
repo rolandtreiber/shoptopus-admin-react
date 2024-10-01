@@ -10,8 +10,6 @@ import {
   Tabs,
   Typography
 } from '@material-ui/core';
-import { ActionsMenu } from '../../components/common/actions/actions-menu';
-import { ConfirmationDialog } from '../../components/common/modal/confirmation-dialog';
 import TrButton from "../../components/common/translated/translated-button";
 import { useDialog } from '../../hooks/use-dialog';
 import { useMounted } from '../../hooks/use-mounted';
@@ -25,12 +23,7 @@ import {useTranslation} from "react-i18next";
 export const ProductSingle = () => {
   const mounted = useMounted();
   const location = useLocation();
-  const [
-    discontinueDialogOpen,
-    handleOpenDiscontinueDialog,
-    handleCloseDiscontinueDialog
-  ] = useDialog();
-  const [archiveOpen, handleOpenArchiveDialog, handleCloseArchiveDialog] = useDialog();
+  const [handleCloseArchiveDialog] = useDialog();
   const [productState, setProductState] = useState({ isLoading: true });
   const {fetchProduct} = useContext(APIContext)
   const {productId} = useParams();
@@ -82,21 +75,6 @@ export const ProductSingle = () => {
     toast.error('This action is not available on demo');
   };
 
-  const actions = [
-    {
-      label: 'Send Invoice to Customer',
-      onClick: handleSendInvoice
-    },
-    {
-      label: 'Discontinue Product',
-      onClick: handleOpenDiscontinueDialog
-    },
-    {
-      label: 'Archive Product',
-      onClick: handleOpenArchiveDialog
-    }
-  ];
-
   useEffect(() => {
     if (productState && productState.data?.virtual === true) {
       setTabs([
@@ -138,19 +116,22 @@ export const ProductSingle = () => {
         },
         {
           href: '/admin/products/'+productId+'/ratings',
-          label: 'Ratings'
+          label: 'Ratings',
+          disabled: !can('ratings.can.list') && !can('ratings.can.see')
         },
         {
           href: '/admin/products/'+productId+'/insights',
-          label: 'Insights'
+          label: 'Insights',
+          disabled: !can('reports.can.see')
         },
         {
-          href: '/admin/products/'+productId+'/preview',
+          href: '/admin/products/'+productState?.data?.slug+'/preview',
           label: 'Preview'
         },
         {
           href: '/admin/products/'+productId+'/files',
-          label: 'Files'
+          label: 'Files',
+          disabled: !can('paid.files.can.list')
         },
       ])
     }
@@ -222,8 +203,6 @@ export const ProductSingle = () => {
             >
               {getLang(productState.data.name)}
             </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <ActionsMenu actions={actions} />
           </Box>
           <Tabs
             allowScrollButtonsMobile
@@ -244,22 +223,6 @@ export const ProductSingle = () => {
           <Divider />
         </Box>
         <Outlet context={[productState, reload]} />
-        <ConfirmationDialog
-          message="Are you sure you want to discontinue this product? This can't be undone."
-          onCancel={handleCloseDiscontinueDialog}
-          onConfirm={handleDiscontinueProduct}
-          open={discontinueDialogOpen}
-          title="Discontinue Product"
-          variant="error"
-        />
-        <ConfirmationDialog
-          message="Are you sure you want to archive this order? This can't be undone."
-          onCancel={handleCloseArchiveDialog}
-          onConfirm={handleArchiveProduct}
-          open={archiveOpen}
-          title="Archive Product"
-          variant="error"
-        />
       </>
     );
   };

@@ -4,6 +4,7 @@ import {Box, Container} from '@material-ui/core';
 import {ResourceError} from '../../components/common/placeholder/resource-error';
 import {ResourceLoading} from '../../components/common/placeholder/resource-loading';
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {useMounted} from '../../hooks/use-mounted';
 import gtm from '../../lib/gtm';
 import {APIContext} from "../../contexts/api-context";
@@ -22,6 +23,7 @@ export const ProductCategorySingle = () => {
   const {fetchProductCategory} = useContext(APIContext)
   const {productCategoryId} = useParams();
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const {can} = useContext(AuthContext)
 
   const getData = useCallback(async () => {
     setData(() => ({isLoading: true}));
@@ -108,6 +110,7 @@ export const ProductCategorySingle = () => {
                 </TrTypography>
                 <Box sx={{flexGrow: 1}}/>
                 <TrButton
+                  disabled={!can('product.categories.can.update')}
                   color="primary"
                   onClick={() => setOpenEditDialog(true)}
                   size="large"

@@ -24,7 +24,8 @@ const items = [
   {
     icon: Dashboard,
     title: 'Dashboard',
-    href: '/admin/dashboard'
+    href: '/admin/dashboard',
+    permission: 'reports.can.see'
   },
   {
     icon: UsersIcon,

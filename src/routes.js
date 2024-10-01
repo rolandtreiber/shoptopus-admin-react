@@ -50,6 +50,7 @@ const ProductInsights = Loadable(lazy(() => import('./pages/products/partials/pr
 const ProductPaidFiles = Loadable(lazy(() => import('./pages/products/partials/product-paid-files').then((module) => ({default: module.default}))));
 const ProductFiles = Loadable(lazy(() => import('./pages/products/partials/product-files').then((module) => ({default: module.default}))));
 const ProductSummary = Loadable(lazy(() => import('./pages/products/partials/product-summary').then((module) => ({default: module.ProductSummary}))));
+const ProductPreview = Loadable(lazy(() => import('./pages/products/partials/product-preview').then((module) => ({default: module.ProductPreview}))));
 
 const AccountGeneral = Loadable(lazy(() => import('./pages/account/account-general').then((module) => ({default: module.AccountGeneral}))));
 const AccountNotifications = Loadable(lazy(() => import('./pages/account/account-notifications').then((module) => ({default: module.AccountNotifications}))));
@@ -350,6 +351,10 @@ const routes = [
               {
                 path: '/admin/products/:productId/paid-files',
                 element: <ProductPaidFiles/>
+              },
+              {
+                path: '/admin/products/:productId/preview',
+                element: <ProductPreview/>
               }
             ]
           }

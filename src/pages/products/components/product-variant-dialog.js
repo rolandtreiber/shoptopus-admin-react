@@ -133,7 +133,7 @@ export const ProductVariantDialog = (props) => {
               name="description"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              placeholder="ProductSingle description"
+              placeholder="Product description"
               rows={4}
               value={formik.values.description}
             />

@@ -6,8 +6,10 @@ import {
   Paper,
   useMediaQuery
 } from '@material-ui/core';
+import {useContext} from "react";
 import {PropertyList} from '../../../components/common/property-list/property-list';
 import {PropertyListItem} from '../../../components/common/property-list/property-list-item';
+import {AuthContext} from "../../../contexts/oauth-context";
 import {useLanguage} from "../../../hooks/use-language";
 import styled from "@emotion/styled";
 import NoImg from "../../../static/images/no-image.png";
@@ -20,6 +22,7 @@ export const ProductCategoryInfo = (props) => {
   const {onEdit, data, ...other} = props;
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const {getLang} = useLanguage()
+  const {can} = useContext(AuthContext)
 
   const align = mdDown ? 'vertical' : 'horizontal';
 
@@ -80,7 +83,7 @@ export const ProductCategoryInfo = (props) => {
                 />
               </PropertyList>
             </Card>
-            <Card
+            {can('products.can.list') && <Card
               variant="outlined"
               {...other}
               sx={{
@@ -94,7 +97,7 @@ export const ProductCategoryInfo = (props) => {
               <CardContent>
                 <ProductCategoryProductsTable data={data.products} />
               </CardContent>
-            </Card>
+            </Card>}
           </Grid>
         </Grid>
 

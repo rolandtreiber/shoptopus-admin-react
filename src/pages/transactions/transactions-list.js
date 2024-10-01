@@ -1,6 +1,8 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Container, Divider } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
+import {AuthContext} from "../../contexts/oauth-context";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import gtm from '../../lib/gtm';
@@ -53,6 +55,7 @@ export const TransactionsList = () => {
         view: 'all'
     });
     const { t } = useTranslation();
+    const {can} = useContext(AuthContext)
 
     const {appName} = useContext(SettingsContext)
     const [dataState, setDataState] = useState({ isLoading: true });
@@ -183,7 +186,7 @@ export const TransactionsList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('payments.can.list') ? (
       <>
           <Helmet>
               <title>{t("Transactions")} | {appName}</title>
@@ -281,10 +284,6 @@ export const TransactionsList = () => {
                   </Card>
               </Container>
           </Box>
-          {/*<ProductCreateDialog*/}
-          {/*  onClose={() => setOpenCreateDialog(false)}*/}
-          {/*  open={openCreateDialog}*/}
-          {/*/>*/}
       </>
-    );
+    ) : (<MissingPermission/>);
 };
