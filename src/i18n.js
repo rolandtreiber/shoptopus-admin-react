@@ -490,6 +490,7 @@ const resources = {
       "Users": "Benutzer",
       "Permissions": "Berechtigungen",
       "Drop file or click to select": "Datei ablegen oder klicken, um auszuwählen",
+      "Roles and Permissions": "",
     }
   },
   fr: {
