@@ -374,6 +374,9 @@ const APIProvider = ({children}) => {
       assignRoleToUser: async (roleId, userId) => await patch(admin_api_url + "role/"+roleId+"/users/"+userId, {}, makeHeaders()),
       removeRoleFromUser: async (roleId, userId) => await del(admin_api_url + "role/"+roleId+"/users/"+userId, {}, makeHeaders()),
 
+      // AI
+      fetchTextTranslations: async (params) => await post(api_url + "admin/ai/translations", params, makeHeaders()),
+
       accessToken,
       setAccessToken,
     }),

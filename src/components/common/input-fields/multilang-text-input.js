@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from 'react'
 import {useTranslation} from "react-i18next";
 import {SettingsContext} from "../../../contexts/settings-context";
+import TranslateButton from "../automatic-translation/translate-button";
 import {InputField} from "./input-field";
 import {Grid, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
@@ -9,6 +10,8 @@ import * as Yup from "yup";
 const MultilangTextInput = ({title, nullable = false, value = null, width, onChange, showErrors = false, rows = null, setValid = () => {}}) => {
     const {availableLanguages} = useContext(SettingsContext)
     const { t } = useTranslation();
+    const [baseText, setBaseText] = useState()
+    const [targetLanguages, setTargetLanguages] = useState([])
 
     const getInitialValues = () => {
         let initialValues = {}
@@ -42,6 +45,8 @@ const MultilangTextInput = ({title, nullable = false, value = null, width, onCha
 
     useEffect(() => {
         onChange(formik.values)
+        getBaseText(formik.values)
+        getTargetLanguages(formik.values)
     }, [formik.values])
 
     useEffect(() => {
@@ -54,7 +59,38 @@ const MultilangTextInput = ({title, nullable = false, value = null, width, onCha
         setValid(formik.isValid)
     }, [formik.isValid])
 
+    const handleTranslationsResult = (result) => {
+        Object.keys(result).map(key => {
+            formik.setFieldValue(key, result[key])
+        })
+    }
+
+    const getBaseText = (values) => {
+        let baseText = "";
+        Object.keys(values).some((key) => {
+            if (values[key] && baseText === "") {
+                baseText = values[key]
+            }
+        })
+        setBaseText(baseText)
+    }
+
+    const getTargetLanguages = (values) => {
+        let targetLanguages = [];
+        Object.keys(values).some((key) => {
+            if (values[key].length === 0) {
+                targetLanguages.push(key)
+            }
+        })
+        setTargetLanguages(targetLanguages)
+    }
+
     return <>
+        {baseText !== "" && <TranslateButton
+          text={baseText}
+          targetLanguages={targetLanguages}
+          translationsFetched={handleTranslationsResult}
+        />}
         {Object.keys(availableLanguages).map((lang, index) => <Grid
             item
             md={width}
