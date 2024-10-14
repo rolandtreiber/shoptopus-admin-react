@@ -376,6 +376,7 @@ const APIProvider = ({children}) => {
 
       // AI
       fetchTextTranslations: async (params) => await post(api_url + "admin/ai/translations", params, makeHeaders()),
+      fetchTextOptimisations: async (params) => await post(api_url + "admin/ai/optimise-rewrite", params, makeHeaders()),
 
       accessToken,
       setAccessToken,

@@ -138,6 +138,8 @@ export const ProductDialog = (props) => {
                 helpers.setStatus({success: false});
                 helpers.setErrors({submit: err.message});
                 helpers.setSubmitting(false);
+            } finally {
+                setLoading(false)
             }
         }
     });

@@ -5,32 +5,34 @@ import {APIContext} from "../../../contexts/api-context";
 import {useMounted} from "../../../hooks/use-mounted";
 import TrButton from "../translated/translated-button";
 
-const TranslateButton = ({text, targetLanguages, translationsFetched, setOperationInProgress}) => {
-  const {fetchTextTranslations} = useContext(APIContext)
+const OptimiseRewriteButton = ({text, targetLanguages, optimisedTextsFetched, setOperationInProgress}) => {
+  const {fetchTextOptimisations} = useContext(APIContext)
   const mounted = useMounted();
   const { t } = useTranslation();
 
-  const handleGetTranslations = useCallback(async () => {
+  const handleGetOptimisations = useCallback(async () => {
     setOperationInProgress(true)
     try {
-      const {data} = await fetchTextTranslations({
+      const {data} = await fetchTextOptimisations({
         text: text,
         target_languages: targetLanguages
       })
-      translationsFetched(data)
+      optimisedTextsFetched(data)
 
     } catch (err) {
       console.error(err);
 
       if (mounted.current) {
-        toast.error(t('Translations could not be fetched'));
+        toast.error(t('Optimised text could not be fetched'));
       }
     } finally {
       setOperationInProgress(false)
     }
   }, [text, targetLanguages])
 
-  return <><TrButton variant="outlined" onClick={handleGetTranslations}>Translate</TrButton></>
+  return <><TrButton sx={{
+    marginLeft: 1
+  }} variant="outlined" onClick={handleGetOptimisations}>Improve with AI</TrButton></>
 }
 
-export default TranslateButton;
+export default OptimiseRewriteButton;
