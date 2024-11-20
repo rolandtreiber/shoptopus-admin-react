@@ -43,6 +43,7 @@
     "@material-ui/styles": "^4.11.4",
     "@mui/icons-material": "^5.13.7",
     "@react-pdf/renderer": "^2.0.16",
+    "@sentry/react": "^8.39.0",
     "apexcharts": "^3.27.1",
     "aws-amplify": "^4.1.0",
     "axios": "^0.21.1",
