@@ -64,6 +64,7 @@ export const ProductDialog = (props) => {
             formik.values.sku = product.sku
             formik.values.stock = product.stock
             formik.values.price = product.price
+            formik.values.weight = product.weight
             formik.values.virtual = product.virtual
         } else {
             setDescription(null)
@@ -81,7 +82,8 @@ export const ProductDialog = (props) => {
             price: '',
             stock: '',
             sku: '',
-            submit: 'null'
+            submit: 'null',
+            weight: 0
         },
         validationSchema: Yup.object().shape({
             price: Yup.number().min(0).required('Please enter a valid price'),
@@ -105,6 +107,7 @@ export const ProductDialog = (props) => {
                 formData.append("description", JSON.stringify(description))
                 formData.append("price", formik.values.price)
                 formData.append("stock", formik.values.stock)
+                formData.append("weight", formik.values.weight)
                 formData.append("sku", formik.values.sku)
 
                 attributes.map(attribute => {
@@ -255,6 +258,19 @@ export const ProductDialog = (props) => {
                         onChange={formik.handleChange}
                         value={formik.values.stock}
                         type={"number"}
+                    />
+                </Grid>
+                <Grid item xs={12} mt={1}>
+                    <InputField
+                      error={Boolean(formik.touched.weight && formik.errors.weight)}
+                      fullWidth
+                      helperText={formik.touched.weight && formik.errors.weight}
+                      label="Weight"
+                      name="weight"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      value={formik.values.weight}
+                      type={"number"}
                     />
                 </Grid>
                 {!product && <Grid item xs={12} mt={1}>

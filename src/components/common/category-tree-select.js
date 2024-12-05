@@ -74,7 +74,7 @@ const CategoryTreeSelect = ({categories, selection = [], setSelection}) => {
     <>
       {items.map(c => (
         <TreeItem ContentComponent={TreeItemContent} value={c.id} key={c.id} nodeId={c.id} label={getLang(c.name)}>
-          {c.children?.length > 0 && renderTreeItems(c.children)}
+          {c.subcategories?.length > 0 && renderTreeItems(c.subcategories)}
         </TreeItem>
       ))}
     </>

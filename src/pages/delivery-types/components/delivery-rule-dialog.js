@@ -13,10 +13,12 @@ import {
   FormHelperText, Grid, InputAdornment, InputLabel, OutlinedInput,
   Switch,
 } from '@material-ui/core';
+import {AutocompleteField} from "../../../components/common/input-fields/autocomplete-field";
 import {InputField} from '../../../components/common/input-fields/input-field';
 import {useContext, useEffect, useState} from "react";
 import TrButton from "../../../components/common/translated/translated-button";
 import {APIContext} from "../../../contexts/api-context";
+import countries from "../../../data/countries.json";
 import {useNestedValidation} from "../../../hooks/use-nested-validation";
 import LocationFinder from "../../../components/common/maps/locationfinder";
 import IconButton from "@material-ui/core/IconButton";
@@ -53,12 +55,23 @@ export const DeliveryRuleDialog = (props) => {
       formik.values.max_distance = initialValues.max_distance
       formik.values.postcodes = initialValues.postcodes ? initialValues.postcodes : []
       formik.values.enabled = initialValues.enabled
+      let countriesValue = [];
+      initialValues.countries.forEach(countryCode => {
+        Object.keys(countries).forEach((cCode, index) => {
+            if (cCode === countryCode) {
+              countriesValue.push(Object.values(countries)[index])
+            }
+          }
+        );
+      });
+      formik.values.countries = countriesValue;
     } else {
       formik.values.min_weight = 0
       formik.values.max_weight = 0
       formik.values.min_distance = 0
       formik.values.max_distance = 0
       formik.values.postcodes = []
+      formik.values.countries = []
       formik.values.enabled = true
     }
     formik.resetForm({
@@ -72,6 +85,7 @@ export const DeliveryRuleDialog = (props) => {
       min_distance: 0,
       max_distance: 0,
       postcodes: [],
+      countries: [],
       enabled: true
     })
   }, [initialValues])
@@ -130,6 +144,16 @@ export const DeliveryRuleDialog = (props) => {
         if (formik.values.show_postcodes === true) {
           payload.postcodes = formik.values.postcodes
         }
+        payload.countries = [];
+        formik.values.countries.forEach(country => {
+          Object.values(countries).forEach((c, index) => {
+              if (c === country) {
+                payload.countries.push(Object.keys(countries)[index])
+              }
+            }
+          );
+        });
+
         if (formik.values.show_min_distance === true || formik.values.show_max_distance === true) {
           payload.lat = loc.lat
           payload.lon = loc.lng
@@ -337,6 +361,19 @@ export const DeliveryRuleDialog = (props) => {
               }}
               color="primary"
               inputProps={{'aria-label': 'controlled'}}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AutocompleteField
+              error={Boolean(formik.touched.countries && formik.errors.countries)}
+              filterSelectedOptions
+              helperText={formik.touched.countries && formik.errors.countries}
+              label="Countries"
+              multiple
+              onChange={(event, value) => { formik.setFieldValue('countries', value); }}
+              options={Object.values(countries)}
+              placeholder="Countries"
+              value={formik.values.countries}
             />
           </Grid>
           <Grid item xs={9} sm={10}>
