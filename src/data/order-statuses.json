@@ -1,6 +1,11 @@
 [
   {
     "color": "info.main",
+    "label": "Unused",
+    "value": 0
+  },
+  {
+    "color": "info.main",
     "label": "Awaiting Payment",
     "value": 1
   },
@@ -32,6 +37,11 @@
   {
     "color": "error.main",
     "label": "Cancelled",
+    "value": 7
+  },
+  {
+    "color": "success.main",
+    "label": "Placed",
     "value": 7
   }
 ]
