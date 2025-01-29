@@ -12,7 +12,6 @@ const CategoryTreeSelect = ({categories, selection = [], setSelection}) => {
   const [selected, setSelected] = React.useState(selection);
   const {getLang} = useLanguage()
 
-  // console.log(categories)
   const handleToggle = (event, nodeIds) => {
     if (event.target.closest(".MuiTreeItem-iconContainer")) {
       setExpanded(nodeIds);
