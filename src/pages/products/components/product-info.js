@@ -57,6 +57,11 @@ export const ProductInfo = (props) => {
         />
         <PropertyListItem
           align={align}
+          label="Weight (g)"
+          value={product.weight}
+        />
+        <PropertyListItem
+          align={align}
           label="Price"
           value={getRetailPriceText(product)}
         />

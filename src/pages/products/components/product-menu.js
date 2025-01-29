@@ -94,10 +94,10 @@ export const ProductMenu = (props) => {
           horizontal: 'right'
         }}
       >
-        <MenuItem onClick={handleEdit}>
+        <MenuItem onClick={handleEdit} disabled={!can("products.can.see") || !can("products.can.update")}>
           {t('Edit')}
         </MenuItem>
-        <MenuItem onClick={handleArchive}>
+        <MenuItem onClick={handleArchive} disabled={!can("products.can.update")}>
           {t('Archive')}
         </MenuItem>
         <MenuItem onClick={handleDelete} disabled={!can("products.can.delete")}>

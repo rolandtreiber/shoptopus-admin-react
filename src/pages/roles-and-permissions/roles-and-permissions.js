@@ -1,4 +1,6 @@
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import {useMounted} from "../../hooks/use-mounted";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {SettingsContext} from "../../contexts/settings-context";
@@ -31,6 +33,7 @@ export const RolesAndPermissions = () => {
   const [selectedRoleId, setSelectedRoleId] = useState()
   const [selectedRoleName, setSelectedRoleName] = useState()
   const {t} = useTranslation();
+  const {is} = useContext(AuthContext)
   const [tabs, setTabs] = useState([
     {
       href: '/admin/roles-and-permissions',
@@ -151,8 +154,8 @@ export const RolesAndPermissions = () => {
   const reloadTabs = () => {
     getRoles().catch(console.error);
   }
-  
-  return (
+
+  return is('super_admin') ? (
     <>
       <Helmet>
         <title>{t("Roles and Permissions")} | {appName}</title>
@@ -240,5 +243,5 @@ export const RolesAndPermissions = () => {
         />
       </Box>
     </>
-  )
+  ) : (<MissingPermission/>)
 }

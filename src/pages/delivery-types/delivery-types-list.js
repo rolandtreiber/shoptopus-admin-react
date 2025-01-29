@@ -1,7 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, Container, Divider } from '@material-ui/core';
+import MissingPermission from "../../components/common-page-components/missing-permission/missing-permission";
 import TrButton from "../../components/common/translated/translated-button";
+import {AuthContext} from "../../contexts/oauth-context";
 import { useMounted } from '../../hooks/use-mounted';
 import { useSelection } from '../../hooks/use-selection';
 import { Plus as PlusIcon } from '../../icons/plus';
@@ -89,6 +91,7 @@ export const DeliveryTypesList = () => {
         }
     }, [dataState])
     const { t } = useTranslation();
+    const {can} = useContext(AuthContext)
 
     const fetchData = useCallback(async () => {
         setDataState(() => ({ isLoading: true }));
@@ -221,7 +224,7 @@ export const DeliveryTypesList = () => {
         showGenericDialog(true)
     }
 
-    return (
+    return can('delivery.types.can.list') ? (
       <>
           <Helmet>
               <title>{t("Delivery Types")} | {appName}</title>
@@ -331,5 +334,5 @@ export const DeliveryTypesList = () => {
             onSuccess={() => fetchData().catch(console.error)}
           />
       </>
-    );
+    ) : (<MissingPermission/>);
 };

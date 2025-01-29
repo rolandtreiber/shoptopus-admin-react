@@ -73,7 +73,7 @@ export const ProductAttributeEditDialog = (props) => {
         formData.append("enabled", formik.values.enabled)
 
         isValid && updateProductAttribute(initialValues.id, formData).then(response => {
-          toast.success('ProductSingle Attribute Updated');
+          toast.success('Product Attribute Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();

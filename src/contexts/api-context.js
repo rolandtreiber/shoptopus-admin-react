@@ -136,6 +136,10 @@ const APIProvider = ({children}) => {
       callMeApi: async (token) => await post(api_url + "auth/me", {}, makeHeaders({
         accessToken: token
       })),
+      fetchAuthenticatedUserAccountDetails: async (token) => await get(api_url + "user/account", {}, makeHeaders({
+        accessToken: token
+      })),
+      updateAuthenticatedUserDetails: async (params) => await post(api_url + "user/account", params, makeHeaders({})),
 
       // Reports
       fetchReportsOverview: async (params) => await post(admin_api_url + "reports/overview", params, makeHeaders()),
@@ -369,6 +373,10 @@ const APIProvider = ({children}) => {
       removePermissionFromRole: async (roleId, permissionId) => await del(admin_api_url + "role/"+roleId+"/permission/"+permissionId, {}, makeHeaders()),
       assignRoleToUser: async (roleId, userId) => await patch(admin_api_url + "role/"+roleId+"/users/"+userId, {}, makeHeaders()),
       removeRoleFromUser: async (roleId, userId) => await del(admin_api_url + "role/"+roleId+"/users/"+userId, {}, makeHeaders()),
+
+      // AI
+      fetchTextTranslations: async (params) => await post(api_url + "admin/ai/translations", params, makeHeaders()),
+      fetchTextOptimisations: async (params) => await post(api_url + "admin/ai/optimise-rewrite", params, makeHeaders()),
 
       accessToken,
       setAccessToken,

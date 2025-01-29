@@ -6,10 +6,8 @@ import { XCircle as XCircleIcon } from '../../../icons/x-circle';
 import {useCallback, useContext, useEffect, useState} from "react";
 import {APIContext} from "../../../contexts/api-context";
 import {useCurrency} from "../../../hooks/use-currency";
-import {useTranslation} from "react-i18next";
 import {TrTypography} from "../../../components/common/translated/translated-typography";
 
-// NOTE: This should be generated based on products data
 const initialStats = [
   {
     content: '',
@@ -41,7 +39,6 @@ export const ProductsSummary = () => {
   const {getProductsPageSummary} = useContext(APIContext)
   const [stats, setStats] = useState(initialStats)
   const {getPriceText} = useCurrency()
-  const { t } = useTranslation();
 
   const getSummary = useCallback(async () => {
     const result = await getProductsPageSummary()

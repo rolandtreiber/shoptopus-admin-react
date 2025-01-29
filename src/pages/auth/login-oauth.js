@@ -13,8 +13,8 @@ export const LoginOAuth = () => {
   const { login } = useAuth();
   const formik = useFormik({
     initialValues: {
-      email: 'superadmin@m.com',
-      password: 'shop',
+      email: '',
+      password: '',
       submit: null
     },
     validationSchema: Yup.object().shape({

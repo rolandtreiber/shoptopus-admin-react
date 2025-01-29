@@ -1,3 +1,4 @@
+import "./utils/instrument";
 import 'simplebar/dist/simplebar.min.css';
 import 'nprogress/nprogress.css';
 import {StrictMode} from 'react';

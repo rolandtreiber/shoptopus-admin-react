@@ -11,10 +11,12 @@ import {
   TableRow,
   TableSortLabel
 } from '@material-ui/core';
+import {useContext} from "react";
 import { Pagination } from '../../../components/common-page-components/layout-elements/pagination';
 import { ResourceError } from '../../../components/common/placeholder/resource-error';
 import { ResourceUnavailable } from '../../../components/common/placeholder/resource-unavailable';
 import { Scrollbar } from '../../../components/common/scrollbar';
+import {AuthContext} from "../../../contexts/oauth-context";
 import { CustomCube as CubeIcon } from '../../../icons/custom-cube';
 import {useLanguage} from "../../../hooks/use-language";
 import {Status} from "../../../components/common/status";
@@ -82,6 +84,7 @@ export const ProductAttributeOptionsTable = (props) => {
   const displayUnavailable = Boolean(!isLoading && !error && !data.length);
   const {getLang} = useLanguage()
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   return (
     <Box
@@ -183,6 +186,7 @@ export const ProductAttributeOptionsTable = (props) => {
                   <TableCell sx={{width: 135}}>
                     <Box sx={{display: 'flex'}}>
                       <TrTypography
+                        disabled={!can('product.attribute.options.can.update')}
                         color="primary"
                         sx={{cursor: 'pointer'}}
                         onClick={() => {
@@ -198,6 +202,7 @@ export const ProductAttributeOptionsTable = (props) => {
                         sx={{mx: 2}}
                       />
                       <TrTypography
+                        disabled={!can('product.attribute.options.can.delete')}
                         color="primary"
                         onClick={() => {
                           onDelete(option)

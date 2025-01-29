@@ -64,7 +64,7 @@ export const ProductDialog = (props) => {
             formik.values.sku = product.sku
             formik.values.stock = product.stock
             formik.values.price = product.price
-            formik.values.enabled = product.enabled
+            formik.values.weight = product.weight
             formik.values.virtual = product.virtual
         } else {
             setDescription(null)
@@ -73,7 +73,6 @@ export const ProductDialog = (props) => {
             formik.values.sku = ''
             formik.values.stock = ''
             formik.values.price = ''
-            formik.values.enabled = true
             formik.values.virtual = false
         }
     }, [product])
@@ -83,8 +82,8 @@ export const ProductDialog = (props) => {
             price: '',
             stock: '',
             sku: '',
-            enabled: true,
-            submit: 'null'
+            submit: 'null',
+            weight: 0
         },
         validationSchema: Yup.object().shape({
             price: Yup.number().min(0).required('Please enter a valid price'),
@@ -106,9 +105,9 @@ export const ProductDialog = (props) => {
                 formData.append("name", JSON.stringify(name))
                 formData.append("short_description", JSON.stringify(shortDescription))
                 formData.append("description", JSON.stringify(description))
-                formData.append("enabled", formik.values.enabled)
                 formData.append("price", formik.values.price)
                 formData.append("stock", formik.values.stock)
+                formData.append("weight", formik.values.weight)
                 formData.append("sku", formik.values.sku)
 
                 attributes.map(attribute => {
@@ -129,7 +128,7 @@ export const ProductDialog = (props) => {
                 } else {
                     formData.append("virtual", formik.values.virtual)
                     isValid && saveProduct(formData).then(response => {
-                        toast.success('ProductSingle created');
+                        toast.success('Product created');
                         helpers.setStatus({success: true});
                         helpers.setSubmitting(false);
                         helpers.resetForm();
@@ -142,6 +141,8 @@ export const ProductDialog = (props) => {
                 helpers.setStatus({success: false});
                 helpers.setErrors({submit: err.message});
                 helpers.setSubmitting(false);
+            } finally {
+                setLoading(false)
             }
         }
     });
@@ -260,18 +261,16 @@ export const ProductDialog = (props) => {
                     />
                 </Grid>
                 <Grid item xs={12} mt={1}>
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={formik.values.enabled}
-                                onChange={event => {
-                                    formik.setFieldValue("enabled", event.currentTarget.checked);
-                                }}
-                                color="primary"
-                                inputProps={{'aria-label': 'controlled'}}
-                            />
-                        }
-                        label={formik.values.enabled ? "Enabled" : "Disabled"}
+                    <InputField
+                      error={Boolean(formik.touched.weight && formik.errors.weight)}
+                      fullWidth
+                      helperText={formik.touched.weight && formik.errors.weight}
+                      label="Weight"
+                      name="weight"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      value={formik.values.weight}
+                      type={"number"}
                     />
                 </Grid>
                 {!product && <Grid item xs={12} mt={1}>

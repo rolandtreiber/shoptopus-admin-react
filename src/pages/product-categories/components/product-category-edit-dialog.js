@@ -94,7 +94,7 @@ export const ProductCategoryEditDialog = (props) => {
         formData.append("parent_id", formik.values.parent_id)
 
         isValid && updateProductCategory(initialValues.id, formData).then(response => {
-          toast.success('ProductSingle Category Updated');
+          toast.success('Product Category Updated');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();

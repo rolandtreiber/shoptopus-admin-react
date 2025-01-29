@@ -92,7 +92,7 @@ export const ProductCategoryCreateDialog = (props) => {
         formData.append("parent_id", formik.values.parentId)
 
         isValid && saveProductCategory(formData).then(response => {
-          toast.success('ProductSingle Category Created');
+          toast.success('Product Category Created');
           helpers.setStatus({success: true});
           helpers.setSubmitting(false);
           helpers.resetForm();

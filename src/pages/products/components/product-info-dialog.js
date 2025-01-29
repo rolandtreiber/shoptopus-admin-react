@@ -36,7 +36,7 @@ export const ProductInfoDialog = (props) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        toast.success('ProductSingle updated');
+        toast.success('Product updated');
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
         onClose?.();

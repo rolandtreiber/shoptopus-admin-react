@@ -1,4 +1,5 @@
 import {IconButton, Menu, MenuItem} from '@material-ui/core';
+import {AuthContext} from "../../../contexts/oauth-context";
 import {usePopover} from '../../../hooks/use-popover';
 import {DotsVertical as DotsVerticalIcon} from '../../../icons/dots-vertical';
 import {useCallback, useContext, useState} from "react";
@@ -22,6 +23,7 @@ export const ProductAttributeMenu = (props) => {
     setDescription
   } = useContext(DialogContext)[1]
   const { t } = useTranslation();
+  const {can} = useContext(AuthContext)
 
   const doDelete = useCallback( async (id) => {
     try {
@@ -112,13 +114,19 @@ export const ProductAttributeMenu = (props) => {
           horizontal: 'right'
         }}
       >
-        <MenuItem onClick={handleEdit}>
+        <MenuItem
+          disabled={!can('product.attributes.can.update')}
+          onClick={handleEdit}>
           {t("Edit")}
         </MenuItem>
-        <MenuItem onClick={() => handleStatusChange(enabled)}>
+        <MenuItem
+          disabled={!can('product.attributes.can.update')}
+          onClick={() => handleStatusChange(enabled)}>
           {enabled ? t('Disable') : t('Enable')}
         </MenuItem>
-        <MenuItem onClick={handleDelete}>
+        <MenuItem
+          disabled={!can('product.attributes.can.delete')}
+          onClick={handleDelete}>
           {t("Delete")}
         </MenuItem>
       </Menu>
