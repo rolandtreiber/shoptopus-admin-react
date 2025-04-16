@@ -44,6 +44,8 @@ export const DeliveryRuleDialog = (props) => {
       if (!initialValues.max_weight) { formik.values.show_max_weight = false }
       if (!initialValues.min_distance) { formik.values.show_min_distance = false }
       if (!initialValues.max_distance) { formik.values.show_max_distance = false }
+      if (!initialValues.min_cart_price) { formik.values.show_min_cart_price = false }
+      if (!initialValues.max_cart_price) { formik.values.show_max_cart_price = false }
       setLoc({
         lat: parseFloat(initialValues.lat),
         lng: parseFloat(initialValues.lon),
@@ -53,6 +55,8 @@ export const DeliveryRuleDialog = (props) => {
       formik.values.max_weight = initialValues.max_weight
       formik.values.min_distance = initialValues.min_distance
       formik.values.max_distance = initialValues.max_distance
+      formik.values.min_cart_price = initialValues.min_cart_price
+      formik.values.max_cart_price = initialValues.max_cart_price
       formik.values.postcodes = initialValues.postcodes ? initialValues.postcodes : []
       formik.values.enabled = initialValues.enabled
       let countriesValue = [];
@@ -70,6 +74,8 @@ export const DeliveryRuleDialog = (props) => {
       formik.values.max_weight = 0
       formik.values.min_distance = 0
       formik.values.max_distance = 0
+      formik.values.min_cart_price = 0
+      formik.values.max_cart_price = 0
       formik.values.postcodes = []
       formik.values.countries = []
       formik.values.enabled = true
@@ -79,11 +85,15 @@ export const DeliveryRuleDialog = (props) => {
       show_max_weight: true,
       show_min_distance: true,
       show_max_distance: true,
+      show_min_cart_price: true,
+      show_max_cart_price: true,
       show_postcodes: true,
       min_weight: 0,
       max_weight: 0,
       min_distance: 0,
       max_distance: 0,
+      min_cart_price: 0,
+      max_cart_price: 0,
       postcodes: [],
       countries: [],
       enabled: true
@@ -96,11 +106,15 @@ export const DeliveryRuleDialog = (props) => {
       show_max_weight: true,
       show_min_distance: true,
       show_max_distance: true,
+      show_min_cart_price: true,
+      show_max_cart_price: true,
       show_postcodes: true,
       min_weight: 0,
       max_weight: 0,
       min_distance: 0,
       max_distance: 0,
+      min_cart_price: 0,
+      max_cart_price: 0,
       postcodes: [],
       enabled: true
     },
@@ -121,10 +135,20 @@ export const DeliveryRuleDialog = (props) => {
           then: Yup.number().nullable(true)
         }),
       max_distance: Yup.number().moreThan(-1, 'The value needs to be positive')
-        .when("show_max_distance", {
-          is: false,
-          then: Yup.number().nullable(true)
-        }),
+          .when("show_max_distance", {
+            is: false,
+            then: Yup.number().nullable(true)
+          }),
+      min_cart_price: Yup.number().moreThan(-1, 'The value needs to be positive')
+          .when("show_min_cart_price", {
+            is: false,
+            then: Yup.number().nullable(true)
+          }),
+      max_cart_price: Yup.number().moreThan(-1, 'The value needs to be positive')
+          .when("show_max_cart_price", {
+            is: false,
+            then: Yup.number().nullable(true)
+          }),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -140,6 +164,12 @@ export const DeliveryRuleDialog = (props) => {
         }
         if (formik.values.show_max_distance === true) {
           payload.max_distance = formik.values.max_distance
+        }
+        if (formik.values.show_min_cart_price === true) {
+          payload.min_cart_price = formik.values.min_cart_price
+        }
+        if (formik.values.show_max_cart_price === true) {
+          payload.max_cart_price = formik.values.max_cart_price
         }
         if (formik.values.show_postcodes === true) {
           payload.postcodes = formik.values.postcodes
@@ -201,6 +231,71 @@ export const DeliveryRuleDialog = (props) => {
         {initialValues ? 'Update Delivery Rule' : 'Create Delivery Rule'}
       </TrDialogTitle>
       <DialogContent>
+        <Grid container spacing={2} mt={1}>
+          <Grid item xs={3} sm={2}>
+            <br/>
+            <Switch
+                checked={formik.values.show_min_cart_price}
+                onChange={event => {
+                  if (event.currentTarget.checked) {
+                    formik.setFieldValue("min_cart_price", 0);
+                  } else {
+                    formik.setFieldValue("min_cart_price", "");
+                  }
+                  formik.setFieldValue("show_min_cart_price", event.currentTarget.checked);
+                }}
+                color="primary"
+                inputProps={{'aria-label': 'controlled'}}
+            />
+          </Grid>
+          <Grid item xs={9} sm={10}>
+            <InputField
+                error={Boolean(formik.touched.min_cart_price && formik.errors.min_cart_price)}
+                fullWidth
+                disabled={!formik.values.show_min_cart_price}
+                helperText={formik.touched.min_cart_price && formik.errors.min_cart_price}
+                label="Minimum Cart Price"
+                name="min_cart_price"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.min_cart_price}
+                type={"number"}
+            />
+          </Grid>
+
+          <Grid item xs={3} sm={2}>
+            <br/>
+            <Switch
+                checked={formik.values.show_max_cart_price}
+                onChange={event => {
+                  if (event.currentTarget.checked) {
+                    formik.setFieldValue("max_cart_price", 0);
+                  } else {
+                    formik.setFieldValue("max_cart_price", "");
+                  }
+                  formik.setFieldValue("show_max_cart_price", event.currentTarget.checked);
+                }}
+                color="primary"
+                inputProps={{'aria-label': 'controlled'}}
+            />
+          </Grid>
+
+          <Grid item xs={9} sm={10}>
+            <InputField
+                error={Boolean(formik.touched.max_weight && formik.errors.max_cart_price)}
+                fullWidth
+                disabled={!formik.values.show_max_cart_price}
+                helperText={formik.touched.max_cart_price && formik.errors.max_cart_price}
+                label="Maximum Cart Price"
+                name="max_cart_price"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.max_cart_price}
+                type={"number"}
+            />
+          </Grid>
+        </Grid>
+
         <Grid container spacing={2} mt={1}>
           <Grid item xs={3} sm={2}>
             <br/>
