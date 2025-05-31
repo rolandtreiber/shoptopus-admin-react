@@ -8,6 +8,7 @@
     "lint-fix": "eslint src --ext .js --fix",
     "start": "react-scripts start --host 0.0.0.0",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build-copy": "DISABLE_ESLINT_PLUGIN=true react-scripts build && rm -rf ../shoptopus/public/admin/* && mv build/* ../shoptopus/public/admin",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
