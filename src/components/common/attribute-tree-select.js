@@ -45,20 +45,16 @@ const AttributeTreeSelect = ({attributes, selection = [], setSelection}) => {
   }
 
   const getAllSelections = (nodeIds) => {
-    let selections = [];
-    const selectedAttributes = getAllSelectedAttributes(nodeIds)
-    selectedAttributes.some(a => {
-      const selectedOptions = getAllSelectedAttributeOptions(a, nodeIds)
-      if (selectedOptions.length === 1) {
-        const selection = {
-          attributeId: a.id,
-          optionId: selectedOptions[0]
-        }
-        selections = [...selections, selection]
-      }
-    })
-    return selections
-  }
+    const selections = [];
+    // For each attribute, push one entry per selected option
+        attributes.forEach(a => {
+          const opts = getAllSelectedAttributeOptions(a, nodeIds);
+          opts.forEach(optId => {
+            selections.push({ attributeId: a.id, optionId: optId });
+          });
+        });
+    return selections;
+  };
 
   const isDuplicateOption = (nodeIds) => {
     const selectedAttributes = getAllSelectedAttributes(nodeIds)

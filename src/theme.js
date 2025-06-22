@@ -360,7 +360,7 @@ const baseThemeOptions = {
       styleOverrides: {
         root: {
           '.MuiTreeItem-content.Mui-selected, .MuiTreeItem-content.Mui-selected.Mui-focused' : {
-              backgroundColor: '#fff',
+              backgroundColor: '#d0cdcd',
               color: '#000'
           },
           '.MuiTreeItem-content.Mui-focused' : {
