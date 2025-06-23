@@ -110,9 +110,14 @@ export const ProductDialog = (props) => {
                 formData.append("weight", formik.values.weight)
                 formData.append("sku", formik.values.sku)
 
-                attributes.map(attribute => {
-                    formData.append("product_attributes[" + attribute.attributeId + "]", attribute.optionId)
-                })
+                // if no attribute selected send empty array else what ever is selected
+                if(Array.isArray(attributes) && attributes.length === 0) {
+                    formData.append("product_attributes", []) // this will sand an empty array bit hacky but works as back and api expect an object or array
+                } else if(Array.isArray(attributes) && attributes.length > 0) {
+                    attributes.map(attribute => {
+                        formData.append("product_attributes[" + attribute.attributeId + "]", attribute.optionId)
+                    })
+                }
 
                 categories.map(category => formData.append('product_categories[]', category))
                 tags.map(tag => formData.append('product_tags[]', tag))
